@@ -1,4 +1,4 @@
-# Duke
+# DueQuest
 
 {Give product intro here}
 
