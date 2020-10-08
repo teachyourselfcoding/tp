@@ -15,15 +15,16 @@ public class Ui {
      *print out the on startup message
      */
     public void welcomeMessage() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        String welcomeMessage = logo +
+//        String logo = " ____        _        \n"
+//                + "|  _ \\ _   _| | _____ \n"
+//                + "| | | | | | | |/ / _ \\\n"
+//                + "| |_| | |_| |   <  __/\n"
+//                + "|____/ \\__,_|_|\\_\\___|\n";
+//        logo +
+        String welcomeMessage =
                 "_____________________________________________\n"
                 +"Whats up people! Duke is here to save the day\n"
-                +"Soooo, what can I do for you?\n";
+                +"So, what can I do for you?\n";
         System.out.print(welcomeMessage);
         showDivider();
     }
