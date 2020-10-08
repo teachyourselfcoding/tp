@@ -79,6 +79,10 @@ public class Ui {
             System.out.println("Missing Description!");
             showDivider();
             break;
+        case WRONG_DATE_FORMAT:
+            System.out.println("Missing Or Wrong Date Format! Enter in DD-MM-YYYY:");
+            showDivider();
+            break;
         case INVALID_COMMAND:
             System.out.println("No proper Commands Detected, retype again!");
             showDivider();
