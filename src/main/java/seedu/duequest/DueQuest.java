@@ -1,7 +1,6 @@
-package seedu.duke;
+package seedu.duequest;
 
-import seedu.DukeException;
-import seedu.DukeExceptionType;
+import seedu.DueQuestException;
 import seedu.Parser;
 import seedu.Storage;
 import seedu.Ui;
@@ -13,13 +12,13 @@ import java.io.FileNotFoundException;
 /**
  * Duke class is the main class for running the Duke application
  */
-public class Duke {
+public class DueQuest {
     private Storage storage;
     private Ui ui;
     private TaskList tasks;
     static final String FILE_PATH = "data/duke.txt";
 
-    public Duke(String FILE_PATH) {
+    public DueQuest(String FILE_PATH) {
         ui = new Ui();
         ui.welcomeMessage();
         storage = new Storage(FILE_PATH);
@@ -47,7 +46,7 @@ public class Duke {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (DukeException e) {
+            } catch (DueQuestException e) {
                 ui.showError(e.getExceptionType());
             }
         }
@@ -58,6 +57,6 @@ public class Duke {
      * The main function to run the whole Duke app
      */
     public static void main(String[] args) {
-        new Duke(FILE_PATH).run();
+        new DueQuest(FILE_PATH).run();
     }
 }

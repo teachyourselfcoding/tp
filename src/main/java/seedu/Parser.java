@@ -23,9 +23,9 @@ public class Parser {
      *
      * @param input User input
      * @return a subclass of Command class
-     * @throws DukeException if invalid input
+     * @throws DueQuestException if invalid input
      */
-    public static Command parse(String input) throws DukeException {
+    public static Command parse(String input) throws DueQuestException {
         int taskNum;
         String[] words = input.split(" ");
             switch (words[0].toLowerCase()){
@@ -61,7 +61,7 @@ public class Parser {
                 //Fallthrough
                 return new AddCommand(ev);
             default:
-                throw new DukeException(DukeExceptionType.INVALID_COMMAND);
+                throw new DueQuestException(DueQuestExceptionType.INVALID_COMMAND);
             }
     }
 
@@ -71,13 +71,13 @@ public class Parser {
      *
      * @param  words representing user input
      * @return Todo object
-     * @throws DukeException if missing information
+     * @throws DueQuestException if missing information
      */
-    public static ToDo validateToDo(String[] words) throws DukeException {
+    public static ToDo validateToDo(String[] words) throws DueQuestException {
         ToDo t;
         String description="";
         if(words.length==1){
-            throw new DukeException(DukeExceptionType.MISSING_DESCRIPTION);
+            throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
         }
         else{
             for (int j = 1; j < words.length; j++) {
@@ -94,13 +94,13 @@ public class Parser {
      *
      * @param  words representing user input
      * @return DeadLine object
-     * @throws DukeException if missing information
+     * @throws DueQuestException if missing information
      */
-    public static Deadline validateDeadline(String[] words) throws DukeException {
+    public static Deadline validateDeadline(String[] words) throws DueQuestException {
         Deadline d;
         String description="";
         if(words.length==1){
-            throw new DukeException(DukeExceptionType.MISSING_DESCRIPTION);
+            throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
         }
         else{
             int byPosition=0;
@@ -121,7 +121,7 @@ public class Parser {
                 d= new Deadline(description,byDescription);
             }
             else{
-                throw new DukeException(DukeExceptionType.MISSING_DEADLINE);
+                throw new DueQuestException(DueQuestExceptionType.MISSING_DEADLINE);
             }
         }
         return d;
@@ -133,13 +133,13 @@ public class Parser {
      *
      * @param  words representing user input
      * @return Event object
-     * @throws DukeException if missing information
+     * @throws DueQuestException if missing information
      */
-    public static Event validateEvent(String[] words) throws DukeException {
+    public static Event validateEvent(String[] words) throws DueQuestException {
         Event e;
         String description="";
         if(words.length==1) {
-            throw new DukeException(DukeExceptionType.MISSING_DESCRIPTION);
+            throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
         }
         else {
             int atPosition=0;
@@ -160,7 +160,7 @@ public class Parser {
                 e= new Event(description,atDescription);
             }
             else {
-                throw new DukeException(DukeExceptionType.MISSING_EVENT_INFO);
+                throw new DueQuestException(DueQuestExceptionType.MISSING_EVENT_INFO);
             }
         }
         return e;
