@@ -16,7 +16,7 @@ public class DueQuest {
     private Storage storage;
     private Ui ui;
     private TaskList tasks;
-    static final String FILE_PATH = "data/duke.txt";
+    static final String FILE_PATH = "data/duequest.txt";
 
     public DueQuest(String FILE_PATH) {
         ui = new Ui();
