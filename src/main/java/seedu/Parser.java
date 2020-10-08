@@ -98,7 +98,7 @@ public class Parser {
      * @throws DukeException if missing information
      */
     public static Deadline validateDeadline(String input) throws DukeException {
-        Deadline e;
+        Deadline d;
         String[] filteredInput = input.trim().split(" ",2);
 
         if (filteredInput.length == 1) {
@@ -108,9 +108,9 @@ public class Parser {
         } else {
             String[] descriptByFilter = filteredInput[1].split("/by",2);
             String byInfo = parseForDate(descriptByFilter[1]);
-            e = new Deadline(descriptByFilter[0],byInfo);
+            d = new Deadline(descriptByFilter[0],byInfo);
         }
-        return e;
+        return d;
     }
 
     /**
