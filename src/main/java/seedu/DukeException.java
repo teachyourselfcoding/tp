@@ -1,8 +1,10 @@
 package seedu;
+
 /**
  * DukeException is used to represent duke-specific exceptions that are likely
  * to occur
  */
+
 public class DukeException extends Exception {
     DukeExceptionType exceptionType;
 
@@ -10,7 +12,7 @@ public class DukeException extends Exception {
         return exceptionType;
     }
 
-    public DukeException(DukeExceptionType exceptionType){
-        this.exceptionType=exceptionType;
+    public DukeException(DukeExceptionType exceptionType) {
+        this.exceptionType = exceptionType;
     }
 }
