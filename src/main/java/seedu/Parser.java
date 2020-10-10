@@ -11,6 +11,10 @@ import seedu.task.Deadline;
 import seedu.task.ToDo;
 import seedu.task.Event;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  *Parser Object is used for translating String user input into
  * a actionable Command object for execution
@@ -49,15 +53,15 @@ public class Parser {
                 //Fallthrough
                 return new FindCommand(keywords);
             case "todo":
-                ToDo todo = validateToDo(words);
+                ToDo todo = validateToDo(input);
                 //Fallthrough
                 return new AddCommand(todo);
             case "deadline":
-                Deadline deadline = validateDeadline(words);
+                Deadline deadline = validateDeadline(input);
                 //Fallthrough
                 return new AddCommand(deadline);
             case "event":
-                Event ev = validateEvent(words);
+                Event ev = validateEvent(input);
                 //Fallthrough
                 return new AddCommand(ev);
             default:
@@ -69,21 +73,20 @@ public class Parser {
      * Used to validate and check for any errors in the user input
      * for ToDo object
      *
-     * @param  words representing user input
+     * @param  input representing user input
      * @return Todo object
      * @throws DueQuestException if missing information
      */
-    public static ToDo validateToDo(String[] words) throws DueQuestException {
+
+    public static ToDo validateToDo(String input) throws DueQuestException {
         ToDo t;
-        String description="";
-        if(words.length==1){
+        String[] filteredInput = input.trim().split(" ",2);
+
+        if (filteredInput.length == 1) {
             throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
-        }
-        else{
-            for (int j = 1; j < words.length; j++) {
-                description += words[j] + " ";
-            }
-            t = new ToDo(description);
+        } else {
+            t = new ToDo(filteredInput[1]);
+
         }
         return t;
     }
@@ -92,37 +95,23 @@ public class Parser {
      * Used to validate and check for any errors in the user input
      * for DeadLine object
      *
-     * @param  words representing user input
+     * @param  input representing user input
      * @return DeadLine object
      * @throws DueQuestException if missing information
      */
-    public static Deadline validateDeadline(String[] words) throws DueQuestException {
+
+    public static Deadline validateDeadline(String input) throws DueQuestException {
         Deadline d;
-        String description="";
-        if(words.length==1){
+        String[] filteredInput = input.trim().split(" ",2);
+
+        if (filteredInput.length == 1) {
             throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
-        }
-        else{
-            int byPosition=0;
-            String byDescription="";
-            for(int j =1; j< words.length;j++){
-                if(words[j].contains("/by")){
-                    byPosition=j;
-                    break;
-                }
-                else{
-                    description+= words[j]+ " ";
-                }
-            }
-            if(byPosition!=0){
-                for (int k = byPosition+1; k < words.length; k++) {
-                    byDescription= byDescription +" "+ words[k];
-                }
-                d= new Deadline(description,byDescription);
-            }
-            else{
-                throw new DueQuestException(DueQuestExceptionType.MISSING_DEADLINE);
-            }
+        }  else if (!filteredInput[1].contains("/by")) {
+            throw new DueQuestException(DueQuestExceptionType.MISSING_DEADLINE);
+        } else {
+            String[] descriptByFilter = filteredInput[1].split("/by",2);
+            String byInfo = parseForDate(descriptByFilter[1]);
+            d = new Deadline(descriptByFilter[0],byInfo);
         }
         return d;
     }
@@ -131,38 +120,35 @@ public class Parser {
      * Used to validate and check for any errors in the user input
      * for Event object
      *
-     * @param  words representing user input
+     * @param  input representing user input
      * @return Event object
      * @throws DueQuestException if missing information
      */
-    public static Event validateEvent(String[] words) throws DueQuestException {
+
+    public static Event validateEvent(String input) throws DueQuestException {
         Event e;
-        String description="";
-        if(words.length==1) {
+        String[] filteredInput = input.trim().split(" ",2);
+
+        if (filteredInput.length == 1) {
             throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
-        }
-        else {
-            int atPosition=0;
-            String atDescription="";
-            for(int j =1; j< words.length;j++) {
-                if(words[j].contains("/at")) {
-                    atPosition=j;
-                    break;
-                }
-                else {
-                    description+= words[j]+ " ";
-                }
-            }
-            if(atPosition!=0) {
-                for (int k = atPosition+1; k < words.length; k++) {
-                    atDescription= atDescription +" "+ words[k];
-                }
-                e= new Event(description,atDescription);
-            }
-            else {
-                throw new DueQuestException(DueQuestExceptionType.MISSING_EVENT_INFO);
-            }
+        }  else if (!filteredInput[1].contains("/at")) {
+            throw new DueQuestException(DueQuestExceptionType.MISSING_EVENT_INFO);
+        } else {
+            String[] descriptAtFilter = filteredInput[1].split("/at",2);
+            String atInfo = parseForDate(descriptAtFilter[1]);
+            e = new Event(descriptAtFilter[0],atInfo);
         }
         return e;
+    }
+
+    public static String parseForDate(String input)  throws DueQuestException {
+    try {
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("d-MM-yyyy");
+        LocalDate dateFormatted = LocalDate.parse(input.trim(), df);
+        return dateFormatted.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+    } catch (DateTimeException e) {
+        throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+    }
+
     }
 }
