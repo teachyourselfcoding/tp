@@ -61,7 +61,7 @@ public class Ui {
      *
      * @param e DukeExceptionType
      */
-    public void showError(DukeExceptionType e) {
+    public void showError(DueQuestExceptionType e) {
         switch (e) {
         case MISSING_DEADLINE:
             System.out.println("Missing Deadline!");
