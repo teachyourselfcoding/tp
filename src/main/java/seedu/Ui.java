@@ -15,15 +15,16 @@ public class Ui {
      *print out the on startup message
      */
     public void welcomeMessage() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        String welcomeMessage = logo +
+//        String logo = " ____        _        \n"
+//                + "|  _ \\ _   _| | _____ \n"
+//                + "| | | | | | | |/ / _ \\\n"
+//                + "| |_| | |_| |   <  __/\n"
+//                + "|____/ \\__,_|_|\\_\\___|\n";
+//        logo +
+        String welcomeMessage =
                 "_____________________________________________\n"
                 +"Whats up people! Duke is here to save the day\n"
-                +"Soooo, what can I do for you?\n";
+                +"So, what can I do for you?\n";
         System.out.print(welcomeMessage);
         showDivider();
     }
@@ -60,7 +61,7 @@ public class Ui {
      *
      * @param e DukeExceptionType
      */
-    public void showError(DukeExceptionType e) {
+    public void showError(DueQuestExceptionType e) {
         switch (e) {
         case MISSING_DEADLINE:
             System.out.println("Missing Deadline!");
@@ -76,6 +77,10 @@ public class Ui {
             break;
         case MISSING_DESCRIPTION:
             System.out.println("Missing Description!");
+            showDivider();
+            break;
+        case WRONG_DATE_FORMAT:
+            System.out.println("Missing Or Wrong Date Format! Enter in DD-MM-YYYY:");
             showDivider();
             break;
         case INVALID_COMMAND:
