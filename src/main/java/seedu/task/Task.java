@@ -52,11 +52,10 @@ public class Task {
      *  - add searching module based on moduleCode(String)
      *  - add error handling
      */
-    public Task(String description, String moduleCode, int[] frequency, String time) {
+    public Task(String description, String moduleCode, int[] frequency) {
         this.description = description;
         this.moduleCode = moduleCode;
         this.frequency = frequency;
-        this.time = time;
         this.isDone = false;
     }
 
@@ -92,5 +91,4 @@ public class Task {
         this.notes = notes;
     }
 
-    public void setTime(String time) { this.time = time; }
 }

@@ -43,21 +43,19 @@ public class TaskList {
      * Print out all the task in a list form
      */
     public void listContents() {
-
         if (tasks.size() == 0) {
             System.out.println("No list Detected, add some text!");
-            Ui.showDivider();
-        }
-        else {
+        } else {
             for (int j = 0; j < tasks.size(); j++) {
                 int position = j + 1;
                 System.out.println(position + "." + "[" + tasks.get(j).getTaskType() + "]" + "["
                         + tasks.get(j).getStatusIcon() + "] "
                         + tasks.get(j).getFullDescription());
             }
-            Ui.showDivider();
         }
+        Ui.showDivider();
     }
+
     /**
      * Based on the given index, delete corresponding item in the list
      *
@@ -72,14 +70,14 @@ public class TaskList {
                 + "] "
                 + tasks.get(index).getFullDescription()
                 + "\nNow you have " + (tasks.size() - 1)
-                +" tasks in the list."
+                + " tasks in the list."
         );
-    tasks.remove(index);
-    try {
-        storage.updateFileContents(tasks);
-    } catch (IOException e) {
-        System.out.println("Problem with saving file!");
-    }
+        tasks.remove(index);
+        try {
+            storage.updateFileContents(tasks);
+        } catch (IOException e) {
+            System.out.println("Problem with saving file!");
+        }
         Ui.showDivider();
     }
 }

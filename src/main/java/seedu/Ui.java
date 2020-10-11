@@ -52,7 +52,7 @@ public class Ui {
      * @return String command
      */
     public String readCommand() {
-        String command=in.nextLine();
+        String command = in.nextLine();
         return command;
     }
 
