@@ -1,8 +1,8 @@
 package seedu.task;
 
 /**
- *Inherited from Task object, Event class has additional attributes
- * to store logistical information
+ *Inherited from Task object, Event class has additional attributes.
+ * to store logistical information.
  */
 public class Event extends Task {
     protected String at;
@@ -26,7 +26,8 @@ public class Event extends Task {
     public String getFullDescription() {
         return description + " (at:" + at + ")";
     }
-    public String getLocation(){
+
+    public String getLocation() {
         return at;
     }
 }

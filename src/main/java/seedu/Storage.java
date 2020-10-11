@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 /**
  * Storage class is used for creating and saving file on the local hard disk.
- * Also used for loading saved data on startup
+ * Also used for loading saved data on startup.
  */
 public class Storage {
     private String filePath;
@@ -22,12 +22,11 @@ public class Storage {
     }
 
     /**
-     * Attempt to load saved information on the hard disk
-     *
-     * @return a list of Task
-     * @throws FileNotFoundException If there is no saved file in the specified location
+     * Attempt to load saved information on the hard disk.
+     * @return a list of Task.
+     * @throws FileNotFoundException If there is no saved file in the specified location.
      * TODO
-     *   - ADD CASE FOR 'L', lesson
+     *   - ADD CASE FOR 'L', lesson.
      */
     public ArrayList<Task> load() throws FileNotFoundException {
         File f = new File(filePath);
@@ -41,7 +40,7 @@ public class Storage {
         while (s.hasNext()) {
             String contents = s.nextLine();
             dashPosition = contents.indexOf("-");
-            taskIdentifiers = contents.substring(0,dashPosition);
+            taskIdentifiers = contents.substring(0, dashPosition);
             String[] words = contents.split("|");
             switch (words[0]) {
             case "D":
@@ -57,12 +56,12 @@ public class Storage {
                 break;
             case "E":
                 atPosition = contents.indexOf("@");
-                description = contents.substring(dashPosition + 1,atPosition);
+                description = contents.substring(dashPosition + 1, atPosition);
                 timedateInfo = contents.substring(atPosition + 1);
                 if (taskIdentifiers.contains("\u2713")) {
-                    tasks.add(new Event(description.trim(),timedateInfo.trim(),true));
+                    tasks.add(new Event(description.trim(), timedateInfo.trim(),true));
                 } else {
-                    tasks.add(new Deadline(description.trim(),timedateInfo.trim()));
+                    tasks.add(new Deadline(description.trim(), timedateInfo.trim()));
                 }
                 break;
             case "T":
@@ -81,7 +80,7 @@ public class Storage {
     }
 
     /**
-     * Creates a new "duke.txt" in the data directory for new users
+     * Creates a new "duke.txt" in the data directory for new users.
      */
     public void createSavedFile() {
         System.out.println("So we have create a duke.txt under the data directory");
@@ -102,18 +101,17 @@ public class Storage {
     }
 
     /**
-     * Used to update or refresh the duke.txt contents for scenarios
-     * where deletion or change in existing Information occurs
-     *
-     * @param t newly updated list
-     * @throws IOException if the saved file is not found in its expected location
+     * Used to update or refresh the duke.txt contents for scenarios.
+     * where deletion or change in existing Information occurs.
+     * @param t newly updated list.
+     * @throws IOException if the saved file is not found in its expected location.
      */
     public void updateFileContents(ArrayList<Task> t) throws IOException {
         tasks = t;
         FileWriter fw0 = new FileWriter(filePath);
         fw0.write("");
-        FileWriter fw = new FileWriter(filePath,true);
-        for (int i = 0;i < tasks.size();i++) {
+        FileWriter fw = new FileWriter(filePath, true);
+        for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) instanceof Event) {
                 fw.write(tasks.get(i).getTaskType() + "|" + tasks.get(i).getStatusIcon()
                         + " - " + tasks.get(i).getDescription() + " @ " + ((Event) tasks.get(i)).getLocation()
@@ -134,8 +132,8 @@ public class Storage {
      * Used to append to the duke.txt contents for scenarios
      * where adding of new data on top of existing data occurs.
      *
-     * @param t newly updated list
-     * @throws IOException if the saved file is not found in its expected location
+     * @param t newly updated list.
+     * @throws IOException if the saved file is not found in its expected location.
      */
     public void appendToFile(Task t) throws IOException {
         FileWriter fw = new FileWriter(filePath,true);

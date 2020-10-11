@@ -7,13 +7,11 @@ import seedu.Ui;
 import java.io.IOException;
 import java.util.ArrayList;
 /****************** READ THIS FIRST
- * This class is no longer useful since the ScheduleManager is handling all the tasks
+ * This class is no longer useful since the ScheduleManager is handling all the tasks.
  * We will need to implement the delete, edit and other commands stuff that are executed here
- * into the ScheduleManager instead
- */
-
-/**
- * Tasklist class contain all the relevant function such as Adding, deleting
+ * into the ScheduleManager instead.
+ *
+ * Tasklist class contain all the relevant function such as Adding, deleting.
  * and storing the list of task all in one object.
  */
 public class TaskList {
@@ -40,7 +38,7 @@ public class TaskList {
     }
 
     /**
-     * Print out all the task in a list form
+     * Print out all the task in a list form.
      */
     public void listContents() {
         if (tasks.size() == 0) {
@@ -57,10 +55,9 @@ public class TaskList {
     }
 
     /**
-     * Based on the given index, delete corresponding item in the list
-     *
-     * @param index position for deletion of the task in the list
-     * @param storage Storage object
+     * Based on the given index, delete corresponding item in the list.
+     * @param index position for deletion of the task in the list.
+     * @param storage Storage object.
      */
     public void deleteItemFromList(int index, Storage storage) {
         System.out.println("Nice! I've removed this task:"

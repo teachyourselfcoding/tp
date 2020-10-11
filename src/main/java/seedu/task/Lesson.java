@@ -23,6 +23,10 @@ public class Lesson extends Task {
         this.endTime = endTime;
     }
 
+    /**
+     * Method to get the day of the week where which the lesson will be held on.
+     * @return this will return me the day in DayOfWeek. eg, return MONDAY, TUESDAY, WEDNESDAY, etc.
+     */
     public DayOfWeek getLessonDayInDayOfWeek() {
         return DayOfWeek.of(this.frequency[0]);
     }
@@ -38,6 +42,11 @@ public class Lesson extends Task {
         return DayOfWeek.of(this.frequency[0]).toString();
     }
 
+    /**
+     * TODO
+     *  - might want to change the representation of the toString method.
+     * @return string representation of the Lesson Object.
+     */
     @Override
     public String toString() {
         return description + " " + moduleCode + " " + getLessonDay() + " " + startTime + " " + endTime;

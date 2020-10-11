@@ -17,18 +17,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- *Parser Object is used for translating String user input into
- * a actionable Command object for execution
+ *Parser Object is used for translating String user input into.
+ * a actionable Command object for execution.
  */
 public class Parser {
     public Parser(){}
     /**
      * Convert the given string input into a subclass of Command class.
-     * return different subclass of Command class
-     *
-     * @param input User input
-     * @return a subclass of Command class
-     * @throws DueQuestException if invalid input
+     * return different subclass of Command class.
+     * @param input User input.
+     * @return a subclass of Command class.
+     * @throws DueQuestException if invalid input.
      */
     public static Command parse(String input) throws DueQuestException {
         int taskNum;
@@ -74,39 +73,33 @@ public class Parser {
     }
 
     /**
-     * Used to validate and check for any errors in the user input
-     * for ToDo object
-     *
-     * @param  input representing user input
-     * @return Todo object
-     * @throws DueQuestException if missing information
+     * Used to validate and check for any errors in the user input.
+     * for ToDo object.
+     * @param  input representing user input.
+     * @return Todo object.
+     * @throws DueQuestException if missing information.
      */
     public static ToDo validateToDo(String input) throws DueQuestException {
         ToDo t;
         String[] filteredInput = input.trim().split(" ",2);
-
         if (filteredInput.length == 1) {
             throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
         } else {
             t = new ToDo(filteredInput[1]);
-
         }
         return t;
     }
 
     /**
-     * Used to validate and check for any errors in the user input
-     * for DeadLine object
-     *
-     * @param  input representing user input
-     * @return DeadLine object
-     * @throws DueQuestException if missing information
+     * Used to validate and check for any errors in the user input.
+     * for DeadLine object.
+     * @param  input representing user input.
+     * @return DeadLine object.
+     * @throws DueQuestException if missing information.
      */
-
     public static Deadline validateDeadline(String input) throws DueQuestException {
         Deadline d;
         String[] filteredInput = input.trim().split(" ",2);
-
         if (filteredInput.length == 1) {
             throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
         }  else if (!filteredInput[1].contains("/by")) {
@@ -121,17 +114,15 @@ public class Parser {
 
     /**
      * Used to validate and check for any errors in the user input
-     * for Event object
-     *
-     * @param  input representing user input
-     * @return Event object
-     * @throws DueQuestException if missing information
+     * for Event object.
+     * @param  input representing user input.
+     * @return Event object.
+     * @throws DueQuestException if missing information.
      */
 
     public static Event validateEvent(String input) throws DueQuestException {
         Event e;
         String[] filteredInput = input.trim().split(" ",2);
-
         if (filteredInput.length == 1) {
             throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
         }  else if (!filteredInput[1].contains("/at")) {
@@ -146,12 +137,12 @@ public class Parser {
 
     /**
      * How to add a lesson object through input?
-     * To Validate a lesson object
-     * lesson description modulecode /on 4 (digit represent dayOfWeek), frequency, time
-     * lesson lecture CS2113 /on 5 7 16:00 18:00
-     * @param input
-     * @return
-     * @throws DueQuestException settle later
+     * To Validate a lesson object.
+     * Lesson description modulecode /on 4 (digit represent dayOfWeek), frequency, time.
+     * Example: lesson lecture CS2113 /on 5 7 16:00 18:00.
+     * @param input the line of the input
+     * @return the Lesson object.
+     * @throws DueQuestException settle later.
      */
     public static Lesson validateLesson(String input) {
         String[] filteredInput = input.trim().split(" ", 2);
@@ -171,13 +162,12 @@ public class Parser {
     }
 
     public static String parseForDate(String input)  throws DueQuestException {
-    try {
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("d-MM-yyyy");
-        LocalDate dateFormatted = LocalDate.parse(input.trim(), df);
-        return dateFormatted.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
-    } catch (DateTimeException e) {
-        throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
-    }
-
+        try {
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("d-MM-yyyy");
+            LocalDate dateFormatted = LocalDate.parse(input.trim(), df);
+            return dateFormatted.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+        } catch (DateTimeException e) {
+            throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+        }
     }
 }

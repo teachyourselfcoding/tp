@@ -6,7 +6,7 @@ import seedu.task.TaskList;
 import java.io.FileNotFoundException;
 
 /**
- * DueQuest class is the main class for running the DueQuest application
+ * DueQuest class is the main class for running the DueQuest application.
  */
 public class DueQuest {
     private Storage storage;
@@ -42,13 +42,12 @@ public class DueQuest {
     }
 
     /**
-     * Used to keep the Duke programme running on repeat until a Exit command
-     * is detected whereby the program will then exit
+     * Used to keep the Duke programme running on repeat until a Exit command.
+     * is detected whereby the program will then exit.
      * THE RUN METHOD FOR THE IP!!!
      */
     public void run() {
         boolean isExit = false;
-        System.out.println("RUNNNN");
         while (!isExit) {
             String fullCommand = ui.readCommand();
             try {
@@ -66,7 +65,6 @@ public class DueQuest {
      * The run method to execute the commands FOR OUR TP!!!!
      */
     public void runn() {
-        System.out.println("RUNNNNNNN");
         boolean isExit = false;
         while (!isExit) {
             String fullCommand = ui.readCommand();
@@ -82,7 +80,7 @@ public class DueQuest {
     }
 
     /**
-     * The main function to run the whole Duke app
+     * The main function to run the whole Duke app.
      */
     public static void main(String[] args) throws DueQuestException {
         DueQuest dq = new DueQuest();

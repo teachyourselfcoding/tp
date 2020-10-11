@@ -25,11 +25,11 @@ public class Task {
     /**
      * Creates new Task object, without frequency.
      * Error message will be printed if the module with the moduleCode doesn't exist.
-     * @param description the task description
-     * @param moduleCode the code of the module this task relates to
+     * @param description the task description.
+     * @param moduleCode the code of the module this task relates to.
      * FIXME
-     *  - add searching module based on moduleCode(String). Need to search through the ModuleManager
-     *  - add error handling
+     *  - add searching module based on moduleCode(String). Need to search through the ModuleManager.
+     *  - add error handling.
      */
     public Task(String description, String moduleCode) {
         this.description = description;
@@ -44,13 +44,13 @@ public class Task {
     /**
      * Creates new Task object, with frequency.
      * Error message will be printed if the module with the moduleCode doesn't exist or the frequency is invalid.
-     * @param description the task description
-     * @param moduleCode the code of the module this task relates to
+     * @param description the task description.
+     * @param moduleCode the code of the module this task relates to.
      * @param frequency the frequency of the task (int[2]), e.g. the event happens on Thursday every 2 week
-     *                  = [4, 2] = [dayOfWeek, interval]. *** Lets assume that the interval is every week only for now
+     *                  = [4, 2] = [dayOfWeek, interval]. *** Lets assume that the interval is every week only for now.
      * FIXME
-     *  - add searching module based on moduleCode(String)
-     *  - add error handling
+     *  - add searching module based on moduleCode(String).
+     *  - add error handling.
      */
     public Task(String description, String moduleCode, int[] frequency) {
         this.description = description;
@@ -94,5 +94,4 @@ public class Task {
     public void setNotes(String notes) {
         this.notes = notes;
     }
-
 }

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class to keep track of all the Module that the user is taking
+ * Class to keep track of all the Module that the user is taking.
  * Whenever an event or task is added into the ScheduleManager, we will add that task or event
- * into the ModuleManager as well according to the Module Code
+ * into the ModuleManager as well according to the Module Code.
  */
 public class ModuleManager {
     List<Module> listOfModules;
@@ -26,7 +26,7 @@ public class ModuleManager {
     }
 
     /**
-     * Method to get a list of Module Codes in String form
+     * Method to get a list of Module Codes in String form.
      * @return the list of module codes.
      */
     public List<String> getListOfModuleCodes() {
@@ -38,8 +38,8 @@ public class ModuleManager {
     }
 
     /**
-     * Method to check if a module exist in the list of modules based on a given module code
-     * @param moduleCode
+     * Method to check if a module exist in the list of modules based on a given module code.
+     * @param moduleCode moduleCode of the module in String.
      * @return true if module exist and false if it does not.
      */
     public boolean checkIfModuleExist(String moduleCode) {
@@ -53,10 +53,10 @@ public class ModuleManager {
     }
 
     /**
-     * Method to add a task to the module inside the list of the module manager
-     * This is executed in the AddCommand method, when a task is added to both
-     * the module manager and schedule manager
-     * @param task task to be added into the module manager
+     * Method to add a task to the module inside the list of the module manager.
+     * This is executed in the AddCommand method, when a task is added to both.
+     * the module manager and schedule manager.
+     * @param task task to be added into the module manager.
      * @param moduleCode this is the modulecode of the task. Remember, moduleCode is an attribute of task.
      */
     public void addTaskToModule(Task task, String moduleCode) {

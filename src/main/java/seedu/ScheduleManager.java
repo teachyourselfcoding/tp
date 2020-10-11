@@ -12,12 +12,21 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * READ THIS FIRST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * Class for ScheduleManager.
  * Contains the schedule for the user.
- * We will assume that the ScheduleManager is built for AY 2020/2021 Semester 2
+ * We will assume that the ScheduleManager is built for AY 2020/2021 Semester 2.
  */
 public class ScheduleManager {
 	public HashMap<LocalDate, List<Task>> semesterSchedule = new HashMap<>();
+
+	/**
+	 * Constructor for ScheduleManager if a ScheduleManager already exist.
+	 * @param semesterSchedule
+	 */
+	public ScheduleManager(HashMap<LocalDate, List<Task>> semesterSchedule) {
+		this.semesterSchedule = semesterSchedule;
+	}
 
 	/**
 	 * Constructor for ScheduleManager if a ScheduleManager has yet to be created.
@@ -33,8 +42,8 @@ public class ScheduleManager {
 	}
 
 	/**
-	 * Add lessons
-	 * @param lesson
+	 * Add lessons.
+	 * @param lesson lesson to be added to the schedule manager.
 	 */
 	public void addLesson(Lesson lesson) {
 		DayOfWeek day = lesson.getLessonDayInDayOfWeek();
@@ -47,28 +56,20 @@ public class ScheduleManager {
 	}
 
 	/**
-	 * deadline only got 1 day, so just filter for the
-	 * date where I need to add the deadline
-	 * @param deadline
+	 * Deadline only got 1 day, so just filter for the
+	 * date where I need to add the deadline,
+	 * @param deadline add deadline inside the list of tasks of the schedule manager.
 	 */
 	public void addDeadline(Deadline deadline) {
 
 	}
 
 	/**
-	 * event only got 1 date, so just filter for the
-	 * date where I need to add the event
-	 * @param event
+	 * Event only got 1 date, so just filter for the
+	 * date where I need to add the event.
+	 * @param event add event inside the list of tasks of the schedule manager.
 	 */
 	public void addEvent(Event event) {
-	}
-
-	/**
-	 * Constructor for ScheduleManager if a ScheduleManager already exist
-	 * @param semesterSchedule
-	 */
-	public ScheduleManager(HashMap<LocalDate, List<Task>> semesterSchedule) {
-		this.semesterSchedule = semesterSchedule;
 	}
 
 	/**
@@ -90,9 +91,9 @@ public class ScheduleManager {
 
 	/**
 	 * Displays tasks on the days within the range.
-	 * The error message will be printed if startDay and endDay gives wrong range (e.g. endDay < startDay)
-	 * @param startDay the start of the range
-	 * @param endDay the end of the range
+	 * The error message will be printed if startDay and endDay gives wrong range (e.g. endDay < startDay).
+	 * @param startDay the start of the range.
+	 * @param endDay the end of the range.
 	 * FIXME
 	 *  - add code and output based on UG
 	 *  - handle the task with frequency!
@@ -110,5 +111,4 @@ public class ScheduleManager {
 	public void display() {
 
 	}
-
 }

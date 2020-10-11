@@ -28,33 +28,33 @@ public class AddCommand  extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.getList().add(tasks.getSize(),task);
+        tasks.getList().add(tasks.getSize(), task);
         System.out.println("Got it. I've added this task: \n"
                     + tasks.getIndex(tasks.getSize() - 1).getTaskType() + "["
                     + tasks.getIndex(tasks.getSize() - 1).getStatusIcon() + "] "
                     + tasks.getIndex(tasks.getSize() - 1).getFullDescription()
-                    + "\nNow you have "+ tasks.getSize()+" tasks in the list."
+                    + "\nNow you have "+ tasks.getSize() + " tasks in the list."
         );
         Ui.showDivider();
         try{
             storage.appendToFile(task);
         } catch (IOException e){
-            System.out.println("Something went wrong: "+ e.getMessage());
+            System.out.println("Something went wrong: " + e.getMessage());
         }
     }
 
     /**
-     * Method to add the lesson into the schedule manager
+     * Method to add the lesson into the schedule manager.
      * Exceptions settle later, check if method works first.
-     * Main function is to add the lesson into the semesterSchedule of the ScheduleManager
-     * Note that everthing in the Lesson Object if it is a Lesson object is still in String form
-     * Convert it to LocalTime if necessary
-     * @param scheduleManager
-     * @param moduleManager
-     * @param ui
+     * Main function is to add the lesson into the semesterSchedule of the ScheduleManager.
+     * Note that everthing in the Lesson Object if it is a Lesson object is still in String form.
+     * Convert it to LocalTime if necessary.
+     * @param scheduleManager scheduleManager that handles tasks.
+     * @param moduleManager moduleManager that handles modules where we need to add task into module.
+     * @param ui ui that helps with ui stuff.
      * TODO
-     *  - make this work for adding deadlines and events too
-     *  - add the tasks to the ModuleManager as well
+     *  - make this work for adding deadlines and events too.
+     *  - add the tasks to the ModuleManager as well.
      */
     @Override
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
