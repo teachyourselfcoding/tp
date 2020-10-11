@@ -24,7 +24,7 @@ public class Lesson extends Task {
     }
 
     public DayOfWeek getLessonDayInDayOfWeek() {
-        return DayOfWeek.of(this.frequency[1]);
+        return DayOfWeek.of(this.frequency[0]);
     }
 
     /**
@@ -35,7 +35,7 @@ public class Lesson extends Task {
      * @return
      */
     public String getLessonDay() {
-        return DayOfWeek.of(this.frequency[1]).toString();
+        return DayOfWeek.of(this.frequency[0]).toString();
     }
 
     @Override

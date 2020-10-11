@@ -9,6 +9,7 @@ import seedu.task.TaskList;
 import seedu.Ui;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 /**
  * Represents a command for adding different subclass of tasks
@@ -59,5 +60,6 @@ public class AddCommand  extends Command {
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
         scheduleManager.addLesson((Lesson) task); //add the lesson to the schedule manager
         System.out.println("Got it, added lesson to the schedule manager!");
+        scheduleManager.display(LocalDate.of(2021, 1, 8));
     }
 }
