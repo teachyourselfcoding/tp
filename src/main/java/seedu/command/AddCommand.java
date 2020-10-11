@@ -1,5 +1,7 @@
 package seedu.command;
 
+import seedu.ModuleManager;
+import seedu.ScheduleManager;
 import seedu.Storage;
 import seedu.task.Task;
 import seedu.task.TaskList;
@@ -14,8 +16,9 @@ public class AddCommand  extends Command {
 
     private Task task;
     public AddCommand(Task task){
-        this.task=task;
+        this.task = task;
     }
+
     @Override
     public boolean isExit() {
         return false;
@@ -23,7 +26,6 @@ public class AddCommand  extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-
         tasks.getList().add(tasks.getSize(),task);
         System.out.println("Got it. I've added this task: \n"
                     + tasks.getIndex(tasks.getSize() - 1).getTaskType() + "["
@@ -37,6 +39,10 @@ public class AddCommand  extends Command {
         } catch (IOException e){
             System.out.println("Something went wrong: "+ e.getMessage());
         }
+    }
+
+    @Override
+    public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
 
     }
 }

@@ -1,5 +1,7 @@
 package seedu.command;
 
+import seedu.ModuleManager;
+import seedu.ScheduleManager;
 import seedu.Storage;
 import seedu.task.TaskList;
 import seedu.Ui;
@@ -25,5 +27,10 @@ public class DeleteCommand extends Command {
                 else {
                     System.out.println("The list is empty! Nothing to delete!");
                 }
+    }
+
+    @Override
+    public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
+
     }
 }
