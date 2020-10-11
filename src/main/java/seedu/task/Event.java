@@ -6,6 +6,10 @@ package seedu.task;
  */
 public class Event extends Task {
     protected String at;
+    //TODO add these extra attributes in constructors
+    protected String location;
+    protected String members;
+
     public Event(String description, String at) {
         super(description);
         super.taskType="E";
