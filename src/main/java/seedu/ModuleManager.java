@@ -9,7 +9,7 @@ import java.util.List;
  * into the ModuleManager as well according to the Module Code
  */
 public class ModuleManager {
-    List<Module> listOfModules = new ArrayList<>();
+    List<Module> listOfModules;
 
     public ModuleManager() {
         this.listOfModules = new ArrayList<>();

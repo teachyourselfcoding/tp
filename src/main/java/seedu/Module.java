@@ -8,11 +8,11 @@ import java.util.List;
  * Class for Module Management.
  */
 public class Module {
-	String moduleCode;  // e.g. ST2132
-	String title;  // e.g. Statistics
-	int aUNumber;  // e.g. 4
-	String[] teachingStaffs = new String[5];  // e.g. ["Dr.Lim(lim@e.nus.sg)",]
-	List<Task> listOfTasks; // list of tasks in the module. Should we seperate the events and deadlines?
+	private String moduleCode;  // e.g. ST2132
+	private String title;  // e.g. Statistics
+	private int aUNumber;  // e.g. 4
+	private String[] teachingStaffs = new String[5];  // e.g. ["Dr.Lim(lim@e.nus.sg)",]
+	private List<Task> listOfTasks; // list of tasks in the module. Should we seperate the events and deadlines?
 
 	/**
 	 * Constructor for Module Object
@@ -40,6 +40,10 @@ public class Module {
 		this.aUNumber = aUNumber;
 		this.teachingStaffs = teachingStaffs;
 		this.listOfTasks = listOfTasks;
+	}
+
+	public String getModuleCode() {
+		return this.moduleCode;
 	}
 
 	public void setModuleCode(String moduleCode) {
