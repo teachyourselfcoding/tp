@@ -6,16 +6,21 @@ import java.time.DayOfWeek;
 
 
 public class Lesson extends Task {
+    private String startTime;
+    private String endTime;
     /**
      *
      * @param description to say if it is a lecture or tutorial or lab etc
      * @param moduleCode module code
-     * @param frequency in an array, tells us the day of the week of the event and frequncy
-     * @param time the time of the event
+     * @param frequency in an array, tells us the day of the week of the event and frequency
+     * @param startTime the start time of the lesson
+     * @param endTime the end time of the lesson
      */
-    public Lesson(String description, String moduleCode, int[] frequency, String time) {
-        super(description, moduleCode, frequency, time);
+    public Lesson(String description, String moduleCode, int[] frequency, String startTime, String endTime) {
+        super(description, moduleCode, frequency);
         super.taskType = "L";
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     /**
