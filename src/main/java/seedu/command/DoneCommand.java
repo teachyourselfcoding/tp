@@ -41,6 +41,5 @@ public class DoneCommand extends Command {
 
     @Override
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
-
     }
 }

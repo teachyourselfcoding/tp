@@ -19,7 +19,6 @@ public abstract class Command {
     /**
      * Use this method to execute the commands first for our team project
      */
-    public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
-    }
+    public abstract void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui);
 
 }

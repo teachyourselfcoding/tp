@@ -27,7 +27,7 @@ public class ScheduleManager {
 	public ScheduleManager() {
 		this.semesterSchedule = new HashMap<>();
 		// Now I will need to populate this hashmap because it is currently empty with no dates.
-		for (LocalDate date = LocalDate.of(2021, 1, 1); date.isBefore(LocalDate.of(2021, 6, 1)); date.plusDays(1)) {
+		for (LocalDate date = LocalDate.of(2021, 1, 1); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
 			this.semesterSchedule.put(date, new ArrayList<>());
 		}
 	}
