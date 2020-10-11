@@ -6,6 +6,11 @@ import seedu.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+/****************** READ THIS FIRST
+ * This class is no longer useful since the ScheduleManager is handling all the tasks
+ * We will need to implement the delete, edit and other commands stuff that are executed here
+ * into the ScheduleManager instead
+ */
 
 /**
  * Tasklist class contain all the relevant function such as Adding, deleting
