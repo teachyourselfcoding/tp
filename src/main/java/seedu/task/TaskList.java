@@ -6,6 +6,11 @@ import seedu.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+/****************** READ THIS FIRST
+ * This class is no longer useful since the ScheduleManager is handling all the tasks
+ * We will need to implement the delete, edit and other commands stuff that are executed here
+ * into the ScheduleManager instead
+ */
 
 /**
  * Tasklist class contain all the relevant function such as Adding, deleting
@@ -13,16 +18,19 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private  ArrayList<Task> tasks;
+
     public TaskList(){
-        tasks=new ArrayList<>();
+        tasks = new ArrayList<>();
     }
+
     public TaskList(ArrayList<Task> tasks){
-        this.tasks=tasks;
+        this.tasks = tasks;
     }
 
     public Task getIndex(int index){
         return tasks.get(index);
     }
+
     public int getSize(){
         return tasks.size();
     }
@@ -35,21 +43,19 @@ public class TaskList {
      * Print out all the task in a list form
      */
     public void listContents() {
-
         if (tasks.size() == 0) {
             System.out.println("No list Detected, add some text!");
-            Ui.showDivider();
+        } else {
+            for (int j = 0; j < tasks.size(); j++) {
+                int position = j + 1;
+                System.out.println(position + "." + "[" + tasks.get(j).getTaskType() + "]" + "["
+                        + tasks.get(j).getStatusIcon() + "] "
+                        + tasks.get(j).getFullDescription());
+            }
         }
-        else {
-        for (int j = 0; j < tasks.size(); j++) {
-            int position = j + 1;
-            System.out.println(position + "." + "[" + tasks.get(j).getTaskType() + "]" + "["
-                    + tasks.get(j).getStatusIcon() + "] "
-                    + tasks.get(j).getFullDescription());
-        }
-            Ui.showDivider();
+        Ui.showDivider();
     }
-    }
+
     /**
      * Based on the given index, delete corresponding item in the list
      *
@@ -64,14 +70,14 @@ public class TaskList {
                 + "] "
                 + tasks.get(index).getFullDescription()
                 + "\nNow you have " + (tasks.size() - 1)
-                +" tasks in the list."
+                + " tasks in the list."
         );
-    tasks.remove(index);
-    try {
-        storage.updateFileContents(tasks);
-    } catch (IOException e) {
-        System.out.println("Problem with saving file!");
-    }
+        tasks.remove(index);
+        try {
+            storage.updateFileContents(tasks);
+        } catch (IOException e) {
+            System.out.println("Problem with saving file!");
+        }
         Ui.showDivider();
     }
 }

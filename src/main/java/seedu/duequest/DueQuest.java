@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 
 
 /**
- * Duke class is the main class for running the Duke application
+ * DueQuest class is the main class for running the DueQuest application
  */
 public class DueQuest {
     private Storage storage;
@@ -26,7 +26,7 @@ public class DueQuest {
             tasks = new TaskList(storage.load());
             tasks.listContents();
         } catch (FileNotFoundException e) {
-            System.out.println("Duke couldn't find duke.txt to load saved data from");
+            System.out.println("DueQuest couldn't find duke.txt to load saved data from");
             tasks = new TaskList();
             storage.createSavedFile();
         }

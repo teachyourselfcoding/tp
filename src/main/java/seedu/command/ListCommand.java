@@ -1,5 +1,7 @@
 package seedu.command;
 
+import seedu.ModuleManager;
+import seedu.ScheduleManager;
 import seedu.Storage;
 import seedu.task.TaskList;
 import seedu.Ui;
@@ -16,5 +18,9 @@ public class ListCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
     taskList.listContents();
+    }
+
+    @Override
+    public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
     }
 }

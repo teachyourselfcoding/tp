@@ -1,5 +1,7 @@
 package seedu.command;
 
+import seedu.ModuleManager;
+import seedu.ScheduleManager;
 import seedu.Storage;
 import seedu.task.TaskList;
 import seedu.Ui;
@@ -35,5 +37,10 @@ public class DoneCommand extends Command {
         } catch (IOException e) {
             System.out.println("Problem with saving file!");
         }
+    }
+
+    @Override
+    public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
+
     }
 }

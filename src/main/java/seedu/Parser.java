@@ -8,6 +8,7 @@ import seedu.command.AddCommand;
 import seedu.command.DeleteCommand;
 import seedu.command.Command;
 import seedu.task.Deadline;
+import seedu.task.Lesson;
 import seedu.task.ToDo;
 import seedu.task.Event;
 
@@ -136,9 +137,36 @@ public class Parser {
         } else {
             String[] descriptAtFilter = filteredInput[1].split("/at",2);
             String atInfo = parseForDate(descriptAtFilter[1]);
-            e = new Event(descriptAtFilter[0],atInfo);
+            e = new Event(descriptAtFilter[0], atInfo);
         }
         return e;
+    }
+
+    /**
+     * How to add a lesson object through input?
+     * To Validate a lesson object
+     * lesson description modulecode /on 4 (digit represent dayOfWeek), frequency, time
+     * lesson lecture CS2113 /on 5 7 16:00 18:00
+     * @param input
+     * @return
+     * @throws DueQuestException settle later
+     */
+    public static Lesson validateLesson(String input) throws DueQuestException {
+        String[] filteredInput = input.trim().split(" ",2);
+        String[] descriptionWithModuleCode = filteredInput[1].split("/on",2);
+        String description = descriptionWithModuleCode[0].trim();
+        descriptionWithModuleCode = descriptionWithModuleCode[0].trim().split(" ");
+        int size = descriptionWithModuleCode.length;
+        String moduleCode = descriptionWithModuleCode[size];
+        description = description.substring(0, description.length() - moduleCode.length());
+        String[] frequncyAndTime = descriptionWithModuleCode[1].trim().split(" ");
+        int[] frequency = new int[2];
+        frequency[0] = Integer.parseInt(frequncyAndTime[0]);
+        frequency[1] = Integer.parseInt(frequncyAndTime[1]);
+        String startTime = frequncyAndTime[2];
+        String endTime = frequncyAndTime[3];
+
+        return new Lesson(description, moduleCode, frequency, startTime, endTime);
     }
 
     public static String parseForDate(String input)  throws DueQuestException {

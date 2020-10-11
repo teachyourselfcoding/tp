@@ -7,15 +7,15 @@ public class Deadline extends Task{
     protected String by;
 
     public Deadline(String description, String by) {
-        super.description=description;
-        super.taskType="D";
+        super(description);
+        super.taskType = "D";
         this.by = by;
     }
     public Deadline(String description, String by,Boolean isDone) {
-        super.description=description;
-        super.taskType="D";
+        super(description);
+        super.taskType = "D";
         this.by = by;
-        super.isDone=isDone;
+        super.isDone = isDone;
     }
 
     public String getDeadline() {
