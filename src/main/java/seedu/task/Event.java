@@ -11,12 +11,12 @@ public class Event extends Task {
     protected String members;
 
     public Event(String description, String at) {
-        super(description);
+        super.description=description;
         super.taskType="E";
         this.at = at;
     }
     public Event(String description, String at,Boolean isDone) {
-        super(description);
+        super.description=description;
         super.taskType="E";
         this.at = at;
         super.isDone=isDone;
