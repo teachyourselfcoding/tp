@@ -2,6 +2,7 @@ package seedu;
 
 import seedu.task.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,6 +14,17 @@ public class Module {
 	private int aUNumber;  // e.g. 4
 	private String[] teachingStaffs = new String[5];  // e.g. ["Dr.Lim(lim@e.nus.sg)",]
 	private List<Task> listOfTasks; // list of tasks in the module. Should we seperate the events and deadlines?
+
+	/**
+	 * Constructor when I am adding a task that has a module code that has not exist yet.
+	 * Useful as only need the module code to generate this.
+	 * User can then update the other properties himself later on.
+	 * @param moduleCode
+	 */
+	public Module(String moduleCode) {
+		this.moduleCode = moduleCode;
+		this.listOfTasks = new ArrayList<>();
+	}
 
 	/**
 	 * Constructor for Module Object
@@ -40,6 +52,10 @@ public class Module {
 		this.aUNumber = aUNumber;
 		this.teachingStaffs = teachingStaffs;
 		this.listOfTasks = listOfTasks;
+	}
+
+	public void addTask(Task task) {
+		this.listOfTasks.add(task);
 	}
 
 	public String getModuleCode() {

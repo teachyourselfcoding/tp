@@ -60,6 +60,8 @@ public class AddCommand  extends Command {
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
         scheduleManager.addLesson((Lesson) task); //add the lesson to the schedule manager
         System.out.println("Got it, added lesson to the schedule manager!");
-        scheduleManager.display(LocalDate.of(2021, 1, 8));
+        String moduleCode = task.getModuleCode();
+        // if module code exist in the module manager, simply add the task into the module manager
+        moduleManager.addTaskToModule(task, task.getModuleCode());
     }
 }

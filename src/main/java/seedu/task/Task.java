@@ -33,6 +33,7 @@ public class Task {
      */
     public Task(String description, String moduleCode) {
         this.description = description;
+        this.moduleCode = moduleCode;
         this.isDone = false;
     }
 
@@ -47,7 +48,6 @@ public class Task {
      * @param moduleCode the code of the module this task relates to
      * @param frequency the frequency of the task (int[2]), e.g. the event happens on Thursday every 2 week
      *                  = [4, 2] = [dayOfWeek, interval]. *** Lets assume that the interval is every week only for now
-     * @param time the time of the task
      * FIXME
      *  - add searching module based on moduleCode(String)
      *  - add error handling
@@ -57,6 +57,10 @@ public class Task {
         this.moduleCode = moduleCode;
         this.frequency = frequency;
         this.isDone = false;
+    }
+
+    public String getModuleCode() {
+        return this.moduleCode;
     }
 
     public String getFullDescription() {
