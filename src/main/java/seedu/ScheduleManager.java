@@ -1,7 +1,6 @@
 package seedu;
 import seedu.task.Task;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +15,9 @@ public class ScheduleManager {
 	public HashMap<LocalDate, List<Task>> semesterSchedule = new HashMap<>();
 
 	/**
-	 * Constructor for ScheduleManager if a ScheduleManager has yet to be created
+	 * Constructor for ScheduleManager if a ScheduleManager has yet to be created.
+	 * Main role is to populate the HashMap with the dates in the year as the 'key'
+	 * and an empty list of task as the value.
 	 */
 	public ScheduleManager() {
 		this.semesterSchedule = new HashMap<>();
