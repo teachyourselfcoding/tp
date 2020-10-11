@@ -1,5 +1,6 @@
 package seedu.command;
 
+import seedu.ModuleManager;
 import seedu.ScheduleManager;
 import seedu.Storage;
 import seedu.task.TaskList;
@@ -29,7 +30,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleManager scheduleManager) {
+    public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
 
     }
 }

@@ -1,5 +1,6 @@
 package seedu.command;
 
+import seedu.ModuleManager;
 import seedu.ScheduleManager;
 import seedu.Storage;
 import seedu.Ui;
@@ -19,7 +20,7 @@ public class AddModuleCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleManager scheduleManager) {
+    public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
 
     }
 }
