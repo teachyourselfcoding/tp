@@ -13,16 +13,19 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private  ArrayList<Task> tasks;
+
     public TaskList(){
-        tasks=new ArrayList<>();
+        tasks = new ArrayList<>();
     }
+
     public TaskList(ArrayList<Task> tasks){
-        this.tasks=tasks;
+        this.tasks = tasks;
     }
 
     public Task getIndex(int index){
         return tasks.get(index);
     }
+
     public int getSize(){
         return tasks.size();
     }
@@ -41,14 +44,14 @@ public class TaskList {
             Ui.showDivider();
         }
         else {
-        for (int j = 0; j < tasks.size(); j++) {
-            int position = j + 1;
-            System.out.println(position + "." + "[" + tasks.get(j).getTaskType() + "]" + "["
-                    + tasks.get(j).getStatusIcon() + "] "
-                    + tasks.get(j).getFullDescription());
-        }
+            for (int j = 0; j < tasks.size(); j++) {
+                int position = j + 1;
+                System.out.println(position + "." + "[" + tasks.get(j).getTaskType() + "]" + "["
+                        + tasks.get(j).getStatusIcon() + "] "
+                        + tasks.get(j).getFullDescription());
+            }
             Ui.showDivider();
-    }
+        }
     }
     /**
      * Based on the given index, delete corresponding item in the list

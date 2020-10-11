@@ -12,14 +12,14 @@ public class Event extends Task {
 
     public Event(String description, String at) {
         super(description);
-        super.taskType="E";
+        super.taskType = "E";
         this.at = at;
     }
     public Event(String description, String at,Boolean isDone) {
         super(description);
-        super.taskType="E";
+        super.taskType = "E";
         this.at = at;
-        super.isDone=isDone;
+        super.isDone = isDone;
     }
 
     @Override
