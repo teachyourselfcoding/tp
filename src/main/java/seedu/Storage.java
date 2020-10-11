@@ -26,6 +26,8 @@ public class Storage {
      *
      * @return a list of Task
      * @throws FileNotFoundException If there is no saved file in the specified location
+     * TODO
+     *   - ADD CASE FOR 'L', lesson
      */
     public ArrayList<Task> load() throws FileNotFoundException {
         File f = new File(filePath);

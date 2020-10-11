@@ -4,6 +4,7 @@ import seedu.*;
 import seedu.command.Command;
 import seedu.task.TaskList;
 import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  * Class just for codetesting purposes for our ScheduleManager
@@ -33,7 +34,8 @@ public class DueQuest1 {
     /**
      * The main function to run the whole DueQuest app
      */
-    public static void main(String[] args) {
-        new DueQuest1().run();
+    public static void main(String[] args) throws DueQuestException {
+        Scanner sc = new Scanner(System.in);
+        System.out.println(Parser.validateLesson(sc.next()));
     }
 }
