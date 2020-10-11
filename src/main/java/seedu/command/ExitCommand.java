@@ -1,5 +1,6 @@
 package seedu.command;
 
+import seedu.ScheduleManager;
 import seedu.Storage;
 import seedu.task.TaskList;
 import seedu.Ui;
@@ -15,6 +16,11 @@ public class ExitCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
+
+    }
+
+    @Override
+    public void execute(ScheduleManager scheduleManager) {
 
     }
 }

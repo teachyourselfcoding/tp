@@ -1,5 +1,6 @@
 package seedu.command;
 
+import seedu.ScheduleManager;
 import seedu.Storage;
 import seedu.task.Task;
 import seedu.task.TaskList;
@@ -37,6 +38,11 @@ public class AddCommand  extends Command {
         } catch (IOException e){
             System.out.println("Something went wrong: "+ e.getMessage());
         }
+
+    }
+
+    @Override
+    public void execute(ScheduleManager scheduleManager) {
 
     }
 }

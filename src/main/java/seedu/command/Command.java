@@ -1,5 +1,6 @@
 package seedu.command;
 
+import seedu.ScheduleManager;
 import seedu.Storage;
 import seedu.task.TaskList;
 import seedu.Ui;
@@ -13,5 +14,10 @@ public abstract class Command {
     private boolean isExit;
     public abstract boolean isExit();
     public abstract void execute(TaskList taskList, Ui ui, Storage storage);
+
+    /**
+     * Use this method to execute the commands first for our team project
+     */
+    public abstract void execute(ScheduleManager scheduleManager);
 
 }
