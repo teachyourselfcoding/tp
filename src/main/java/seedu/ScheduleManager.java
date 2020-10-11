@@ -1,10 +1,15 @@
 package seedu;
+import seedu.task.Deadline;
+import seedu.task.Event;
+import seedu.task.Lesson;
 import seedu.task.Task;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class for ScheduleManager.
@@ -28,12 +33,61 @@ public class ScheduleManager {
 	}
 
 	/**
+	 * Add lessons
+	 * @param lesson
+	 */
+	public void addLesson(Lesson lesson) {
+		DayOfWeek day = lesson.getLessonDayInDayOfWeek();
+		for (Map.Entry<LocalDate, List<Task>> entry : this.semesterSchedule.entrySet()) {
+			LocalDate key = entry.getKey();
+			if (key.getDayOfWeek().equals(day)) {
+				this.semesterSchedule.get(key).add(lesson);
+			}
+		}
+	}
+
+	/**
+	 * deadline only got 1 day, so just filter for the
+	 * date where I need to add the deadline
+	 * @param deadline
+	 */
+	public void addDeadline(Deadline deadline) {
+
+	}
+
+	/**
+	 * event only got 1 date, so just filter for the
+	 * date where I need to add the event
+	 * @param event
+	 */
+	public void addEvent(Event event) {
+	}
+
+	/**
 	 * Constructor for ScheduleManager if a ScheduleManager already exist
 	 * @param semesterSchedule
 	 */
 	public ScheduleManager(HashMap<LocalDate, List<Task>> semesterSchedule) {
 		this.semesterSchedule = semesterSchedule;
 	}
+
+	/**
+	 * Displays tasks on the specified day
+	 * The error message will be printed if startDay and endDay gives wrong range (e.g. endDay < startDay)
+	 * @param day that user wants to see the schedule
+	 * FIXME
+	 *  - add code and output based on UG
+	 *  - handle the task with frequency!
+	 */
+	public void display(LocalDate day) {
+		for (Map.Entry<LocalDate, List<Task>> entry : this.semesterSchedule.entrySet()) {
+			LocalDate key = entry.getKey();
+			if (key.equals(day)) {
+				System.out.println(this.semesterSchedule.get(key).toString());
+			}
+		}
+	}
+
 	/**
 	 * Displays tasks on the days within the range.
 	 * The error message will be printed if startDay and endDay gives wrong range (e.g. endDay < startDay)
@@ -43,7 +97,7 @@ public class ScheduleManager {
 	 *  - add code and output based on UG
 	 *  - handle the task with frequency!
 	 */
-	void display(LocalDate startDay, LocalDate endDay){
+	public void display(LocalDate startDay, LocalDate endDay){
 
 	}
 
@@ -53,7 +107,8 @@ public class ScheduleManager {
 	 *  - add code and output based on UG
 	 *  - handle the task with frequency!
 	 */
-	void display() {
+	public void display() {
 
 	}
+
 }

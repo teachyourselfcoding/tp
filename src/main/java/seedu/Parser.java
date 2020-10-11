@@ -65,6 +65,9 @@ public class Parser {
                 Event ev = validateEvent(input);
                 //Fallthrough
                 return new AddCommand(ev);
+            case "lesson":
+                Lesson lesson = validateLesson(input);
+                return new AddCommand(lesson);
             default:
                 throw new DueQuestException(DueQuestExceptionType.INVALID_COMMAND);
             }
@@ -78,7 +81,6 @@ public class Parser {
      * @return Todo object
      * @throws DueQuestException if missing information
      */
-
     public static ToDo validateToDo(String input) throws DueQuestException {
         ToDo t;
         String[] filteredInput = input.trim().split(" ",2);
@@ -151,21 +153,20 @@ public class Parser {
      * @return
      * @throws DueQuestException settle later
      */
-    public static Lesson validateLesson(String input) throws DueQuestException {
-        String[] filteredInput = input.trim().split(" ",2);
-        String[] descriptionWithModuleCode = filteredInput[1].split("/on",2);
+    public static Lesson validateLesson(String input) {
+        String[] filteredInput = input.trim().split(" ", 2);
+        String[] descriptionWithModuleCode = filteredInput[1].split("/on", 2);
+        String[] frequncyAndTime = descriptionWithModuleCode[1].trim().split(" ");
         String description = descriptionWithModuleCode[0].trim();
         descriptionWithModuleCode = descriptionWithModuleCode[0].trim().split(" ");
         int size = descriptionWithModuleCode.length;
-        String moduleCode = descriptionWithModuleCode[size];
-        description = description.substring(0, description.length() - moduleCode.length());
-        String[] frequncyAndTime = descriptionWithModuleCode[1].trim().split(" ");
+        String moduleCode = descriptionWithModuleCode[size - 1];
+        description = description.substring(0, description.length() - moduleCode.length()).trim();
         int[] frequency = new int[2];
         frequency[0] = Integer.parseInt(frequncyAndTime[0]);
         frequency[1] = Integer.parseInt(frequncyAndTime[1]);
         String startTime = frequncyAndTime[2];
         String endTime = frequncyAndTime[3];
-
         return new Lesson(description, moduleCode, frequency, startTime, endTime);
     }
 

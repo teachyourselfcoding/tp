@@ -23,6 +23,10 @@ public class Lesson extends Task {
         this.endTime = endTime;
     }
 
+    public DayOfWeek getLessonDayInDayOfWeek() {
+        return DayOfWeek.of(this.frequency[1]);
+    }
+
     /**
      * Note: frequency is in [dayOfWeek as in int, frequency]
      * Lets assume its weekly first, because if its biweekly, abit more
@@ -36,6 +40,6 @@ public class Lesson extends Task {
 
     @Override
     public String toString() {
-        return description + " " + moduleCode + " " + getLessonDay() + " " + time;
+        return description + " " + moduleCode + " " + getLessonDay() + " " + startTime + " " + endTime;
     }
 }
