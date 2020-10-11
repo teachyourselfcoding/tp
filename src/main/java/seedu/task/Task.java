@@ -1,6 +1,7 @@
 package seedu.task;
 import seedu.Module;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -10,8 +11,9 @@ public class Task {
     protected String description;
     protected boolean isDone;
     protected String taskType;
-    protected Module moduleBelongTo;
+    protected Module moduleBelongTo; // Module this task belongs to
     protected int[] frequency;
+    protected LocalDateTime time; //Time of the event
     protected String notes; // TODO add it in the constructor.
 
     //FIXME add new event and deadlines to this list whenever created
@@ -28,6 +30,10 @@ public class Task {
     public Task(String description, String moduleCode) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public Task(String description) {
+        this.description = description;
     }
 
     /**

@@ -15,7 +15,7 @@ public class Module {
 	 * @param moduleCode module's code in string
 	 * @param title module's title in string
 	 * @param aUNumber the AU number for this module
-	 * @param teachingStaffs the list of teaching staffs with their contact
+	 * @param teachingStaffs the list of teaching staffs with their contact (seems unnecessary)
 	 * FIXME Add error handling
 	 */
 	public Module(String moduleCode, String title, int aUNumber, String[] teachingStaffs) {
