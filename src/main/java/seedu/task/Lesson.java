@@ -24,6 +24,14 @@ public class Lesson extends Task {
     }
 
     /**
+     * Method to get the day of the week where which the lesson will be held on.
+     * @return this will return me the day in DayOfWeek. eg, return MONDAY, TUESDAY, WEDNESDAY, etc.
+     */
+    public DayOfWeek getLessonDayInDayOfWeek() {
+        return DayOfWeek.of(this.frequency[0]);
+    }
+
+    /**
      * Note: frequency is in [dayOfWeek as in int, frequency]
      * Lets assume its weekly first, because if its biweekly, abit more
      * troublesome in terms of adding the lesson into the ShceduleManager.
@@ -31,11 +39,16 @@ public class Lesson extends Task {
      * @return
      */
     public String getLessonDay() {
-        return DayOfWeek.of(this.frequency[1]).toString();
+        return DayOfWeek.of(this.frequency[0]).toString();
     }
 
+    /**
+     * TODO
+     *  - might want to change the representation of the toString method.
+     * @return string representation of the Lesson Object.
+     */
     @Override
     public String toString() {
-        return description + " " + moduleCode + " " + getLessonDay() + " " + time;
+        return description + " " + moduleCode + " " + getLessonDay() + " " + startTime + " " + endTime;
     }
 }

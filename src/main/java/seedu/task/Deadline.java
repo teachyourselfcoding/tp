@@ -3,8 +3,8 @@ package seedu.task;
 import java.time.LocalDate;
 
 /**
- *Inherited from Task object, Deadline class has additional attributes
- * to store deadline timing
+ *Inherited from Task object, Deadline class has additional attributes.
+ * to store deadline timing.
  */
 public class Deadline extends Task{
     protected String by;
@@ -22,7 +22,11 @@ public class Deadline extends Task{
     }
 
 
-    @Override
+    public String getDeadline() {
+        return by;
+    }
+
+
     public String getFullDescription() {
         return description + " (by:" + by + ")";
     }
@@ -32,7 +36,7 @@ public class Deadline extends Task{
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
-    public String getTimingInfo(){
+    public String getTimingInfo() {
         return by;
     }
     public LocalDate getDate(){

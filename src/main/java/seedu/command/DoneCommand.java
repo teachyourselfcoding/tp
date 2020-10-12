@@ -8,14 +8,16 @@ import seedu.Ui;
 
 import java.io.IOException;
 /**
- * DoneCommand is used when an task gets done and the user want to
- * indicate the done status on the task
+ * DoneCommand is used when an task gets done and the user want to.
+ * indicate the done status on the task.
  */
 public class DoneCommand extends Command {
     private int taskNum;
+
     public DoneCommand(int taskNum){
-        this.taskNum=taskNum;
+        this.taskNum = taskNum;
     }
+
     @Override
     public boolean isExit() {
         return false;
@@ -41,6 +43,5 @@ public class DoneCommand extends Command {
 
     @Override
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
-
     }
 }
