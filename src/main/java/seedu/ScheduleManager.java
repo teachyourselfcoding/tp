@@ -6,6 +6,7 @@ import seedu.task.Task;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,13 +19,13 @@ import java.util.Map;
  * We will assume that the ScheduleManager is built for AY 2020/2021 Semester 2.
  */
 public class ScheduleManager {
-	public HashMap<LocalDate, List<Task>> semesterSchedule = new HashMap<>();
+	public static HashMap<LocalDate, ArrayList<Task>> semesterSchedule = new HashMap<>();
 
 	/**
 	 * Constructor for ScheduleManager if a ScheduleManager already exist.
 	 * @param semesterSchedule
 	 */
-	public ScheduleManager(HashMap<LocalDate, List<Task>> semesterSchedule) {
+	public ScheduleManager(HashMap<LocalDate, ArrayList<Task>> semesterSchedule) {
 		this.semesterSchedule = semesterSchedule;
 	}
 
@@ -41,19 +42,21 @@ public class ScheduleManager {
 		}
 	}
 
+
 	/**
 	 * Add lessons.
 	 * @param lesson lesson to be added to the schedule manager.
 	 */
 	public void addLesson(Lesson lesson) {
 		DayOfWeek day = lesson.getLessonDayInDayOfWeek();
-		for (Map.Entry<LocalDate, List<Task>> entry : this.semesterSchedule.entrySet()) {
+		for (Map.Entry<LocalDate, ArrayList<Task>> entry : this.semesterSchedule.entrySet()) {
 			LocalDate key = entry.getKey();
 			if (key.getDayOfWeek().equals(day)) {
 				this.semesterSchedule.get(key).add(lesson);
 			}
 		}
 	}
+
 
 	/**
 	 * Deadline only got 1 day, so just filter for the
@@ -75,33 +78,46 @@ public class ScheduleManager {
 	}
 
 	/**
-	 * Displays tasks on the specified day
-	 * The error message will be printed if startDay and endDay gives wrong range (e.g. endDay < startDay)
-	 * @param day that user wants to see the schedule
+	 * Displays tasks on the specific days.
+	 * @param specificDate the specific day
 	 * FIXME
 	 *  - add code and output based on UG
 	 *  - handle the task with frequency!
 	 */
-	public void display(LocalDate day) {
-		for (Map.Entry<LocalDate, List<Task>> entry : this.semesterSchedule.entrySet()) {
-			LocalDate key = entry.getKey();
-			if (key.equals(day)) {
-				System.out.println(this.semesterSchedule.get(key).toString());
-			}
+	public void display(LocalDate specificDate){
+		ArrayList<Task> list =  semesterSchedule.get(specificDate);
+		if (list!=null){
+			Ui.print("List of task on " + specificDate.toString() + " :");
+			Ui.printListGenericType(list);
+			Ui.showDivider();
+		} else {
+			Ui.print("No Task on that " + specificDate.toString());
 		}
 	}
 
 	/**
 	 * Displays tasks on the days within the range.
 	 * The error message will be printed if startDay and endDay gives wrong range (e.g. endDay < startDay).
-	 * @param startDay the start of the range.
-	 * @param endDay the end of the range.
+	 * @param startDate the start of the range.
+	 * @param endDate the end of the range.
+>>>>>>> upstream/master
 	 * FIXME
 	 *  - add code and output based on UG
 	 *  - handle the task with frequency!
 	 */
-	public void display(LocalDate startDay, LocalDate endDay){
 
+	public void display(LocalDate startDate, LocalDate endDate){
+		Ui.print("List of task from " + startDate.toString() + " to " + endDate.toString());
+		for (LocalDate date = LocalDate.of(2021, 1, 1); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
+			if (date.isAfter(startDate) && date.isBefore(endDate)){
+				if(semesterSchedule.get(date).size() != 0){
+					Ui.print(date.format(DateTimeFormatter.ofPattern("MMM d"))
+							+ " schedule :");
+					Ui.printListGenericType(semesterSchedule.get(date));
+
+				}
+			}
+		}
 	}
 
 	/**
@@ -112,5 +128,12 @@ public class ScheduleManager {
 	 */
 	public void display() {
 
+	}
+
+	/**
+	 * update the schedule upon adding new task through ModuleManager
+	 */
+	public static void updateSchedule(LocalDate date, Task task){
+		semesterSchedule.get(date).add(task);
 	}
 }

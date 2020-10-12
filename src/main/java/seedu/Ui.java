@@ -1,5 +1,7 @@
 package seedu;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -70,7 +72,7 @@ public class Ui {
             showDivider();
             break;
         case WRONG_INPUT_FORMAT:
-            System.out.println("Wrong Input Informat");
+            System.out.println("Wrong Input format");
             showDivider();
             break;
         case MISSING_DESCRIPTION:
@@ -88,4 +90,19 @@ public class Ui {
         default:
         }
     }
+
+    public static void print(String text){
+        System.out.println(text);
+    }
+
+    public static <T> void printListGenericType(ArrayList<T> lists){
+        if (lists!=null){
+            for (T i: lists) {
+                print(i.toString());
+            }
+        }
+        print("");
+
+    }
+
 }

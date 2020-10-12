@@ -16,11 +16,13 @@ import java.util.List;
  *  - Should we separate the events and deadlines?
  */
 public class Module {
-	private String moduleCode;
-	private String title;
-	private int aUNumber;
-	private String[] teachingStaffs = new String[5];
-	private List<Task> listOfTasks;
+	private String moduleCode;  // e.g. ST2132
+	private String title;  // e.g. Statistics
+	private int aUNumber;  // e.g. 4
+	private String[] teachingStaffs = new String[5];  // e.g. ["Dr.Lim(lim@e.nus.sg)",]
+	private ArrayList<Task> listOfTasks; // list of tasks in the module. Should we seperate the events and deadlines?
+
+
 
 	/**
 	 * Constructor when I am adding a task that has a module code that has not exist yet.
@@ -38,7 +40,7 @@ public class Module {
 	 * @param moduleCode moduleCode of the module.
 	 * @param listOfTasks list of tasks under the module.
 	 */
-	public Module(String moduleCode, List<Task> listOfTasks) {
+	public Module(String moduleCode, ArrayList<Task> listOfTasks) {
 		this.moduleCode = moduleCode;
 		this.listOfTasks = listOfTasks;
 	}
@@ -53,7 +55,7 @@ public class Module {
 	 * @param listOfTasks list of tasks under the module.
 	 * FIXME Add error handling
 	 */
-	public Module(String moduleCode, String title, int aUNumber, String[] teachingStaffs, List<Task> listOfTasks) {
+	public Module(String moduleCode, String title, int aUNumber, String[] teachingStaffs, ArrayList<Task> listOfTasks) {
 		this.moduleCode = moduleCode;
 		this.title = title;
 		this.aUNumber = aUNumber;
@@ -61,8 +63,14 @@ public class Module {
 		this.listOfTasks = listOfTasks;
 	}
 
-	public void addTask(Task task) {
-		this.listOfTasks.add(task);
+
+	public void addTask(Task task){
+		listOfTasks.add(task);
+	}
+
+	public ArrayList<Task> getListOfTasks(){
+		return listOfTasks;
+
 	}
 
 	public String getModuleCode() {
