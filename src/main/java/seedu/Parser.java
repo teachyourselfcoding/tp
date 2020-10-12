@@ -1,6 +1,14 @@
 package seedu;
 
-import seedu.command.*;
+import seedu.command.AddCommand;
+import seedu.command.DisplayCommand;
+import seedu.command.Command;
+import seedu.command.DeleteCommand;
+import seedu.command.DoneCommand;
+import seedu.command.ExitCommand;
+import seedu.command.FindCommand;
+import seedu.command.ListCommand;
+import seedu.command.DisplayCommand;
 import seedu.task.Deadline;
 import seedu.task.Lesson;
 import seedu.task.ToDo;
@@ -8,7 +16,6 @@ import seedu.task.Event;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 
 /**
  *Parser Object is used for translating String user input into.
@@ -188,7 +195,6 @@ public class Parser {
         String endTime = frequncyAndTime[3];
         return new Lesson(description, moduleCode, frequency, startTime, endTime);
     }
-
 
     /**
      * Used to validate the input in Display Command
