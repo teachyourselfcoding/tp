@@ -1,20 +1,14 @@
 package seedu;
 
-import seedu.command.ExitCommand;
-import seedu.command.ListCommand;
-import seedu.command.FindCommand;
-import seedu.command.DoneCommand;
-import seedu.command.AddCommand;
-import seedu.command.DeleteCommand;
-import seedu.command.Command;
+import seedu.command.*;
 import seedu.task.Deadline;
 import seedu.task.Lesson;
 import seedu.task.ToDo;
 import seedu.task.Event;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 
 /**
  *Parser Object is used for translating String user input into
@@ -65,6 +59,8 @@ public class Parser {
                 Event ev = validateEvent(input);
                 //Fallthrough
                 return new AddCommand(ev);
+            case "display":
+                    return validateDisplayCommand(input);
             default:
                 throw new DueQuestException(DueQuestExceptionType.INVALID_COMMAND);
             }
@@ -169,14 +165,65 @@ public class Parser {
         return new Lesson(description, moduleCode, frequency, startTime, endTime);
     }
 
-    public static String parseForDate(String input)  throws DueQuestException {
-    try {
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("d-MM-yyyy");
-        LocalDate dateFormatted = LocalDate.parse(input.trim(), df);
-        return dateFormatted.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
-    } catch (DateTimeException e) {
-        throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+    /**
+     * Used to validate the input in Display Command
+     * @param input
+     * @return
+     * @throws DueQuestException
+     */
+    public static DisplayCommand validateDisplayCommand(String input) throws DueQuestException{
+        String moduleCode = "";
+        String[] filteredInput = input.trim().split(" ",2);
+        String[] descriptionWithModuleCode = filteredInput[1].trim().split(" ", 2);
+        if( !descriptionWithModuleCode[0].equals("")&&!descriptionWithModuleCode[0].contains("/date")) {
+            moduleCode = descriptionWithModuleCode[0].trim().toUpperCase();
+            if( descriptionWithModuleCode.length == 1){
+                return new DisplayCommand(moduleCode);
+            }
+
+        }
+
+        if (input.contains("/date")) {
+            //split the filtered input into description and date info
+            String[] dateDetails = filteredInput[1].split("/date",2);
+            if (dateDetails[1].contains("-")){
+                String[] dateRange = dateDetails[1].trim().split("-", 2);
+                try{
+                    LocalDate startDate = LocalDate.parse(dateRange[0].trim().replace("/","-"));
+                    LocalDate endDate = LocalDate.parse(dateRange[1].trim().replace("/","-"));
+                    return new DisplayCommand(startDate,endDate);
+                } catch (DateTimeException e){
+                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+                }
+            } else if (!moduleCode.equals("")) {
+                try {
+                    LocalDate specificDate = LocalDate.parse(dateDetails[1].trim().replace("/","-"));
+                    return new DisplayCommand(moduleCode, specificDate);
+                } catch (Exception e) {
+                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+                }
+            } else {
+                try {
+                    LocalDate specificDate = LocalDate.parse(dateDetails[1].trim().replace("/","-"));
+                    return new DisplayCommand(specificDate);
+                } catch (Exception e) {
+                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+                }
+            }
+        }
+            throw new DueQuestException(DueQuestExceptionType.WRONG_INPUT_FORMAT);
+
     }
+
+    public static String parseForDate(String input)  throws DueQuestException {
+        try {
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("d-MM-yyyy");
+            LocalDate dateFormatted = LocalDate.parse(input.trim(), df);
+            return dateFormatted.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+         } catch (DateTimeException e) {
+            throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+        }
+
 
     }
 }
