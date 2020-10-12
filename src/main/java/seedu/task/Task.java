@@ -15,9 +15,8 @@ public class Task {
     protected boolean isDone;
     protected String taskType; // can be E or D for our project
     protected String moduleCode; // Module this task belongs to
-    // I think moduleCode should be a string first. This is just to search for the Module in the ModuleManager
+    // I think moduleCode should be a string first. This is just to search for the Module in the ModuleManager.
     protected int[] frequency; // frequency of the event. Weekly? Daily?
-    protected String time; //Time of the event in HH:MM format
     protected String notes; // TODO add it in the constructor. ***Low priority, settle later.
 
     //FIXME add new event and deadlines to this list whenever created
@@ -25,14 +24,15 @@ public class Task {
     /**
      * Creates new Task object, without frequency.
      * Error message will be printed if the module with the moduleCode doesn't exist.
-     * @param description the task description
-     * @param moduleCode the code of the module this task relates to
+     * @param description the task description.
+     * @param moduleCode the code of the module this task relates to.
      * FIXME
-     *  - add searching module based on moduleCode(String). Need to search through the ModuleManager
-     *  - add error handling
+     *  - add searching module based on moduleCode(String). Need to search through the ModuleManager.
+     *  - add error handling.
      */
     public Task(String description, String moduleCode) {
         this.description = description;
+        this.moduleCode = moduleCode;
         this.isDone = false;
     }
 
@@ -43,20 +43,24 @@ public class Task {
     /**
      * Creates new Task object, with frequency.
      * Error message will be printed if the module with the moduleCode doesn't exist or the frequency is invalid.
-     * @param description the task description
-     * @param moduleCode the code of the module this task relates to
+     * @param description the task description.
+     * @param moduleCode the code of the module this task relates to.
      * @param frequency the frequency of the task (int[2]), e.g. the event happens on Thursday every 2 week
-     *                  = [4, 2] = [dayOfWeek, interval]. *** Lets assume that the interval is every week only for now
-     * @param time the time of the task
+     *                  = [4, 2] = [dayOfWeek, interval].
+     *
      * FIXME
-     *  - add searching module based on moduleCode(String)
-     *  - add error handling
+     *  - add searching module based on moduleCode(String).
+     *  - add error handling.
      */
     public Task(String description, String moduleCode, int[] frequency) {
         this.description = description;
         this.moduleCode = moduleCode;
         this.frequency = frequency;
         this.isDone = false;
+    }
+
+    public String getModuleCode() {
+        return this.moduleCode;
     }
 
     public String getFullDescription() {
@@ -90,5 +94,4 @@ public class Task {
     public void setNotes(String notes) {
         this.notes = notes;
     }
-
 }
