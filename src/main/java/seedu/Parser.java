@@ -113,12 +113,43 @@ public class Parser {
     }
 
     /**
+     * This is the new validateEvent method for our TP.
+     * @param input the line input.
+     * @return an Event object.
+     * TODO
+     *  - Handle exceptions.
+     */
+    public static Event validateEvent(String input) {
+        String filteredInput = input.trim().split(" ", 2)[1]; //get rid of event word in front
+        String moduleCode = filteredInput.split(" ")[0];
+        boolean isEventForAModule = verifyModuleCode(moduleCode);
+        if (!isEventForAModule) {
+            moduleCode = ""; // then moduleCode make it an empty string.
+            // Aim is just to find a way such that this event wont be added to the module.
+        }
+        if (isEventForAModule) { //get rid of the module code if it is valid, means event belongs to a module
+            filteredInput = filteredInput.split(" ", 2)[1];
+        }
+        String[] splitDescriptionAndDateTimeDetails = filteredInput.split("/at");
+        String description = splitDescriptionAndDateTimeDetails[0].trim();
+        String dateTimeLocationDetails = splitDescriptionAndDateTimeDetails[1];
+        String[] splitDateTimeLocationDetails = dateTimeLocationDetails.trim().split(" ", 3);
+        String dateOfEvent = splitDateTimeLocationDetails[0];
+        String timeOfEvent = splitDateTimeLocationDetails[1];
+        String locationOfEvent = splitDateTimeLocationDetails[2];
+        return new Event(description, moduleCode, locationOfEvent, timeOfEvent, dateOfEvent);
+    }
+
+    /**
+     * This is the old validateEvent method.
+     */
+    /*
+    /**
      * Used to validate and check for any errors in the user input
      * for Event object.
      * @param  input representing user input.
      * @return Event object.
      * @throws DueQuestException if missing information.
-     */
 
     public static Event validateEvent(String input) throws DueQuestException {
         Event e;
@@ -134,6 +165,7 @@ public class Parser {
         }
         return e;
     }
+    */
 
     /**
      * How to add a lesson object through input?
@@ -169,5 +201,68 @@ public class Parser {
         } catch (DateTimeException e) {
             throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
         }
+    }
+
+    /**
+     * Method to check if a given moduleCode in String format is a valid Module code.
+     * A valid Module examples. CS2113, CS2113T, DSA4211. Basically got 3 styles.
+     * This method is mainly for the parser.
+     * @param moduleCode moduleCode in string form that you want to verify if it is valid.
+     * @return true if valid, else false.
+     * TODO
+     * 	- refractor this ugly code later.
+     */
+    public static boolean verifyModuleCode(String moduleCode) {
+        if (moduleCode.length() < 6 || moduleCode.length() > 7) {
+            return false;
+        }
+        char[] charArray = moduleCode.toCharArray();
+        if (charArray.length == 6) {
+            for (int i = 0; i < 2; i++) {
+                char ch = charArray[i];
+                if (!(ch >= 'A' && ch <= 'Z')) {
+                    return false;
+                }
+            }
+            for (int i = 2; i < 6; i++) {
+                char ch = charArray[i];
+                if (!(ch >= '0' && ch <= '9')) {
+                    return false;
+                }
+            }
+        } else if (charArray.length == 7) {
+            // case of if it is like CS2113T
+            if (charArray[2] >= '0' && charArray[2] <= '9') {
+                for (int i = 0; i < 2; i++) {
+                    char ch = charArray[i];
+                    if (!(ch >= 'A' && ch <= 'Z')) {
+                        return false;
+                    }
+                }
+                for (int i = 2; i < 6; i++) {
+                    char ch = charArray[i];
+                    if (!(ch >= '0' && ch <= '9')) {
+                        return false;
+                    }
+                }
+                if (!(charArray[6] >= 'A' && charArray[6] <= 'Z')) {
+                    return false;
+                }
+            } else { // case if DSA 4211
+                for (int i = 0; i < 3; i++) {
+                    char ch = charArray[i];
+                    if (!(ch >= 'A' && ch <= 'Z')) {
+                        return false;
+                    }
+                }
+                for (int i = 3; i < 7; i++) {
+                    char ch = charArray[i];
+                    if (!(ch >= '0' && ch <= '9')) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }
