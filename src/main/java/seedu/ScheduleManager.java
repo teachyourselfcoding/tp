@@ -70,6 +70,8 @@ public class ScheduleManager {
 	 * @param event add event inside the list of tasks of the schedule manager.
 	 */
 	public void addEvent(Event event) {
+		LocalDate date = LocalDate.parse(event.getDateOfEvent());
+		this.semesterSchedule.get(date).add(event);
 	}
 
 	/**
