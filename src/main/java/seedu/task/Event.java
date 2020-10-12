@@ -7,10 +7,11 @@ package seedu.task;
  *  - What is the members attribute for?
  */
 public class Event extends Task {
-    protected String at; //at is the location
+    protected String at;
     protected String timeOfEvent;
     protected String dateOfEvent;
     //TODO add these extra attributes in constructors
+    protected String location;
     protected String members;
 
     public Event(String description, String moduleCode, String at, String timeOfEvent, String dateOfEvent) {
@@ -48,5 +49,9 @@ public class Event extends Task {
 
     public String getDateOfEvent() {
         return dateOfEvent;
+    }
+
+    public String getLocation() {
+        return at;
     }
 }
