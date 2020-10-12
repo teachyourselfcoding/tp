@@ -21,13 +21,16 @@ public class Storage {
         this.filePath = filePath;
     }
 
+
     /**
+     * COMMENTED OUT FIRST, settle storage later
      * Attempt to load saved information on the hard disk.
      * @return a list of Task.
      * @throws FileNotFoundException If there is no saved file in the specified location.
      * TODO
      *   - ADD CASE FOR 'L', lesson.
      */
+    /*
     public ArrayList<Task> load() throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
@@ -78,6 +81,7 @@ public class Storage {
         }
         return tasks;
     }
+    */
 
     /**
      * Creates a new "duke.txt" in the data directory for new users.
