@@ -2,6 +2,7 @@ package seedu;
 
 import seedu.task.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,14 +13,18 @@ public class Module {
 	private String title;  // e.g. Statistics
 	private int aUNumber;  // e.g. 4
 	private String[] teachingStaffs = new String[5];  // e.g. ["Dr.Lim(lim@e.nus.sg)",]
-	private List<Task> listOfTasks; // list of tasks in the module. Should we seperate the events and deadlines?
+	private ArrayList<Task> listOfTasks; // list of tasks in the module. Should we seperate the events and deadlines?
 
+	public Module(String moduleCode){
+		this.moduleCode=moduleCode;
+		this.listOfTasks = new ArrayList<>();
+	}
 	/**
 	 * Constructor for Module Object
 	 * @param moduleCode
 	 * @param listOfTasks
 	 */
-	public Module(String moduleCode, List<Task> listOfTasks) {
+	public Module(String moduleCode, ArrayList<Task> listOfTasks) {
 		this.moduleCode = moduleCode;
 		this.listOfTasks = listOfTasks;
 	}
@@ -34,12 +39,20 @@ public class Module {
 	 * @param listOfTasks
 	 * FIXME Add error handling
 	 */
-	public Module(String moduleCode, String title, int aUNumber, String[] teachingStaffs, List<Task> listOfTasks) {
+	public Module(String moduleCode, String title, int aUNumber, String[] teachingStaffs, ArrayList<Task> listOfTasks) {
 		this.moduleCode = moduleCode;
 		this.title = title;
 		this.aUNumber = aUNumber;
 		this.teachingStaffs = teachingStaffs;
 		this.listOfTasks = listOfTasks;
+	}
+
+	public void addTask(Task task){
+		listOfTasks.add(task);
+	}
+
+	public ArrayList<Task> getListOfTasks(){
+		return listOfTasks;
 	}
 
 	public String getModuleCode() {
