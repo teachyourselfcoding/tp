@@ -34,7 +34,7 @@ Example of usage:
 Adds a new task into the schedule manager according to which day the task stated.
 A Task can be a Lesson, Event or Deadline.
 Lessons are classes that are held on every week in your timetable.
-Events are one-off and they only take place on a single day.
+Events are one-off, they only take place on a single day.
 Deadline are assignments where there is a due date.
 
 ### Adding a lesson: 'lesson'
@@ -42,7 +42,7 @@ Adds a new Lesson into both your Schedule Manager and Module Manager
 
 Format: `lesson d/DESCRIPTION M/MODULE_CODE /on d/DAY f/FREQUENCY s/START_TIME e/END_TIME`
 
-* The `DAY` is the Day Of Week when the lesson is conducted. Type in an integer. If the lesson is held on Thursday, type in 4. If the lesson is held on Wednesday, type in 3.
+* The `DAY` is the Day Of Week when the lesson is conducted on. Type in an integer. If the lesson is held on Thursday, type in 4. If the lesson is held on Wednesday, type in 3.
 * The `START_TIME` and `END_TIME` are both in `HH:MM` format. You are only allowed to type in timings such that `MM` is `00`. For example, `18:00` is allowed but not `18:01`.
 
 Examples of Usage:
@@ -54,13 +54,15 @@ Examples of Usage:
 ### Adding an event: 'event'
 Adds an Event into the Schedule Manager. If the Event is associated to a Module, it will be added to the Module Manager as well.
 
-Format:
+Format: `event m/MODULE_CODE d/DESCRIPTION /at d/DATE_OF_EVENT t/TIME l/LOCATION_OF_EVENT`
 
-*
-*
+* `TIME` is in `HH:MM` format. (For now, since the display function only displays timings for every hour, the time of event is such that `MM` needs to be `00`)
+* `DATE_OF_EVENT` is in `yyyy-mm-dd` format.
+* For now, `LOCATION_OF_EVENT` is one word only.
 
 Examples of Usage:
 
+* `event CS2113 final exam /at 2021-05-03 14:00 LT14`.
 
 ### Adding a deadline: 'deadline'
 Adds a deadline of an assignment into the Schedule Manager and Module Manager. 
