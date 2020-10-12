@@ -2,6 +2,7 @@ package seedu.task;
 import seedu.Module;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -18,6 +19,7 @@ public class Task {
     // I think moduleCode should be a string first. This is just to search for the Module in the ModuleManager
     protected int[] frequency; // frequency of the event. Weekly? Daily?
     protected String time; //Time of the event in HH:MM format
+    protected LocalDate date;
     protected String notes; // TODO add it in the constructor. ***Low priority, settle later.
 
     //FIXME add new event and deadlines to this list whenever created
@@ -47,16 +49,17 @@ public class Task {
      * @param moduleCode the code of the module this task relates to
      * @param frequency the frequency of the task (int[2]), e.g. the event happens on Thursday every 2 week
      *                  = [4, 2] = [dayOfWeek, interval]. *** Lets assume that the interval is every week only for now
-     * @param time the time of the task
-     * FIXME
-     *  - add searching module based on moduleCode(String)
-     *  - add error handling
      */
     public Task(String description, String moduleCode, int[] frequency) {
         this.description = description;
         this.moduleCode = moduleCode;
         this.frequency = frequency;
         this.isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        return this.description;
     }
 
     public String getFullDescription() {
