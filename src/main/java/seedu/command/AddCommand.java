@@ -3,6 +3,7 @@ package seedu.command;
 import seedu.ModuleManager;
 import seedu.ScheduleManager;
 import seedu.Storage;
+import seedu.task.Event;
 import seedu.task.Lesson;
 import seedu.task.Task;
 import seedu.task.TaskList;
@@ -58,10 +59,20 @@ public class AddCommand  extends Command {
      */
     @Override
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
-        scheduleManager.addLesson((Lesson) task); //add the lesson to the schedule manager
-        System.out.println("Got it, added lesson to the schedule manager!");
-        String moduleCode = task.getModuleCode();
-        // if module code exist in the module manager, simply add the task into the module manager
-        moduleManager.addTaskToModule(task, task.getModuleCode());
+        if (task.getClass() == Lesson.class) {
+            scheduleManager.addLesson((Lesson) task); //add the lesson to the schedule manager
+            System.out.println("Got it, added lesson to the schedule manager!");
+            String moduleCode = task.getModuleCode();
+            // if module code exist in the module manager, simply add the task into the module manager
+            moduleManager.addTaskToModule(task, task.getModuleCode());
+        } else if (task.getClass() == Event.class) {
+            scheduleManager.addEvent((Event) task);
+            // now check if the module code exist or is an empty string
+            // look at the validateEvent method in Parser to understand that if the module code is invalid,
+            // meaning the user didnt key in a module code for his event, the moduleCode will be an empty string.
+            if (!task.getModuleCode().equals("")) {
+                moduleManager.addTaskToModule(task, task.getModuleCode());
+            }
+        }
     }
 }
