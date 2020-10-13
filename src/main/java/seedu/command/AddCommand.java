@@ -3,10 +3,7 @@ package seedu.command;
 import seedu.ModuleManager;
 import seedu.ScheduleManager;
 import seedu.Storage;
-import seedu.task.Event;
-import seedu.task.Lesson;
-import seedu.task.Task;
-import seedu.task.TaskList;
+import seedu.task.*;
 import seedu.Ui;
 
 import java.io.IOException;
@@ -31,13 +28,13 @@ public class AddCommand  extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.getList().add(tasks.getSize(), task);
         System.out.println("Got it. I've added this task: \n"
-                    + tasks.getIndex(tasks.getSize() - 1).getTaskType() + "["
-                    + tasks.getIndex(tasks.getSize() - 1).getStatusIcon() + "] "
-                    + tasks.getIndex(tasks.getSize() - 1).getFullDescription()
-                    + "\nNow you have "+ tasks.getSize() + " tasks in the list."
+                + tasks.getIndex(tasks.getSize() - 1).getTaskType() + "["
+                + tasks.getIndex(tasks.getSize() - 1).getStatusIcon() + "] "
+                + tasks.getIndex(tasks.getSize() - 1).getFullDescription()
+                + "\nNow you have "+ tasks.getSize() + " tasks in the list."
         );
         Ui.showDivider();
-        try{
+        try {
             storage.appendToFile(task);
         } catch (IOException e){
             System.out.println("Something went wrong: " + e.getMessage());
@@ -72,12 +69,19 @@ public class AddCommand  extends Command {
             // meaning the user didnt key in a module code for his event, the moduleCode will be an empty string.
             if (!task.getModuleCode().equals("")) {
                 moduleManager.addTaskToModule(task, task.getModuleCode());
-                System.out.println("Event added to both schedule manager and module manager");
+                System.out.println("Event added to both Schedule manager and Module manager");
             } else {
-                System.out.println("Event added to schedule Manager only");
+                System.out.println("Event added to Schedule Manager only");
             }
+
+        } else if (task.getClass() == Deadline.class) {
+            scheduleManager.addDeadline((Deadline) task);
+            moduleManager.addTaskToModule(task, task.getModuleCode());
+            System.out.println("Got it, added deadline to Schedule Manager and Module Manager");
         } else {
             return;
         }
+        Ui.showDivider();
     }
 }
+
