@@ -3,11 +3,13 @@ package seedu.task;
 import seedu.Module;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 
 
 public class Lesson extends Task {
     private String startTime;
     private String endTime;
+    private LocalDate specificDate;
     /**
      *
      * @param description to say if it is a lecture or tutorial or lab etc
@@ -21,6 +23,14 @@ public class Lesson extends Task {
         super.taskType = "L";
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    public Lesson (String description, String moduleCode, LocalDate specificDate, String startTime, String endTime) {
+        super(description,moduleCode);
+        super.taskType = "L";
+        this.startTime=startTime;
+        this.endTime = endTime;
+        this.specificDate = specificDate;
     }
 
     /**
@@ -49,6 +59,18 @@ public class Lesson extends Task {
      */
     @Override
     public String toString() {
-        return description + " " + moduleCode + " " + getLessonDay() + " " + startTime + " " + endTime;
+//        return description + " " + moduleCode + " " + getLessonDay() + " " + startTime + " " + endTime;
+        return description + " " + moduleCode + " " + startTime + " " + endTime;
+    }
+    public String getStartTime(){
+        return startTime;
+    }
+
+    public String getEndTime(){
+        return endTime;
+    }
+
+    public LocalDate getDate(){
+        return specificDate;
     }
 }

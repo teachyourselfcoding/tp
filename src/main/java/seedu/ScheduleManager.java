@@ -37,7 +37,7 @@ public class ScheduleManager {
 	public ScheduleManager() {
 		this.semesterSchedule = new HashMap<>();
 		// Now I will need to populate this hashmap because it is currently empty with no dates.
-		for (LocalDate date = LocalDate.of(2021, 1, 1); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
+		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
 			this.semesterSchedule.put(date, new ArrayList<>());
 		}
 	}
@@ -55,6 +55,13 @@ public class ScheduleManager {
 				this.semesterSchedule.get(key).add(lesson);
 			}
 		}
+	}
+	/**
+	 * Add lessons on specific days
+	 * @param lesson lesson to be added to the schedule manager.
+	 */
+	public void addLessonOnSpecificDays(Lesson lesson) {
+		semesterSchedule.get(lesson.getDate()).add(lesson);
 	}
 
 
@@ -77,6 +84,38 @@ public class ScheduleManager {
 		this.semesterSchedule.get(date).add(event);
 	}
 
+	public void displayTodaySchedule(){
+		LocalDate todayDate = LocalDate.now();
+		Ui.print(todayDate.toString() + " Schedule:");
+		ArrayList<Task> taskList = semesterSchedule.get(todayDate);
+		String[] timing = {"08:00","09:00","10:00","11:00", "12:00", "13:00", "14:00", "15:00","16:00","17:00","18:00","19:00"
+				,"20:00","21:00","22:00","23:00"};
+		for (Task t: taskList) {
+			if (t instanceof Lesson){
+				String startTime = ((Lesson) t).getStartTime();
+				String endTime = ((Lesson) t).getEndTime();
+				boolean hasStart=false;
+				boolean hasEnd = false;
+				for(int i = 0; i< timing.length;i++){
+					if (timing[i].equals(startTime) ){
+						hasStart = true;
+						timing[i]= timing[i]+ " " + t.getDescription() + ", " + t.getModuleCode();
+					} else if(timing[i].equals(endTime)){
+						hasEnd = false;
+						hasStart = false;
+						break;
+					}else if(hasStart && !hasEnd) {
+						timing[i] = timing[i] + " " + t.getDescription() + ", " + t.getModuleCode();
+					}
+
+				}
+
+			}
+		}
+		for (String i: timing){
+			Ui.print(i);
+		}
+	}
 	/**
 	 * Displays tasks on the specific days.
 	 * @param specificDate the specific day
