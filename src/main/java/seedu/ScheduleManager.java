@@ -106,6 +106,55 @@ public class ScheduleManager {
 	 *  - handle the task with frequency!
 	 */
 
+
+	public void editTask(String description, LocalDate date, String property, String newProperty){
+		for(Task task :semesterSchedule.get(date)){
+			switch(property) {
+				case "description":
+					if (task.getDescription().equals(description)) {
+						task.setDescription(newProperty);
+					}
+					break;
+				case "tasktype":
+					if (task.getDescription().equals(description)) {
+						task.setTasktype(newProperty);
+					}
+					break;
+				case "modulecode":
+					//Fall through
+				case "module code":
+					if (task.getDescription().equals(description)) {
+						task.setModulecode(newProperty);
+					}
+					break;
+				case "time":
+					if (task.getDescription().equals(description)) {
+						task.setTime(newProperty);
+					}
+					break;
+				default:
+					System.out.println("Invalid type");
+			}
+		}
+	}
+
+	public void editTask(String description, LocalDate date, String property, int [] newFrequency){
+		for(Task task : semesterSchedule.get(date)){
+			if(task.getDescription().equals(description)){
+				task.setFrequency(newFrequency);
+			}
+		}
+	}
+
+	public void editTask(String description, LocalDate date, String property, LocalDate newDate){
+		for(Task task : semesterSchedule.get(date)){
+			if(task.getDescription().equals(description)){
+				task.setDate(newDate);
+			}
+		}
+	}
+
+
 	public void deleteTask(String description, LocalDate date){
 		if(semesterSchedule.get(date).size() != 0){
 			semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
