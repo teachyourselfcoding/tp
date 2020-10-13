@@ -3,7 +3,6 @@ package seedu;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -98,10 +97,13 @@ public class Ui {
     }
 
     public static <T> void printListGenericType(ArrayList<T> lists) {
-        if (lists!=null) {
+        if (lists != null) {
             for (T i: lists) {
                 print(i.toString());
             }
+        }
+        if (lists.size() == 0) {
+            System.out.println("You don't have any tasks!");
         }
         print("");
     }
@@ -112,9 +114,7 @@ public class Ui {
      * @return
      */
     public static String convertDateToString(LocalDate date){
-
         String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM"));
         return stringDate;
     }
-
 }
