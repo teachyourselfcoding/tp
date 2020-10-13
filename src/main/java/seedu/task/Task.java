@@ -107,4 +107,28 @@ public class Task {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+
+    public void setModulecode(String newModulecode){ this.moduleCode = newModulecode; }
+
+    public void setDate(LocalDate newDate){this.date = newDate; }
+
+    public void setTime( String newTime) {
+        int time = Integer.parseInt(newTime);
+        if(time > 2359| (time/100)>23|(time%100)>59){
+            System.out.println("Invalid Time format");
+        } else{
+            this.time = newTime;
+        }
+
+    }
+
+    public void setTasktype(String newTasktype){
+        if(newTasktype.equals("D") | newTasktype.equals("E")) {
+            this.taskType = newTasktype;
+        }
+        else {
+            System.out.println("Invalid Task type");
+        }
+    }
+
 }

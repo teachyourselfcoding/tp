@@ -95,7 +95,7 @@ public class ScheduleManager {
 		}
 	}
 
-	/**
+	/*
 	 * Displays tasks on the days within the range.
 	 * The error message will be printed if startDay and endDay gives wrong range (e.g. endDay < startDay).
 	 * @param startDate the start of the range.
@@ -106,6 +106,71 @@ public class ScheduleManager {
 	 *  - handle the task with frequency!
 	 */
 
+
+	public void editTask(String description, LocalDate date, String property, String newProperty){
+		for(Task task :semesterSchedule.get(date)){
+			switch(property) {
+				case "description":
+					if (task.getDescription().equals(description)) {
+						task.setDescription(newProperty);
+					}
+					break;
+				case "tasktype":
+					if (task.getDescription().equals(description)) {
+						task.setTasktype(newProperty);
+					}
+					break;
+				case "modulecode":
+					//Fall through
+				case "module code":
+					if (task.getDescription().equals(description)) {
+						task.setModulecode(newProperty);
+					}
+					break;
+				case "time":
+					if (task.getDescription().equals(description)) {
+						task.setTime(newProperty);
+					}
+					break;
+				default:
+					System.out.println("Invalid type");
+			}
+		}
+	}
+
+	public void editTask(String description, LocalDate date, String property, int [] newFrequency){
+		for(Task task : semesterSchedule.get(date)){
+			if(task.getDescription().equals(description)){
+				task.setFrequency(newFrequency);
+			}
+		}
+	}
+
+	public void editTask(String description, LocalDate date, String property, LocalDate newDate){
+		for(Task task : semesterSchedule.get(date)){
+			if(task.getDescription().equals(description)){
+				task.setDate(newDate);
+			}
+		}
+	}
+
+
+	public void deleteTask(String description, LocalDate date){
+		if(semesterSchedule.get(date).size() != 0){
+			semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
+		}
+		else{
+			System.out.println("No task on this date");
+		}
+	}
+
+	public void deleteTask(String description){
+		for (LocalDate date = LocalDate.of(2021, 1, 1); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
+			if(semesterSchedule.get(date).size() != 0){
+				semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
+			}
+		}
+	}
 	public void display(LocalDate startDate, LocalDate endDate){
 		Ui.print("List of task from " + startDate.toString() + " to " + endDate.toString());
 		for (LocalDate date = LocalDate.of(2021, 1, 1); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
