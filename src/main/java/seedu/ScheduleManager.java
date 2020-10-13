@@ -86,8 +86,9 @@ public class ScheduleManager {
 
 	public void displayTodaySchedule(){
 		LocalDate todayDate = LocalDate.now();
-		Ui.print(todayDate.toString() + " Schedule:");
+		Ui.print( "Today's Schedule:");
 		ArrayList<Task> taskList = semesterSchedule.get(todayDate);
+		ArrayList<Task> nonLessonList= new ArrayList<>();
 		String[] timing = {"08:00","09:00","10:00","11:00", "12:00", "13:00", "14:00", "15:00","16:00","17:00","18:00","19:00"
 				,"20:00","21:00","22:00","23:00"};
 		for (Task t: taskList) {
@@ -99,7 +100,7 @@ public class ScheduleManager {
 				for(int i = 0; i< timing.length;i++){
 					if (timing[i].equals(startTime) ){
 						hasStart = true;
-						timing[i]= timing[i]+ " " + t.getDescription() + ", " + t.getModuleCode();
+						timing[i] = timing[i]+ " " + t.getDescription() + ", " + t.getModuleCode();
 					} else if(timing[i].equals(endTime)){
 						hasEnd = false;
 						hasStart = false;
@@ -107,15 +108,18 @@ public class ScheduleManager {
 					}else if(hasStart && !hasEnd) {
 						timing[i] = timing[i] + " " + t.getDescription() + ", " + t.getModuleCode();
 					}
-
 				}
-
+			} else {
+				nonLessonList.add(t);
 			}
 		}
 		for (String i: timing){
 			Ui.print(i);
 		}
+		Ui.print("\n Today's task:");
+		Ui.printListGenericType(nonLessonList);
 	}
+
 	/**
 	 * Displays tasks on the specific days.
 	 * @param specificDate the specific day
@@ -125,12 +129,12 @@ public class ScheduleManager {
 	 */
 	public void display(LocalDate specificDate){
 		ArrayList<Task> list =  semesterSchedule.get(specificDate);
-		if (list!=null){
+		if (list.size()!=0){
 			Ui.print("List of task on " + specificDate.toString() + " :");
 			Ui.printListGenericType(list);
 			Ui.showDivider();
 		} else {
-			Ui.print("No Task on that " + specificDate.toString());
+			Ui.print("No Task on " + Ui.convertDateToString(specificDate));
 		}
 	}
 
