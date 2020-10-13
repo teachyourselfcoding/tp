@@ -72,7 +72,12 @@ public class AddCommand  extends Command {
             // meaning the user didnt key in a module code for his event, the moduleCode will be an empty string.
             if (!task.getModuleCode().equals("")) {
                 moduleManager.addTaskToModule(task, task.getModuleCode());
+                System.out.println("Event added to both schedule manager and module manager");
+            } else {
+                System.out.println("Event added to schedule Manager only");
             }
+        } else {
+            return;
         }
     }
 }
