@@ -16,11 +16,11 @@ import java.util.List;
  *  - Should we separate the events and deadlines?
  */
 public class Module {
-	private String moduleCode;  // e.g. ST2132
-	private String title;  // e.g. Statistics
-	private int aUNumber;  // e.g. 4
-	private String[] teachingStaffs = new String[5];  // e.g. ["Dr.Lim(lim@e.nus.sg)",]
-	private ArrayList<Task> listOfTasks; // list of tasks in the module. Should we seperate the events and deadlines?
+    private String moduleCode;  // e.g. ST2132
+    private String title;  // e.g. Statistics
+    private int aUNumber;  // e.g. 4
+    private String[] teachingStaffs = new String[5];  // e.g. ["Dr.Lim(lim@e.nus.sg)",]
+    private ArrayList<Task> listOfTasks; // list of tasks in the module. Should we seperate the events and deadlines?
 
 
 

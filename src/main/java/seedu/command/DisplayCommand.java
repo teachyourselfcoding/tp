@@ -65,7 +65,12 @@ public class DisplayCommand extends Command{
             break;
         }
         case "date" : {
-            scheduleManager.display(specificDate);
+            if (specificDate.equals(LocalDate.now())){
+                scheduleManager.displayTodaySchedule();
+            }
+            else {
+                scheduleManager.display(specificDate);
+            }
             break;
         }
         case "date with range" : {

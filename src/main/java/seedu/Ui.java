@@ -1,5 +1,7 @@
 package seedu;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -95,14 +97,24 @@ public class Ui {
         System.out.println(text);
     }
 
-    public static <T> void printListGenericType(ArrayList<T> lists){
-        if (lists!=null){
+    public static <T> void printListGenericType(ArrayList<T> lists) {
+        if (lists!=null) {
             for (T i: lists) {
                 print(i.toString());
             }
         }
         print("");
+    }
 
+    /**
+     * convert LocalDate object into String line that is easily readable
+     * @param date
+     * @return
+     */
+    public static String convertDateToString(LocalDate date){
+
+        String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM"));
+        return stringDate;
     }
 
 }

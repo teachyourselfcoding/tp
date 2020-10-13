@@ -47,7 +47,7 @@ public class Parser {
             case "delete":
                 taskNum = Integer.parseInt(words[1]);
                 //Fallthrough
-                return new DeleteCommand(taskNum-1);
+                return new DeleteCommand(input.substring(7));
             case "find":
                 String[] sentence = input.toLowerCase().split(" ",2);
                 String keywords=sentence[1];
@@ -205,6 +205,9 @@ public class Parser {
     public static DisplayCommand validateDisplayCommand(String input) throws DueQuestException{
         String moduleCode = "";
         String[] filteredInput = input.trim().split(" ",2);
+        if(filteredInput.length==1){
+            return new DisplayCommand(LocalDate.now());
+        }
         String[] descriptionWithModuleCode = filteredInput[1].trim().split(" ", 2);
         if( !descriptionWithModuleCode[0].equals("")&&!descriptionWithModuleCode[0].contains("/date")) {
             moduleCode = descriptionWithModuleCode[0].trim().toUpperCase();
