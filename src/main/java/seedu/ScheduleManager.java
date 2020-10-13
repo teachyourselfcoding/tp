@@ -155,7 +155,7 @@ public class ScheduleManager {
 	}
 
 	public void deleteTask(String description){
-		for (LocalDate date = LocalDate.of(2021, 1, 1); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
+		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
 			if(semesterSchedule.get(date).size() != 0){
 				semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
 			}
@@ -163,7 +163,7 @@ public class ScheduleManager {
 	}
 	public void display(LocalDate startDate, LocalDate endDate){
 		Ui.print("List of task from " + startDate.toString() + " to " + endDate.toString());
-		for (LocalDate date = LocalDate.of(2021, 1, 1); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
+		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
 			if (date.isAfter(startDate) && date.isBefore(endDate)){
 				if(semesterSchedule.get(date).size() != 0){
 					Ui.print(date.format(DateTimeFormatter.ofPattern("MMM d"))
