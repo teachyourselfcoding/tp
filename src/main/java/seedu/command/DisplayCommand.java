@@ -8,7 +8,7 @@ import seedu.task.TaskList;
 
 import java.time.LocalDate;
 
-public class DisplayCommand extends Command{
+public class DisplayCommand extends Command {
 
     LocalDate startDate;
     LocalDate endDate;
@@ -69,7 +69,7 @@ public class DisplayCommand extends Command{
                 scheduleManager.displayTodaySchedule();
             }
             else {
-                scheduleManager.display(specificDate);
+                scheduleManager.displayDate(specificDate);
             }
             break;
         }
