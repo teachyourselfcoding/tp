@@ -189,7 +189,6 @@ public class Parser {
         return new Lesson(description, moduleCode, frequency, startTime, endTime);
     }
 
-
     /**
      * Used to validate the input in Display Command
      * @param input
@@ -199,6 +198,9 @@ public class Parser {
     public static DisplayCommand validateDisplayCommand(String input) throws DueQuestException{
         String moduleCode = "";
         String[] filteredInput = input.trim().split(" ",2);
+        if(filteredInput.length==1){
+            return new DisplayCommand(LocalDate.now());
+        }
         String[] descriptionWithModuleCode = filteredInput[1].trim().split(" ", 2);
         if( !descriptionWithModuleCode[0].equals("")&&!descriptionWithModuleCode[0].contains("/date")) {
             moduleCode = descriptionWithModuleCode[0].trim().toUpperCase();

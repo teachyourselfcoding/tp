@@ -14,26 +14,27 @@ import java.util.ArrayList;
  * Tasklist class contain all the relevant function such as Adding, deleting.
  * and storing the list of task all in one object.
  */
+
 public class TaskList {
     private  ArrayList<Task> tasks;
 
-    public TaskList(){
+    public TaskList() {
         tasks = new ArrayList<>();
     }
 
-    public TaskList(ArrayList<Task> tasks){
+    public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
-    public Task getIndex(int index){
+    public Task getIndex(int index) {
         return tasks.get(index);
     }
 
-    public int getSize(){
+    public int getSize() {
         return tasks.size();
     }
 
-    public ArrayList<Task> getList(){
+    public ArrayList<Task> getList() {
         return tasks;
     }
 
