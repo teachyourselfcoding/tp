@@ -40,7 +40,7 @@ public class Parser {
             case "delete":
                 taskNum = Integer.parseInt(words[1]);
                 //Fallthrough
-                return new DeleteCommand(taskNum-1);
+                return new DeleteCommand(input.substring(7));
             case "find":
                 String[] sentence = input.toLowerCase().split(" ",2);
                 String keywords=sentence[1];
