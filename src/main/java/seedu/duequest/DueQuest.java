@@ -75,6 +75,7 @@ public class DueQuest {
     public void runn() {
         boolean isExit = false;
         preloadData();
+        predeleteData();
         testDisplayFunction();// used to test display function since add functionality not yet done
 
         while (!isExit) {
@@ -104,6 +105,10 @@ public class DueQuest {
      * use this to preload a set of data since our storage function not available yet.
      * you can use this for Edit, Delete, add...
      */
+
+    public void predeleteData(){
+        scheduleManager.deleteTask("v1.0");
+    }
     public void preloadData(){
         moduleManager.addModule(new seedu.Module("CS2113"));
         moduleManager.addModule(new seedu.Module("EE2026"));

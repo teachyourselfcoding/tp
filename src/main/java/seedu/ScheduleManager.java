@@ -134,7 +134,7 @@ public class ScheduleManager {
 		}
 	}
 
-	/**
+	/*
 	 * Displays tasks on the days within the range.
 	 * The error message will be printed if startDay and endDay gives wrong range (e.g. endDay < startDay).
 	 * @param startDate the start of the range.
@@ -145,6 +145,22 @@ public class ScheduleManager {
 	 *  - handle the task with frequency!
 	 */
 
+	public void deleteTask(String description, LocalDate date){
+		if(semesterSchedule.get(date).size() != 0){
+			semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
+		}
+		else{
+			System.out.println("No task on this date");
+		}
+	}
+
+	public void deleteTask(String description){
+		for (LocalDate date = LocalDate.of(2021, 1, 1); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
+			if(semesterSchedule.get(date).size() != 0){
+				semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
+			}
+		}
+	}
 	public void display(LocalDate startDate, LocalDate endDate){
 		Ui.print("List of task from " + startDate.toString() + " to " + endDate.toString());
 		for (LocalDate date = LocalDate.of(2021, 1, 1); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
