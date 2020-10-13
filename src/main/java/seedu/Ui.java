@@ -1,5 +1,7 @@
 package seedu;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -12,7 +14,7 @@ public class Ui {
     }
 
     /**
-     *print out the on startup message
+     *print out the on startup message.
      */
     public void welcomeMessage() {
 //        String logo = " ____        _        \n"
@@ -30,7 +32,7 @@ public class Ui {
     }
 
     /**
-     * print out the exit message
+     * print out the exit message.
      */
     public void byeMessage() {
         String byeMessage =
@@ -40,25 +42,23 @@ public class Ui {
     }
 
     /**
-     *print out a divider line for better readability of CLI
+     *print out a divider line for better readability of CLI.
      */
     public static void showDivider(){
         System.out.println("_____________________________________________\n");
     }
 
     /**
-     * Scan and Read in user input on the CLI
-     *
-     * @return String command
+     * Scan and Read in user input on the CLI.
+     * @return String command.
      */
     public String readCommand() {
-        String command=in.nextLine();
+        String command = in.nextLine();
         return command;
     }
 
     /**
-     * Prints the Exception information based on the parameters
-     *
+     * Prints the Exception information based on the parameters.
      * @param e DukeExceptionType
      */
     public void showError(DueQuestExceptionType e) {
@@ -72,7 +72,7 @@ public class Ui {
             showDivider();
             break;
         case WRONG_INPUT_FORMAT:
-            System.out.println("Wrong Input Informat");
+            System.out.println("Wrong Input format");
             showDivider();
             break;
         case MISSING_DESCRIPTION:
@@ -91,5 +91,18 @@ public class Ui {
         }
     }
 
+    public static void print(String text){
+        System.out.println(text);
+    }
+
+    public static <T> void printListGenericType(ArrayList<T> lists){
+        if (lists!=null){
+            for (T i: lists) {
+                print(i.toString());
+            }
+        }
+        print("");
+
+    }
 
 }

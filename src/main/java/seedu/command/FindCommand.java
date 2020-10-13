@@ -1,5 +1,7 @@
 package seedu.command;
 
+import seedu.ModuleManager;
+import seedu.ScheduleManager;
 import seedu.Storage;
 import seedu.task.Task;
 import seedu.task.TaskList;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 public class FindCommand extends Command {
     private String keywords;
     public FindCommand(String keywords){
-        this.keywords=keywords;
+        this.keywords = keywords;
     }
     @Override
     public boolean isExit() {
@@ -24,7 +26,7 @@ public class FindCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         ArrayList<Task> list= new ArrayList<>();
         for (Task t: taskList.getList()){
-            if(t.getDescription().contains(keywords)){
+            if (t.getDescription().contains(keywords)) {
                 list.add(t);
             }
         }
@@ -37,6 +39,9 @@ public class FindCommand extends Command {
             position++;
         }
         Ui.showDivider();
+    }
 
+    @Override
+    public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
     }
 }
