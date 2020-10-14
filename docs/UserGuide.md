@@ -277,7 +277,7 @@ Example of Usage:
 * edit v1.0 /date 2021/04/12 /description /v2.0
 * edit v1.0 /date 2021/04/12 /date /2021/02/01
 
-###Delete all tasks of a description
+## Delete all tasks of a description
 
 Delete every task that fits the description regardless of date
 Format: delete taskname 
@@ -286,7 +286,7 @@ Example of Usage
 
 `delete v1.0`
 
-###Delete all tasks of a description
+## Delete all tasks of a description
 
 Delete every task that fits the description on that particular date
 Format: display /date DATE
