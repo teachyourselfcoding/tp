@@ -2,9 +2,7 @@ package seedu.command;
 
 import seedu.ModuleManager;
 import seedu.ScheduleManager;
-import seedu.Storage;
 import seedu.Ui;
-import seedu.task.TaskList;
 
 import java.time.LocalDate;
 
@@ -47,10 +45,6 @@ public class EditTaskCommand extends Command{
     @Override
     public boolean isExit() {
         return false;
-    }
-
-    @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
     }
 
     @Override

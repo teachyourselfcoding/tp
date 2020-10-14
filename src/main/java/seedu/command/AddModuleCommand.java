@@ -3,6 +3,7 @@ package seedu.command;
 import seedu.*;
 import seedu.Module;
 import seedu.exception.InvalidArgumentsException;
+import seedu.exception.ModuleAlreadyExistsException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,14 +64,14 @@ public class AddModuleCommand extends Command {
 
     @Override
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
-        if (moduleManager.checkIfModuleExist(this.module)) {
-            Ui.print(this.module + " is already inside the Module Manager!");
-        } else {
+        try {
             moduleManager.addModule(this.module);
             Ui.print("Successfully added to Module Manager! Have fun suffering from " + this.module);
+            System.out.println("Here are your modules you are currently taking! " +
+                    "\n" + Arrays.toString(moduleManager.getListOfModuleCodes().toArray()));
+            Ui.printSeparator();
+        } catch (ModuleAlreadyExistsException e) {
+            Ui.printModuleAlreadyExistMessage();
         }
-        System.out.println("Here are your modules you are currently taking! " +
-                "\n" + Arrays.toString(moduleManager.getListOfModuleCodes().toArray()));
-        Ui.showDivider();
     }
 }

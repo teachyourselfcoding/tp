@@ -1,10 +1,8 @@
 package seedu;
 
-import com.sun.source.tree.ArrayAccessTree;
 import seedu.task.Task;
-
-import javax.print.DocFlavor;
 import java.util.ArrayList;
+
 
 /**
  * Class for Module.
@@ -31,6 +29,11 @@ public class Module {
 		this.title = title;
 		this.aUNumber = aUNumber;
 		this.teachingStaffs = teachingStaffs;
+		this.listOfTasks = new ArrayList<>();
+	}
+	public Module(String moduleCode) {
+		this.moduleCode = moduleCode;
+		this.listOfTasks = new ArrayList<>();
 	}
 
 	public void addTask(Task task){
@@ -56,8 +59,8 @@ public class Module {
 
 	@Override
 	public String toString() {
-		String information = "Course: " + this.moduleCode + "\n" + "Title: " + this.title + "\n" +
-				"Teaching Staffs: " + teachingStaffs.toString();
+		String information = "\nCourse: " + this.moduleCode + "\n" + "Title: " + this.title + "\n" + "AU: " + this.aUNumber
+				+ "\n" + "Teaching Staffs: " + teachingStaffs.toString();
 		return information;
 	}
 

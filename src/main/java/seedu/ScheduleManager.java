@@ -42,7 +42,6 @@ public class ScheduleManager {
 		}
 	}
 
-
 	/**
 	 * Add lessons to the day of the week that the lesson is conducted in.
 	 * @param lesson lesson to be added to the schedule manager.
@@ -102,7 +101,7 @@ public class ScheduleManager {
 		if (list.size()!=0){
 			Ui.print("List of task on " + specificDate.toString() + " :");
 			Ui.printListGenericType(list);
-			Ui.showDivider();
+			Ui.printSeparator();
 		} else {
 			Ui.print("No Task on " + Ui.convertDateToString(specificDate));
 		}
@@ -113,7 +112,10 @@ public class ScheduleManager {
 	 * The error message will be printed if startDay and endDay gives wrong range (e.g. endDay < startDay).
 	 * @param startDate the start of the range.
 	 * @param endDate the end of the range.
+<<<<<<< HEAD
+=======
 
+>>>>>>> cc0ba615b22b5c9ceea2eea94404512ed9066d4c
 	 * FIXME
 	 *  - add code and output based on UG
 	 *  - handle the task with frequency!

@@ -49,18 +49,35 @@ Here are your modules you are currently taking!
 
 
 
+Adds a module into the module manager if it hasn't exist.
+
+Format: `module c/module_code MODULE_CODE`
+
+* The `MODULE_CODE` has to be in a valid format.
+* There are 3 types of valid module codes. 
+  * 6 characters long. The first 2 characters are alphabets. The last 4 characters are digits. Example: CS2113
+  * 7 characters long. The first 3 characters are alphabets. The last 4 characters are digits. Example: DSA4211
+  * 7 characters long. The first 2 characters are alphabets. The next 4 characters are digits. The last character is an alphabet. The  Example: CS2113T
+
+Example of Usage
+
+* `module c/MA4270`
+* `module c/CS2113T`
+
 ## Adding a Task
 
 Adds a new task into the schedule manager according to which day the task stated.
 A Task can be a Lesson, Event or Deadline.
-Lessons are classes that are held on every week in your timetable.
-Events are one-off, they only take place on a single day.
-Deadline are assignments where there is a due date.
+
++ Lessons are classes that are held on every week in your timetable.
++ Events are one-off, they only take place on a single day.
++ Deadline are assignments where there is a due date.
 
 ### Adding a lesson: 'lesson'
+
 Adds a new Lesson into both your Schedule Manager and Module Manager
 
-Format: `lesson d/DESCRIPTION M/MODULE_CODE /on d/DAY f/FREQUENCY s/START_TIME e/END_TIME`
+1
 
 * The `DAY` is the Day Of Week when the lesson is conducted on. Type in an integer. If the lesson is held on Thursday, type in 4. If the lesson is held on Wednesday, type in 3.
 * The `START_TIME` and `END_TIME` are both in `HH:MM` format. You are only allowed to type in timings such that `MM` is `00`. For example, `18:00` is allowed but not `18:01`.
@@ -68,8 +85,31 @@ Format: `lesson d/DESCRIPTION M/MODULE_CODE /on d/DAY f/FREQUENCY s/START_TIME e
 Examples of Usage:
 
 * If you want to add a CS2113 online lecture lesson which starts at 4pm and ends at 6pm, held on every Friday (every 7 days): `lesson online lecture CS2113 /on 5 7 16:00 18:00`.
-
 * If you want to add a CS1234 online tutorial lesson which starts at 12pm and ends at 2pm, held on every Thursday (every 7 days): `lesson online tutorial CS1234 /on 4 7 08:00 10:00`
+
+Example I/O:
+
+```
+===================
+lesson lecture online CS2113 /on 5 7 16:00 18:00
+Got it, added lesson to the schedule manager!
+===================
+===================
+Please type the command!
+===================
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+The list of task in CS2113:
+[L]lecture online CS2113 16:00 18:00
+
+===================
+```
+
+
 
 ### Adding an event: 'event'
 Adds an Event into the Schedule Manager. If the Event is associated to a Module, it will be added to the Module Manager as well.
@@ -146,6 +186,7 @@ Example of Usage
 * `display /date 2020/10/12-2020/12/12`
 * `display /date 2020/10/12-2021/01/12`
 
+
 ###Edit a parameter of a task
 Edit the parameter(description, date, frequency, modulecode, time, tasktype) of a certain task
 Format: edit taskname /date DATE /type of property being changed/value of new property
@@ -182,6 +223,7 @@ Format: `module /module_code MODULE_CODE`
 Example of Usage
 * `module MA4270`
 * `module CS2113T`
+
 
 ## FAQ
 
