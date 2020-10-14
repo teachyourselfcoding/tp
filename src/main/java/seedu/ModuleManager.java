@@ -136,25 +136,25 @@ public class ModuleManager {
         return false;
     }
 
-    /**
-     * Method to add a task to the module inside the list of the module manager.
-     * This is executed in the AddCommand method, when a task is added to both.
-     * the module manager and schedule manager.
-     * @param task task to be added into the module manager.
-     * @param moduleCode this is the modulecode of the task. Remember, moduleCode is an attribute of task.
-     */
-    public void addTaskToModule(Task task, String moduleCode) {
-        for (int i = 0; i < this.listOfModules.size(); i++) {
-            if (this.listOfModules.get(i).getModuleCode().equals(moduleCode)) {
-                this.listOfModules.get(i).addTask(task);
-                return;
-            }
-        }
-        // if we reach the end of the for loop, it means that the moduleCode does not exist
-        // hence, we create this module first, add the task to it and
-        // then add it to the module manager
-        Module module = new Module(moduleCode);
-        module.addTask(task);
-        this.listOfModules.add(module);
-    }
+//    /**
+//     * Method to add a task to the module inside the list of the module manager.
+//     * This is executed in the AddCommand method, when a task is added to both.
+//     * the module manager and schedule manager.
+//     * @param task task to be added into the module manager.
+//     * @param moduleCode this is the modulecode of the task. Remember, moduleCode is an attribute of task.
+//     */
+//    public void addTaskToModule(Task task, String moduleCode) {
+//        for (int i = 0; i < this.listOfModules.size(); i++) {
+//            if (this.listOfModules.get(i).getModuleCode().equals(moduleCode)) {
+//                this.listOfModules.get(i).addTask(task);
+//                return;
+//            }
+//        }
+//        // if we reach the end of the for loop, it means that the moduleCode does not exist
+//        // hence, we create this module first, add the task to it and
+//        // then add it to the module manager
+//        Module module = new Module(moduleCode);
+//        module.addTask(task);
+//        this.listOfModules.add(module);
+//    }
 }

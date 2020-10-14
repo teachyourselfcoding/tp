@@ -127,4 +127,10 @@ public class Ui {
         String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM"));
         return stringDate;
     }
+
+    public static void printInvalidArgumentsErrorMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Sorry, please check your arguments again.");
+        System.out.println(SEPARATOR);
+    }
 }
