@@ -25,7 +25,9 @@ public class ModuleManager {
 
 
     public void addModule(Module module) {
-        this.listOfModules.add(module);
+        if (!this.checkIfModuleExist(module)) {
+            this.listOfModules.add(module);
+        }
     }
 
     /**
@@ -59,6 +61,9 @@ public class ModuleManager {
         throw new DueQuestException(DueQuestExceptionType.MISSING_MODULE);
     }
 
+    public int getTotalNumberOfModules() {
+        return this.listOfModules.size();
+    }
 
     public void addTaskToModule(String moduleCode, Task task, LocalDate date) throws DueQuestException{
         try {
