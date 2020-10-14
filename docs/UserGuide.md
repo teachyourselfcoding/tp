@@ -186,6 +186,45 @@ Example of Usage
 * `display /date 2020/10/12-2020/12/12`
 * `display /date 2020/10/12-2021/01/12`
 
+
+###Edit a parameter of a task
+Edit the parameter(description, date, frequency, modulecode, time, tasktype) of a certain task
+Format: edit taskname /date DATE /type of property being changed/value of new property
+
+*Example of Usage
+* edit v1.0 /date 2021/04/12 /description /v2.0
+* edit v1.0 /date 2021/04/12 /date /2021/02/01
+  
+###Delete all tasks of a description
+Delete every task that fits the description regardless of date
+Format: delete taskname 
+
+Example of Usage
+* delete v1.0
+
+###Delete all tasks of a description
+Delete every task that fits the description on that particular date
+Format: display /date DATE
+* The DATE must be in YYYY/MM/DD
+
+Example of Usage
+* delete v1.0 /date 2020/01/12
+
+###Adding a module: ```module```
+Adds a module into the module manager if it hasn't exist.
+
+Format: `module /module_code MODULE_CODE`
+* The `MODULE_CODE` has to be in a valid format.
+* There are 3 types of valid module codes. 
+    * 6 characters long. The first 2 characters are alphabets. The last 4 characters are digits. Example: CS2113
+    * 7 characters long. The first 3 characters are alphabets. The last 4 characters are digits. Example: DSA4211
+    * 7 characters long. The first 2 characters are alphabets. The next 4 characters are digits. The last character is an alphabet. The  Example: CS2113T
+
+Example of Usage
+* `module MA4270`
+* `module CS2113T`
+
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
