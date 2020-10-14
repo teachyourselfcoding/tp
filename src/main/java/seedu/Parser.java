@@ -107,7 +107,7 @@ public class Parser {
      * for DeadLine object.
      * @param  input representing user input.
      * @return DeadLine object including the moduleCode of the deadline.
-     * @throws DueQuestException if missing information.
+     * @throws DueQuestException if missing information or date is invalid.
      */
     public static Deadline validateDeadline(String input) throws DueQuestException {
         String[] filteredInput = input.trim().split(" ", 2);
@@ -115,13 +115,16 @@ public class Parser {
             throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
         }  else if (!filteredInput[1].contains("/by")) {
             throw new DueQuestException(DueQuestExceptionType.MISSING_DEADLINE);
-        } else {
-            String[] moduleCodeAndDescription = filteredInput[1].split("/by",2)[0].trim().split(" ", 2);
-            String moduleCode = moduleCodeAndDescription[0].trim();
-            String description = moduleCodeAndDescription[1].trim();
-            String byInfo = filteredInput[1].split("/by", 2)[1].trim();
-            return new Deadline(moduleCode, description, byInfo);
         }
+        String[] moduleCodeAndDescription = filteredInput[1].split("/by",2)[0].trim().split(" ", 2);
+        String moduleCode = moduleCodeAndDescription[0].trim();
+        String description = moduleCodeAndDescription[1].trim();
+        String byInfo = filteredInput[1].split("/by", 2)[1].trim();
+        if (LocalDate.parse(byInfo).isAfter(LocalDate.of(2021, 6, 1)) ||
+            LocalDate.parse(byInfo).isBefore(LocalDate.of(2020, 10, 12))) {
+            throw new DueQuestException((DueQuestExceptionType.INVALID_DATE));
+        }
+        return new Deadline(moduleCode, description, byInfo);
     }
 
     /**
@@ -209,14 +212,25 @@ public class Parser {
      * @return the Lesson object.
      * @throws DueQuestException settle later.
      */
-    public static Lesson validateLesson(String input) {
+    public static Lesson validateLesson(String input) throws DueQuestException {
         String[] filteredInput = input.trim().split(" ", 2);
+        if (filteredInput.length == 1) {
+            throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
+        }  else if (!filteredInput[1].contains("/on")) {
+            throw new DueQuestException(DueQuestExceptionType.MISSING_LESSON_TIMING_DETAILS);
+        }
         String[] descriptionWithModuleCode = filteredInput[1].split("/on", 2);
         String[] frequncyAndTime = descriptionWithModuleCode[1].trim().split(" ");
+        if (frequncyAndTime.length != 4) {
+            throw new DueQuestException(DueQuestExceptionType.MISSING_LESSON_TIMING_DETAILS);
+        }
         String description = descriptionWithModuleCode[0].trim();
         descriptionWithModuleCode = descriptionWithModuleCode[0].trim().split(" ");
         int size = descriptionWithModuleCode.length;
         String moduleCode = descriptionWithModuleCode[size - 1];
+        if (!verifyModuleCode(moduleCode)) {
+            throw new DueQuestException(DueQuestExceptionType.INVALID_MODULE_CODE);
+        }
         description = description.substring(0, description.length() - moduleCode.length()).trim();
         int[] frequency = new int[2];
         frequency[0] = Integer.parseInt(frequncyAndTime[0]);
@@ -301,7 +315,7 @@ public class Parser {
         }
         String moduleCode = filteredInput[1].trim();
         if (!verifyModuleCode(moduleCode)) {
-            throw new DueQuestException(DueQuestExceptionType.INVALID_MODULE);
+            throw new DueQuestException(DueQuestExceptionType.INVALID_MODULE_CODE);
         } else {
             return new Module(moduleCode);
         }
