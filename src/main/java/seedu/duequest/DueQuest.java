@@ -47,6 +47,18 @@ public class DueQuest {
         while (!isExit) {
             String fullCommand = ui.readCommand();
 
+
+    /**
+     * The run method to execute the commands FOR OUR TP!!!!
+     */
+    public void runn() {
+        boolean isExit = false;
+        preloadData();
+        testDisplayFunction();// used to test display function since add functionality not yet done
+
+        while (!isExit) {
+            String fullCommand = ui.readCommand();
+
             try {
                 Command c = Parser.parse(fullCommand);
                 c.execute(scheduleManager, moduleManager, ui);

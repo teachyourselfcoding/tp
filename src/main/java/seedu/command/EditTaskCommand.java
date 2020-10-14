@@ -20,26 +20,29 @@ public class EditTaskCommand extends Command{
     String newProperty;
     int[] newFrequency;
 
-    public EditTaskCommand(String description, String type, LocalDate date, String newProperty){
+    public EditTaskCommand(String description,  LocalDate date, String type,String newProperty){
         this.type = type;
         this.date = date;
         this.newProperty = newProperty;
         this.description = description;
     }
 
-    public EditTaskCommand(String description, String type, LocalDate date, LocalDate newDate){
+    public EditTaskCommand(String description, LocalDate date, String type, LocalDate newDate){
         this.type = type;
         this.date= date;
         this.newDate = newDate;
         this.description = description;
     }
 
-    public EditTaskCommand(String description, String type, LocalDate date, int[] newFrequency){
+    public EditTaskCommand(String description, LocalDate date, String type, int[] newFrequency){
         this.type = type;
         this.date= date;
         this.newFrequency = newFrequency;
         this.description = description;
     }
+
+
+
 
     @Override
     public boolean isExit() {
