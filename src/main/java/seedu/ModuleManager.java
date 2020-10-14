@@ -1,6 +1,7 @@
 package seedu;
 
 
+import seedu.exception.ModuleNotExistsException;
 import seedu.task.Deadline;
 import seedu.task.Task;
 import java.time.LocalDate;
@@ -23,15 +24,21 @@ public class ModuleManager {
         this.listOfModules = listOfModules;
     }
 
-
+    /**
+     * Add new module to the app.
+     * If the module with the same course code exists already, the message will be printed.
+     * @param module new Module object to add
+     */
     public void addModule(Module module) {
         if (!this.checkIfModuleExist(module)) {
             this.listOfModules.add(module);
+        } else {
+            Ui.printModuleAlreadyExistMessage(module.getModuleCode());
         }
     }
 
     /**
-     * Check if the module already exists in the ModuleManager.
+     * Check if the module with the same module code already exists in the ModuleManager.
      * This is to check before adding in any modules.
      * @param module module to be check if it already exist.
      * @return ture if the module exist, false if it dosen't.
@@ -40,43 +47,68 @@ public class ModuleManager {
         return this.getListOfModuleCodes().contains(module.getModuleCode());
     }
 
-    public Module getModule(String moduleCode) throws DueQuestException{
-        for (Module m:listOfModules) {
-            if (m.getModuleCode()==moduleCode){
+    /**
+     * Gets the module with specified module code from the list.
+     * @param moduleCode module code in string
+     * @return the Module object in list
+     * @throws ModuleNotExistsException if nothing is found
+     */
+    public Module getModule(String moduleCode) throws ModuleNotExistsException{
+        for (Module m: listOfModules) {
+            if (m.getModuleCode() == moduleCode){
                 return m;
             }
         }
-        throw new DueQuestException(DueQuestExceptionType.MISSING_MODULE);
+        throw new ModuleNotExistsException();
     }
-    public int getModuleIndex(String moduleCode) throws DueQuestException{
+
+    /**
+     * Gives the index of the module in the list.
+     * @param moduleCode module code in string
+     * @return the Module object in list
+     * @throws ModuleNotExistsException if nothing is found
+     */
+    public int getModuleIndex(String moduleCode) throws ModuleNotExistsException{
         int indexCount = 0;
-        for (Module m:listOfModules) {
-            if (m.getModuleCode()==moduleCode){
+
+        for (Module m: listOfModules) {
+            if (m.getModuleCode() == moduleCode){
                 return indexCount;
             }
             else{
                 indexCount++;
             }
         }
-        throw new DueQuestException(DueQuestExceptionType.MISSING_MODULE);
+        throw new ModuleNotExistsException();
     }
 
     public int getTotalNumberOfModules() {
         return this.listOfModules.size();
     }
 
+    /**
+     *
+     * @param moduleCode
+     * @param task
+     * @param date
+     * @throws DueQuestException
+     */
     public void addTaskToModule(String moduleCode, Task task, LocalDate date) throws DueQuestException{
         try {
             listOfModules.get(getModuleIndex(moduleCode)).addTask(task);
             ScheduleManager.updateSchedule(date,task);
-        } catch (DueQuestException e) {
-            throw new DueQuestException(DueQuestExceptionType.MISSING_MODULE);
+        } catch (ModuleNotExistsException e) {
+            Ui.printModuleNotExistMessage(moduleCode);
         }
     }
 
-    // Display all the task in a module
-    public void display(String moduleCode) {
-        for (Module m:listOfModules) {
+    /**
+     * Display the tasks of a module.
+     * @param moduleCode module code's string
+     * @throws ModuleNotExistsException
+     */
+    public void display(String moduleCode) throws ModuleNotExistsException{
+        for (Module m: listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
                 ArrayList<Task> tasks = m.getListOfTasks();
                 Ui.print("The list of task in " + moduleCode + ":");
@@ -85,9 +117,10 @@ public class ModuleManager {
                 break;
             }
         }
+        throw new ModuleNotExistsException();
     }
     // Display all the task in a module on a specific date
-    public void display(String moduleCode, LocalDate date) {
+    public void display(String moduleCode, LocalDate date) throws ModuleNotExistsException{
         for (Module m : listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
                 ArrayList<Task> filteredTasks = new ArrayList<>();
@@ -101,10 +134,11 @@ public class ModuleManager {
                 Ui.print("The list of task in " + moduleCode + " on " + date.toString() + " :");
                 Ui.printListGenericType(filteredTasks);
                 Ui.showDivider();
-
             }
         }
+        throw new ModuleNotExistsException();
     }
+
     public ArrayList<Module> getListOfModules() {
         return listOfModules;
     }
@@ -122,39 +156,24 @@ public class ModuleManager {
     }
 
     /**
-     * Method to check if a module exist in the list of modules based on a given module code.
-     * @param moduleCode moduleCode of the module in String.
-     * @return true if module exist and false if it does not.
+     * Method to add a task to the module inside the list of the module manager.
+     * This is executed in the AddCommand method, when a task is added to both.
+     * the module manager and schedule manager.
+     * @param task task to be added into the module manager.
+     * @param moduleCode this is the modulecode of the task. Remember, moduleCode is an attribute of task.
      */
-    public boolean checkIfModuleExist(String moduleCode) {
-        List<String> listOfModuleCodes = this.getListOfModuleCodes();
-        for (String code: listOfModuleCodes) {
-            if (moduleCode.equals(code)) {
-                return true;
+    public void addTaskToModule(Task task, String moduleCode) {
+        for (int i = 0; i < this.listOfModules.size(); i++) {
+            if (this.listOfModules.get(i).getModuleCode().equals(moduleCode)) {
+                this.listOfModules.get(i).addTask(task);
+                return;
             }
         }
-        return false;
+        // if we reach the end of the for loop, it means that the moduleCode does not exist
+        // hence, we create this module first, add the task to it and
+        // then add it to the module manager
+        Module module = new Module(moduleCode);
+        module.addTask(task);
+        this.listOfModules.add(module);
     }
-
-//    /**
-//     * Method to add a task to the module inside the list of the module manager.
-//     * This is executed in the AddCommand method, when a task is added to both.
-//     * the module manager and schedule manager.
-//     * @param task task to be added into the module manager.
-//     * @param moduleCode this is the modulecode of the task. Remember, moduleCode is an attribute of task.
-//     */
-//    public void addTaskToModule(Task task, String moduleCode) {
-//        for (int i = 0; i < this.listOfModules.size(); i++) {
-//            if (this.listOfModules.get(i).getModuleCode().equals(moduleCode)) {
-//                this.listOfModules.get(i).addTask(task);
-//                return;
-//            }
-//        }
-//        // if we reach the end of the for loop, it means that the moduleCode does not exist
-//        // hence, we create this module first, add the task to it and
-//        // then add it to the module manager
-//        Module module = new Module(moduleCode);
-//        module.addTask(task);
-//        this.listOfModules.add(module);
-//    }
 }

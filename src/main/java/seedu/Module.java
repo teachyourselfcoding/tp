@@ -32,6 +32,9 @@ public class Module {
 		this.aUNumber = aUNumber;
 		this.teachingStaffs = teachingStaffs;
 	}
+	public Module(String moduleCode) {
+		this.moduleCode = moduleCode;
+	}
 
 	public void addTask(Task task){
 		listOfTasks.add(task);

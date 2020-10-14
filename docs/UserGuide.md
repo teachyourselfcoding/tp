@@ -53,11 +53,13 @@ Here are your modules you are currently taking!
 
 Adds a new task into the schedule manager according to which day the task stated.
 A Task can be a Lesson, Event or Deadline.
-Lessons are classes that are held on every week in your timetable.
-Events are one-off, they only take place on a single day.
-Deadline are assignments where there is a due date.
+
++ Lessons are classes that are held on every week in your timetable.
++ Events are one-off, they only take place on a single day.
++ Deadline are assignments where there is a due date.
 
 ### Adding a lesson: 'lesson'
+
 Adds a new Lesson into both your Schedule Manager and Module Manager
 
 Format: `lesson d/DESCRIPTION M/MODULE_CODE /on d/DAY f/FREQUENCY s/START_TIME e/END_TIME`

@@ -133,4 +133,16 @@ public class Ui {
         System.out.println("Sorry, please check your arguments again.");
         System.out.println(SEPARATOR);
     }
+
+    public static void printModuleAlreadyExistMessage(String moduleCode) {
+        System.out.println(SEPARATOR);
+        System.out.printf("{} already exists.\n", moduleCode);
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printModuleNotExistMessage(String moduleCode) {
+        System.out.println(SEPARATOR);
+        System.out.printf("{} not exists.\n", moduleCode);
+        System.out.println(SEPARATOR);
+    }
 }
