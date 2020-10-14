@@ -1,13 +1,14 @@
 package seedu;
 
 import org.junit.jupiter.api.Test;
+import seedu.exception.ModuleAlreadyExistsException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ModuleManagerTest {
 
     @Test
-    void checkIfModuleExist_module_trueIfExist() {
+    void checkIfModuleExist_module_trueIfExist() throws ModuleAlreadyExistsException {
         ModuleManager moduleManager = new ModuleManager();
         Module module1 = new Module("CS2113");
         Module module2 = new Module("MA4270");
@@ -17,7 +18,7 @@ class ModuleManagerTest {
     }
 
     @Test
-    void getTotalNumberOfModules_modules_numberOfModulesInModuleManager() {
+    void getTotalNumberOfModules_modules_numberOfModulesInModuleManager() throws ModuleAlreadyExistsException {
         ModuleManager moduleManager = new ModuleManager();
         Module module1 = new Module("CS2113");
         Module module2 = new Module("MA4270");
