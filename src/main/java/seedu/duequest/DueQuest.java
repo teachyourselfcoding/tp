@@ -40,7 +40,7 @@ public class DueQuest {
     }
 
     /**
-     * The run method to execute the commands and halts the program when exit command is read.
+     * The run method to execute the commands FOR OUR TP!!!!
      */
     public void run() {
         boolean isExit = false;

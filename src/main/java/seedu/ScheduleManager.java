@@ -113,39 +113,44 @@ public class ScheduleManager {
 	 * The error message will be printed if startDay and endDay gives wrong range (e.g. endDay < startDay).
 	 * @param startDate the start of the range.
 	 * @param endDate the end of the range.
+<<<<<<< HEAD
+=======
+
+>>>>>>> cc0ba615b22b5c9ceea2eea94404512ed9066d4c
 	 * FIXME
 	 *  - add code and output based on UG
 	 *  - handle the task with frequency!
 	 */
 
 
-	public void editTask(String description, LocalDate date, String property, String newProperty){
+	public void editTask(String name, LocalDate date, String type, String newProperty){
 		for(Task task :semesterSchedule.get(date)){
-			switch(property) {
-			case "description":
-				if (task.getDescription().equals(description)) {
-					task.setDescription(newProperty);
-				}
-				break;
-			case "tasktype":
-				if (task.getDescription().equals(description)) {
-					task.setTasktype(newProperty);
-				}
-				break;
-			case "modulecode":
-				//Fall through
-			case "module code":
-				if (task.getDescription().equals(description)) {
-					task.setModulecode(newProperty);
-				}
-				break;
-			case "time":
-				if (task.getDescription().equals(description)) {
-					task.setTime(newProperty);
-				}
-				break;
-			default:
-				System.out.println("Invalid type");
+
+			switch(type) {
+				case "description":
+					if (task.getDescription().equals(name)) {
+						task.setDescription(newProperty);
+					}
+					break;
+				case "tasktype":
+					if (task.getDescription().equals(name)) {
+						task.setTasktype(newProperty);
+					}
+					break;
+
+				case "module code":
+					if (task.getDescription().equals(name)) {
+						task.setModulecode(newProperty);
+					}
+					break;
+				case "time":
+
+					if (task.getDescription().equals(name)) {
+						task.setTime(newProperty);
+					}
+					break;
+				default:
+					System.out.println("Invalid type");
 			}
 		}
 	}
@@ -161,9 +166,16 @@ public class ScheduleManager {
 	public void editTask(String description, LocalDate date, String property, LocalDate newDate){
 		for(Task task : semesterSchedule.get(date)){
 			if(task.getDescription().equals(description)){
-				task.setDate(newDate);
+				System.out.println(task.getDate());
+				this.semesterSchedule.get(newDate).add(task);
 			}
 		}
+		for(Task newTask : semesterSchedule.get(newDate)){
+			if(newTask.getDescription().equals(description)){
+				newTask.setDate(newDate.toString()); //Need to change later
+			}
+		}
+		deleteTask(description,date);
 	}
 
 
