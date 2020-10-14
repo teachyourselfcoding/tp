@@ -37,7 +37,7 @@ public class ScheduleManager {
 	public ScheduleManager() {
 		this.semesterSchedule = new HashMap<>();
 		// Now I will need to populate this hashmap because it is currently empty with no dates.
-		for (LocalDate date = LocalDate.of(2021, 1, 1); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
+		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
 			this.semesterSchedule.put(date, new ArrayList<>());
 		}
 	}
@@ -55,6 +55,13 @@ public class ScheduleManager {
 				this.semesterSchedule.get(key).add(lesson);
 			}
 		}
+	}
+	/**
+	 * Add lessons on specific days
+	 * @param lesson lesson to be added to the schedule manager.
+	 */
+	public void addLessonOnSpecificDays(Lesson lesson) {
+		semesterSchedule.get(lesson.getDate()).add(lesson);
 	}
 
 
@@ -77,6 +84,42 @@ public class ScheduleManager {
 		this.semesterSchedule.get(date).add(event);
 	}
 
+	public void displayTodaySchedule(){
+		LocalDate todayDate = LocalDate.now();
+		Ui.print( "Today's Schedule:");
+		ArrayList<Task> taskList = semesterSchedule.get(todayDate);
+		ArrayList<Task> nonLessonList= new ArrayList<>();
+		String[] timing = {"08:00","09:00","10:00","11:00", "12:00", "13:00", "14:00", "15:00","16:00","17:00","18:00","19:00"
+				,"20:00","21:00","22:00","23:00"};
+		for (Task t: taskList) {
+			if (t instanceof Lesson){
+				String startTime = ((Lesson) t).getStartTime();
+				String endTime = ((Lesson) t).getEndTime();
+				boolean hasStart=false;
+				boolean hasEnd = false;
+				for(int i = 0; i< timing.length;i++){
+					if (timing[i].equals(startTime) ){
+						hasStart = true;
+						timing[i] = timing[i]+ " " + t.getDescription() + ", " + t.getModuleCode();
+					} else if(timing[i].equals(endTime)){
+						hasEnd = false;
+						hasStart = false;
+						break;
+					}else if(hasStart && !hasEnd) {
+						timing[i] = timing[i] + " " + t.getDescription() + ", " + t.getModuleCode();
+					}
+				}
+			} else {
+				nonLessonList.add(t);
+			}
+		}
+		for (String i: timing){
+			Ui.print(i);
+		}
+		Ui.print("\n Today's task:");
+		Ui.printListGenericType(nonLessonList);
+	}
+
 	/**
 	 * Displays tasks on the specific days.
 	 * @param specificDate the specific day
@@ -86,12 +129,12 @@ public class ScheduleManager {
 	 */
 	public void display(LocalDate specificDate){
 		ArrayList<Task> list =  semesterSchedule.get(specificDate);
-		if (list!=null){
+		if (list.size()!=0){
 			Ui.print("List of task on " + specificDate.toString() + " :");
 			Ui.printListGenericType(list);
 			Ui.showDivider();
 		} else {
-			Ui.print("No Task on that " + specificDate.toString());
+			Ui.print("No Task on " + Ui.convertDateToString(specificDate));
 		}
 	}
 
@@ -165,7 +208,7 @@ public class ScheduleManager {
 	}
 
 	public void deleteTask(String description){
-		for (LocalDate date = LocalDate.of(2021, 1, 1); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
+		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
 			if(semesterSchedule.get(date).size() != 0){
 				semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
 			}
@@ -173,7 +216,7 @@ public class ScheduleManager {
 	}
 	public void display(LocalDate startDate, LocalDate endDate){
 		Ui.print("List of task from " + startDate.toString() + " to " + endDate.toString());
-		for (LocalDate date = LocalDate.of(2021, 1, 1); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
+		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
 			if (date.isAfter(startDate) && date.isBefore(endDate)){
 				if(semesterSchedule.get(date).size() != 0){
 					Ui.print(date.format(DateTimeFormatter.ofPattern("MMM d"))

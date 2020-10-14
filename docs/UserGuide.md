@@ -10,7 +10,7 @@ as well as tasks related to their modules that they are taking.
 {Give steps to get started quickly}
 
 1. Ensure that you have Java 11 or above installed.
-1. Down the latest version of `Duke` from [here](http://link.to/duke).
+1. Down the latest version of `DueQuest` from [here](http://link.to/duke).
 
 ## Features 
 
@@ -66,6 +66,59 @@ Examples of Usage:
 
 ### Adding a deadline: 'deadline'
 Adds a deadline of an assignment into the Schedule Manager and Module Manager. 
+
+##Display task on the Screen
+You can display the task and limit the scope using moduleCode and Date/ Date Range.
+
+###Display today's Schedule
+Display Today's Lesson and Task( Deadline and Event)
+
+Format: `display`
+Example of Usage
+
+* `display`
+ 
+ ###Display all the task in a module
+ Display task in a specific module
+ 
+ Format: `display  MODULECODE`
+ Example of Usage
+ 
+ * `display CS2113`
+ 
+ ###Display all the task in a module on a date
+  Display task in a specific module on a specific Date
+  
+  Format: `display  MODULECODE /date DATE`
+  * The `DATE` must be in `YYYY/MM/DD`
+  
+  Example of Usage
+  
+  * `display CS2113 /date 2020/10/12`
+  * `display ST2334 /date 2021/01/12`
+  
+###Display all the task on a date
+Display task on a specific Date
+    
+Format: `display /date DATE`
+* The `DATE` must be in `YYYY/MM/DD`
+    
+Example of Usage
+* `display /date 2020/10/12`
+* `display /date 2021/01/12`
+
+###Display all the task on a range of date
+Display task on a specific range of days
+    
+Format: `display /date STARTDATE-ENDDATE`
+* The `STARTDATE/ENDDATE` must be in `YYYY/MM/DD`
+* Do note the Dash `-` to indicate the end date
+    
+Example of Usage
+* `display /date 2020/10/12-2020/12/12`
+* `display /date 2020/10/12-2021/01/12`
+ 
+###
 
 ## FAQ
 

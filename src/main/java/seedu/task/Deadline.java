@@ -6,7 +6,7 @@ import java.time.LocalDate;
  *Inherited from Task object, Deadline class has additional attributes.
  * to store deadline timing.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     protected String by;
 
     public Deadline(String description, String by) {
@@ -14,6 +14,7 @@ public class Deadline extends Task{
         super.taskType = "D";
         this.by = by;
     }
+
     public Deadline(String description, String by,Boolean isDone) {
         super(description);
         super.taskType = "D";
@@ -39,11 +40,12 @@ public class Deadline extends Task{
     public String getTimingInfo() {
         return by;
     }
-    public LocalDate getDate(){
+
+    public LocalDate getDate() {
         return convertStringToDate(by);
     }
 
-    public LocalDate convertStringToDate(String stringDate){
+    public LocalDate convertStringToDate(String stringDate) {
         LocalDate date = LocalDate.parse(stringDate.trim());
         return date;
     }
