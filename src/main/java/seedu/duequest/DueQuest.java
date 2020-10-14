@@ -7,7 +7,6 @@ import seedu.command.Command;
 import seedu.task.Deadline;
 import seedu.task.Lesson;
 import seedu.task.TaskList;
-import java.io.FileNotFoundException;
 import java.time.LocalDate;
 
 /**
@@ -38,20 +37,6 @@ public class DueQuest {
         this.scheduleManager = new ScheduleManager();
         this.moduleManager = new ModuleManager();
     }
-
-//    public DueQuest(String FILE_PATH) {
-//        ui = new Ui();
-//        ui.welcomeMessage();
-//        storage = new Storage(FILE_PATH);
-//        try {
-//            tasks = new TaskList(storage.load());
-//            tasks.listContents();
-//        } catch (FileNotFoundException e) {
-//            System.out.println("DueQuest couldn't find duequest.txt to load saved data from");
-//            tasks = new TaskList();
-//            storage.createSavedFile();
-//        }
-//    }
 
     /**
      * The run method to execute the commands and halts the program when exit command is read.

@@ -49,7 +49,7 @@ Examples of Usage:
 
 * If you want to add a CS2113 online lecture lesson which starts at 4pm and ends at 6pm, held on every Friday (every 7 days): `lesson online lecture CS2113 /on 5 7 16:00 18:00`.
 
-* If you want to add a CS1234 online tutorial lesson which starts at 12pm and ends at 2pm, held on every Thursday (every 7 days): `lesson online tutorial CS1234 /on 4 7 12:00 14:00`
+* If you want to add a CS1234 online tutorial lesson which starts at 12pm and ends at 2pm, held on every Thursday (every 7 days): `lesson online tutorial CS1234 /on 4 7 08:00 10:00`
 
 ### Adding an event: 'event'
 Adds an Event into the Schedule Manager. If the Event is associated to a Module, it will be added to the Module Manager as well.
@@ -62,10 +62,16 @@ Format: `event m/MODULE_CODE d/DESCRIPTION /at d/DATE_OF_EVENT t/TIME l/LOCATION
 
 Examples of Usage:
 
-* `event CS2113 final exam /at 2021-05-03 14:00 LT14`.
+* `event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14`.
 
 ### Adding a deadline: 'deadline'
-Adds a deadline of an assignment into the Schedule Manager and Module Manager. 
+Adds a deadline of an assignment into the Schedule Manager and Module Manager.
+
+Format: `deadline d/description `
+
+Examples of Usage:
+
+* `deadline CS2113 TP version 1 /by 2021-04-04`
 
 ##Display task on the Screen
 You can display the task and limit the scope using moduleCode and Date/ Date Range.
@@ -118,7 +124,19 @@ Example of Usage
 * `display /date 2020/10/12-2020/12/12`
 * `display /date 2020/10/12-2021/01/12`
  
-###
+###Adding a module: ```module```
+Adds a module into the module manager if it hasn't exist.
+
+Format: `module /module_code MODULE_CODE`
+* The `MODULE_CODE` has to be in a valid format.
+* There are 3 types of valid module codes. 
+    * 6 characters long. The first 2 characters are alphabets. The last 4 characters are digits. Example: CS2113
+    * 7 characters long. The first 3 characters are alphabets. The last 4 characters are digits. Example: DSA4211
+    * 7 characters long. The first 2 characters are alphabets. The next 4 characters are digits. The last character is an alphabet. The  Example: CS2113T
+
+Example of Usage
+* `module MA4270`
+* `module CS2113T`
 
 ## FAQ
 

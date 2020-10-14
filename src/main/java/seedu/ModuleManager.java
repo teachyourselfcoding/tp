@@ -24,8 +24,18 @@ public class ModuleManager {
     }
 
 
-    public void addModule(Module module){
-        listOfModules.add(module);
+    public void addModule(Module module) {
+        this.listOfModules.add(module);
+    }
+
+    /**
+     * Check if the module already exists in the ModuleManager.
+     * This is to check before adding in any modules.
+     * @param module module to be check if it already exist.
+     * @return ture if the module exist, false if it dosen't.
+     */
+    public boolean checkIfModuleExist(Module module) {
+        return this.getListOfModuleCodes().contains(module.getModuleCode());
     }
 
     public Module getModule(String moduleCode) throws DueQuestException{
@@ -37,7 +47,7 @@ public class ModuleManager {
         throw new DueQuestException(DueQuestExceptionType.MISSING_MODULE);
     }
     public int getModuleIndex(String moduleCode) throws DueQuestException{
-        int indexCount =0;
+        int indexCount = 0;
         for (Module m:listOfModules) {
             if (m.getModuleCode()==moduleCode){
                 return indexCount;
@@ -50,25 +60,24 @@ public class ModuleManager {
     }
 
 
-     public void addTaskToModule(String moduleCode, Task task, LocalDate date) throws DueQuestException{
-
-         try {
-             listOfModules.get(getModuleIndex(moduleCode)).addTask(task);
-             ScheduleManager.updateSchedule(date,task);
-         } catch (DueQuestException e) {
-             throw new DueQuestException(DueQuestExceptionType.MISSING_MODULE);
-         }
-     }
+    public void addTaskToModule(String moduleCode, Task task, LocalDate date) throws DueQuestException{
+        try {
+            listOfModules.get(getModuleIndex(moduleCode)).addTask(task);
+            ScheduleManager.updateSchedule(date,task);
+        } catch (DueQuestException e) {
+            throw new DueQuestException(DueQuestExceptionType.MISSING_MODULE);
+        }
+    }
 
     // Display all the task in a module
     public void display(String moduleCode) {
         for (Module m:listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
-               ArrayList<Task> tasks = m.getListOfTasks();
-               Ui.print("The list of task in " + moduleCode + ":");
-               Ui.printListGenericType(tasks);
-               Ui.showDivider();
-               break;
+                ArrayList<Task> tasks = m.getListOfTasks();
+                Ui.print("The list of task in " + moduleCode + ":");
+                Ui.printListGenericType(tasks);
+                Ui.showDivider();
+                break;
             }
         }
     }
