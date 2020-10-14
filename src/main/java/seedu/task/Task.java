@@ -26,7 +26,7 @@ public class Task {
      * Creates new Task object, without frequency.
      * Error message will be printed if the module with the moduleCode doesn't exist.
      * @param description the task description.
-     * @param moduleCode the code of the module this task relates to.* FIXME
+     * @param moduleCode the code of the module this task relates to.
      *  - add searching module based on moduleCode(String). Need to search through the ModuleManager.
      *  - add error handling.
      */

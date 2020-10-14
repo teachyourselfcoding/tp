@@ -59,8 +59,7 @@ public class Lesson extends Task {
      */
     @Override
     public String toString() {
-//        return description + " " + moduleCode + " " + getLessonDay() + " " + startTime + " " + endTime;
-        return description + " " + moduleCode + " " + startTime + " " + endTime;
+        return "[L]" + description + " " + moduleCode + " " + startTime + " " + endTime;
     }
     public String getStartTime(){
         return startTime;

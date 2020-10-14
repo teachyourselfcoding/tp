@@ -24,8 +24,20 @@ public class ModuleManager {
     }
 
 
-    public void addModule(Module module){
-        listOfModules.add(module);
+    public void addModule(Module module) {
+        if (!this.checkIfModuleExist(module)) {
+            this.listOfModules.add(module);
+        }
+    }
+
+    /**
+     * Check if the module already exists in the ModuleManager.
+     * This is to check before adding in any modules.
+     * @param module module to be check if it already exist.
+     * @return ture if the module exist, false if it dosen't.
+     */
+    public boolean checkIfModuleExist(Module module) {
+        return this.getListOfModuleCodes().contains(module.getModuleCode());
     }
 
     public Module getModule(String moduleCode) throws DueQuestException{
@@ -37,7 +49,7 @@ public class ModuleManager {
         throw new DueQuestException(DueQuestExceptionType.MISSING_MODULE);
     }
     public int getModuleIndex(String moduleCode) throws DueQuestException{
-        int indexCount =0;
+        int indexCount = 0;
         for (Module m:listOfModules) {
             if (m.getModuleCode()==moduleCode){
                 return indexCount;
@@ -49,26 +61,28 @@ public class ModuleManager {
         throw new DueQuestException(DueQuestExceptionType.MISSING_MODULE);
     }
 
+    public int getTotalNumberOfModules() {
+        return this.listOfModules.size();
+    }
 
-     public void addTaskToModule(String moduleCode, Task task, LocalDate date) throws DueQuestException{
-
-         try {
-             listOfModules.get(getModuleIndex(moduleCode)).addTask(task);
-             ScheduleManager.updateSchedule(date,task);
-         } catch (DueQuestException e) {
-             throw new DueQuestException(DueQuestExceptionType.MISSING_MODULE);
-         }
-     }
+    public void addTaskToModule(String moduleCode, Task task, LocalDate date) throws DueQuestException{
+        try {
+            listOfModules.get(getModuleIndex(moduleCode)).addTask(task);
+            ScheduleManager.updateSchedule(date,task);
+        } catch (DueQuestException e) {
+            throw new DueQuestException(DueQuestExceptionType.MISSING_MODULE);
+        }
+    }
 
     // Display all the task in a module
     public void display(String moduleCode) {
         for (Module m:listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
-               ArrayList<Task> tasks = m.getListOfTasks();
-               Ui.print("The list of task in " + moduleCode + ":");
-               Ui.printListGenericType(tasks);
-               Ui.showDivider();
-               break;
+                ArrayList<Task> tasks = m.getListOfTasks();
+                Ui.print("The list of task in " + moduleCode + ":");
+                Ui.printListGenericType(tasks);
+                Ui.showDivider();
+                break;
             }
         }
     }
@@ -122,25 +136,25 @@ public class ModuleManager {
         return false;
     }
 
-    /**
-     * Method to add a task to the module inside the list of the module manager.
-     * This is executed in the AddCommand method, when a task is added to both.
-     * the module manager and schedule manager.
-     * @param task task to be added into the module manager.
-     * @param moduleCode this is the modulecode of the task. Remember, moduleCode is an attribute of task.
-     */
-    public void addTaskToModule(Task task, String moduleCode) {
-        for (int i = 0; i < this.listOfModules.size(); i++) {
-            if (this.listOfModules.get(i).getModuleCode().equals(moduleCode)) {
-                this.listOfModules.get(i).addTask(task);
-                return;
-            }
-        }
-        // if we reach the end of the for loop, it means that the moduleCode does not exist
-        // hence, we create this module first, add the task to it and
-        // then add it to the module manager
-        Module module = new Module(moduleCode);
-        module.addTask(task);
-        this.listOfModules.add(module);
-    }
+//    /**
+//     * Method to add a task to the module inside the list of the module manager.
+//     * This is executed in the AddCommand method, when a task is added to both.
+//     * the module manager and schedule manager.
+//     * @param task task to be added into the module manager.
+//     * @param moduleCode this is the modulecode of the task. Remember, moduleCode is an attribute of task.
+//     */
+//    public void addTaskToModule(Task task, String moduleCode) {
+//        for (int i = 0; i < this.listOfModules.size(); i++) {
+//            if (this.listOfModules.get(i).getModuleCode().equals(moduleCode)) {
+//                this.listOfModules.get(i).addTask(task);
+//                return;
+//            }
+//        }
+//        // if we reach the end of the for loop, it means that the moduleCode does not exist
+//        // hence, we create this module first, add the task to it and
+//        // then add it to the module manager
+//        Module module = new Module(moduleCode);
+//        module.addTask(task);
+//        this.listOfModules.add(module);
+//    }
 }

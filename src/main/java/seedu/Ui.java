@@ -3,7 +3,6 @@ package seedu;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -11,8 +10,14 @@ import java.util.Scanner;
  * and used to print out exception messages for troubleshooting purpose.
  */
 public class Ui {
-    private Scanner in;
-    public Ui() { in = new Scanner(System.in);
+    private Scanner scanner;
+    private static String SEPARATOR="===================";
+
+    /**
+     * Constructor of Ui.
+     */
+    public Ui() {
+        scanner = new Scanner(System.in);
     }
 
     /**
@@ -55,8 +60,12 @@ public class Ui {
      * @return String command.
      */
     public String readCommand() {
-        String command = in.nextLine();
-        return command;
+        System.out.println(SEPARATOR);
+        System.out.println("Please type the command!");
+        System.out.println(SEPARATOR);
+
+        String commandString = scanner.nextLine();
+        return commandString;
     }
 
     /**
@@ -98,10 +107,13 @@ public class Ui {
     }
 
     public static <T> void printListGenericType(ArrayList<T> lists) {
-        if (lists!=null) {
+        if (lists != null) {
             for (T i: lists) {
                 print(i.toString());
             }
+        }
+        if (lists.size() == 0) {
+            System.out.println("You don't have any tasks!");
         }
         print("");
     }
@@ -112,9 +124,13 @@ public class Ui {
      * @return
      */
     public static String convertDateToString(LocalDate date){
-
         String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM"));
         return stringDate;
     }
 
+    public static void printInvalidArgumentsErrorMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Sorry, please check your arguments again.");
+        System.out.println(SEPARATOR);
+    }
 }

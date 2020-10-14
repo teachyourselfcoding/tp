@@ -30,7 +30,27 @@ Example of usage:
 
 `todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
 
+### Adding a module
+
+Format: `add_module c/MODULECODE  t/TITLE a/AU_NUM s/TEACHING_STAFF`
+
+Input: `add_module c/ST2113 a/4 s/Lim`
+
+Output:
+
+```
+===================
+Successfully added to Module Manager! Have fun suffering from Course: ST2113
+Title: null
+Teaching Staffs: [Lim]
+Here are your modules you are currently taking! 
+[ST2113]
+```
+
+
+
 ## Adding a Task
+
 Adds a new task into the schedule manager according to which day the task stated.
 A Task can be a Lesson, Event or Deadline.
 Lessons are classes that are held on every week in your timetable.
@@ -49,7 +69,7 @@ Examples of Usage:
 
 * If you want to add a CS2113 online lecture lesson which starts at 4pm and ends at 6pm, held on every Friday (every 7 days): `lesson online lecture CS2113 /on 5 7 16:00 18:00`.
 
-* If you want to add a CS1234 online tutorial lesson which starts at 12pm and ends at 2pm, held on every Thursday (every 7 days): `lesson online tutorial CS1234 /on 4 7 12:00 14:00`
+* If you want to add a CS1234 online tutorial lesson which starts at 12pm and ends at 2pm, held on every Thursday (every 7 days): `lesson online tutorial CS1234 /on 4 7 08:00 10:00`
 
 ### Adding an event: 'event'
 Adds an Event into the Schedule Manager. If the Event is associated to a Module, it will be added to the Module Manager as well.
@@ -62,10 +82,16 @@ Format: `event m/MODULE_CODE d/DESCRIPTION /at d/DATE_OF_EVENT t/TIME l/LOCATION
 
 Examples of Usage:
 
-* `event CS2113 final exam /at 2021-05-03 14:00 LT14`.
+* `event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14`.
 
 ### Adding a deadline: 'deadline'
-Adds a deadline of an assignment into the Schedule Manager and Module Manager. 
+Adds a deadline of an assignment into the Schedule Manager and Module Manager.
+
+Format: `deadline d/description `
+
+Examples of Usage:
+
+* `deadline CS2113 TP version 1 /by 2021-04-04`
 
 ##Display task on the Screen
 You can display the task and limit the scope using moduleCode and Date/ Date Range.
@@ -77,32 +103,33 @@ Format: `display`
 Example of Usage
 
 * `display`
- 
+
  ###Display all the task in a module
  Display task in a specific module
- 
+
  Format: `display  MODULECODE`
  Example of Usage
- 
+
  * `display CS2113`
- 
+
  ###Display all the task in a module on a date
   Display task in a specific module on a specific Date
-  
+
   Format: `display  MODULECODE /date DATE`
   * The `DATE` must be in `YYYY/MM/DD`
-  
+
   Example of Usage
-  
+
   * `display CS2113 /date 2020/10/12`
   * `display ST2334 /date 2021/01/12`
-  
+
 ###Display all the task on a date
 Display task on a specific Date
     
 Format: `display /date DATE`
 * The `DATE` must be in `YYYY/MM/DD`
-    
+  
+
 Example of Usage
 * `display /date 2020/10/12`
 * `display /date 2021/01/12`
@@ -113,12 +140,25 @@ Display task on a specific range of days
 Format: `display /date STARTDATE-ENDDATE`
 * The `STARTDATE/ENDDATE` must be in `YYYY/MM/DD`
 * Do note the Dash `-` to indicate the end date
-    
+  
+
 Example of Usage
 * `display /date 2020/10/12-2020/12/12`
 * `display /date 2020/10/12-2021/01/12`
- 
-###
+
+###Adding a module: ```module```
+Adds a module into the module manager if it hasn't exist.
+
+Format: `module /module_code MODULE_CODE`
+* The `MODULE_CODE` has to be in a valid format.
+* There are 3 types of valid module codes. 
+    * 6 characters long. The first 2 characters are alphabets. The last 4 characters are digits. Example: CS2113
+    * 7 characters long. The first 3 characters are alphabets. The last 4 characters are digits. Example: DSA4211
+    * 7 characters long. The first 2 characters are alphabets. The next 4 characters are digits. The last character is an alphabet. The  Example: CS2113T
+
+Example of Usage
+* `module MA4270`
+* `module CS2113T`
 
 ## FAQ
 
