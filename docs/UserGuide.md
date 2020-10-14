@@ -30,7 +30,27 @@ Example of usage:
 
 `todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
 
+### Adding a module
+
+Format: `add_module c/MODULECODE  t/TITLE a/AU_NUM s/TEACHING_STAFF`
+
+Input: `add_module c/ST2113 a/4 s/Lim`
+
+Output:
+
+```
+===================
+Successfully added to Module Manager! Have fun suffering from Course: ST2113
+Title: null
+Teaching Staffs: [Lim]
+Here are your modules you are currently taking! 
+[ST2113]
+```
+
+
+
 ## Adding a Task
+
 Adds a new task into the schedule manager according to which day the task stated.
 A Task can be a Lesson, Event or Deadline.
 Lessons are classes that are held on every week in your timetable.
@@ -83,32 +103,33 @@ Format: `display`
 Example of Usage
 
 * `display`
- 
+
  ###Display all the task in a module
  Display task in a specific module
- 
+
  Format: `display  MODULECODE`
  Example of Usage
- 
+
  * `display CS2113`
- 
+
  ###Display all the task in a module on a date
   Display task in a specific module on a specific Date
-  
+
   Format: `display  MODULECODE /date DATE`
   * The `DATE` must be in `YYYY/MM/DD`
-  
+
   Example of Usage
-  
+
   * `display CS2113 /date 2020/10/12`
   * `display ST2334 /date 2021/01/12`
-  
+
 ###Display all the task on a date
 Display task on a specific Date
     
 Format: `display /date DATE`
 * The `DATE` must be in `YYYY/MM/DD`
-    
+  
+
 Example of Usage
 * `display /date 2020/10/12`
 * `display /date 2021/01/12`
@@ -119,11 +140,12 @@ Display task on a specific range of days
 Format: `display /date STARTDATE-ENDDATE`
 * The `STARTDATE/ENDDATE` must be in `YYYY/MM/DD`
 * Do note the Dash `-` to indicate the end date
-    
+  
+
 Example of Usage
 * `display /date 2020/10/12-2020/12/12`
 * `display /date 2020/10/12-2021/01/12`
- 
+
 ###Adding a module: ```module```
 Adds a module into the module manager if it hasn't exist.
 

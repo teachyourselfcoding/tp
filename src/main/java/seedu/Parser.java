@@ -11,15 +11,17 @@ import seedu.command.EditModuleCommand;
 import seedu.command.ExitCommand;
 import seedu.command.FindCommand;
 import seedu.command.ListCommand;
+import seedu.exception.InvalidArgumentsException;
 import seedu.task.Deadline;
 import seedu.task.Event;
 import seedu.task.Lesson;
 import seedu.task.ToDo;
 
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+
 
 /**
  *Parser Object is used for translating String user input into.
@@ -39,49 +41,54 @@ public class Parser {
     public static Command parse(String input) throws DueQuestException {
         int taskNum;
         String[] words = input.split(" ");
-        switch (words[0].toLowerCase()){
-        case "bye":
-            //Fallthrough
-            return new ExitCommand();
-        case "list":
-            //Fallthrough
-            return new ListCommand();
-        case "done":
-            taskNum = Integer.parseInt(words[1]);
-            //Fallthrough
-            return  new DoneCommand(taskNum-1);
-        case "delete":
-            taskNum = Integer.parseInt(words[1]);
-            //Fallthrough
-            return new DeleteCommand(input.substring(7));
-        case "find":
-            String[] sentence = input.toLowerCase().split(" ",2);
-            String keywords=sentence[1];
-            //Fallthrough
-            return new FindCommand(keywords);
-        case "todo":
-            ToDo todo = validateToDo(input);
-            //Fallthrough
-            return new AddCommand(todo);
-        case "deadline":
-            Deadline deadline = validateDeadline(input);
-            //Fallthrough
-            return new AddCommand(deadline);
-        case "event":
-            Event ev = validateEvent(input);
-            //Fallthrough
-            return new AddCommand(ev);
-        case "display":
-            return validateDisplayCommand(input);
-        case "lesson":
-            Lesson lesson = validateLesson(input);
-            return new AddCommand(lesson);
-        case "module": // adding a module
-            Module module = validateModule(input);
-            return new AddModuleCommand(module);
-        default:
-            throw new DueQuestException(DueQuestExceptionType.INVALID_COMMAND);
+        try {
+            switch (words[0].toLowerCase()) {
+                case "bye":
+                    //Fallthrough
+                    return new ExitCommand();
+                case "list":
+                    //Fallthrough
+                    return new ListCommand();
+                case "done":
+                    taskNum = Integer.parseInt(words[1]);
+                    //Fallthrough
+                    return new DoneCommand(taskNum - 1);
+                case "delete":
+                    taskNum = Integer.parseInt(words[1]);
+                    //Fallthrough
+                    return new DeleteCommand(input.substring(7));
+                case "find":
+                    String[] sentence = input.toLowerCase().split(" ", 2);
+                    String keywords = sentence[1];
+                    //Fallthrough
+                    return new FindCommand(keywords);
+                case "todo":
+                    ToDo todo = validateToDo(input);
+                    //Fallthrough
+                    return new AddCommand(todo);
+                case "deadline":
+                    Deadline deadline = validateDeadline(input);
+                    //Fallthrough
+                    return new AddCommand(deadline);
+                case "event":
+                    Event ev = validateEvent(input);
+                    //Fallthrough
+                    return new AddCommand(ev);
+                case "display":
+                    return validateDisplayCommand(input);
+                case "lesson":
+                    Lesson lesson = validateLesson(input);
+                    return new AddCommand(lesson);
+                case "add_module": // adding a module
+                    return new AddModuleCommand(Arrays.copyOfRange(words, 1, input.length()));  // only pass the arguments
+                default:
+                    throw new DueQuestException(DueQuestExceptionType.INVALID_COMMAND);
+            }
+        } catch (InvalidArgumentsException e) {
+            Ui.printInvalidArgumentsErrorMessage();
         }
+
+        return null;  // the function must return something
     }
 
     /**
@@ -299,25 +306,6 @@ public class Parser {
             return dateFormatted.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
         } catch (DateTimeException e) {
             throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
-        }
-    }
-
-    /**
-     * Method to validate a module when adding a new module into the ModuleManager
-     * @param input input line.
-     * @return Module if it is a valid module.
-     * @throws DueQuestException when the module is invalid.
-     */
-    public static Module validateModule(String input) throws DueQuestException {
-        String[] filteredInput = input.trim().split(" ",2);
-        if (filteredInput.length == 1) {
-            throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
-        }
-        String moduleCode = filteredInput[1].trim();
-        if (!verifyModuleCode(moduleCode)) {
-            throw new DueQuestException(DueQuestExceptionType.INVALID_MODULE_CODE);
-        } else {
-            return new Module(moduleCode);
         }
     }
 
