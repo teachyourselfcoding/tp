@@ -38,9 +38,8 @@ public class Parser {
                 //Fallthrough
                 return  new DoneCommand(taskNum-1);
             case "delete":
-                taskNum = Integer.parseInt(words[1]);
                 //Fallthrough
-                return new DeleteCommand(input.substring(7));
+                return  validateDeleteCommand(input);
             case "find":
                 String[] sentence = input.toLowerCase().split(" ",2);
                 String keywords=sentence[1];
@@ -63,6 +62,8 @@ public class Parser {
             case "lesson":
                 Lesson lesson = validateLesson(input);
                 return new AddCommand(lesson);
+            case "edit":
+                return validateEditTaskCommand(input);
             default:
                 throw new DueQuestException(DueQuestExceptionType.INVALID_COMMAND);
             }
@@ -188,6 +189,27 @@ public class Parser {
         String endTime = frequncyAndTime[3];
         return new Lesson(description, moduleCode, frequency, startTime, endTime);
     }
+    /**
+     * Used to validate the input in Delete Command
+     * @param input
+     * @return
+     * @throws DueQuestException
+     */
+    public static DeleteCommand validateDeleteCommand(String input)throws DueQuestException {
+        String[] filteredInput = input.trim().split(" ", 2);
+        if (!input.contains("/date")) {
+            return new DeleteCommand(filteredInput[1]);
+        }
+        try {
+            String[] dateDetails = filteredInput[1].split("/date", 2);
+            LocalDate specificDate = LocalDate.parse(dateDetails[1].trim().replace("/", "-"));
+            return new DeleteCommand(dateDetails[0], specificDate);
+        } catch (DateTimeException e) {
+            throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+
+        }
+    }
+
 
     /**
      * Used to validate the input in Display Command
@@ -195,6 +217,56 @@ public class Parser {
      * @return
      * @throws DueQuestException
      */
+    public static EditTaskCommand validateEditTaskCommand (String input) throws DueQuestException {
+        String filteredInput = input.substring(5);
+        String[] name = filteredInput.trim().split("/date",2);
+        String[] property = name[1].trim().substring(10).trim().split("/",3);
+
+        String description = name[0].trim();
+        String type = (property[1].toLowerCase()).trim();
+        String newValue = property[2].trim();
+        switch (type){
+            case "description":
+                //Fall through
+            case "tasktype":
+                //Fall through
+            case "module code":
+                //Fall through
+            case "modulecode":
+                //Fall through
+            case "time":
+                try {
+                    LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
+                    return new EditTaskCommand(description, date, type, newValue);
+                }catch (DateTimeException e){
+                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+                }
+            case "frequency":
+                int[] newFrequency = new int[2];
+                newFrequency[0] = Integer.parseInt(newValue);
+                try {
+                    LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
+                    return new EditTaskCommand(description, date, type, newFrequency);
+                }catch (DateTimeException e){
+                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+                }
+            case "date":
+                try {
+                    LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
+                    LocalDate newDate = LocalDate.parse(newValue.trim().replace("/","-"));
+                    return new EditTaskCommand(description, date, type, newDate);
+                }catch (DateTimeException e){
+                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+                }
+            default:
+                System.out.println("Wrong type");
+                System.out.println(type);
+                return null;
+
+        }
+    }
+
+
     public static DisplayCommand validateDisplayCommand(String input) throws DueQuestException{
         String moduleCode = "";
         String[] filteredInput = input.trim().split(" ",2);
@@ -251,6 +323,7 @@ public class Parser {
             throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
         }
     }
+
 
 
 

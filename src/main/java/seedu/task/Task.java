@@ -17,6 +17,7 @@ public class Task {
     protected int[] frequency; // frequency of the event. Weekly? Daily?
     protected String time; //Time of the event in HH:MM format
     protected LocalDate date;
+    protected String by;
     protected String notes; // TODO add it in the constructor. ***Low priority, settle later.
 
     //FIXME add new event and deadlines to this list whenever created
@@ -34,6 +35,7 @@ public class Task {
         this.description = description;
         this.moduleCode = moduleCode;
         this.isDone = false;
+        this.date =null;
     }
 
     public Task(String description) {
@@ -87,6 +89,8 @@ public class Task {
         return taskType;
     }
 
+    public LocalDate getDate(){ return date;}
+
     public void maskAsDone() {
         this.isDone = true;
     }
@@ -105,7 +109,9 @@ public class Task {
 
     public void setModulecode(String newModulecode){ this.moduleCode = newModulecode; }
 
-    public void setDate(LocalDate newDate){this.date = newDate; }
+    public void setDate(String newDate){
+        this.by = newDate;
+    }
 
     public void setTime( String newTime) {
         int time = Integer.parseInt(newTime);

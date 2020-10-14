@@ -150,28 +150,32 @@ public class ScheduleManager {
 	 */
 
 
-	public void editTask(String description, LocalDate date, String property, String newProperty){
+	public void editTask(String name, LocalDate date, String type, String newProperty){
+		System.out.println("editing task");
+		System.out.println(type);
 		for(Task task :semesterSchedule.get(date)){
-			switch(property) {
+			switch(type) {
 				case "description":
-					if (task.getDescription().equals(description)) {
+
+					if (task.getDescription().equals(name)) {
 						task.setDescription(newProperty);
+						System.out.println("description edited");
 					}
 					break;
 				case "tasktype":
-					if (task.getDescription().equals(description)) {
+					if (task.getDescription().equals(name)) {
 						task.setTasktype(newProperty);
 					}
 					break;
-				case "modulecode":
-					//Fall through
+
 				case "module code":
-					if (task.getDescription().equals(description)) {
+					if (task.getDescription().equals(name)) {
 						task.setModulecode(newProperty);
 					}
 					break;
 				case "time":
-					if (task.getDescription().equals(description)) {
+
+					if (task.getDescription().equals(name)) {
 						task.setTime(newProperty);
 					}
 					break;
@@ -192,9 +196,16 @@ public class ScheduleManager {
 	public void editTask(String description, LocalDate date, String property, LocalDate newDate){
 		for(Task task : semesterSchedule.get(date)){
 			if(task.getDescription().equals(description)){
-				task.setDate(newDate);
+				System.out.println(task.getDate());
+				this.semesterSchedule.get(newDate).add(task);
 			}
 		}
+		for(Task newTask : semesterSchedule.get(newDate)){
+			if(newTask.getDescription().equals(description)){
+				newTask.setDate(newDate.toString()); //Need to change later
+			}
+		}
+		deleteTask(description,date);
 	}
 
 
