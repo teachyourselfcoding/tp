@@ -15,13 +15,11 @@ import java.util.ArrayList;
  *  - Should we separate the events and deadlines?
  */
 public class Module {
-	private String moduleCode;  // e.g. ST2132
-	private String title;  // e.g. Statistics
-	private int aUNumber;  // e.g. 4
-	private String[] teachingStaffs = new String[5];  // e.g. ["Dr.Lim(lim@e.nus.sg)",]
-	private ArrayList<Task> listOfTasks; // list of tasks in the module. Should we seperate the events and deadlines?
-
-
+	private String moduleCode;
+	private String title;
+	private int aUNumber;
+	private String[] teachingStaffs = new String[5];
+	private ArrayList<Task> listOfTasks;
 
 	/**
 	 * Constructor when I am adding a task that has a module code that has not exist yet.
@@ -98,6 +96,6 @@ public class Module {
 	}
 
 	public boolean equals(Module module) {
-		return module.getModuleCode() == this.moduleCode;
+		return module.getModuleCode().equals(this.moduleCode);
 	}
 }
