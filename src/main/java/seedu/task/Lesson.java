@@ -49,7 +49,8 @@ public class Lesson extends Task {
      */
     @Override
     public String toString() {
-        return "[L]" + description + " " + moduleCode + " " + startTime + " " + endTime;
+        return "[L]" + description + " " + moduleCode + " " + this.getLessonDayInDayOfWeek() +
+                " " + startTime + " " + endTime;
     }
 
     public String getStartTime(){
