@@ -50,8 +50,6 @@ The module with the same code already exists.
 ===================
 ```
 
-
-
 ## Task
 
 A Task can be a Lesson, Event or Deadline.
@@ -269,8 +267,37 @@ Oct 15 schedule :
 ===================
 ```
 
-# Command Summary
+## Edit a task: `edit TASKNAME /date DATE /	/ATTRIBUTES /NEW_VALUE`
 
+Edit the parameter(description, date, frequency, modulecode, time, tasktype) of a certain task
+Format: `edit TASKNAME /date DATE /	/ATTRIBUTES /NEW_VALUE`
+
+Example of Usage: 
+
+* edit v1.0 /date 2021/04/12 /description /v2.0
+* edit v1.0 /date 2021/04/12 /date /2021/02/01
+
+###Delete all tasks of a description
+
+Delete every task that fits the description regardless of date
+Format: delete taskname 
+
+Example of Usage
+
+`delete v1.0`
+
+###Delete all tasks of a description
+
+Delete every task that fits the description on that particular date
+Format: display /date DATE
+
+* The DATE must be in YYYY/MM/DD
+
+Example of Usage
+
+* delete v1.0 /date 2020/01/12
+
+# Command Summary
 + Add Module: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
 + Add Lesson: `lesson TITILE COURSECODE /on DAYOFWEEK 7 STARTTIME ENDTIME`
 + Add Event: `event MODULE_CODE DESCRIPTION /at DATE_OF_EVENT TIME LOCATION_OF_EVENT`
