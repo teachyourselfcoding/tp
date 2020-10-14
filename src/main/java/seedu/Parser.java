@@ -58,11 +58,8 @@ public class Parser {
                     //Fallthrough
                     return new DoneCommand(taskNum - 1);
                 case "delete":
-
                     //Fallthrough
                     return validateDeleteCommand(input);
-
-
                 case "find":
                     String[] sentence = input.toLowerCase().split(" ", 2);
                     String keywords = sentence[1];
@@ -153,8 +150,6 @@ public class Parser {
      * This is the new validateEvent method for our TP.
      * @param input the line input.
      * @return an Event object.
-     * TODO
-     *  - Handle exceptions.
      */
     public static Event validateEvent(String input) {
         String filteredInput = input.trim().split(" ", 2)[1]; //get rid of event word in front
