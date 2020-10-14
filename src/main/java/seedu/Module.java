@@ -33,6 +33,7 @@ public class Module {
 	}
 	public Module(String moduleCode) {
 		this.moduleCode = moduleCode;
+		this.listOfTasks = new ArrayList<>();
 	}
 
 	public void addTask(Task task){
