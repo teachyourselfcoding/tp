@@ -151,15 +151,11 @@ public class ScheduleManager {
 
 
 	public void editTask(String name, LocalDate date, String type, String newProperty){
-		System.out.println("editing task");
-		System.out.println(type);
 		for(Task task :semesterSchedule.get(date)){
 			switch(type) {
 				case "description":
-
 					if (task.getDescription().equals(name)) {
 						task.setDescription(newProperty);
-						System.out.println("description edited");
 					}
 					break;
 				case "tasktype":

@@ -75,7 +75,6 @@ public class DueQuest {
     public void runn() {
         boolean isExit = false;
         preloadData();
-//        predeleteData();
         testDisplayFunction();// used to test display function since add functionality not yet done
 
         while (!isExit) {

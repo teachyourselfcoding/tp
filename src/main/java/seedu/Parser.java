@@ -25,48 +25,52 @@ public class Parser {
      */
     public static Command parse(String input) throws DueQuestException {
         int taskNum;
-        String[] words = input.split(" ");
-            switch (words[0].toLowerCase()){
-            case "bye":
-                //Fallthrough
-                return new ExitCommand();
-            case "list":
-                //Fallthrough
-                return new ListCommand();
-            case "done":
-                taskNum = Integer.parseInt(words[1]);
-                //Fallthrough
-                return  new DoneCommand(taskNum-1);
-            case "delete":
-                //Fallthrough
-                return  validateDeleteCommand(input);
-            case "find":
-                String[] sentence = input.toLowerCase().split(" ",2);
-                String keywords=sentence[1];
-                //Fallthrough
-                return new FindCommand(keywords);
-            case "todo":
-                ToDo todo = validateToDo(input);
-                //Fallthrough
-                return new AddCommand(todo);
-            case "deadline":
-                Deadline deadline = validateDeadline(input);
-                //Fallthrough
-                return new AddCommand(deadline);
-            case "event":
-                Event ev = validateEvent(input);
-                //Fallthrough
-                return new AddCommand(ev);
-            case "display":
+        try {
+            String[] words = input.split(" ");
+            switch (words[0].toLowerCase()) {
+                case "bye":
+                    //Fallthrough
+                    return new ExitCommand();
+                case "list":
+                    //Fallthrough
+                    return new ListCommand();
+                case "done":
+                    taskNum = Integer.parseInt(words[1]);
+                    //Fallthrough
+                    return new DoneCommand(taskNum - 1);
+                case "delete":
+                    //Fallthrough
+                    return validateDeleteCommand(input);
+                case "find":
+                    String[] sentence = input.toLowerCase().split(" ", 2);
+                    String keywords = sentence[1];
+                    //Fallthrough
+                    return new FindCommand(keywords);
+                case "todo":
+                    ToDo todo = validateToDo(input);
+                    //Fallthrough
+                    return new AddCommand(todo);
+                case "deadline":
+                    Deadline deadline = validateDeadline(input);
+                    //Fallthrough
+                    return new AddCommand(deadline);
+                case "event":
+                    Event ev = validateEvent(input);
+                    //Fallthrough
+                    return new AddCommand(ev);
+                case "display":
                     return validateDisplayCommand(input);
-            case "lesson":
-                Lesson lesson = validateLesson(input);
-                return new AddCommand(lesson);
-            case "edit":
-                return validateEditTaskCommand(input);
-            default:
-                throw new DueQuestException(DueQuestExceptionType.INVALID_COMMAND);
+                case "lesson":
+                    Lesson lesson = validateLesson(input);
+                    return new AddCommand(lesson);
+                case "edit":
+                    return validateEditTaskCommand(input);
+                default:
+                    throw new DueQuestException(DueQuestExceptionType.INVALID_COMMAND);
             }
+        }catch (InvalidArgumentsException e) {
+            Ui.printInvalidArgumentsErrorMessage();
+        }
     }
 
     /**
