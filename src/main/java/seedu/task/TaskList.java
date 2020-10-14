@@ -52,7 +52,7 @@ public class TaskList {
                         + tasks.get(j).getFullDescription());
             }
         }
-        Ui.showDivider();
+        Ui.printSeparator();
     }
 
     /**
@@ -76,6 +76,6 @@ public class TaskList {
         } catch (IOException e) {
             System.out.println("Problem with saving file!");
         }
-        Ui.showDivider();
+        Ui.printSeparator();
     }
 }

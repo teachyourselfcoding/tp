@@ -64,7 +64,7 @@ public class AddCommand  extends Command {
         } else {
             return;
         }
-        Ui.showDivider();
+        Ui.printSeparator();
     }
 }
 

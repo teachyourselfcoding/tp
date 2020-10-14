@@ -102,7 +102,7 @@ public class ScheduleManager {
 		if (list.size()!=0){
 			Ui.print("List of task on " + specificDate.toString() + " :");
 			Ui.printListGenericType(list);
-			Ui.showDivider();
+			Ui.printSeparator();
 		} else {
 			Ui.print("No Task on " + Ui.convertDateToString(specificDate));
 		}
@@ -113,7 +113,6 @@ public class ScheduleManager {
 	 * The error message will be printed if startDay and endDay gives wrong range (e.g. endDay < startDay).
 	 * @param startDate the start of the range.
 	 * @param endDate the end of the range.
->>>>>>> upstream/master
 	 * FIXME
 	 *  - add code and output based on UG
 	 *  - handle the task with frequency!

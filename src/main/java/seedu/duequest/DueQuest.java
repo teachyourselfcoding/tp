@@ -1,13 +1,14 @@
 package seedu.duequest;
 
-
-import seedu.*;
-import seedu.Module;
+import seedu.DueQuestException;
+import seedu.ModuleManager;
+import seedu.Parser;
+import seedu.ScheduleManager;
+import seedu.Storage;
+import seedu.Ui;
 import seedu.command.Command;
-import seedu.task.Deadline;
-import seedu.task.Lesson;
 import seedu.task.TaskList;
-import java.time.LocalDate;
+
 
 /**
  * DueQuest class is the main class for running the DueQuest application.
@@ -23,7 +24,7 @@ public class DueQuest {
     /**
      * The main function to run the whole Duke app.
      */
-    public static void main(String[] args) throws DueQuestException {
+    public static void main(String[] args) {
         DueQuest dq = new DueQuest();
         dq.run();
     }
@@ -53,6 +54,7 @@ public class DueQuest {
                 isExit = c.isExit();
             } catch (DueQuestException e) {
                 ui.showError(e.getExceptionType());
+            } catch (NullPointerException e) {  // this has been handled within parser
             }
         }
         ui.byeMessage();

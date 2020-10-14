@@ -71,7 +71,7 @@ public class DisplayCommand extends Command {
                 }
             }
         } catch (ModuleNotExistsException e) {
-            Ui.printModuleNotExistMessage(moduleCode);
+            Ui.printModuleNotExistMessage();
         }
     }
 }

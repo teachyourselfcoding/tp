@@ -1,6 +1,6 @@
 package seedu;
 
-
+import seedu.exception.ModuleAlreadyExistsException;
 import seedu.exception.ModuleNotExistsException;
 import seedu.task.Deadline;
 import seedu.task.Task;
@@ -29,11 +29,11 @@ public class ModuleManager {
      * If the module with the same course code exists already, the message will be printed.
      * @param module new Module object to add
      */
-    public void addModule(Module module) {
+    public void addModule(Module module) throws ModuleAlreadyExistsException{
         if (!this.checkIfModuleExist(module)) {
             this.listOfModules.add(module);
         } else {
-            Ui.printModuleAlreadyExistMessage(module.getModuleCode());
+            throw new ModuleAlreadyExistsException();
         }
     }
 
@@ -98,7 +98,7 @@ public class ModuleManager {
             listOfModules.get(getModuleIndex(moduleCode)).addTask(task);
             ScheduleManager.updateSchedule(date,task);
         } catch (ModuleNotExistsException e) {
-            Ui.printModuleNotExistMessage(moduleCode);
+            Ui.printModuleNotExistMessage();
         }
     }
 
@@ -111,10 +111,11 @@ public class ModuleManager {
         for (Module m: listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
                 ArrayList<Task> tasks = m.getListOfTasks();
+                System.out.println(m); // print the module's information
                 Ui.print("The list of task in " + moduleCode + ":");
                 Ui.printListGenericType(tasks);
-                Ui.showDivider();
-                break;
+                Ui.printSeparator();
+                return;
             }
         }
         throw new ModuleNotExistsException();
@@ -133,7 +134,7 @@ public class ModuleManager {
                 }
                 Ui.print("The list of task in " + moduleCode + " on " + date.toString() + " :");
                 Ui.printListGenericType(filteredTasks);
-                Ui.showDivider();
+                Ui.printSeparator();
             }
         }
         throw new ModuleNotExistsException();
