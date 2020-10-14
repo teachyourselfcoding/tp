@@ -198,15 +198,15 @@ public class ScheduleManager {
 				String endTime = ((Lesson) t).getEndTime();
 				boolean hasStart = false;
 				boolean hasEnd = false;
-				for(int i = 0; i< timing.length;i++){
-					if (timing[i].equals(startTime) ){
+				for (int i = 0; i < timing.length; i++) {
+					if (timing[i].substring(0, 5).equals(startTime) ) {
 						hasStart = true;
 						timing[i] = timing[i]+ " " + t.getDescription() + ", " + t.getModuleCode();
-					} else if(timing[i].equals(endTime)){
+					} else if(timing[i].substring(0, 5).equals(endTime)) {
 						hasEnd = false;
 						hasStart = false;
 						break;
-					}else if(hasStart && !hasEnd) {
+					} if(hasStart && !hasEnd) {
 						timing[i] = timing[i] + " " + t.getDescription() + ", " + t.getModuleCode();
 					}
 				}
@@ -263,10 +263,10 @@ public class ScheduleManager {
 				boolean hasStart = false;
 				boolean hasEnd = false;
 				for(int i = 0; i < timing.length; i++){
-					if (timing[i].equals(startTime) ){
+					if (timing[i].substring(0,5).equals(startTime) ){
 						hasStart = true;
 						timing[i] = timing[i]+ " " + t.getDescription() + ", " + t.getModuleCode();
-					} else if(timing[i].equals(endTime)){
+					} else if(timing[i].substring(0, 5).equals(endTime)){
 						hasEnd = false;
 						hasStart = false;
 						break;
