@@ -42,7 +42,6 @@ public class ScheduleManager {
 		}
 	}
 
-
 	/**
 	 * Add lessons to the day of the week that the lesson is conducted in.
 	 * @param lesson lesson to be added to the schedule manager.
