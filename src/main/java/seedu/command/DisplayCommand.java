@@ -2,9 +2,8 @@ package seedu.command;
 
 import seedu.ModuleManager;
 import seedu.ScheduleManager;
-import seedu.Storage;
 import seedu.Ui;
-import seedu.task.TaskList;
+import seedu.exception.ModuleNotExistsException;
 
 import java.time.LocalDate;
 
@@ -48,29 +47,31 @@ public class DisplayCommand extends Command {
 
     @Override
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
-
-        switch (displayOptions) {
-        case "module" : {
-            moduleManager.display(moduleCode);
-            break;
-        }
-        case "module with date" : {
-            moduleManager.display(moduleCode,specificDate);
-            break;
-        }
-        case "date" : {
-            if (specificDate.equals(LocalDate.now())){
-                scheduleManager.displayTodaySchedule();
+        try {
+            switch (displayOptions) {
+                case "module": {
+                    moduleManager.display(moduleCode);
+                    break;
+                }
+                case "module with date": {
+                    moduleManager.display(moduleCode, specificDate);
+                    break;
+                }
+                case "date": {
+                    if (specificDate.equals(LocalDate.now())) {
+                        scheduleManager.displayTodaySchedule();
+                    } else {
+                        scheduleManager.displayDate(specificDate);
+                    }
+                    break;
+                }
+                case "date with range": {
+                    scheduleManager.display(startDate, endDate);
+                    break;
+                }
             }
-            else {
-                scheduleManager.displayDate(specificDate);
-            }
-            break;
-        }
-        case "date with range" : {
-            scheduleManager.display(startDate,endDate);
-            break;
-        }
+        } catch (ModuleNotExistsException e) {
+            Ui.printModuleNotExistMessage(moduleCode);
         }
     }
 }

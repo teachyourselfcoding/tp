@@ -1,10 +1,8 @@
 package seedu;
 
-import com.sun.source.tree.ArrayAccessTree;
 import seedu.task.Task;
-
-import javax.print.DocFlavor;
 import java.util.ArrayList;
+
 
 /**
  * Class for Module.
