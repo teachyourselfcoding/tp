@@ -1,5 +1,7 @@
 package seedu.task;
 
+import java.time.LocalDate;
+
 /**
  *Inherited from Task object, Event class has additional attributes.
  * to store logistical information.
@@ -67,6 +69,15 @@ public class Event extends Task {
 
     public String getEndTimeOfEvent() {
         return endTimeOfEvent;
+    }
+
+    public LocalDate getDateOfEventInLocalDate() {
+        return convertStringToDate(dateOfEvent);
+    }
+
+    public LocalDate convertStringToDate(String stringDate) {
+        LocalDate date = LocalDate.parse(stringDate.trim());
+        return date;
     }
 }
 
