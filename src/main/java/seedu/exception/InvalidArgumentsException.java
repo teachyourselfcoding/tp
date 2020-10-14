@@ -1,2 +1,4 @@
-package seedu.exception;public class InvalidArgumentsException {
+package seedu.exception;
+
+public class InvalidArgumentsException extends Exception{
 }

@@ -6,12 +6,15 @@ import seedu.command.Command;
 import seedu.command.DeleteCommand;
 import seedu.command.DisplayCommand;
 import seedu.command.DoneCommand;
-import seedu.command.EditTaskCommand;
-import seedu.command.EditModuleCommand;
 import seedu.command.ExitCommand;
 import seedu.command.FindCommand;
 import seedu.command.ListCommand;
+import seedu.command.EditTaskCommand;
+import seedu.exception.EmptyArgumentException;
 import seedu.exception.InvalidArgumentsException;
+import seedu.exception.InvalidModuleCodeException;
+import seedu.exception.MissingLessonTimingException;
+import seedu.exception.WrongDateFormatException;
 import seedu.task.Deadline;
 import seedu.task.Event;
 import seedu.task.Lesson;
@@ -19,7 +22,6 @@ import seedu.task.ToDo;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 
@@ -79,18 +81,25 @@ public class Parser {
                     //Fallthrough
                     return new AddCommand(ev);
                 case "display":
-                    return validateDisplayCommand(input);
+                    return parseDisplayCommand(input);
                 case "lesson":
-                    Lesson lesson = validateLesson(input);
+                    Lesson lesson = parseLesson(input);
                     return new AddCommand(lesson);
-
-                case "add_module": // adding a module
+                case "module": // adding a module
                     return new AddModuleCommand(Arrays.copyOfRange(words, 1, input.length()));  // only pass the arguments
                 default:
                     throw new DueQuestException(DueQuestExceptionType.INVALID_COMMAND);
             }
         } catch (InvalidArgumentsException e) {
             Ui.printInvalidArgumentsErrorMessage();
+        } catch (MissingLessonTimingException e) {
+            Ui.printMissingLessonTimingMessage();
+        } catch (EmptyArgumentException e) {
+            Ui.printEmptyArgumentMessage();
+        } catch (InvalidModuleCodeException e) {
+            Ui.printInvalidModuleCode();
+        } catch (WrongDateFormatException e) {
+            Ui.printInvalidDateFormatMessage();
         }
 
         return null;  // the function must return something
@@ -141,26 +150,6 @@ public class Parser {
     }
 
     /**
-     * Old validateDeadline method.
-     */
-    /*
-    public static Deadline validateDeadline(String input) throws DueQuestException {
-        Deadline d;
-        String[] filteredInput = input.trim().split(" ",2);
-        if (filteredInput.length == 1) {
-            throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
-        }  else if (!filteredInput[1].contains("/by")) {
-            throw new DueQuestException(DueQuestExceptionType.MISSING_DEADLINE);
-        } else {
-            String[] descriptByFilter = filteredInput[1].split("/by",2);
-            String byInfo = parseForDate(descriptByFilter[1]);
-            d = new Deadline(descriptByFilter[0],byInfo);
-        }
-        return d;
-    }
-     */
-
-    /**
      * This is the new validateEvent method for our TP.
      * @param input the line input.
      * @return an Event object.
@@ -190,66 +179,39 @@ public class Parser {
     }
 
     /**
-     * This is the old validateEvent method.
-     */
-    /*
-    /**
-     * Used to validate and check for any errors in the user input
-     * for Event object.
-     * @param  input representing user input.
-     * @return Event object.
-     * @throws DueQuestException if missing information.
-
-    public static Event validateEvent(String input) throws DueQuestException {
-        Event e;
-        String[] filteredInput = input.trim().split(" ",2);
-        if (filteredInput.length == 1) {
-            throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
-        }  else if (!filteredInput[1].contains("/at")) {
-            throw new DueQuestException(DueQuestExceptionType.MISSING_EVENT_INFO);
-        } else {
-            String[] descriptAtFilter = filteredInput[1].split("/at",2);
-            String atInfo = parseForDate(descriptAtFilter[1]);
-            e = new Event(descriptAtFilter[0], atInfo);
-        }
-        return e;
-    }
-    */
-
-    /**
-     * How to add a lesson object through input?
-     * To Validate a lesson object.
-     * Lesson description modulecode /on 4 (digit represent dayOfWeek), frequency, time.
+     * Parses the Lesson object from input.
+     * Lesson description moduleCode /on 4 (digit represent dayOfWeek), frequency, time.
      * Example: lesson lecture CS2113 /on 5 7 16:00 18:00.
      * @param input the line of the input
-     * @return the Lesson object.
-     * @throws DueQuestException settle later.
+     * @return the Lesson object
      */
-    public static Lesson validateLesson(String input) throws DueQuestException {
+    public static Lesson parseLesson(String input) throws EmptyArgumentException, MissingLessonTimingException, InvalidModuleCodeException {
         String[] filteredInput = input.trim().split(" ", 2);
-        if (filteredInput.length == 1) {
-            throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
+
+        if (filteredInput.length == 1) {  // e.g. lesson [empty_arguments]
+            throw new EmptyArgumentException();
         }  else if (!filteredInput[1].contains("/on")) {
-            throw new DueQuestException(DueQuestExceptionType.MISSING_LESSON_TIMING_DETAILS);
+            throw new MissingLessonTimingException();
         }
+
         String[] descriptionWithModuleCode = filteredInput[1].split("/on", 2);
-        String[] frequncyAndTime = descriptionWithModuleCode[1].trim().split(" ");
-        if (frequncyAndTime.length != 4) {
-            throw new DueQuestException(DueQuestExceptionType.MISSING_LESSON_TIMING_DETAILS);
+        String[] frequencyAndTime = descriptionWithModuleCode[1].trim().split(" ");
+        if (frequencyAndTime.length != 4) {
+            throw new MissingLessonTimingException();
         }
         String description = descriptionWithModuleCode[0].trim();
         descriptionWithModuleCode = descriptionWithModuleCode[0].trim().split(" ");
         int size = descriptionWithModuleCode.length;
         String moduleCode = descriptionWithModuleCode[size - 1];
         if (!verifyModuleCode(moduleCode)) {
-            throw new DueQuestException(DueQuestExceptionType.INVALID_MODULE_CODE);
+            throw new InvalidModuleCodeException();
         }
         description = description.substring(0, description.length() - moduleCode.length()).trim();
         int[] frequency = new int[2];
-        frequency[0] = Integer.parseInt(frequncyAndTime[0]);
-        frequency[1] = Integer.parseInt(frequncyAndTime[1]);
-        String startTime = frequncyAndTime[2];
-        String endTime = frequncyAndTime[3];
+        frequency[0] = Integer.parseInt(frequencyAndTime[0]);
+        frequency[1] = Integer.parseInt(frequencyAndTime[1]);
+        String startTime = frequencyAndTime[2];
+        String endTime = frequencyAndTime[3];
         return new Lesson(description, moduleCode, frequency, startTime, endTime);
     }
     /**
@@ -275,69 +237,22 @@ public class Parser {
 
 
     /**
-     * Used to validate the input in Display Command
-     * @param input
-     * @return
-     * @throws DueQuestException
+     * Parses DisplayCommand from the input.
+     * @param input the user's input in string
+     * @return DisplayCommand
+     * @throws WrongDateFormatException if the date in wrong format and cannot be parsed
+     * @throws InvalidArgumentsException if the input gives the argument in wrong format
      */
-    public static EditTaskCommand validateEditTaskCommand (String input) throws DueQuestException {
-        String filteredInput = input.substring(5);
-        String[] name = filteredInput.trim().split("/date",2);
-        String[] property = name[1].trim().substring(10).trim().split("/",3);
-
-        String description = name[0].trim();
-        String type = (property[1].toLowerCase()).trim();
-        String newValue = property[2].trim();
-        switch (type){
-            case "description":
-                //Fall through
-            case "tasktype":
-                //Fall through
-            case "module code":
-                //Fall through
-            case "modulecode":
-                //Fall through
-            case "time":
-                try {
-                    LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
-                    return new EditTaskCommand(description, date, type, newValue);
-                }catch (DateTimeException e){
-                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
-                }
-            case "frequency":
-                int[] newFrequency = new int[2];
-                newFrequency[0] = Integer.parseInt(newValue);
-                try {
-                    LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
-                    return new EditTaskCommand(description, date, type, newFrequency);
-                }catch (DateTimeException e){
-                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
-                }
-            case "date":
-                try {
-                    LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
-                    LocalDate newDate = LocalDate.parse(newValue.trim().replace("/","-"));
-                    return new EditTaskCommand(description, date, type, newDate);
-                }catch (DateTimeException e){
-                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
-                }
-            default:
-                System.out.println("Wrong type");
-                System.out.println(type);
-                return null;
-
-        }
-    }
-
-
-    public static DisplayCommand validateDisplayCommand(String input) throws DueQuestException{
+    public static DisplayCommand parseDisplayCommand(String input) throws WrongDateFormatException, InvalidArgumentsException{
         String moduleCode = "";
         String[] filteredInput = input.trim().split(" ",2);
-        if(filteredInput.length==1){
+
+        if(filteredInput.length==1){  // by default, the display time is now.
             return new DisplayCommand(LocalDate.now());
         }
+
         String[] descriptionWithModuleCode = filteredInput[1].trim().split(" ", 2);
-        if( !descriptionWithModuleCode[0].equals("")&&!descriptionWithModuleCode[0].contains("/date")) {
+        if(!descriptionWithModuleCode[0].equals("") && !descriptionWithModuleCode[0].contains("/date")) {
             moduleCode = descriptionWithModuleCode[0].trim().toUpperCase();
             if( descriptionWithModuleCode.length == 1){
                 return new DisplayCommand(moduleCode);
@@ -354,36 +269,25 @@ public class Parser {
                     LocalDate endDate = LocalDate.parse(dateRange[1].trim().replace("/","-"));
                     return new DisplayCommand(startDate,endDate);
                 } catch (DateTimeException e){
-                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+                    throw new WrongDateFormatException();
                 }
             } else if (!moduleCode.equals("")) {
                 try {
                     LocalDate specificDate = LocalDate.parse(dateDetails[1].trim().replace("/","-"));
                     return new DisplayCommand(moduleCode, specificDate);
                 } catch (Exception e) {
-                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+                    throw new WrongDateFormatException();
                 }
             } else {
                 try {
                     LocalDate specificDate = LocalDate.parse(dateDetails[1].trim().replace("/","-"));
                     return new DisplayCommand(specificDate);
                 } catch (Exception e) {
-                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+                    throw new WrongDateFormatException();
                 }
             }
         }
-        throw new DueQuestException(DueQuestExceptionType.WRONG_INPUT_FORMAT);
-
-    }
-
-    public static String parseForDate(String input)  throws DueQuestException {
-        try {
-            DateTimeFormatter df = DateTimeFormatter.ofPattern("d-MM-yyyy");
-            LocalDate dateFormatted = LocalDate.parse(input.trim(), df);
-            return dateFormatted.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
-        } catch (DateTimeException e) {
-            throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
-        }
+        throw new InvalidArgumentsException();
     }
 
     /**
@@ -393,7 +297,7 @@ public class Parser {
      * @param moduleCode moduleCode in string form that you want to verify if it is valid.
      * @return true if valid, else false.
      * TODO
-     * 	- refractor this ugly code later.
+     * 	- refactor this ugly code later.
      */
     public static boolean verifyModuleCode(String moduleCode) {
         if (moduleCode.length() < 6 || moduleCode.length() > 7) {
@@ -448,4 +352,54 @@ public class Parser {
         }
         return true;
     }
+
+    public static EditTaskCommand validateEditTaskCommand (String input) throws DueQuestException {
+        String filteredInput = input.substring(5);
+        String[] name = filteredInput.trim().split("/date",2);
+        String[] property = name[1].trim().substring(10).trim().split("/",3);
+
+        String description = name[0].trim();
+        String type = (property[1].toLowerCase()).trim();
+        String newValue = property[2].trim();
+        switch (type){
+            case "description":
+                //Fall through
+            case "tasktype":
+                //Fall through
+            case "module code":
+                //Fall through
+            case "modulecode":
+                //Fall through
+            case "time":
+                try {
+                    LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
+                    return new EditTaskCommand(description, date, type, newValue);
+                }catch (DateTimeException e){
+                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+                }
+            case "frequency":
+                int[] newFrequency = new int[2];
+                newFrequency[0] = Integer.parseInt(newValue);
+                try {
+                    LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
+                    return new EditTaskCommand(description, date, type, newFrequency);
+                }catch (DateTimeException e){
+                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+                }
+            case "date":
+                try {
+                    LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
+                    LocalDate newDate = LocalDate.parse(newValue.trim().replace("/","-"));
+                    return new EditTaskCommand(description, date, type, newDate);
+                }catch (DateTimeException e){
+                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+                }
+            default:
+                System.out.println("Wrong type");
+                System.out.println(type);
+                return null;
+
+        }
+    }
+
 }

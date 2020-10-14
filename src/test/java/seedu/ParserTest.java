@@ -66,7 +66,7 @@ class ParserTest {
         String input1 = "lesson online lecture CS2113 /on 5 7 16:00 18:00";
         String input2 = "lesson online lecture CS2113 5 7 16:00 18:00";
         String input3 = "lesson        ";
-        Lesson lesson = Parser.validateLesson(input1);
+        Lesson lesson = Parser.parseLesson(input1);
         assertEquals(lesson.getLessonDayInDayOfWeek(), DayOfWeek.FRIDAY);
         assertEquals(lesson.getDescription(), "online lecture");
         assertEquals(lesson.getModuleCode(), "CS2113");
@@ -74,11 +74,11 @@ class ParserTest {
         assertEquals(lesson.getEndTime(), "18:00");
         assertThrows(DueQuestException.class, () ->
         {
-            Parser.validateLesson(input2);
+            Parser.parseLesson(input2);
         });
         assertThrows(DueQuestException.class, () ->
         {
-            Parser.validateLesson(input3);
+            Parser.parseLesson(input3);
         });
     }
 
@@ -87,7 +87,7 @@ class ParserTest {
         String input = "lesson online lecture CS2113TTTT 5 7 16:00 18:00";
         assertThrows(DueQuestException.class, () ->
         {
-            Parser.validateLesson(input);
+            Parser.parseLesson(input);
         });
     }
 
@@ -96,26 +96,7 @@ class ParserTest {
         String input = "lesson online lecture CS2113TTTT 5 7 18:00";
         assertThrows(DueQuestException.class, () ->
         {
-            Parser.validateLesson(input);
-        });
-    }
-
-    @Test
-    void validateModule_validModule_returnsModule() throws DueQuestException {
-        String input1 = "module MA2101";
-        String input2 = "module LALA2222";
-        String input3 = "module     ";
-        Module module = Parser.validateModule(input1);
-        assertEquals(module.getModuleCode(), "MA2101");
-        assertEquals(module.equals(new Module("MA2101")), true);
-        assertEquals(module.equals(new Module("MA2101A")), false);
-        assertThrows(DueQuestException.class, () ->
-        {
-            Parser.validateModule(input2);
-        });
-        assertThrows(DueQuestException.class, () ->
-        {
-            Parser.validateModule(input3);
+            Parser.parseLesson(input);
         });
     }
 

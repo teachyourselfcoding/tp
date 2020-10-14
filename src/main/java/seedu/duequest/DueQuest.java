@@ -1,13 +1,14 @@
 package seedu.duequest;
 
-
-import seedu.*;
-import seedu.Module;
+import seedu.DueQuestException;
+import seedu.ModuleManager;
+import seedu.Parser;
+import seedu.ScheduleManager;
+import seedu.Storage;
+import seedu.Ui;
 import seedu.command.Command;
-import seedu.task.Deadline;
-import seedu.task.Lesson;
 import seedu.task.TaskList;
-import java.time.LocalDate;
+
 
 /**
  * DueQuest class is the main class for running the DueQuest application.
@@ -23,7 +24,7 @@ public class DueQuest {
     /**
      * The main function to run the whole Duke app.
      */
-    public static void main(String[] args) throws DueQuestException {
+    public static void main(String[] args) {
         DueQuest dq = new DueQuest();
         dq.run();
     }
@@ -39,22 +40,10 @@ public class DueQuest {
     }
 
     /**
-     * The run method to execute the commands and halts the program when exit command is read.
+     * The run method to execute the commands FOR OUR TP!!!!
      */
     public void run() {
         boolean isExit = false;
-
-        while (!isExit) {
-            String fullCommand = ui.readCommand();
-
-
-    /**
-     * The run method to execute the commands FOR OUR TP!!!!
-     */
-    public void runn() {
-        boolean isExit = false;
-        preloadData();
-        testDisplayFunction();// used to test display function since add functionality not yet done
 
         while (!isExit) {
             String fullCommand = ui.readCommand();
@@ -65,6 +54,7 @@ public class DueQuest {
                 isExit = c.isExit();
             } catch (DueQuestException e) {
                 ui.showError(e.getExceptionType());
+            } catch (NullPointerException e) {  // this has been handled within parser
             }
         }
         ui.byeMessage();

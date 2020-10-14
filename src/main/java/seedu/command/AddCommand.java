@@ -24,23 +24,6 @@ public class AddCommand  extends Command {
         return false;
     }
 
-    @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.getList().add(tasks.getSize(), task);
-        System.out.println("Got it. I've added this task: \n"
-                + tasks.getIndex(tasks.getSize() - 1).getTaskType() + "["
-                + tasks.getIndex(tasks.getSize() - 1).getStatusIcon() + "] "
-                + tasks.getIndex(tasks.getSize() - 1).getFullDescription()
-                + "\nNow you have "+ tasks.getSize() + " tasks in the list."
-        );
-        Ui.showDivider();
-        try {
-            storage.appendToFile(task);
-        } catch (IOException e){
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
-    }
-
     /**
      * Method to add the lesson into the schedule manager.
      * Exceptions settle later, check if method works first.
@@ -81,7 +64,7 @@ public class AddCommand  extends Command {
         } else {
             return;
         }
-        Ui.showDivider();
+        Ui.printSeparator();
     }
 }
 
