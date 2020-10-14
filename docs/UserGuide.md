@@ -51,7 +51,7 @@ Here are your modules you are currently taking!
 
 Adds a module into the module manager if it hasn't exist.
 
-Format: `module /module_code MODULE_CODE`
+Format: `module c/module_code MODULE_CODE`
 
 * The `MODULE_CODE` has to be in a valid format.
 * There are 3 types of valid module codes. 
@@ -61,8 +61,8 @@ Format: `module /module_code MODULE_CODE`
 
 Example of Usage
 
-* `module MA4270`
-* `module CS2113T`
+* `module c/MA4270`
+* `module c/CS2113T`
 
 ## Adding a Task
 
