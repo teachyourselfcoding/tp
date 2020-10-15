@@ -7,7 +7,7 @@ import java.time.LocalDate;
  * to store deadline timing.
  */
 public class Deadline extends Task {
-    protected String by;
+
 
     public Deadline(String description, String by) {
         super(description);
@@ -15,13 +15,17 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    public Deadline(String description, String by,Boolean isDone) {
+    public Deadline(String moduleCode, String description, String by) {
+        super(description, moduleCode);
+        this.by = by;
+    }
+
+    public Deadline(String description, String by, Boolean isDone) {
         super(description);
         super.taskType = "D";
         this.by = by;
         super.isDone = isDone;
     }
-
 
     public String getDeadline() {
         return by;
@@ -34,7 +38,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.moduleCode + " " + super.toString() + " (by: " + by + ")";
     }
 
     public String getTimingInfo() {

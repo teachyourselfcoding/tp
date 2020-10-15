@@ -32,15 +32,6 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        if (taskList.getSize() != 0) {
-            taskList.deleteItemFromList(taskNum, storage);
-        } else {
-            System.out.println("The list is empty! Nothing to delete!");
-        }
-    }
-
-    @Override
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
         if(this.date == null){
             scheduleManager.deleteTask(description);

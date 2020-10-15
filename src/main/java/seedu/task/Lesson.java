@@ -1,7 +1,5 @@
 package seedu.task;
 
-import seedu.Module;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
@@ -11,7 +9,7 @@ public class Lesson extends Task {
     private String endTime;
     private LocalDate specificDate;
     /**
-     *
+     * Constructor of Lesson object.
      * @param description to say if it is a lecture or tutorial or lab etc
      * @param moduleCode module code
      * @param frequency in an array, tells us the day of the week of the event and frequency
@@ -23,14 +21,6 @@ public class Lesson extends Task {
         super.taskType = "L";
         this.startTime = startTime;
         this.endTime = endTime;
-    }
-
-    public Lesson (String description, String moduleCode, LocalDate specificDate, String startTime, String endTime) {
-        super(description,moduleCode);
-        super.taskType = "L";
-        this.startTime=startTime;
-        this.endTime = endTime;
-        this.specificDate = specificDate;
     }
 
     /**
@@ -59,9 +49,10 @@ public class Lesson extends Task {
      */
     @Override
     public String toString() {
-//        return description + " " + moduleCode + " " + getLessonDay() + " " + startTime + " " + endTime;
-        return description + " " + moduleCode + " " + startTime + " " + endTime;
+        return "[L]" + description + " " + moduleCode + " " + this.getLessonDayInDayOfWeek() +
+                " " + startTime + " " + endTime;
     }
+
     public String getStartTime(){
         return startTime;
     }
