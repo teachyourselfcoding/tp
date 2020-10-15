@@ -101,7 +101,7 @@ public class Storage {
         } else {
             System.out.println("Sorry Couldn’t create save file");
         }
-        Ui.showDivider();
+        Ui.printSeparator();
     }
 
     /**

@@ -1,7 +1,8 @@
 package seedu;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -9,8 +10,14 @@ import java.util.Scanner;
  * and used to print out exception messages for troubleshooting purpose.
  */
 public class Ui {
-    private Scanner in;
-    public Ui() { in = new Scanner(System.in);
+    private Scanner scanner;
+    private static String SEPARATOR="===================";
+
+    /**
+     * Constructor of Ui.
+     */
+    public Ui() {
+        scanner = new Scanner(System.in);
     }
 
     /**
@@ -28,7 +35,7 @@ public class Ui {
                 +"Whats up people! Duke is here to save the day\n"
                 +"So, what can I do for you?\n";
         System.out.print(welcomeMessage);
-        showDivider();
+        System.out.println(SEPARATOR);
     }
 
     /**
@@ -38,23 +45,20 @@ public class Ui {
         String byeMessage =
                 "Aye captain. This is Duke Signing out!\n";
         System.out.print(byeMessage);
-        Ui.showDivider();
+        
     }
-
-    /**
-     *print out a divider line for better readability of CLI.
-     */
-    public static void showDivider(){
-        System.out.println("_____________________________________________\n");
-    }
-
+    
     /**
      * Scan and Read in user input on the CLI.
      * @return String command.
      */
     public String readCommand() {
-        String command = in.nextLine();
-        return command;
+        System.out.println(SEPARATOR);
+        System.out.println("Please type the command!");
+        System.out.println(SEPARATOR);
+
+        String commandString = scanner.nextLine();
+        return commandString;
     }
 
     /**
@@ -65,27 +69,27 @@ public class Ui {
         switch (e) {
         case MISSING_DEADLINE:
             System.out.println("Missing Deadline!");
-            showDivider();
+            System.out.println(SEPARATOR);
             break;
         case MISSING_EVENT_INFO:
             System.out.println("Missing Event Information!");
-            showDivider();
+            System.out.println(SEPARATOR);
             break;
         case WRONG_INPUT_FORMAT:
             System.out.println("Wrong Input format");
-            showDivider();
+            System.out.println(SEPARATOR);
             break;
         case MISSING_DESCRIPTION:
             System.out.println("Missing Description!");
-            showDivider();
+            System.out.println(SEPARATOR);
             break;
         case WRONG_DATE_FORMAT:
             System.out.println("Missing Or Wrong Date Format! Enter in DD-MM-YYYY:");
-            showDivider();
+            System.out.println(SEPARATOR);
             break;
         case INVALID_COMMAND:
             System.out.println("No proper Commands Detected, retype again!");
-            showDivider();
+            System.out.println(SEPARATOR);
             break;
         default:
         }
@@ -95,14 +99,71 @@ public class Ui {
         System.out.println(text);
     }
 
-    public static <T> void printListGenericType(ArrayList<T> lists){
-        if (lists!=null){
+    public static <T> void printListGenericType(ArrayList<T> lists) {
+        if (lists != null) {
             for (T i: lists) {
                 print(i.toString());
             }
         }
+        if (lists.size() == 0) {
+            System.out.println("You don't have any tasks!");
+        }
         print("");
-
     }
 
+    /**
+     * convert LocalDate object into String line that is easily readable
+     * @param date
+     * @return
+     */
+    public static String convertDateToString(LocalDate date){
+        String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM"));
+        return stringDate;
+    }
+
+    public static void printInvalidArgumentsErrorMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Sorry, please check your arguments again.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printModuleAlreadyExistMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("The module with the same code already exists.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printModuleNotExistMessage() {
+        System.out.println(SEPARATOR);
+        System.out.printf("The module does not exists.\n");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printMissingLessonTimingMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("The lesson's time information is missing.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printEmptyArgumentMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("The arguments for this command cannot be empty.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printInvalidModuleCode() {
+        System.out.println(SEPARATOR);
+        System.out.println("The module code given is not valid.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printInvalidDateFormatMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Please give the date in correct format.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printSeparator() {
+        System.out.println(SEPARATOR);
+    }
 }
