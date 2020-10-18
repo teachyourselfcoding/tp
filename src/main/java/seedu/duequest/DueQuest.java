@@ -1,13 +1,18 @@
 package seedu.duequest;
 
 import seedu.DueQuestException;
+import seedu.Module;
 import seedu.ModuleManager;
 import seedu.Parser;
 import seedu.ScheduleManager;
 import seedu.Storage;
 import seedu.Ui;
 import seedu.command.Command;
+import seedu.exception.ModuleAlreadyExistsException;
+import seedu.task.Deadline;
 import seedu.task.TaskList;
+
+import java.time.LocalDate;
 
 
 /**

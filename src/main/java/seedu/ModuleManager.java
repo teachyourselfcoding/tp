@@ -32,6 +32,7 @@ public class ModuleManager {
     public void addModule(Module module) throws ModuleAlreadyExistsException{
         if (!this.checkIfModuleExist(module)) {
             this.listOfModules.add(module);
+            Ui.print("added: "+ module.getModuleCode().toString());
         } else {
             throw new ModuleAlreadyExistsException();
         }
