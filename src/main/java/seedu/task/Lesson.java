@@ -24,6 +24,23 @@ public class Lesson extends Task {
     }
 
     /**
+     * for quick adding o lessons
+     * @param description
+     * @param moduleCode
+     * @param startTime
+     * @param endTime
+     * @param specificDate
+     */
+    public Lesson(String description, String moduleCode, String startTime, String endTime,LocalDate  specificDate) {
+        super(description, moduleCode);
+        super.taskType = "L";
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.specificDate =specificDate;
+
+    }
+
+    /**
      * Method to get the day of the week where which the lesson will be held on.
      * @return this will return me the day in DayOfWeek. eg, return MONDAY, TUESDAY, WEDNESDAY, etc.
      */
