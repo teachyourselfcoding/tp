@@ -270,43 +270,155 @@ Oct 15 schedule :
 ## Edit a task: `edit TASKNAME /date DATE /	/ATTRIBUTES /NEW_VALUE`
 
 Edit the parameter(description, date, frequency, modulecode, time, tasktype) of a certain task
-Format: `edit TASKNAME /date DATE /	/ATTRIBUTES /NEW_VALUE`
+Format: `edit TASKNAME /date DATE /ATTRIBUTES /NEW_VALUE`
 
 Example of Usage: 
 
-* edit v1.0 /date 2021/04/12 /description /v2.0
-* edit v1.0 /date 2021/04/12 /date /2021/02/01
+```
+===================
+deadline CS2113 tp /by 2020-10-16
+Got it, added deadline to Schedule Manager and Module Manager
+===================
+===================
+Please type the command!
+===================
+edit tp /date 2020-10-16 /date /2020-10-15
+2020-10-16
+===================
+Please type the command!
+===================
+display CS2113
 
-## Delete all tasks of a description
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+The list of task in CS2113:
+[D]CS2113 tp (by: 2020-10-15)
+===================
+```
+
+## Delete tasks of a description:  `delete DESCRIPTION` 
 
 Delete every task that fits the description regardless of date
-Format: delete taskname 
+Format: `delete DESCRIPTION` 
 
-Example of Usage
+Example of Usage:
 
-`delete v1.0`
+```
+===================
+deadline CS2113 tp /by 2020-10-16
+Got it, added deadline to Schedule Manager and Module Manager
+===================
+===================
+Please type the command!
+===================
+delete tp
+===================
+Please type the command!
+===================
+display CS2113
 
-## Delete all tasks of a description
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+The list of task in CS2113:
+You don't have any tasks!
+
+===================
+===================
+Please type the command!
+===================
+
+```
+
+## Delete all tasks of a description based on date: `delete DESCRIPTION /date DATE`
 
 Delete every task that fits the description on that particular date
-Format: display /date DATE
+Format: `delete DESCRIPTION /date DATE`
 
 * The DATE must be in YYYY/MM/DD
 
 Example of Usage
 
-* delete v1.0 /date 2020/01/12
+```
+===================
+===================
+Please type the command!
+===================
+deadline CS2113 tp /by 2020-10-15
+Got it, added deadline to Schedule Manager and Module Manager
+===================
+===================
+Please type the command!
+===================
+deadline CS2113 tp /by 2020-10-16
+Got it, added deadline to Schedule Manager and Module Manager
+===================
+===================
+Please type the command!
+===================
+deadline CS2113 tp /by 2020-10-15
+Got it, added deadline to Schedule Manager and Module Manager
+===================
+===================
+Please type the command!
+===================
+delete tp /date 2020/10/16
+===================
+Please type the command!
+===================
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+The list of task in CS2113:
+[D]CS2113 tp (by: 2020-10-15)
+[D]CS2113 tp (by: 2020-10-15)
+
+===================
+===================
+Please type the command!
+===================
+display /date 2020/10/16
+Here is your schedule on 2020-10-16!! :)
+08:00
+09:00
+10:00
+11:00
+12:00
+13:00
+14:00
+15:00
+16:00
+17:00
+18:00
+19:00
+20:00
+21:00
+22:00
+23:00
+
+Deadlines on 2020-10-16:
+You don't have any tasks!
+```
+
+
 
 # Command Summary
 + Add Module: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
 + Add Lesson: `lesson TITILE COURSECODE /on DAYOFWEEK 7 STARTTIME ENDTIME`
 + Add Event: `event MODULE_CODE DESCRIPTION /at DATE_OF_EVENT TIME LOCATION_OF_EVENT`
-
 + Add Deadline: `deadline COURSECODE DESCRIPTION /by DATE`
 + Display today's Schedule: `display` 
-
 + Display all the task in a module: `display  MODULECODE`
 + Display all the task in a module on a date: `display  MODULECODE /date DATE`
 + Display all the task on a date: `display /date DATE`
 + Display all the task on a range of date: `display /date STARTDATE-ENDDATE`
++ Edit a task: `edit TASKNAME /date DATE /	/ATTRIBUTES /NEW_VALUE`
++ Delete tasks of a description:  `delete DESCRIPTION` 
++ Delete all tasks of a description based on date: `delete DESCRIPTION /date DATE`
 

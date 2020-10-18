@@ -1,6 +1,8 @@
 package seedu;
 
 import seedu.task.Task;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -66,5 +68,27 @@ public class Module {
 
 	public boolean equals(Module module) {
 		return module.getModuleCode().equals(this.moduleCode);
+	}
+
+	/**
+	 * Deletes the task with the specified description from the list.
+	 * @param description
+	 */
+	public void deleteTask(String description) {
+		for (int i = 0; i < this.listOfTasks.size(); i++) {
+			Task t = this.listOfTasks.get(i);
+			if (t.getDescription().equals(description)) {
+				this.listOfTasks.remove(t);
+			}
+		}
+	}
+
+	public void deleteTask(String description, LocalDate date) {
+		for (int i = 0; i < this.listOfTasks.size(); i++) {
+			Task t = this.listOfTasks.get(i);
+			if (t.getDescription().equals(description) && date.isEqual(t.getDate())) {
+				this.listOfTasks.remove(t);
+			}
+		}
 	}
 }
