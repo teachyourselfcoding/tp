@@ -177,4 +177,45 @@ public class ModuleManager {
         module.addTask(task);
         this.listOfModules.add(module);
     }
+
+    /**
+     * Finds the module contains the task with the specified description.
+     * @param description the description in string
+     * @return Module found
+     */
+    private Module findModuleContainsTask(String description) {
+        for (Module m: this.listOfModules) {
+            for (Task t: m.getListOfTasks()) {
+                if (t.getDescription().equals(description)) {
+                    return m;
+                }
+            }
+        }
+        return null;
+    }
+
+    private Module findModuleContainsTask(String description, LocalDate date) {
+        for (Module m: this.listOfModules) {
+            for (Task t: m.getListOfTasks()) {
+                if (t.getDescription().equals(description) && date.isEqual(t.getDate())) {
+                    return m;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void deleteTask(String description) {
+        Module module = findModuleContainsTask(description);
+        if (module != null) {
+            module.deleteTask(description);
+        }
+    }
+
+    public void deleteTask(String description, LocalDate date) {
+        Module module = findModuleContainsTask(description, date);
+        if (module != null) {
+            module.deleteTask(description, date);
+        }
+    }
 }

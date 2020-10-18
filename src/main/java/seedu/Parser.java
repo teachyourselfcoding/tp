@@ -84,6 +84,8 @@ public class Parser {
                     return new AddCommand(lesson);
                 case "module": // adding a module
                     return new AddModuleCommand(Arrays.copyOfRange(words, 1, input.length()));  // only pass the arguments
+                case "edit":
+                    return validateEditTaskCommand(input);
                 default:
                     throw new DueQuestException(DueQuestExceptionType.INVALID_COMMAND);
             }
@@ -348,7 +350,7 @@ public class Parser {
         return true;
     }
 
-    public static EditTaskCommand validateEditTaskCommand (String input) throws DueQuestException {
+    public static EditTaskCommand validateEditTaskCommand (String input) throws WrongDateFormatException {
         String filteredInput = input.substring(5);
         String[] name = filteredInput.trim().split("/date",2);
         String[] property = name[1].trim().substring(10).trim().split("/",3);
@@ -370,7 +372,7 @@ public class Parser {
                     LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
                     return new EditTaskCommand(description, date, type, newValue);
                 }catch (DateTimeException e){
-                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+                    throw new WrongDateFormatException();
                 }
             case "frequency":
                 int[] newFrequency = new int[2];
@@ -379,7 +381,7 @@ public class Parser {
                     LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
                     return new EditTaskCommand(description, date, type, newFrequency);
                 }catch (DateTimeException e){
-                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+                    throw new WrongDateFormatException();
                 }
             case "date":
                 try {
@@ -387,7 +389,7 @@ public class Parser {
                     LocalDate newDate = LocalDate.parse(newValue.trim().replace("/","-"));
                     return new EditTaskCommand(description, date, type, newDate);
                 }catch (DateTimeException e){
-                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+                    throw new WrongDateFormatException();
                 }
             default:
                 System.out.println("Wrong type");

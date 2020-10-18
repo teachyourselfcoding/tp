@@ -33,11 +33,14 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
+        description = description.strip();
         if(this.date == null){
             scheduleManager.deleteTask(description);
+            moduleManager.deleteTask(description);
         }
         else{
-            scheduleManager.deleteTask(description,date);
+            scheduleManager.deleteTask(description, date);
+            moduleManager.deleteTask(description, date);
         }
     }
 }
