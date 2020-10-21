@@ -94,14 +94,6 @@ public class ModuleManager {
      * @param date
      * @throws DueQuestException
      */
-    public void addTaskToModule(String moduleCode, Task task, LocalDate date) throws DueQuestException{
-        try {
-            listOfModules.get(getModuleIndex(moduleCode)).addTask(task);
-            ScheduleManager.updateSchedule(date,task);
-        } catch (ModuleNotExistsException e) {
-            Ui.printModuleNotExistMessage();
-        }
-    }
 
     /**
      * Display the tasks of a module.
