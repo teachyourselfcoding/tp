@@ -48,7 +48,7 @@ public class ScheduleManager {
 	 * TODO
 	 *  - For future versions, need to check if there are any clash in timings first before adding.
 	 */
-	public void addLesson(Lesson lesson) {
+	public void addLesson(Lesson lesson,ModuleManager moduleManager) {
 		DayOfWeek day = lesson.getLessonDayInDayOfWeek();
 		for (Map.Entry<LocalDate, ArrayList<Task>> entry : this.semesterSchedule.entrySet()) {
 			LocalDate key = entry.getKey();
@@ -73,9 +73,10 @@ public class ScheduleManager {
 	 * date where I need to add the deadline,
 	 * @param deadline add deadline inside the list of tasks of the schedule manager.
 	 */
-	public void addDeadline(Deadline deadline) {
+	public void addDeadline(Deadline deadline, ModuleManager moduleManager) {
 		LocalDate date = LocalDate.parse(deadline.getDeadline());
 		this.semesterSchedule.get(date).add(deadline);
+		moduleManager.addTaskToModule(deadline, deadline.getModuleCode());
 	}
 
 	/**
@@ -86,9 +87,13 @@ public class ScheduleManager {
 	 *  - for future versions, need if there is any clash of timings before adding.
 	 *
 	 */
-	public void addEvent(Event event) {
+	public void addEvent(Event event,ModuleManager moduleManager) {
 		LocalDate date = LocalDate.parse(event.getDateOfEvent());
 		this.semesterSchedule.get(date).add(event);
+		if(event.getModuleCode() != ""){
+			moduleManager.addTaskToModule(event, event.getModuleCode());
+		}
+
 	}
 
 	/**
