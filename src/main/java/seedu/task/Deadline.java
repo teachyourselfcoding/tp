@@ -38,7 +38,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.moduleCode + " " + super.toString() + " (by: " + by + ")";
+        return "[D] " + super.toString() + " - " + super.moduleCode + " "  + " (by: " + by + ")";
     }
 
     public String getTimingInfo() {
