@@ -376,8 +376,9 @@ public class Parser {
                     throw new WrongDateFormatException();
                 }
             case "frequency":
-                int[] newFrequency = new int[2];
-                newFrequency[0] = Integer.parseInt(newValue);
+                //int[] newFrequency = new int[2];
+                //newFrequency[0] = Integer.parseInt(newValue);
+                int newFrequency = Integer.parseInt(newValue);
                 try {
                     LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
                     return new EditTaskCommand(description, date, type, newFrequency);
