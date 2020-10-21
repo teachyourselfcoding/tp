@@ -315,6 +315,5 @@ public class ScheduleManager {
 		Ui.print("\nDeadlines on " + date.toString() + ":");
 		Ui.printListGenericType(nonLessonList);
 	}
-
 }
 

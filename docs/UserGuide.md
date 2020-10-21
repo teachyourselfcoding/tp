@@ -76,11 +76,11 @@ Example Usage:
 
 ```
 ===================
-lesson online lecture CS2113 /on 5 7 16:00 18:00
+lesson online lecture CS2113 /on 5 16:00 18:00
 Got it, added lesson to the schedule manager!
 ===================
 ===================
-lesson online tutorial CS1234 /on 4 7 08:00 10:00
+lesson online tutorial CS1234 /on 4 08:00 10:00
 Got it, added lesson to the schedule manager!
 ===================
 ```

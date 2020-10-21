@@ -193,7 +193,7 @@ public class Parser {
 
         String[] descriptionWithModuleCode = filteredInput[1].split("/on", 2);
         String[] frequencyAndTime = descriptionWithModuleCode[1].trim().split(" ");
-        if (frequencyAndTime.length != 4) {
+        if (frequencyAndTime.length != 3) {
             throw new MissingLessonTimingException();
         }
         String description = descriptionWithModuleCode[0].trim();
@@ -204,11 +204,12 @@ public class Parser {
             throw new InvalidModuleCodeException();
         }
         description = description.substring(0, description.length() - moduleCode.length()).trim();
-        int[] frequency = new int[2];
-        frequency[0] = Integer.parseInt(frequencyAndTime[0]);
-        frequency[1] = Integer.parseInt(frequencyAndTime[1]);
-        String startTime = frequencyAndTime[2];
-        String endTime = frequencyAndTime[3];
+        //int[] frequency = new int[2];
+        //frequency[0] = Integer.parseInt(frequencyAndTime[0]);
+        //frequency[1] = Integer.parseInt(frequencyAndTime[1]);
+        int frequency = Integer.parseInt(frequencyAndTime[0]);
+        String startTime = frequencyAndTime[1];
+        String endTime = frequencyAndTime[2];
         return new Lesson(description, moduleCode, frequency, startTime, endTime);
     }
     /**

@@ -55,13 +55,15 @@ public class Task {
      *  - add searching module based on moduleCode(String).
      *  - add error handling.
      */
-
+    /*
     public Task(String description, String moduleCode, int[] frequency) {
         this.description = description;
         this.moduleCode = moduleCode;
         this.frequency = frequency;
         this.isDone = false;
     }
+
+     */
 
     @Override
     public String toString() {
