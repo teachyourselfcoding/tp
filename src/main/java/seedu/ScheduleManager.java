@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -16,11 +17,14 @@ import java.util.Map;
  * Class for ScheduleManager.
  * Contains the schedule for the user.
  * We will assume that the ScheduleManager is built for AY 2020/2021 Semester 2.
+ * NonLessonDates includes - Winter Break, Reading weeks, Examination week.
+ * Dates of the following are obtained from NUS website.
  */
 public class ScheduleManager {
 	private static HashMap<LocalDate, ArrayList<Task>> semesterSchedule = new HashMap<>();
 	//private static final String[] timing = {"08:00","09:00","10:00","11:00", "12:00", "13:00", "14:00", "15:00","16:00","17:00","18:00","19:00"
 	//       ,"20:00","21:00","22:00","23:00"};
+	private HashSet<LocalDate> listOfNonLessonDates = new HashSet<>();
 	/**
 	 * Constructor for ScheduleManager if a ScheduleManager already exist.
 	 * @param semesterSchedule
@@ -37,8 +41,34 @@ public class ScheduleManager {
 	public ScheduleManager() {
 		this.semesterSchedule = new HashMap<>();
 		// Now I will need to populate this hashmap because it is currently empty with no dates.
-		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
+		for (LocalDate date = LocalDate.of(2020, 10, 12);
+			 date.isBefore(LocalDate.of(2021, 6, 1));
+			 date = date.plusDays(1)) {
 			this.semesterSchedule.put(date, new ArrayList<>());
+		}
+		// add winter break dates
+		for (LocalDate date = LocalDate.of(2020, 12, 6);
+			 date.isBefore(LocalDate.of(2021, 1, 11));
+			 date = date.plusDays(1)) {
+			this.listOfNonLessonDates.add(date);
+		}
+		// add first reading week dates
+		for (LocalDate date = LocalDate.of(2021, 2, 20);
+			 date.isBefore(LocalDate.of(2021, 3, 1));
+			 date = date.plusDays(1)) {
+			this.listOfNonLessonDates.add(date);
+		}
+		// add second reading week and examination dates
+		for (LocalDate date = LocalDate.of(2021, 4, 17);
+			 date.isBefore(LocalDate.of(2021, 5, 9));
+			 date = date.plusDays(1)) {
+			this.listOfNonLessonDates.add(date);
+		}
+		// add remaining dates after examination week
+		for (LocalDate date = LocalDate.of(2021, 5, 9);
+			 date.isBefore(LocalDate.of(2021, 6, 1));
+			 date = date.plusDays(1)) {
+			this.listOfNonLessonDates.add(date);
 		}
 	}
 
@@ -52,8 +82,11 @@ public class ScheduleManager {
 		DayOfWeek day = lesson.getLessonDayInDayOfWeek();
 		for (Map.Entry<LocalDate, ArrayList<Task>> entry : this.semesterSchedule.entrySet()) {
 			LocalDate key = entry.getKey();
-			if (key.getDayOfWeek().getValue() == day.getValue()) {
-				this.semesterSchedule.get(key).add(lesson);
+			// add lessons to weeks when there is school only.
+			if (!this.listOfNonLessonDates.contains(key)) {
+				if (key.getDayOfWeek().getValue() == day.getValue()) {
+					this.semesterSchedule.get(key).add(lesson);
+				}
 			}
 		}
 		moduleManager.addTaskToModule(lesson, lesson.getModuleCode());
@@ -74,14 +107,11 @@ public class ScheduleManager {
 	 * Event only got 1 date, so just filter for the
 	 * date where I need to add the event.
 	 * @param event add event inside the list of tasks of the schedule manager.
-	 * TODO
-	 *  - for future versions, need if there is any clash of timings before adding.
-	 *
 	 */
 	public void addEvent(Event event,ModuleManager moduleManager) {
 		LocalDate date = LocalDate.parse(event.getDateOfEvent());
 		this.semesterSchedule.get(date).add(event);
-		if(event.getModuleCode() != ""){
+		if (event.getModuleCode() != ""){
 			moduleManager.addTaskToModule(event, event.getModuleCode());
 		}
 	}
@@ -103,9 +133,6 @@ public class ScheduleManager {
 			Ui.print("No Task on " + Ui.convertDateToString(specificDate));
 		}
 	}
-
-
-
 
 	public void editTask(String name, LocalDate date, String type, String newProperty){
 		for(Task task :semesterSchedule.get(date)){

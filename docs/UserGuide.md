@@ -60,7 +60,9 @@ A Task can be a Lesson, Event or Deadline.
 
 ## Adding a lesson: `lesson`
 
-Adds a new Lesson into both your Schedule Manager and Module Manager
+Adds a new Lesson into both your Schedule Manager and Module Manager.
+Lesson will only be added into weeks when there are lessons conducted according to the NUS curriculum.
+This means that the lesson will not be added  into dates during Reading Weeks, Vacation, and Examination weeks. 
 
 `lesson TITILE COURSECODE /on DAYOFWEEK 7 STARTTIME ENDTIME`
 
