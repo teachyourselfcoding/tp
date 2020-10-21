@@ -3,7 +3,11 @@ package seedu;
 import seedu.exception.ModuleAlreadyExistsException;
 import seedu.exception.ModuleNotExistsException;
 import seedu.task.Deadline;
+import seedu.task.Lesson;
 import seedu.task.Task;
+
+import java.lang.reflect.Array;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -180,6 +184,7 @@ public class ModuleManager {
         module.addTask(task);
         this.listOfModules.add(module);
     }
+
 
     /**
      * Finds the module contains the task with the specified description.
