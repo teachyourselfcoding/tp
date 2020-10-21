@@ -3,7 +3,7 @@ package seedu.command;
 import seedu.ModuleManager;
 import seedu.ScheduleManager;
 import seedu.Storage;
-import seedu.exception.InvalidInputException;
+import seedu.exception.InvalidReplyException;
 import seedu.task.*;
 import seedu.Ui;
 
