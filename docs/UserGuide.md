@@ -100,6 +100,7 @@ Format: `event MODULE_CODE DESCRIPTION /at DATE_OF_EVENT TIME LOCATION_OF_EVENT`
 Example Usage:
 
 `event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14`
+`event play football /at 2021-05-03 14:00 16:00 Ang Mo Kio`
 
 ```
 ===================
