@@ -154,6 +154,8 @@ public class Parser {
      * This is the new validateEvent method for our TP.
      * @param input the line input.
      * @return an Event object.
+     * TODO
+     *  - ADD EXCEPTIONS.
      */
     public static Event validateEvent(String input) {
         String filteredInput = input.trim().split(" ", 2)[1]; //get rid of event word in front
@@ -206,9 +208,6 @@ public class Parser {
             throw new InvalidModuleCodeException();
         }
         description = description.substring(0, description.length() - moduleCode.length()).trim();
-        //int[] frequency = new int[2];
-        //frequency[0] = Integer.parseInt(frequencyAndTime[0]);
-        //frequency[1] = Integer.parseInt(frequencyAndTime[1]);
         int frequency = Integer.parseInt(frequencyAndTime[0]);
         String startTime = frequencyAndTime[1];
         String endTime = frequencyAndTime[2];
@@ -233,7 +232,6 @@ public class Parser {
             throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
         }
     }
-
 
     /**
      * Parses DisplayCommand from the input.
@@ -334,7 +332,7 @@ public class Parser {
                 if (!(charArray[6] >= 'A' && charArray[6] <= 'Z')) {
                     return false;
                 }
-            } else { // case if DSA 4211
+            } else { // case if DSA4211
                 for (int i = 0; i < 3; i++) {
                     char ch = charArray[i];
                     if (!(ch >= 'A' && ch <= 'Z')) {
