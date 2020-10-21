@@ -55,7 +55,7 @@ public class AddCommand  extends Command {
                 System.out.println("Event added to Schedule Manager only");
             }
 
-        } else if (task.getClass() == Deadline.class) {
+        } else if (task instanceof Deadline) {
             scheduleManager.addDeadline((Deadline) task,moduleManager);
             System.out.println("Got it, added deadline to Schedule Manager and Module Manager");
         } else {
