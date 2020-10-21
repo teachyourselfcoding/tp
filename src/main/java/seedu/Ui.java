@@ -167,6 +167,12 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+    public static void printMissingDeadlineTimingDetailsMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("The deadline's time information is missing.");
+        System.out.println(SEPARATOR);
+    }
+
     public static void printEmptyArgumentMessage() {
         System.out.println(SEPARATOR);
         System.out.println("The arguments for this command cannot be empty.");
@@ -182,6 +188,12 @@ public class Ui {
     public static void printInvalidDateFormatMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Please give the date in correct format.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printInvalidDateMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Please give the date between 2020/10/21 and 2021/05/31.");
         System.out.println(SEPARATOR);
     }
 
