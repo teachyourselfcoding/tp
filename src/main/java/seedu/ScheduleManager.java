@@ -320,20 +320,5 @@ public class ScheduleManager {
 		Ui.printListGenericType(nonLessonList);
 	}
 
-	/**
-	 * Displays today's tasks.
-	 * FIXME
-	 *  - add code and output based on UG
-	 *  - handle the task with frequency!
-	 */
-	public void display() {
-	}
-
-	/**
-	 * update the schedule upon adding new task through ModuleManager
-	 */
-	public static void updateSchedule(LocalDate date, Task task){
-		semesterSchedule.get(date).add(task);
-	}
 }
 
