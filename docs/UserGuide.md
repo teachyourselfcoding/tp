@@ -158,7 +158,7 @@ Today's Schedule:
 22:00
 23:00
 
- Today's task:
+Today's task:
 You don't have any tasks!
 
 
@@ -218,7 +218,8 @@ The list of task in CS2113:
 
 ## Display all the task on a date: `display /date DATE`
 
-Display task on a specific Date
+Display the schedule on a specific Date.
+Also shows the all the upcoming deadlines one week from the specified date. 
 Format: `display /date DATE`
 
 * The `DATE` must be in `YYYY/MM/DD`
@@ -247,7 +248,7 @@ Today's Schedule:
 22:00
 23:00
 
- Today's task:
+Upcoming deadlines:
 [D] TP version 1 - CS2113  (by: 2020-10-21)
 
 ```
