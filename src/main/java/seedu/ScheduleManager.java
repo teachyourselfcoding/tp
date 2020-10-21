@@ -1,5 +1,6 @@
 package seedu;
 import seedu.exception.InvalidDateRangeException;
+import seedu.exception.InvalidStartEndDateException;
 import seedu.task.Deadline;
 import seedu.task.Event;
 import seedu.task.Lesson;
@@ -97,7 +98,7 @@ public class ScheduleManager {
 	 */
 	public void display(LocalDate specificDate) throws InvalidDateRangeException {
 			ArrayList<Task> list =  semesterSchedule.get(specificDate);
-	if(list == null) {
+	if (list == null) {
 		throw new  InvalidDateRangeException();
 	} else if (list.size() != 0) {
 			Ui.print("List of task on " + specificDate.toString() + " :");
@@ -245,7 +246,10 @@ public class ScheduleManager {
 	 * @param endDate the end of the range.
 	 *
 	 */
-	public void display(LocalDate startDate, LocalDate endDate){
+	public void display(LocalDate startDate, LocalDate endDate) throws InvalidStartEndDateException{
+		if (startDate.isAfter(endDate)){
+			throw new InvalidStartEndDateException();
+		}
 		Ui.print("List of task from " + Ui.convertDateToStringWithYear(startDate) + " to " + Ui.convertDateToStringWithYear(endDate));
 		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
 			if(date.isEqual(startDate)){

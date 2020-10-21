@@ -182,6 +182,12 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+    public static void printInvalidStartEndDate() {
+        System.out.println(SEPARATOR);
+        System.out.println("The Start date cannot be after End date");
+        System.out.println(SEPARATOR);
+    }
+
     public static void printSeparator() {
         System.out.println(SEPARATOR);
     }

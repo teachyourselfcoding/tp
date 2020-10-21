@@ -4,6 +4,7 @@ import seedu.ModuleManager;
 import seedu.ScheduleManager;
 import seedu.Ui;
 import seedu.exception.InvalidDateRangeException;
+import seedu.exception.InvalidStartEndDateException;
 import seedu.exception.ModuleNotExistsException;
 
 import java.time.LocalDate;
@@ -75,6 +76,8 @@ public class DisplayCommand extends Command {
             Ui.printModuleNotExistMessage();
         } catch (InvalidDateRangeException e){
             Ui.printInvalidDateRange();
+        } catch (InvalidStartEndDateException e){
+            Ui.printInvalidStartEndDate();
         }
     }
 }
