@@ -11,6 +11,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.HashSet;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ import java.util.Map;
  * Dates of the following are obtained from NUS website.
  */
 public class ScheduleManager {
-	private static HashMap<LocalDate, ArrayList<Task>> semesterSchedule = new HashMap<>();
+	private static TreeMap<LocalDate, ArrayList<Task>> semesterSchedule = new TreeMap<>();
 	//private static final String[] timing = {"08:00","09:00","10:00","11:00", "12:00", "13:00", "14:00", "15:00","16:00","17:00","18:00","19:00"
 	//       ,"20:00","21:00","22:00","23:00"};
 	private HashSet<LocalDate> listOfNonLessonDates = new HashSet<>();
@@ -31,7 +32,7 @@ public class ScheduleManager {
 	 * Constructor for ScheduleManager if a ScheduleManager already exist.
 	 * @param semesterSchedule
 	 */
-	public ScheduleManager(HashMap<LocalDate, ArrayList<Task>> semesterSchedule) {
+	public ScheduleManager(TreeMap<LocalDate, ArrayList<Task>> semesterSchedule) {
 		this.semesterSchedule = semesterSchedule;
 	}
 
@@ -41,7 +42,7 @@ public class ScheduleManager {
 	 * and an empty list of task as the value.
 	 */
 	public ScheduleManager() {
-		this.semesterSchedule = new HashMap<>();
+		this.semesterSchedule = new TreeMap<>();
 		// Now I will need to populate this hashmap because it is currently empty with no dates.
 		for (LocalDate date = LocalDate.of(2020, 10, 12);
 			 date.isBefore(LocalDate.of(2021, 6, 1));
@@ -80,16 +81,17 @@ public class ScheduleManager {
 	 */
 	public void addLesson(Lesson lesson, ModuleManager moduleManager, Ui ui) {
 		DayOfWeek day = lesson.getLessonDayInDayOfWeek();
-		/*
 		if (checkIfLessonToBeAddedClashesWithCurrentTimetable((lesson))) {
 			String verifyIfReallyWantToAdd = ui.readYesOrNo();
 			if (verifyIfReallyWantToAdd.equals("No")) {
+				ui.print("Got it! Lesson is not added!");
 				return;
 			} else if (!verifyIfReallyWantToAdd.equals("Yes")) {
-				throw new InvalidInputException();
+				ui.print("You need to type in Yes or No");
+				ui.print("Lesson is not added");
+				return;
 			}
 		}
-		 */
 		for (Map.Entry<LocalDate, ArrayList<Task>> entry : this.semesterSchedule.entrySet()) {
 			LocalDate key = entry.getKey();
 			// add lessons to weeks when there is school only.
@@ -100,12 +102,11 @@ public class ScheduleManager {
 			}
 		}
 		moduleManager.addTaskToModule(lesson, lesson.getModuleCode());
+		System.out.println("Got it, added lesson to the Schedule Manager and Module Manager!");
 	}
 
 	public boolean checkIfLessonToBeAddedClashesWithCurrentTimetable(Lesson lesson) {
 		DayOfWeek day = lesson.getLessonDayInDayOfWeek();
-		LocalTime startTime = lesson.getStartTimeInLocalTime();
-		LocalTime endTime = lesson.getEndTimeInLocalTime();
 		for (Map.Entry<LocalDate, ArrayList<Task>> entry : this.semesterSchedule.entrySet()) {
 			LocalDate key = entry.getKey();
 			if (!this.listOfNonLessonDates.contains(key)) {
@@ -146,7 +147,35 @@ public class ScheduleManager {
 				}
 			}
 		}
-		//System.out.println("NO CLASHES TODAY");
+		return false;
+	}
+
+	public boolean checkIfEventToBeAddedClashesInADate(Event event, LocalDate date) {
+		ArrayList<Task> listOfTasks = this.semesterSchedule.get(date);
+		LocalTime startTimeOfLesson = event.getStartTimeOfEventInLocalTime();
+		LocalTime endTimeOfLesson = event.getEndTimeOfEventInLocalTime();
+		for (Task task : listOfTasks) {
+			if (task instanceof Lesson) {
+				LocalTime startTimeOfTask = ((Lesson)task).getStartTimeInLocalTime();
+				LocalTime endTimeOfTask = ((Lesson)task).getEndTimeInLocalTime();
+				if (startTimeOfLesson.isAfter(startTimeOfTask) && startTimeOfLesson.isBefore(endTimeOfTask)) {
+					return true;
+				}
+				if (endTimeOfLesson.isAfter(startTimeOfTask)) {
+					return true;
+				}
+			}
+			if (task instanceof Event) {
+				LocalTime startTimeOfTask = ((Event)task).getStartTimeOfEventInLocalTime();
+				LocalTime endTimeOfTask = ((Event)task).getEndTimeOfEventInLocalTime();
+				if (startTimeOfLesson.isAfter(startTimeOfTask) && startTimeOfLesson.isBefore(endTimeOfTask)) {
+					return true;
+				}
+				if (endTimeOfLesson.isAfter(startTimeOfTask)) {
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 
@@ -166,11 +195,29 @@ public class ScheduleManager {
 	 * date where I need to add the event.
 	 * @param event add event inside the list of tasks of the schedule manager.
 	 */
-	public void addEvent(Event event,ModuleManager moduleManager) {
+	public void addEvent(Event event,ModuleManager moduleManager, Ui ui) {
 		LocalDate date = LocalDate.parse(event.getDateOfEvent());
+		LocalTime startTime = event.getStartTimeOfEventInLocalTime();
+		LocalTime endTime = event.getEndTimeOfEventInLocalTime();
+		if (checkIfEventToBeAddedClashesInADate(event, date)) {
+			String verifyIfReallyWantYoAdd = ui.readYesOrNo();
+			if (verifyIfReallyWantYoAdd.equals("No")) {
+				ui.print("Got it! Event is not Added!");
+				return;
+			} else if (!verifyIfReallyWantYoAdd.equals("Yes")) {
+				ui.print("You need to type in Yes or No!");
+				ui.print("Event is not added!");
+				return;
+			}
+		}
 		this.semesterSchedule.get(date).add(event);
 		if (!event.getModuleCode().equals("")){
 			moduleManager.addTaskToModule(event, event.getModuleCode());
+		}
+		if (!event.getModuleCode().equals("")) {
+			System.out.println("Event added to both Schedule manager and Module manager");
+		} else {
+			System.out.println("Event added to Schedule Manager only");
 		}
 	}
 
@@ -361,7 +408,7 @@ public class ScheduleManager {
 		boolean taskIsLessonOrEvent = false;
 		Ui.print("Here is your schedule on " + date.toString() + "!! :)");
 		ArrayList<Task> taskList = semesterSchedule.get(date);
-		ArrayList<Task> nonLessonList= new ArrayList<>();
+		ArrayList<Deadline> deadlineList = new ArrayList<>();
 		String[] timing = {"08:00", "09:00","10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
 				"18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
 		for (Task t: taskList) {
@@ -412,14 +459,35 @@ public class ScheduleManager {
 					}
 				}
 			} else {
-				nonLessonList.add(t);
+				deadlineList.add((Deadline)t);
 			}
 		}
 		for (String i: timing){
 			Ui.print(i);
 		}
-		Ui.print("\nDeadlines on " + date.toString() + ":");
-		Ui.printListGenericType(nonLessonList);
+		deadlineList = addToDeadlineList(date, deadlineList);
+		//Ui.print("\nDeadlines on " + date.toString() + ":" );
+		Ui.print("\nUpcoming Deadlines :" );
+		Ui.printListGenericType(deadlineList);
+	}
+
+	/**
+	 * Adds deadlines of the next 7 days from current day to the non lesson and event list
+	 * @param currentDate current date specified.
+	 * @param list list of the Deadlines where more deadlines will be added to.
+	 * @return list of Deadlins
+	 */
+	private ArrayList<Deadline> addToDeadlineList(LocalDate currentDate, ArrayList<Deadline> list) {
+		LocalDate oneWeekAfterCurrentDate = currentDate.plusDays(7);
+		currentDate = currentDate.plusDays(1);
+		for (LocalDate date = currentDate; date.isBefore(oneWeekAfterCurrentDate); date = date.plusDays(1)) {
+			for (Task task : this.semesterSchedule.get(date)) {
+				if (task instanceof Deadline) {
+					list.add((Deadline)task);
+				}
+			}
+		}
+		return list;
 	}
 }
 
