@@ -247,25 +247,25 @@ public class ScheduleManager {
 	 *
 	 */
 	public void display(LocalDate startDate, LocalDate endDate){
-		Ui.print("List of task from " + startDate.toString() + " to " + endDate.toString());
+		Ui.print("List of task from " + Ui.convertDateToStringWithYear(startDate) + " to " + Ui.convertDateToStringWithYear(endDate));
 		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
 			if(date.isEqual(startDate)){
 				if(semesterSchedule.get(date).size() != 0){
 					Ui.print(date.format(DateTimeFormatter.ofPattern("MMM d"))
-							+ " schedule :");
+							+ " :");
 					Ui.printListGenericType(semesterSchedule.get(date));
 
 				}
 			} else if (date.isAfter(startDate) && date.isBefore(endDate)){
 				if(semesterSchedule.get(date).size() != 0){
 					Ui.print(date.format(DateTimeFormatter.ofPattern("MMM d"))
-							+ " schedule :");
+							+ " :");
 					Ui.printListGenericType(semesterSchedule.get(date));
 
 				}
 			} else if (date.isEqual(endDate)){
 				Ui.print(date.format(DateTimeFormatter.ofPattern("MMM d"))
-						+ " schedule :");
+						+ " :");
 				Ui.printListGenericType(semesterSchedule.get(date));
 			}
 		}
