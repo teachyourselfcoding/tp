@@ -139,7 +139,7 @@ public class ScheduleManager {
 		}
 	}
 
-	public void editTask(String description, LocalDate date, String property, int [] newFrequency){
+	public void editTask(String description, LocalDate date, String property, int newFrequency){
 		for(Task task : semesterSchedule.get(date)){
 			if(task.getDescription().equals(description)){
 				task.setFrequency(newFrequency);
