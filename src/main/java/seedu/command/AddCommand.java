@@ -41,31 +41,11 @@ public class AddCommand  extends Command {
     @Override
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
         if (task instanceof Lesson) {
-            /*
-            if (scheduleManager.checkIfLessonToBeAddedClashesWithCurrentTimetable((Lesson) task)) {
-                String verifyIfReallyWantToAdd = ui.readYesOrNo();
-                if (verifyIfReallyWantToAdd.equals("No")) {
-                    return;
-                } else if (!verifyIfReallyWantToAdd.equals("Yes")) {
-                    throw new InvalidInputException("You should type in Yes or No");
-                }
-            }
-
-             */
             scheduleManager.addLesson((Lesson) task, moduleManager, ui); //add the lesson to the schedule manager
-            System.out.println("Got it, added lesson to the schedule manager!");
             String moduleCode = task.getModuleCode();
             // if module code exist in the module manager, simply add the task into the module manager
         } else if (task instanceof Event) {
-            scheduleManager.addEvent((Event) task,moduleManager);
-            // now check if the module code exist or is an empty string
-            // look at the validateEvent method in Parser to understand that if the module code is invalid,
-            // meaning the user didn't key in a module code for his event, the moduleCode will be an empty string.
-            if (!task.getModuleCode().equals("")) {
-                System.out.println("Event added to both Schedule manager and Module manager");
-            } else {
-                System.out.println("Event added to Schedule Manager only");
-            }
+            scheduleManager.addEvent((Event) task,moduleManager, ui);
             //System.out.println(moduleManager.getListOfModuleCodes());
         } else if (task instanceof Deadline) {
             scheduleManager.addDeadline((Deadline) task,moduleManager);
