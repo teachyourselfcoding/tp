@@ -56,18 +56,9 @@ public class ScheduleManager {
 				this.semesterSchedule.get(key).add(lesson);
 			}
 		}
+		moduleManager.addTaskToModule(lesson, lesson.getModuleCode());
 	}
-	/**
-	 * Add lessons on specific days
-	 * @param lesson lesson to be added to the schedule manager.
-	 */
-	public void addLessonOnSpecificDays(Lesson lesson) {
-
-			semesterSchedule.get(lesson.getDate()).add(lesson);
-
-	}
-
-
+	
 	/**
 	 * Deadline only got 1 day, so just filter for the
 	 * date where I need to add the deadline,
