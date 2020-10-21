@@ -10,11 +10,7 @@ import seedu.command.ExitCommand;
 import seedu.command.FindCommand;
 import seedu.command.ListCommand;
 import seedu.command.EditTaskCommand;
-import seedu.exception.EmptyArgumentException;
-import seedu.exception.InvalidArgumentsException;
-import seedu.exception.InvalidModuleCodeException;
-import seedu.exception.MissingLessonTimingException;
-import seedu.exception.WrongDateFormatException;
+import seedu.exception.*;
 import seedu.task.Deadline;
 import seedu.task.Event;
 import seedu.task.Lesson;
@@ -99,10 +95,12 @@ public class Parser {
             Ui.printInvalidModuleCode();
         } catch (WrongDateFormatException e) {
             Ui.printInvalidDateFormatMessage();
+        } catch (InvalidDateException e) {
+            Ui.printInvalidDateMessage();
+        } catch (MissingDeadlineTimingDetailsException e) {
+            Ui.printMissingDeadlineTimingDetailsMessage();
         }
-
         return null;  // the function must return something
-
     }
 
     /**
@@ -130,20 +128,24 @@ public class Parser {
      * @return DeadLine object including the moduleCode of the deadline.
      * @throws DueQuestException if missing information or date is invalid.
      */
-    public static Deadline validateDeadline(String input) throws DueQuestException {
+    public static Deadline validateDeadline(String input) throws  WrongDateFormatException, InvalidDateException,
+            EmptyArgumentException, MissingDeadlineTimingDetailsException {
         String[] filteredInput = input.trim().split(" ", 2);
         if (filteredInput.length == 1) {
-            throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
-        }  else if (!filteredInput[1].contains("/by")) {
-            throw new DueQuestException(DueQuestExceptionType.MISSING_DEADLINE);
+            throw new EmptyArgumentException();
+        } else if (!filteredInput[1].contains("/by")) {
+            throw new MissingDeadlineTimingDetailsException();
         }
         String[] moduleCodeAndDescription = filteredInput[1].split("/by",2)[0].trim().split(" ", 2);
         String moduleCode = moduleCodeAndDescription[0].trim();
         String description = moduleCodeAndDescription[1].trim();
         String byInfo = filteredInput[1].split("/by", 2)[1].trim();
+        if (byInfo.length() != 10) {
+            throw new WrongDateFormatException();
+        }
         if (LocalDate.parse(byInfo).isAfter(LocalDate.of(2021, 6, 1)) ||
             LocalDate.parse(byInfo).isBefore(LocalDate.of(2020, 10, 12))) {
-            throw new DueQuestException((DueQuestExceptionType.INVALID_DATE));
+            throw new InvalidDateException();
         }
         return new Deadline(moduleCode, description, byInfo);
     }
