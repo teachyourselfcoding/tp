@@ -123,18 +123,28 @@ public class ModuleManager {
     }
     // Display all the task in a module on a specific date
     public void display(String moduleCode, LocalDate date) throws ModuleNotExistsException{
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        ArrayList<Lesson> lessons = new ArrayList<>();
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
         for (Module m : listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
-                ArrayList<Task> filteredTasks = new ArrayList<>();
+
                 for (Task t : m.getListOfTasks()) {
                     if (t instanceof Deadline) {
                         if (((Deadline) t).getDate().isEqual(date)) {
                             filteredTasks.add(t);
                         }
+                    } else if (t instanceof Lesson) {
+                        if (((Lesson) t).getLessonDayInDayOfWeek() == dayOfWeek) {
+                            lessons.add((Lesson)t);
+                        }
                     }
                 }
-                Ui.print("The list of task in " + moduleCode + " on " + date.toString() + " :");
+                Ui.print(moduleCode + " - " + Ui.convertDateToString(date));
+                Ui.print("Events & Deadlines :");
                 Ui.printListGenericType(filteredTasks);
+                Ui.print("Lessons :");
+                Ui.printListGenericType(lessons);
                 Ui.printSeparator();
             }
         }
