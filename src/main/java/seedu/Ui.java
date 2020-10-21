@@ -112,12 +112,25 @@ public class Ui {
     }
 
     /**
-     * convert LocalDate object into String line that is easily readable
+     * convert LocalDate object into readable string format without year
+     * E.g 12 JUN
      * @param date
      * @return
      */
     public static String convertDateToString(LocalDate date){
         String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM"));
+        return stringDate;
+    }
+
+    /**
+     * convert LocalDate object into readable string format with year included
+     * E.g 12 JUN 20
+     * @param date
+     * @return
+     */
+
+    public static String convertDateToStringWithYear(LocalDate date){
+        String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM YY"));
         return stringDate;
     }
 
