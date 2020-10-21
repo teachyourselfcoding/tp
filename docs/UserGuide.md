@@ -127,6 +127,8 @@ Got it, added deadline to Schedule Manager and Module Manager
 
 Display Today's Lesson and Task( Deadline and Event)
 
+Task that are in the same time slot are Separated with "|"
+
 Format: `display`
 
 Example input:
@@ -139,12 +141,12 @@ Example output:
 Today's Schedule:
 08:00
 09:00
-10:00
-11:00
-12:00
-13:00
-14:00
-15:00
+10:00 quiz - CS2113 |
+11:00 quiz - CS2113 | meeting - CS2113 |
+12:00 lecture - CS2113 | meeting - CS2113 |
+13:00 lecture - CS2113 | meeting - CS2113 |
+14:00 lecture - CS2113 |
+15:00 lecture - CS2113 |
 16:00
 17:00
 18:00
@@ -170,16 +172,17 @@ You don't have any tasks!
  * `display CS2113`
 
 ```
-===================
-display CS2113 
+display CS2113
 
 Course: CS2113
 Title: null
 AU: 0
 Teaching Staffs: []
 The list of task in CS2113:
-[L]tutorial CS2113 13:00 14:00
-[D]CS2113 Tp version 1 (by: 2020-10-15)
+[E] CS2113 quiz (10:00 2020-10-21 at LT15)
+[L] lecture - CS2113 WEDNESDAY 12:00 16:00
+[E] CS2113 meeting (11:00 2020-10-21 at LT16)
+[D] TP version 1 - CS2113  (by: 2020-10-21)
 
 ===================
 ```
@@ -196,10 +199,17 @@ The list of task in CS2113:
   * `display CS2113 /date 2020/10/15`
 
 ```
-===================
-display CS2113 /date 2020/10/15
-The list of task in CS2113 on 2020-10-15 :
-[D]CS2113 Tp version 1 (by: 2020-10-15)
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+The list of task in CS2113:
+[E] CS2113 quiz (10:00 2020-10-21 at LT15)
+[L] lecture - CS2113 WEDNESDAY 12:00 16:00
+[E] CS2113 meeting (11:00 2020-10-21 at LT16)
+[D] TP version 1 - CS2113  (by: 2020-10-21)
 
 ===================
 ```
@@ -216,17 +226,16 @@ Example of Usage
 * `display /date 2020/10/15`
 
 ```
-===================
-display /date 2020/10/15
-Here is your schedule on 2020-10-15!! :)
+display /date 2020/10/21
+Today's Schedule:
 08:00
 09:00
-10:00
-11:00
-12:00
-13:00 tutorial, CS2113 Tp version 1, CS2113
-14:00
-15:00
+10:00 quiz - CS2113 |
+11:00 quiz - CS2113 | meeting - CS2113 |
+12:00 lecture - CS2113 | meeting - CS2113 |
+13:00 lecture - CS2113 | meeting - CS2113 |
+14:00 lecture - CS2113 |
+15:00 lecture - CS2113 |
 16:00
 17:00
 18:00
@@ -236,9 +245,9 @@ Here is your schedule on 2020-10-15!! :)
 22:00
 23:00
 
-Deadlines on 2020-10-15:
-You don't have any tasks!
-===================
+ Today's task:
+[D] TP version 1 - CS2113  (by: 2020-10-21)
+
 ```
 
 ## Display all the task on a range of date: `display /date STARTDATE-ENDDATE`
@@ -270,43 +279,155 @@ Oct 15 schedule :
 ## Edit a task: `edit TASKNAME /date DATE /	/ATTRIBUTES /NEW_VALUE`
 
 Edit the parameter(description, date, frequency, modulecode, time, tasktype) of a certain task
-Format: `edit TASKNAME /date DATE /	/ATTRIBUTES /NEW_VALUE`
+Format: `edit TASKNAME /date DATE /ATTRIBUTES /NEW_VALUE`
 
 Example of Usage: 
 
-* edit v1.0 /date 2021/04/12 /description /v2.0
-* edit v1.0 /date 2021/04/12 /date /2021/02/01
+```
+===================
+deadline CS2113 tp /by 2020-10-16
+Got it, added deadline to Schedule Manager and Module Manager
+===================
+===================
+Please type the command!
+===================
+edit tp /date 2020-10-16 /date /2020-10-15
+2020-10-16
+===================
+Please type the command!
+===================
+display CS2113
 
-## Delete all tasks of a description
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+The list of task in CS2113:
+[D]CS2113 tp (by: 2020-10-15)
+===================
+```
+
+## Delete tasks of a description:  `delete DESCRIPTION` 
 
 Delete every task that fits the description regardless of date
-Format: delete taskname 
+Format: `delete DESCRIPTION` 
 
-Example of Usage
+Example of Usage:
 
-`delete v1.0`
+```
+===================
+deadline CS2113 tp /by 2020-10-16
+Got it, added deadline to Schedule Manager and Module Manager
+===================
+===================
+Please type the command!
+===================
+delete tp
+===================
+Please type the command!
+===================
+display CS2113
 
-## Delete all tasks of a description
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+The list of task in CS2113:
+You don't have any tasks!
+
+===================
+===================
+Please type the command!
+===================
+
+```
+
+## Delete all tasks of a description based on date: `delete DESCRIPTION /date DATE`
 
 Delete every task that fits the description on that particular date
-Format: display /date DATE
+Format: `delete DESCRIPTION /date DATE`
 
 * The DATE must be in YYYY/MM/DD
 
 Example of Usage
 
-* delete v1.0 /date 2020/01/12
+```
+===================
+===================
+Please type the command!
+===================
+deadline CS2113 tp /by 2020-10-15
+Got it, added deadline to Schedule Manager and Module Manager
+===================
+===================
+Please type the command!
+===================
+deadline CS2113 tp /by 2020-10-16
+Got it, added deadline to Schedule Manager and Module Manager
+===================
+===================
+Please type the command!
+===================
+deadline CS2113 tp /by 2020-10-15
+Got it, added deadline to Schedule Manager and Module Manager
+===================
+===================
+Please type the command!
+===================
+delete tp /date 2020/10/16
+===================
+Please type the command!
+===================
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+The list of task in CS2113:
+[D]CS2113 tp (by: 2020-10-15)
+[D]CS2113 tp (by: 2020-10-15)
+
+===================
+===================
+Please type the command!
+===================
+display /date 2020/10/16
+Here is your schedule on 2020-10-16!! :)
+08:00
+09:00
+10:00
+11:00
+12:00
+13:00
+14:00
+15:00
+16:00
+17:00
+18:00
+19:00
+20:00
+21:00
+22:00
+23:00
+
+Deadlines on 2020-10-16:
+You don't have any tasks!
+```
+
+
 
 # Command Summary
 + Add Module: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
 + Add Lesson: `lesson TITILE COURSECODE /on DAYOFWEEK 7 STARTTIME ENDTIME`
 + Add Event: `event MODULE_CODE DESCRIPTION /at DATE_OF_EVENT TIME LOCATION_OF_EVENT`
-
 + Add Deadline: `deadline COURSECODE DESCRIPTION /by DATE`
 + Display today's Schedule: `display` 
-
 + Display all the task in a module: `display  MODULECODE`
 + Display all the task in a module on a date: `display  MODULECODE /date DATE`
 + Display all the task on a date: `display /date DATE`
 + Display all the task on a range of date: `display /date STARTDATE-ENDDATE`
++ Edit a task: `edit TASKNAME /date DATE /	/ATTRIBUTES /NEW_VALUE`
++ Delete tasks of a description:  `delete DESCRIPTION` 
++ Delete all tasks of a description based on date: `delete DESCRIPTION /date DATE`
 

@@ -43,7 +43,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.moduleCode + " " + super.description + " (" + this.startTimeOfEvent + " " + this.dateOfEvent + " at " + this.at + ")";
+        return "[E] " + super.moduleCode + " " + super.description + " (" + this.startTimeOfEvent + " " + this.dateOfEvent + " at " + this.at + ")";
     }
 
     @Override
