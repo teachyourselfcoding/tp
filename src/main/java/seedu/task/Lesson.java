@@ -24,7 +24,7 @@ public class Lesson extends Task {
     }
 
     /**
-     * for quick adding o lessons
+     * for quick adding of lessons
      * @param description
      * @param moduleCode
      * @param startTime
@@ -66,7 +66,7 @@ public class Lesson extends Task {
      */
     @Override
     public String toString() {
-        return "[L]" + description + " " + moduleCode + " " + this.getLessonDayInDayOfWeek() +
+        return "[L] " + description + " - " + moduleCode + " " + this.getLessonDayInDayOfWeek() +
                 " " + startTime + " " + endTime;
     }
 
