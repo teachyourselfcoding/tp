@@ -10,15 +10,21 @@ import java.time.LocalDate;
  */
 public class Task {
     protected String description;
-    //protected boolean isDone;
+    protected boolean isDone; // should remove this since no longer seem to be useful in our tp.
     protected String taskType; // can be E or D for our project
     protected String moduleCode; // Module this task belongs to
     protected String time; //Time of the event in HH:MM format
     protected LocalDate date;
+    protected int frequency;
     protected String by;
     protected String notes; // TODO add it in the constructor. ***Low priority, settle later.
 
     //FIXME add new event and deadlines to this list whenever created
+
+    public Task(String description, String moduleCode) {
+        this.description = description;
+        this.moduleCode = moduleCode;
+    }
 
     /**
      * Creates new Task object, without frequency.
@@ -28,10 +34,10 @@ public class Task {
      *  - add searching module based on moduleCode(String). Need to search through the ModuleManager.
      *  - add error handling.
      */
-
-    public Task(String description, String moduleCode) {
+    public Task(String description, String moduleCode, int frequency) {
         this.description = description;
         this.moduleCode = moduleCode;
+        this.frequency = frequency;
         //this.isDone = false;
         this.date =null;
     }
@@ -61,12 +67,10 @@ public class Task {
         return description;
     }
 
-    /*
+
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
     }
-
-     */
 
     public String getTaskType() {
         return taskType;
@@ -74,12 +78,9 @@ public class Task {
 
     public LocalDate getDate(){ return date;}
 
-    /*
     public void maskAsDone() {
         this.isDone = true;
     }
-
-     */
 
     public void setDescription(String description) {
         this.description = description;
@@ -111,5 +112,9 @@ public class Task {
         else {
             System.out.println("Invalid Task type");
         }
+    }
+
+    public void setFrequency(int newFrequency) {
+        this.frequency = newFrequency;
     }
 }

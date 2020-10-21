@@ -7,7 +7,6 @@ import java.time.LocalDate;
 public class Lesson extends Task {
     private String startTime;
     private String endTime;
-    private int frequency;
     private LocalDate specificDate;
 
     /**
@@ -19,7 +18,7 @@ public class Lesson extends Task {
      * @param endTime the end time of the lesson
      */
     public Lesson(String description, String moduleCode, int frequency, String startTime, String endTime) {
-        super(description, moduleCode);
+        super(description, moduleCode, frequency);
         super.taskType = "L";
         this.frequency = frequency;
         this.startTime = startTime;
