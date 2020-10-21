@@ -10,11 +10,7 @@ import seedu.command.ExitCommand;
 import seedu.command.FindCommand;
 import seedu.command.ListCommand;
 import seedu.command.EditTaskCommand;
-import seedu.exception.EmptyArgumentException;
-import seedu.exception.InvalidArgumentsException;
-import seedu.exception.InvalidModuleCodeException;
-import seedu.exception.MissingLessonTimingException;
-import seedu.exception.WrongDateFormatException;
+import seedu.exception.*;
 import seedu.task.Deadline;
 import seedu.task.Event;
 import seedu.task.Lesson;
@@ -99,6 +95,8 @@ public class Parser {
             Ui.printInvalidModuleCode();
         } catch (WrongDateFormatException e) {
             Ui.printInvalidDateFormatMessage();
+        } catch (InvalidDateRangeException e){
+
         }
 
         return null;  // the function must return something
@@ -240,7 +238,7 @@ public class Parser {
      * @throws WrongDateFormatException if the date in wrong format and cannot be parsed
      * @throws InvalidArgumentsException if the input gives the argument in wrong format
      */
-    public static DisplayCommand parseDisplayCommand(String input) throws WrongDateFormatException, InvalidArgumentsException{
+    public static DisplayCommand parseDisplayCommand(String input) throws WrongDateFormatException, InvalidArgumentsException, InvalidDateRangeException{
         String moduleCode = "";
         String[] filteredInput = input.trim().split(" ",2);
 

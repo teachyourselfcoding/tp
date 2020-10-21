@@ -3,6 +3,7 @@ package seedu.command;
 import seedu.ModuleManager;
 import seedu.ScheduleManager;
 import seedu.Ui;
+import seedu.exception.InvalidDateRangeException;
 import seedu.exception.ModuleNotExistsException;
 
 import java.time.LocalDate;
@@ -46,7 +47,7 @@ public class DisplayCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
+    public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui)  {
         try {
             switch (displayOptions) {
                 case "module": {
@@ -72,6 +73,8 @@ public class DisplayCommand extends Command {
             }
         } catch (ModuleNotExistsException e) {
             Ui.printModuleNotExistMessage();
+        } catch (InvalidDateRangeException e){
+            Ui.printInvalidDateRange();
         }
     }
 }

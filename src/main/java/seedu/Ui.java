@@ -176,6 +176,12 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+    public static void printInvalidDateRange() {
+        System.out.println(SEPARATOR);
+        System.out.println("The Date is out of range.");
+        System.out.println(SEPARATOR);
+    }
+
     public static void printSeparator() {
         System.out.println(SEPARATOR);
     }

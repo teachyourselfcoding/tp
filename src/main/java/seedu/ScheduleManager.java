@@ -274,12 +274,15 @@ public class ScheduleManager {
 	 * Method to display the schedule of 1 date.
 	 * @param date that user wants to see the schedule of.
 	 */
-	public void displayDate(LocalDate date) {
+	public void displayDate(LocalDate date) throws InvalidDateRangeException {
 		String startTime = null;
 		String endTime = null;
 		boolean taskIsLessonOrEvent = false;
-		Ui.print("Here is your schedule on " + date.toString() + "!! :)");
 		ArrayList<Task> taskList = semesterSchedule.get(date);
+		if (taskList==null){
+			throw new InvalidDateRangeException();
+		}
+		Ui.print("Here is your schedule on " + date.toString() + "!! :)");
 		ArrayList<Task> nonLessonList= new ArrayList<>();
 		String[] timing = {"08:00", "09:00","10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
 				"18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};

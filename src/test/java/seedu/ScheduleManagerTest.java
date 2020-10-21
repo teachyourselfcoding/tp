@@ -12,7 +12,8 @@ class ScheduleManagerTest {
     @Test
     void display_longAgoDate_expectExceptions() {
         ScheduleManager sm = new ScheduleManager();
-        assertThrows(InvalidDateRangeException.class,()->{sm.display(LocalDate.parse("2010-10-10"));});
+        assertThrows(InvalidDateRangeException.class,()->{ sm.displayDate(LocalDate.parse("2010-10-10"));});
     }
-    
+
+
 }
