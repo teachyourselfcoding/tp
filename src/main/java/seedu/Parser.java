@@ -229,7 +229,6 @@ public class Parser {
             return new DeleteCommand(dateDetails[0], specificDate);
         } catch (DateTimeException e) {
             throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
-
         }
     }
 
@@ -397,8 +396,6 @@ public class Parser {
                 System.out.println("Wrong type");
                 System.out.println(type);
                 return null;
-
         }
     }
-
 }

@@ -52,11 +52,10 @@ public class Task {
     }
 
     public String getModuleCode() {
-        if (this.moduleCode.equals("")){
-            return "unMod";
-        }
+        //if (this.moduleCode.equals("")){
+        //    return "unMod";
+        //}
         return this.moduleCode;
-
     }
 
     public String getFullDescription() {

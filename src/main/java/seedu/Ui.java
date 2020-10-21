@@ -61,6 +61,15 @@ public class Ui {
         return commandString;
     }
 
+    public String readYesOrNo() {
+        System.out.println(SEPARATOR);
+        System.out.println("Clashes detected, are you sure you want to add the task? Answer Yes or No");
+        System.out.println(SEPARATOR);
+
+        String input = scanner.nextLine();
+        return input;
+    }
+
     /**
      * Prints the Exception information based on the parameters.
      * @param e DukeExceptionType
@@ -166,13 +175,19 @@ public class Ui {
 
     public static void printInvalidModuleCode() {
         System.out.println(SEPARATOR);
-        System.out.println("The module code given is not valid.");
+        System.out.println("The module code is not valid or not typed in.");
         System.out.println(SEPARATOR);
     }
 
     public static void printInvalidDateFormatMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Please give the date in correct format.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printInvalidInputForYesOrNo() {
+        System.out.println(SEPARATOR);
+        System.out.println("You should type Yes or No");
         System.out.println(SEPARATOR);
     }
 

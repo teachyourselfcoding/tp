@@ -1,4 +1,5 @@
 package seedu;
+import seedu.exception.InvalidInputException;
 import seedu.task.Deadline;
 import seedu.task.Event;
 import seedu.task.Lesson;
@@ -6,6 +7,7 @@ import seedu.task.Task;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,11 +77,19 @@ public class ScheduleManager {
 	/**
 	 * Add lessons to the day of the week that the lesson is conducted in.
 	 * @param lesson lesson to be added to the schedule manager.
-	 * TODO
-	 *  - For future versions, need to check if there are any clash in timings first before adding.
 	 */
-	public void addLesson(Lesson lesson,ModuleManager moduleManager) {
+	public void addLesson(Lesson lesson, ModuleManager moduleManager, Ui ui) {
 		DayOfWeek day = lesson.getLessonDayInDayOfWeek();
+		/*
+		if (checkIfLessonToBeAddedClashesWithCurrentTimetable((lesson))) {
+			String verifyIfReallyWantToAdd = ui.readYesOrNo();
+			if (verifyIfReallyWantToAdd.equals("No")) {
+				return;
+			} else if (!verifyIfReallyWantToAdd.equals("Yes")) {
+				throw new InvalidInputException();
+			}
+		}
+		 */
 		for (Map.Entry<LocalDate, ArrayList<Task>> entry : this.semesterSchedule.entrySet()) {
 			LocalDate key = entry.getKey();
 			// add lessons to weeks when there is school only.
@@ -91,7 +101,55 @@ public class ScheduleManager {
 		}
 		moduleManager.addTaskToModule(lesson, lesson.getModuleCode());
 	}
-	
+
+	public boolean checkIfLessonToBeAddedClashesWithCurrentTimetable(Lesson lesson) {
+		DayOfWeek day = lesson.getLessonDayInDayOfWeek();
+		LocalTime startTime = lesson.getStartTimeInLocalTime();
+		LocalTime endTime = lesson.getEndTimeInLocalTime();
+		for (Map.Entry<LocalDate, ArrayList<Task>> entry : this.semesterSchedule.entrySet()) {
+			LocalDate key = entry.getKey();
+			if (!this.listOfNonLessonDates.contains(key)) {
+				if (key.getDayOfWeek().getValue() == day.getValue()) {
+					// check if got a clash. immediately return true if there is
+					if (checkIfLessonToBeAddedClashesInADate(lesson, key)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	public boolean checkIfLessonToBeAddedClashesInADate(Lesson lesson, LocalDate date) {
+		ArrayList<Task> listOfTasks = this.semesterSchedule.get(date);
+		LocalTime startTimeOfLesson = lesson.getStartTimeInLocalTime();
+		LocalTime endTimeOfLesson = lesson.getEndTimeInLocalTime();
+		for (Task task : listOfTasks) {
+			if (task instanceof Lesson) {
+				LocalTime startTimeOfTask = ((Lesson)task).getStartTimeInLocalTime();
+				LocalTime endTimeOfTask = ((Lesson)task).getEndTimeInLocalTime();
+				if (startTimeOfLesson.isAfter(startTimeOfTask) && startTimeOfLesson.isBefore(endTimeOfTask)) {
+					return true;
+				}
+				if (endTimeOfLesson.isAfter(startTimeOfTask)) {
+					return true;
+				}
+			}
+			if (task instanceof Event) {
+				LocalTime startTimeOfTask = ((Event)task).getStartTimeOfEventInLocalTime();
+				LocalTime endTimeOfTask = ((Event)task).getEndTimeOfEventInLocalTime();
+				if (startTimeOfLesson.isAfter(startTimeOfTask) && startTimeOfLesson.isBefore(endTimeOfTask)) {
+					return true;
+				}
+				if (endTimeOfLesson.isAfter(startTimeOfTask)) {
+					return true;
+				}
+			}
+		}
+		//System.out.println("NO CLASHES TODAY");
+		return false;
+	}
+
 	/**
 	 * Deadline only got 1 day, so just filter for the
 	 * date where I need to add the deadline,
@@ -111,7 +169,7 @@ public class ScheduleManager {
 	public void addEvent(Event event,ModuleManager moduleManager) {
 		LocalDate date = LocalDate.parse(event.getDateOfEvent());
 		this.semesterSchedule.get(date).add(event);
-		if (event.getModuleCode() != ""){
+		if (!event.getModuleCode().equals("")){
 			moduleManager.addTaskToModule(event, event.getModuleCode());
 		}
 	}
@@ -307,28 +365,50 @@ public class ScheduleManager {
 		String[] timing = {"08:00", "09:00","10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
 				"18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
 		for (Task t: taskList) {
-			if (t instanceof Lesson) {
+			if (t instanceof Lesson ){
 				startTime = ((Lesson) t).getStartTime();
 				endTime = ((Lesson) t).getEndTime();
-				taskIsLessonOrEvent = true;
-			} else if (t instanceof Event) {
-				startTime = ((Event) t).getStartTimeOfEvent();
-				endTime = ((Event) t).getEndTimeOfEvent();
-				taskIsLessonOrEvent = true;
-			}
-			if (taskIsLessonOrEvent == true) {
 				boolean hasStart = false;
 				boolean hasEnd = false;
-				for(int i = 0; i < timing.length; i++){
-					if (timing[i].substring(0,5).equals(startTime) ){
+				for (int i = 0; i < timing.length; i++) {
+					if (timing[i].substring(0, 5).equals(startTime) ) {
 						hasStart = true;
-						timing[i] = timing[i]+ " " + t.getDescription() + ", " + t.getModuleCode();
-					} else if(timing[i].substring(0, 5).equals(endTime)){
+						timing[i] = timing[i] + " " + t.getDescription() + " - " + t.getModuleCode() + " |";
+					} else if(timing[i].substring(0, 5).equals(endTime)) {
 						hasEnd = false;
 						hasStart = false;
 						break;
 					} else if(hasStart && !hasEnd) {
-						timing[i] = timing[i] + " " + t.getDescription() + ", " + t.getModuleCode();
+						timing[i] = timing[i] + " " + t.getDescription() + " - " + t.getModuleCode() + " |";
+					}
+				}
+			} else if (t instanceof Event){
+				startTime = ((Event) t).getStartTimeOfEvent();
+				endTime = ((Event) t).getEndTimeOfEvent();
+				boolean hasStart = false;
+				boolean hasEnd = false;
+				for (int i = 0; i < timing.length; i++) {
+					if (timing[i].substring(0, 5).equals(startTime) ) {
+						hasStart = true;
+						if (!t.getModuleCode().equals("")) {
+							timing[i] = timing[i] + " " + t.getDescription() + " - " + t.getModuleCode() + " at "
+									+ ((Event) t).getAt() + " |";
+						} else {
+							timing[i] = timing[i] + " " + t.getDescription() + " - " + "at "
+									+ ((Event) t).getAt() + " |";
+						}
+					} else if (timing[i].substring(0, 5).equals(endTime)) {
+						hasEnd = false;
+						hasStart = false;
+						break;
+					} else if (hasStart && !hasEnd) {
+						if (!t.getModuleCode().equals("")) {
+							timing[i] = timing[i] + " " + t.getDescription() + " - " + t.getModuleCode() + " at "
+									+ ((Event) t).getAt() + " |";
+						} else {
+							timing[i] = timing[i] + " " + t.getDescription() + " - " + "at "
+									+ ((Event) t).getAt() + " |";
+						}
 					}
 				}
 			} else {

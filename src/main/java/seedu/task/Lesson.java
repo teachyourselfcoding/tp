@@ -2,7 +2,7 @@ package seedu.task;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-
+import java.time.LocalTime;
 
 public class Lesson extends Task {
     private String startTime;
@@ -56,8 +56,16 @@ public class Lesson extends Task {
         return startTime;
     }
 
+    public LocalTime getStartTimeInLocalTime() {
+        return LocalTime.parse(this.startTime);
+    }
+
     public String getEndTime(){
         return endTime;
+    }
+
+    public LocalTime getEndTimeInLocalTime() {
+        return LocalTime.parse(this.endTime);
     }
 
     public LocalDate getDate(){
