@@ -115,7 +115,7 @@ public class Ui {
             }
         }
         if (lists.size() == 0) {
-            System.out.println("You don't have any tasks!");
+            System.out.println("You don't have any Deadlines!");
         }
         print("");
     }
@@ -182,12 +182,6 @@ public class Ui {
     public static void printInvalidDateFormatMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Please give the date in correct format.");
-        System.out.println(SEPARATOR);
-    }
-
-    public static void printInvalidInputForYesOrNo() {
-        System.out.println(SEPARATOR);
-        System.out.println("You should type Yes or No");
         System.out.println(SEPARATOR);
     }
 

@@ -14,7 +14,6 @@ as well as tasks related to their modules that they are taking.
 ---
 
 
-
 ## Add a Module: `module`
 
 Format: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
