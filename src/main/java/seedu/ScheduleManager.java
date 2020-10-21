@@ -1,4 +1,5 @@
 package seedu;
+import seedu.exception.InvalidDateRangeException;
 import seedu.task.Deadline;
 import seedu.task.Event;
 import seedu.task.Lesson;
@@ -94,13 +95,15 @@ public class ScheduleManager {
 	 *  - add code and output based on UG
 	 *  - handle the task with frequency!
 	 */
-	public void display(LocalDate specificDate){
-		ArrayList<Task> list =  semesterSchedule.get(specificDate);
-		if (list.size()!=0){
+	public void display(LocalDate specificDate) throws InvalidDateRangeException {
+			ArrayList<Task> list =  semesterSchedule.get(specificDate);
+	if(list == null) {
+		throw new  InvalidDateRangeException();
+	} else if (list.size() != 0) {
 			Ui.print("List of task on " + specificDate.toString() + " :");
 			Ui.printListGenericType(list);
 			Ui.printSeparator();
-		} else {
+	} else {
 			Ui.print("No Task on " + Ui.convertDateToString(specificDate));
 		}
 	}
@@ -148,15 +151,15 @@ public class ScheduleManager {
 		}
 	}
 
-	public void editTask(String description, LocalDate date, String property, LocalDate newDate){
+	public void editTask(String description, LocalDate date, String property, LocalDate newDate) {
 		for(Task task : semesterSchedule.get(date)){
-			if(task.getDescription().equals(description)){
+			if(task.getDescription().equals(description)) {
 				System.out.println(task.getDate());
 				this.semesterSchedule.get(newDate).add(task);
 			}
 		}
-		for(Task newTask : semesterSchedule.get(newDate)){
-			if(newTask.getDescription().equals(description)){
+		for (Task newTask : semesterSchedule.get(newDate)) {
+			if (newTask.getDescription().equals(description)){
 				newTask.setDate(newDate.toString()); //Need to change later
 			}
 		}
@@ -164,7 +167,7 @@ public class ScheduleManager {
 	}
 
 
-	public void deleteTask(String description, LocalDate date){
+	public void deleteTask(String description, LocalDate date) {
 		if(semesterSchedule.get(date).size() != 0){
 			semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
 		}
@@ -173,7 +176,7 @@ public class ScheduleManager {
 		}
 	}
 
-	public void deleteTask(String description){
+	public void deleteTask(String description) {
 		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
 			if(semesterSchedule.get(date).size() != 0){
 				semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
@@ -181,7 +184,7 @@ public class ScheduleManager {
 		}
 	}
 
-	public void displayTodaySchedule(){
+	public void displayTodaySchedule() {
 		LocalDate todayDate = LocalDate.now();
 		Ui.print( "Today's Schedule:");
 		ArrayList<Task> taskList = semesterSchedule.get(todayDate);
