@@ -14,7 +14,6 @@ public class Event extends Task {
     protected String dateOfEvent;
     protected String endTimeOfEvent;
     //TODO add these extra attributes in constructors
-    protected String members;
 
     public Event(String description, String moduleCode, String at, String startTimeOfEvent, String dateOfEvent) {
         super(description, moduleCode);
@@ -22,7 +21,7 @@ public class Event extends Task {
         this.at = at;
         this.startTimeOfEvent = startTimeOfEvent;
         this.dateOfEvent = dateOfEvent;
-        this.isDone = false;
+        //this.isDone = false;
     }
 
     public Event(String description, String moduleCode, String at, String startTimeOfEvent, String endTimeOfEvent, String dateOfEvent) {
@@ -32,7 +31,7 @@ public class Event extends Task {
         this.startTimeOfEvent = startTimeOfEvent;
         this.endTimeOfEvent = endTimeOfEvent;
         this.dateOfEvent = dateOfEvent;
-        this.isDone = false;
+        //this.isDone = false;
     }
 
     /**

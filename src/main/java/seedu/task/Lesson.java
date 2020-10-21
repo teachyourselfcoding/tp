@@ -9,6 +9,7 @@ public class Lesson extends Task {
     private String endTime;
     private int frequency;
     private LocalDate specificDate;
+
     /**
      * Constructor of Lesson object.
      * @param description to say if it is a lecture or tutorial or lab etc
@@ -23,23 +24,6 @@ public class Lesson extends Task {
         this.frequency = frequency;
         this.startTime = startTime;
         this.endTime = endTime;
-    }
-
-    /**
-     * for quick adding of lessons
-     * @param description
-     * @param moduleCode
-     * @param startTime
-     * @param endTime
-     * @param specificDate
-     */
-    public Lesson(String description, String moduleCode, String startTime, String endTime,LocalDate  specificDate) {
-        super(description, moduleCode);
-        super.taskType = "L";
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.specificDate =specificDate;
-
     }
 
     /**

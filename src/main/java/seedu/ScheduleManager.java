@@ -84,7 +84,6 @@ public class ScheduleManager {
 		if(event.getModuleCode() != ""){
 			moduleManager.addTaskToModule(event, event.getModuleCode());
 		}
-
 	}
 
 	/**

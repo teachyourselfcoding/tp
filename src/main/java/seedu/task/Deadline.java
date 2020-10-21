@@ -7,8 +7,6 @@ import java.time.LocalDate;
  * to store deadline timing.
  */
 public class Deadline extends Task {
-
-
     public Deadline(String description, String by) {
         super(description);
         super.taskType = "D";
@@ -18,13 +16,6 @@ public class Deadline extends Task {
     public Deadline(String moduleCode, String description, String by) {
         super(description, moduleCode);
         this.by = by;
-    }
-
-    public Deadline(String description, String by, Boolean isDone) {
-        super(description);
-        super.taskType = "D";
-        this.by = by;
-        super.isDone = isDone;
     }
 
     public String getDeadline() {
