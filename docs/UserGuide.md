@@ -127,6 +127,8 @@ Got it, added deadline to Schedule Manager and Module Manager
 
 Display Today's Lesson and Task( Deadline and Event)
 
+Task that are in the same time slot are Separated with "|"
+
 Format: `display`
 
 Example input:
@@ -139,12 +141,12 @@ Example output:
 Today's Schedule:
 08:00
 09:00
-10:00
-11:00
-12:00
-13:00
-14:00
-15:00
+10:00 quiz - CS2113 |
+11:00 quiz - CS2113 | meeting - CS2113 |
+12:00 lecture - CS2113 | meeting - CS2113 |
+13:00 lecture - CS2113 | meeting - CS2113 |
+14:00 lecture - CS2113 |
+15:00 lecture - CS2113 |
 16:00
 17:00
 18:00
@@ -170,16 +172,17 @@ You don't have any tasks!
  * `display CS2113`
 
 ```
-===================
-display CS2113 
+display CS2113
 
 Course: CS2113
 Title: null
 AU: 0
 Teaching Staffs: []
 The list of task in CS2113:
-[L]tutorial CS2113 13:00 14:00
-[D]CS2113 Tp version 1 (by: 2020-10-15)
+[E] CS2113 quiz (10:00 2020-10-21 at LT15)
+[L] lecture - CS2113 WEDNESDAY 12:00 16:00
+[E] CS2113 meeting (11:00 2020-10-21 at LT16)
+[D] TP version 1 - CS2113  (by: 2020-10-21)
 
 ===================
 ```
@@ -196,10 +199,17 @@ The list of task in CS2113:
   * `display CS2113 /date 2020/10/15`
 
 ```
-===================
-display CS2113 /date 2020/10/15
-The list of task in CS2113 on 2020-10-15 :
-[D]CS2113 Tp version 1 (by: 2020-10-15)
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+The list of task in CS2113:
+[E] CS2113 quiz (10:00 2020-10-21 at LT15)
+[L] lecture - CS2113 WEDNESDAY 12:00 16:00
+[E] CS2113 meeting (11:00 2020-10-21 at LT16)
+[D] TP version 1 - CS2113  (by: 2020-10-21)
 
 ===================
 ```
@@ -216,17 +226,16 @@ Example of Usage
 * `display /date 2020/10/15`
 
 ```
-===================
-display /date 2020/10/15
-Here is your schedule on 2020-10-15!! :)
+display /date 2020/10/21
+Today's Schedule:
 08:00
 09:00
-10:00
-11:00
-12:00
-13:00 tutorial, CS2113 Tp version 1, CS2113
-14:00
-15:00
+10:00 quiz - CS2113 |
+11:00 quiz - CS2113 | meeting - CS2113 |
+12:00 lecture - CS2113 | meeting - CS2113 |
+13:00 lecture - CS2113 | meeting - CS2113 |
+14:00 lecture - CS2113 |
+15:00 lecture - CS2113 |
 16:00
 17:00
 18:00
@@ -236,9 +245,9 @@ Here is your schedule on 2020-10-15!! :)
 22:00
 23:00
 
-Deadlines on 2020-10-15:
-You don't have any tasks!
-===================
+ Today's task:
+[D] TP version 1 - CS2113  (by: 2020-10-21)
+
 ```
 
 ## Display all the task on a range of date: `display /date STARTDATE-ENDDATE`
