@@ -128,7 +128,7 @@ public class Parser {
      * @return DeadLine object including the moduleCode of the deadline.
      * @throws DueQuestException if missing information or date is invalid.
      */
-    public static Deadline validateDeadline(String input) throws  WrongDateFormatException, InvalidDateException,
+    public static Deadline validateDeadline(String input) throws WrongDateFormatException, InvalidDateException,
             EmptyArgumentException, MissingDeadlineTimingDetailsException {
         String[] filteredInput = input.trim().split(" ", 2);
         if (filteredInput.length == 1) {
@@ -197,15 +197,15 @@ public class Parser {
 
         String[] descriptionWithModuleCode = filteredInput[1].split("/on", 2);
         String[] frequencyAndTime = descriptionWithModuleCode[1].trim().split(" ");
-        if (frequencyAndTime.length != 3) {
-            throw new MissingLessonTimingException();
-        }
         String description = descriptionWithModuleCode[0].trim();
         descriptionWithModuleCode = descriptionWithModuleCode[0].trim().split(" ");
         int size = descriptionWithModuleCode.length;
-        String moduleCode = descriptionWithModuleCode[size - 1];
+        String moduleCode = descriptionWithModuleCode[size - 1].trim();
         if (!verifyModuleCode(moduleCode)) {
             throw new InvalidModuleCodeException();
+        }
+        if (frequencyAndTime.length != 3) {
+            throw new MissingLessonTimingException();
         }
         description = description.substring(0, description.length() - moduleCode.length()).trim();
         int frequency = Integer.parseInt(frequencyAndTime[0]);

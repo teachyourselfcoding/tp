@@ -1,6 +1,7 @@
 package seedu.task;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  *Inherited from Task object, Deadline class has additional attributes.
@@ -43,5 +44,19 @@ public class Deadline extends Task {
     public LocalDate convertStringToDate(String stringDate) {
         LocalDate date = LocalDate.parse(stringDate.trim());
         return date;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Deadline deadline = (Deadline) o;
+        return Objects.equals(deadline.getDate(), this.getDate()) &&
+                Objects.equals(deadline.getModuleCode(), super.getModuleCode()) &&
+                Objects.equals(deadline.getDescription(), super.getDescription());
     }
 }

@@ -66,6 +66,9 @@ public class Task {
         return description;
     }
 
+    public int getFrequency() {
+        return this.frequency;
+    }
 
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols

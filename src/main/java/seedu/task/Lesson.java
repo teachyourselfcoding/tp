@@ -3,6 +3,7 @@ package seedu.task;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class Lesson extends Task {
     private String startTime;
@@ -70,5 +71,21 @@ public class Lesson extends Task {
 
     public LocalDate getDate(){
         return specificDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)  {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Lesson lesson = (Lesson) o;
+        return Objects.equals(startTime, lesson.startTime) &&
+                Objects.equals(endTime, lesson.endTime) &&
+                Objects.equals(lesson.getModuleCode(), super.getModuleCode()) &&
+                Objects.equals(lesson.getFrequency(), super.getFrequency()) &&
+                Objects.equals(lesson.getDescription(), super.getDescription());
     }
 }
