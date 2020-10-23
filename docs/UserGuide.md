@@ -14,7 +14,6 @@ as well as tasks related to their modules that they are taking.
 ---
 
 
-
 ## Add a Module: `module`
 
 Format: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
@@ -60,7 +59,9 @@ A Task can be a Lesson, Event or Deadline.
 
 ## Adding a lesson: `lesson`
 
-Adds a new Lesson into both your Schedule Manager and Module Manager
+Adds a new Lesson into both your Schedule Manager and Module Manager.
+Lesson will only be added into weeks when there are lessons conducted according to the NUS curriculum.
+This means that the lesson will not be added  into dates during Reading Weeks, Vacation, and Examination weeks. 
 
 `lesson TITILE COURSECODE /on DAYOFWEEK 7 STARTTIME ENDTIME`
 
@@ -69,18 +70,18 @@ Adds a new Lesson into both your Schedule Manager and Module Manager
 
 Examples of Usage:
 
-* If you want to add a CS2113 online lecture lesson which starts at 4pm and ends at 6pm, held on every Friday (every 7 days): `lesson online lecture CS2113 /on 5 7 16:00 18:00`.
-* If you want to add a CS1234 online tutorial lesson which starts at 12pm and ends at 2pm, held on every Thursday (every 7 days): `lesson online tutorial CS1234 /on 4 7 08:00 10:00`
+* If you want to add a CS2113 online lecture lesson which starts at 4pm and ends at 6pm, held on every Friday (every 7 days): `lesson online lecture CS2113 /on 5 16:00 18:00`.
+* If you want to add a CS1234 online tutorial lesson which starts at 12pm and ends at 2pm, held on every Thursday (every 7 days): `lesson online tutorial CS1234 /on 4 08:00 10:00`
 
 Example Usage:
 
 ```
 ===================
-lesson online lecture CS2113 /on 5 7 16:00 18:00
+lesson online lecture CS2113 /on 5 16:00 18:00
 Got it, added lesson to the schedule manager!
 ===================
 ===================
-lesson online tutorial CS1234 /on 4 7 08:00 10:00
+lesson online tutorial CS1234 /on 4 08:00 10:00
 Got it, added lesson to the schedule manager!
 ===================
 ```
@@ -98,6 +99,7 @@ Format: `event MODULE_CODE DESCRIPTION /at DATE_OF_EVENT TIME LOCATION_OF_EVENT`
 Example Usage:
 
 `event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14`
+`event play football /at 2021-05-03 14:00 16:00 Ang Mo Kio`
 
 ```
 ===================
@@ -156,7 +158,7 @@ Today's Schedule:
 22:00
 23:00
 
- Today's task:
+Today's task:
 You don't have any tasks!
 
 
@@ -216,7 +218,8 @@ The list of task in CS2113:
 
 ## Display all the task on a date: `display /date DATE`
 
-Display task on a specific Date
+Display the schedule on a specific Date.
+Also shows the all the upcoming deadlines one week from the specified date. 
 Format: `display /date DATE`
 
 * The `DATE` must be in `YYYY/MM/DD`
@@ -245,7 +248,7 @@ Today's Schedule:
 22:00
 23:00
 
- Today's task:
+Upcoming deadlines:
 [D] TP version 1 - CS2113  (by: 2020-10-21)
 
 ```

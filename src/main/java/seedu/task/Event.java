@@ -1,6 +1,7 @@
 package seedu.task;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  *Inherited from Task object, Event class has additional attributes.
@@ -14,7 +15,6 @@ public class Event extends Task {
     protected String dateOfEvent;
     protected String endTimeOfEvent;
     //TODO add these extra attributes in constructors
-    protected String members;
 
     public Event(String description, String moduleCode, String at, String startTimeOfEvent, String dateOfEvent) {
         super(description, moduleCode);
@@ -22,7 +22,7 @@ public class Event extends Task {
         this.at = at;
         this.startTimeOfEvent = startTimeOfEvent;
         this.dateOfEvent = dateOfEvent;
-        this.isDone = false;
+        //this.isDone = false;
     }
 
     public Event(String description, String moduleCode, String at, String startTimeOfEvent, String endTimeOfEvent, String dateOfEvent) {
@@ -32,7 +32,7 @@ public class Event extends Task {
         this.startTimeOfEvent = startTimeOfEvent;
         this.endTimeOfEvent = endTimeOfEvent;
         this.dateOfEvent = dateOfEvent;
-        this.isDone = false;
+        //this.isDone = false;
     }
 
     /**
@@ -59,6 +59,10 @@ public class Event extends Task {
         return startTimeOfEvent;
     }
 
+    public LocalTime getStartTimeOfEventInLocalTime() {
+        return LocalTime.parse(this.startTimeOfEvent);
+    }
+
     public String getDateOfEvent() {
         return dateOfEvent;
     }
@@ -69,6 +73,10 @@ public class Event extends Task {
 
     public String getEndTimeOfEvent() {
         return endTimeOfEvent;
+    }
+
+    public LocalTime getEndTimeOfEventInLocalTime() {
+        return LocalTime.parse(this.endTimeOfEvent);
     }
 
     public LocalDate getDateOfEventInLocalDate() {

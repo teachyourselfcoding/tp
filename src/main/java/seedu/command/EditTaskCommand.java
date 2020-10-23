@@ -11,12 +11,12 @@ import java.time.LocalDate;
  * TODO add code
  */
 public class EditTaskCommand extends Command{
-    String description;
-    LocalDate date = null;
-    LocalDate newDate = null;
-    String type;
-    String newProperty;
-    int[] newFrequency;
+    private String description;
+    private LocalDate date = null;
+    private LocalDate newDate = null;
+    private String type;
+    private String newProperty;
+    private int newFrequency;
 
     public EditTaskCommand(String description,  LocalDate date, String type,String newProperty){
         this.type = type;
@@ -32,15 +32,12 @@ public class EditTaskCommand extends Command{
         this.description = description;
     }
 
-    public EditTaskCommand(String description, LocalDate date, String type, int[] newFrequency){
+    public EditTaskCommand(String description, LocalDate date, String type, int newFrequency){
         this.type = type;
         this.date= date;
         this.newFrequency = newFrequency;
         this.description = description;
     }
-
-
-
 
     @Override
     public boolean isExit() {

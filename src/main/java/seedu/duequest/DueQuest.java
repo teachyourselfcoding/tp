@@ -30,6 +30,7 @@ public class DueQuest {
      * The main function to run the whole Duke app.
      */
     public static void main(String[] args) {
+        //assert false : "dummy assertion set to fail";
         DueQuest dq = new DueQuest();
         dq.run();
     }

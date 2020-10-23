@@ -14,8 +14,8 @@ import java.time.LocalTime;
  */
 public class DeleteCommand extends Command {
     private int taskNum;
-    String description;
-    LocalDate date = null;
+    private String description;
+    private LocalDate date = null;
 
     public DeleteCommand(String description) {
         this.description = description;

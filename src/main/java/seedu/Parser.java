@@ -10,11 +10,7 @@ import seedu.command.ExitCommand;
 import seedu.command.FindCommand;
 import seedu.command.ListCommand;
 import seedu.command.EditTaskCommand;
-import seedu.exception.EmptyArgumentException;
-import seedu.exception.InvalidArgumentsException;
-import seedu.exception.InvalidModuleCodeException;
-import seedu.exception.MissingLessonTimingException;
-import seedu.exception.WrongDateFormatException;
+import seedu.exception.*;
 import seedu.task.Deadline;
 import seedu.task.Event;
 import seedu.task.Lesson;
@@ -99,10 +95,12 @@ public class Parser {
             Ui.printInvalidModuleCode();
         } catch (WrongDateFormatException e) {
             Ui.printInvalidDateFormatMessage();
+        } catch (InvalidDateException e) {
+            Ui.printInvalidDateMessage();
+        } catch (MissingDeadlineTimingDetailsException e) {
+            Ui.printMissingDeadlineTimingDetailsMessage();
         }
-
         return null;  // the function must return something
-
     }
 
     /**
@@ -130,20 +128,24 @@ public class Parser {
      * @return DeadLine object including the moduleCode of the deadline.
      * @throws DueQuestException if missing information or date is invalid.
      */
-    public static Deadline validateDeadline(String input) throws DueQuestException {
+    public static Deadline validateDeadline(String input) throws WrongDateFormatException, InvalidDateException,
+            EmptyArgumentException, MissingDeadlineTimingDetailsException {
         String[] filteredInput = input.trim().split(" ", 2);
         if (filteredInput.length == 1) {
-            throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
-        }  else if (!filteredInput[1].contains("/by")) {
-            throw new DueQuestException(DueQuestExceptionType.MISSING_DEADLINE);
+            throw new EmptyArgumentException();
+        } else if (!filteredInput[1].contains("/by")) {
+            throw new MissingDeadlineTimingDetailsException();
         }
         String[] moduleCodeAndDescription = filteredInput[1].split("/by",2)[0].trim().split(" ", 2);
         String moduleCode = moduleCodeAndDescription[0].trim();
         String description = moduleCodeAndDescription[1].trim();
         String byInfo = filteredInput[1].split("/by", 2)[1].trim();
+        if (byInfo.length() != 10) {
+            throw new WrongDateFormatException();
+        }
         if (LocalDate.parse(byInfo).isAfter(LocalDate.of(2021, 6, 1)) ||
             LocalDate.parse(byInfo).isBefore(LocalDate.of(2020, 10, 12))) {
-            throw new DueQuestException((DueQuestExceptionType.INVALID_DATE));
+            throw new InvalidDateException();
         }
         return new Deadline(moduleCode, description, byInfo);
     }
@@ -152,6 +154,8 @@ public class Parser {
      * This is the new validateEvent method for our TP.
      * @param input the line input.
      * @return an Event object.
+     * TODO
+     *  - ADD EXCEPTIONS.
      */
     public static Event validateEvent(String input) {
         String filteredInput = input.trim().split(" ", 2)[1]; //get rid of event word in front
@@ -193,22 +197,20 @@ public class Parser {
 
         String[] descriptionWithModuleCode = filteredInput[1].split("/on", 2);
         String[] frequencyAndTime = descriptionWithModuleCode[1].trim().split(" ");
-        if (frequencyAndTime.length != 4) {
-            throw new MissingLessonTimingException();
-        }
         String description = descriptionWithModuleCode[0].trim();
         descriptionWithModuleCode = descriptionWithModuleCode[0].trim().split(" ");
         int size = descriptionWithModuleCode.length;
-        String moduleCode = descriptionWithModuleCode[size - 1];
+        String moduleCode = descriptionWithModuleCode[size - 1].trim();
         if (!verifyModuleCode(moduleCode)) {
             throw new InvalidModuleCodeException();
         }
+        if (frequencyAndTime.length != 3) {
+            throw new MissingLessonTimingException();
+        }
         description = description.substring(0, description.length() - moduleCode.length()).trim();
-        int[] frequency = new int[2];
-        frequency[0] = Integer.parseInt(frequencyAndTime[0]);
-        frequency[1] = Integer.parseInt(frequencyAndTime[1]);
-        String startTime = frequencyAndTime[2];
-        String endTime = frequencyAndTime[3];
+        int frequency = Integer.parseInt(frequencyAndTime[0]);
+        String startTime = frequencyAndTime[1];
+        String endTime = frequencyAndTime[2];
         return new Lesson(description, moduleCode, frequency, startTime, endTime);
     }
     /**
@@ -228,10 +230,8 @@ public class Parser {
             return new DeleteCommand(dateDetails[0], specificDate);
         } catch (DateTimeException e) {
             throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
-
         }
     }
-
 
     /**
      * Parses DisplayCommand from the input.
@@ -332,7 +332,7 @@ public class Parser {
                 if (!(charArray[6] >= 'A' && charArray[6] <= 'Z')) {
                     return false;
                 }
-            } else { // case if DSA 4211
+            } else { // case if DSA4211
                 for (int i = 0; i < 3; i++) {
                     char ch = charArray[i];
                     if (!(ch >= 'A' && ch <= 'Z')) {
@@ -375,8 +375,9 @@ public class Parser {
                     throw new WrongDateFormatException();
                 }
             case "frequency":
-                int[] newFrequency = new int[2];
-                newFrequency[0] = Integer.parseInt(newValue);
+                //int[] newFrequency = new int[2];
+                //newFrequency[0] = Integer.parseInt(newValue);
+                int newFrequency = Integer.parseInt(newValue);
                 try {
                     LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
                     return new EditTaskCommand(description, date, type, newFrequency);
@@ -395,8 +396,6 @@ public class Parser {
                 System.out.println("Wrong type");
                 System.out.println(type);
                 return null;
-
         }
     }
-
 }
