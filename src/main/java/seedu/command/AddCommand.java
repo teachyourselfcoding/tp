@@ -42,7 +42,6 @@ public class AddCommand  extends Command {
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
         if (task instanceof Lesson) {
             scheduleManager.addLesson((Lesson) task, moduleManager, ui); //add the lesson to the schedule manager
-            String moduleCode = task.getModuleCode();
             // if module code exist in the module manager, simply add the task into the module manager
         } else if (task instanceof Event) {
             scheduleManager.addEvent((Event) task,moduleManager, ui);
@@ -53,6 +52,8 @@ public class AddCommand  extends Command {
         } else {
             return;
         }
+        String moduleCode = task.getModuleCode();
+        Storage.getStorage().exportData(moduleManager, moduleCode);
         Ui.printSeparator();
     }
 }

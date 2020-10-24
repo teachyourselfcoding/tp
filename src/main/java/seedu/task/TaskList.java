@@ -55,27 +55,27 @@ public class TaskList {
         Ui.printSeparator();
     }
 
-    /**
-     * Based on the given index, delete corresponding item in the list.
-     * @param index position for deletion of the task in the list.
-     * @param storage Storage object.
-     */
-    public void deleteItemFromList(int index, Storage storage) {
-        System.out.println("Nice! I've removed this task:"
-                + "\n" + tasks.get(index).getTaskType()
-                + "["
-                + tasks.get(index).getStatusIcon()
-                + "] "
-                + tasks.get(index).getFullDescription()
-                + "\nNow you have " + (tasks.size() - 1)
-                + " tasks in the list."
-        );
-        tasks.remove(index);
-        try {
-            storage.updateFileContents(tasks);
-        } catch (IOException e) {
-            System.out.println("Problem with saving file!");
-        }
-        Ui.printSeparator();
-    }
+//    /**
+//     * Based on the given index, delete corresponding item in the list.
+//     * @param index position for deletion of the task in the list.
+//     * @param storage seedu.Storage object.
+//     */
+//    public void deleteItemFromList(int index, Storage storage) {
+//        System.out.println("Nice! I've removed this task:"
+//                + "\n" + tasks.get(index).getTaskType()
+//                + "["
+//                + tasks.get(index).getStatusIcon()
+//                + "] "
+//                + tasks.get(index).getFullDescription()
+//                + "\nNow you have " + (tasks.size() - 1)
+//                + " tasks in the list."
+//        );
+//        tasks.remove(index);
+//        try {
+//            storage.updateFileContents(tasks);
+//        } catch (IOException e) {
+//            System.out.println("Problem with saving file!");
+//        }
+//        Ui.printSeparator();
+//    }
 }
