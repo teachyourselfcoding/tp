@@ -14,7 +14,6 @@ import seedu.exception.*;
 import seedu.task.Deadline;
 import seedu.task.Event;
 import seedu.task.Lesson;
-import seedu.task.ToDo;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
