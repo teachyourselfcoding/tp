@@ -300,6 +300,7 @@ public class Parser {
         if (moduleCode.length() < 6 || moduleCode.length() > 7) {
             return false;
         }
+        moduleCode = moduleCode.toUpperCase();
         char[] charArray = moduleCode.toCharArray();
         if (charArray.length == 6) {
             for (int i = 0; i < 2; i++) {

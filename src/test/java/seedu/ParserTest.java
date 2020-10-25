@@ -138,17 +138,24 @@ class ParserTest {
         Lesson expectedLesson = Parser.parseLesson(input);
         Lesson actualLesson = new Lesson("online lecture", "CS2113",
                 5, "16:00", "18:00");
+        Lesson wrongLesson = new Lesson("online lecture", "CS2113T",
+                5, "16:00", "18:00");
         assertEquals(expectedLesson, actualLesson);
+        assertEquals(expectedLesson.equals(wrongLesson), false);
     }
 
-
     @Test
-    void parseDeadline_validDeadline_returnsTrue() throws
+    void validateDeadline_validDeadline_returnsTrue() throws
             WrongDateFormatException, InvalidDateException,
             EmptyArgumentException, MissingDeadlineTimingDetailsException {
         String input = "deadline CS2113 TP version 1 /by 2021-04-04";
         Deadline expectedDeadline = Parser.validateDeadline(input);
         Deadline actualDeadline = new Deadline("CS2113", "TP version 1", "2021-04-04");
         assertEquals(expectedDeadline, actualDeadline);
+    }
+
+    @Test
+    void validateEvent_validEvent_returnsTrue() {
+        
     }
 }
