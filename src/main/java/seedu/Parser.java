@@ -100,6 +100,8 @@ public class Parser {
             Ui.printMissingEventDateAndTimeDetailsMessage();
         } catch (InvalidTimeFormatException e) {
             Ui.printWrongTimeFormatMessage();
+        } catch (InvalidFrequencyException e) {
+            Ui.printInvalidFrequencyMessage();
         }
         return null;  // the function must return something
     }
@@ -209,7 +211,7 @@ public class Parser {
      * @param input the line of the input
      * @return the Lesson object
      */
-    public static Lesson parseLesson(String input) throws EmptyArgumentException, MissingLessonTimingException, InvalidModuleCodeException, InvalidTimeFormatException {
+    public static Lesson parseLesson(String input) throws EmptyArgumentException, MissingLessonTimingException, InvalidModuleCodeException, InvalidTimeFormatException, InvalidFrequencyException {
         String[] filteredInput = input.trim().split(" ", 2);
 
         if (filteredInput.length == 1) {  // e.g. lesson [empty_arguments]
@@ -231,7 +233,16 @@ public class Parser {
             throw new MissingLessonTimingException();
         }
         description = description.substring(0, description.length() - moduleCode.length()).trim();
+        String freq = frequencyAndTime[0];
+        try {
+            Integer.parseInt(freq);
+        } catch (NumberFormatException e) {
+            throw new InvalidFrequencyException();
+        }
         int frequency = Integer.parseInt(frequencyAndTime[0]);
+        if (frequency > 7 || frequency < 1) {
+            throw new InvalidFrequencyException();
+        }
         String startTime = frequencyAndTime[1];
         String endTime = frequencyAndTime[2];
         if (startTime.length() != 5 || endTime.length() != 5) {
