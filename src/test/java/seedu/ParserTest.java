@@ -14,7 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class ParserTest {
 
     @Test
-    void validateDeadline_validDeadlineLineInput_returnsDeadline() throws DueQuestException, InvalidDateException, WrongDateFormatException, MissingDeadlineTimingDetailsException, EmptyArgumentException {
+    void validateDeadline_validDeadlineLineInput_returnsDeadline() throws InvalidDateException,
+            WrongDateFormatException, MissingDeadlineTimingDetailsException,
+            EmptyArgumentException, InvalidModuleCodeException {
         String input = "deadline CS2113 TP version 1 /by 2021-04-04";
         Deadline deadline = Parser.validateDeadline(input);
         assertEquals(deadline.getModuleCode(), "CS2113");
@@ -23,8 +25,7 @@ class ParserTest {
     }
 
     @Test
-    void validateDeadline_inputWithoutDescription_exceptException() throws WrongDateFormatException, InvalidDateException,
-    EmptyArgumentException, MissingDeadlineTimingDetailsException {
+    void validateDeadline_inputWithoutDescription_exceptException() {
         String input = "deadline   ";
         assertThrows(EmptyArgumentException.class, () ->
         {
@@ -33,9 +34,7 @@ class ParserTest {
     }
 
     @Test
-    void validateDeadline_inputWithoutProperDeadline_expectException() throws
-            WrongDateFormatException, InvalidDateException,
-            EmptyArgumentException, MissingDeadlineTimingDetailsException {
+    void validateDeadline_inputWithoutProperDeadline_expectException() {
         String input = "deadline MA3333 20-04-04";
         assertThrows(MissingDeadlineTimingDetailsException.class, () ->
         {
@@ -44,9 +43,13 @@ class ParserTest {
     }
 
     @Test
-    void validateDeadline_inputWithDateOutsideRange_expectException() throws WrongDateFormatException, InvalidDateException,
-            EmptyArgumentException, MissingDeadlineTimingDetailsException {
+    void validateDeadline_inputWithDateOutsideRange_expectException() {
         String input = "deadline CS2113 TP version 1 /by 2021-10-10";
+        assertThrows(InvalidDateException.class, () ->
+        {
+            Parser.validateDeadline(input);
+        });
+        String input2 = "deadline CS2113 TP version 1 /by 2019-10-10";
         assertThrows(InvalidDateException.class, () ->
         {
             Parser.validateDeadline(input);
@@ -54,23 +57,7 @@ class ParserTest {
     }
 
     @Test
-    void validateEvent_validEventLineInput_returnsEvent() throws InvalidDateException,
-            MissingEventDateAndTimeDetailsException, WrongDateFormatException, InvalidTimeFormatException,
-            EmptyArgumentException, MissingDeadlineTimingDetailsException {
-        String input = "event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14";
-        Event event = Parser.validateEvent(input);
-        // check the properties of event
-        assertEquals(event.getDateOfEvent(), "2021-05-03");
-        assertEquals(event.getDateOfEventInLocalDate(), LocalDate.of(2021, 05, 03));
-        assertEquals(event.getEndTimeOfEvent(), "16:00");
-        assertEquals(event.getAt(), "LT14");
-        assertEquals(event.getModuleCode(), "CS2113");
-        assertEquals(event.getDescription(), "final exam");
-    }
-
-    @Test
-    void parseLesson_validLesson_returnsLesson() throws
-            EmptyArgumentException, MissingLessonTimingException, InvalidModuleCodeException {
+    void parseLesson_validLesson_returnsLesson() {
         String input1 = "lesson online lecture CS2113 /on 5 16:00 18:00";
         String input2 = "lesson online lecture CS2113 5 16:00 18:00";
         String input3 = "lesson        ";
@@ -94,8 +81,7 @@ class ParserTest {
     }
 
     @Test
-    void parseLesson_lessonWithInvalidModuleCode_expectException() throws
-            EmptyArgumentException, MissingLessonTimingException, InvalidModuleCodeException {
+    void parseLesson_lessonWithInvalidModuleCode_expectException() {
         String input = "lesson online lecture CS2113TTTT /on 5 16:00 18:00";
         assertThrows(InvalidModuleCodeException.class, () ->
         {
@@ -104,8 +90,7 @@ class ParserTest {
     }
 
     @Test
-    void validateLesson_lessonWithMissingTimingDetails_expectException() throws
-            EmptyArgumentException, MissingLessonTimingException, InvalidModuleCodeException {
+    void parseLesson_lessonWithMissingTimingDetails_expectException() {
         String input = "lesson online lecture CS2113T 5 18:00";
         assertThrows(MissingLessonTimingException.class, () ->
         {
@@ -113,6 +98,23 @@ class ParserTest {
         });
     }
 
+    @Test
+    void parseLesson_lessonWithWrongFrequency_expectException() {
+        String input = "lesson online lecture CS2113T /on 9 18:00 20:00";
+        assertThrows(InvalidFrequencyException.class, () ->
+        {
+            Parser.parseLesson(input);
+        });
+    }
+
+    @Test
+    void parseLesson_lessonWithWrongTimeFormat_expectException() {
+        String input = "lesson online lecture CS2113T /on 4 18:000 20:00";
+        assertThrows(InvalidTimeFormatException.class, () ->
+        {
+            Parser.parseLesson(input);
+        });
+    }
 
 
     @Test
@@ -152,7 +154,7 @@ class ParserTest {
     @Test
     void validateDeadline_validDeadline_returnsTrue() throws
             WrongDateFormatException, InvalidDateException,
-            EmptyArgumentException, MissingDeadlineTimingDetailsException {
+            EmptyArgumentException, MissingDeadlineTimingDetailsException, InvalidModuleCodeException {
         String input = "deadline CS2113 TP version 1 /by 2021-04-04";
         Deadline expectedDeadline = Parser.validateDeadline(input);
         Deadline actualDeadline = new Deadline("CS2113", "TP version 1", "2021-04-04");
@@ -160,7 +162,74 @@ class ParserTest {
     }
 
     @Test
-    void validateEvent_validEvent_returnsTrue() {
-        
+    void validateEvent_validEventLineInput_returnsEvent() throws InvalidDateException,
+            MissingEventDateAndTimeDetailsException, WrongDateFormatException, InvalidTimeFormatException,
+            EmptyArgumentException, MissingDeadlineTimingDetailsException {
+        String input = "event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14";
+        Event event = Parser.validateEvent(input);
+        // check the properties of event
+        assertEquals(event.getDateOfEvent(), "2021-05-03");
+        assertEquals(event.getDateOfEventInLocalDate(), LocalDate.of(2021, 05, 03));
+        assertEquals(event.getEndTimeOfEvent(), "16:00");
+        assertEquals(event.getAt(), "LT14");
+        assertEquals(event.getModuleCode(), "CS2113");
+        assertEquals(event.getDescription(), "final exam");
+    }
+
+    @Test
+    void validateEvent_emptyEventInput_expectException() {
+        String input = "event   ";
+        assertThrows(EmptyArgumentException.class, () ->
+        {
+            Parser.validateEvent(input);
+        });
+    }
+
+    @Test
+    void validateEvent_missingAtEventInput_expectException() {
+        String input = "event CS2113 final exam 2021-05-03 14:00 16:00 LT14";
+        assertThrows(MissingEventDateAndTimeDetailsException.class, () ->
+        {
+            Parser.validateEvent(input);
+        });
+    }
+
+    @Test
+    void validateEvent_missingEventDateTimeDetails_expectException() {
+        String input = "event CS2113 final exam /at 2021-05-03 14:00 LT14";
+        assertThrows(MissingEventDateAndTimeDetailsException.class, () ->
+        {
+            Parser.validateEvent(input);
+        });
+    }
+
+    @Test
+    void validateEvent_invalidEventDate_expectException() {
+        String input1 = "event CS2113 final exam /at 2021-10-03 12:00 14:00 LT14";
+        String input2 = "event CS2113 final exam /at 2018-10-03 12:00 14:00 LT14";
+        assertThrows(InvalidDateException.class, () ->
+        {
+            Parser.validateEvent(input1);
+        });
+        assertThrows(InvalidDateException.class, () ->
+        {
+            Parser.validateEvent(input2);
+        });
+    }
+
+    @Test
+    void validateEvent_invalidEventTime_expectException() {
+        String input1 = "event CS2113 final exam /at 2021-05-03 12:002 14:00 LT14";
+        String input2 = "event CS2113 final exam /at 2021-05-03 12:00 14:003 LT14";
+        String input3 = "event CS2113 final exam /at 2021-05-03 25:19 14:00 LT14";
+        String input4 = "event CS2113 final exam /at 2021-05-03 12:00 bbbbs LT14";
+        assertThrows(InvalidTimeFormatException.class, () ->
+        {
+            Parser.validateEvent(input1);
+        });
+        assertThrows(InvalidTimeFormatException.class, () ->
+        {
+            Parser.validateEvent(input2);
+        });
     }
 }
