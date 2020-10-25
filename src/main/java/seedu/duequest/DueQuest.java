@@ -1,18 +1,12 @@
 package seedu.duequest;
 
 import seedu.DueQuestException;
-import seedu.Module;
 import seedu.ModuleManager;
 import seedu.Parser;
 import seedu.ScheduleManager;
 import seedu.Storage;
 import seedu.Ui;
 import seedu.command.Command;
-import seedu.exception.ModuleAlreadyExistsException;
-import seedu.task.Deadline;
-import seedu.task.TaskList;
-
-import java.time.LocalDate;
 
 
 /**
@@ -20,7 +14,6 @@ import java.time.LocalDate;
  */
 public class DueQuest {
     private Ui ui;
-    private TaskList tasks;
     private ScheduleManager scheduleManager;
     private ModuleManager moduleManager;
     static final String FILE_PATH = "data/duequest.txt";
@@ -73,10 +66,6 @@ public class DueQuest {
 
     public Ui getUi() {
         return ui;
-    }
-
-    public TaskList getTasks() {
-        return tasks;
     }
 
     public ScheduleManager getScheduleManager() {

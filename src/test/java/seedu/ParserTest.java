@@ -113,6 +113,8 @@ class ParserTest {
         });
     }
 
+
+
     @Test
     void verifyModuleCode_validModule_returnsTrue() {
         String moduleCode1 = "MA2101";

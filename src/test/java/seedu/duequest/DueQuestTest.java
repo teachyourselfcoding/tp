@@ -2,12 +2,15 @@ package seedu.duequest;
 
 import org.junit.jupiter.api.Test;
 import seedu.DueQuestException;
+import seedu.Module;
 import seedu.Parser;
 import seedu.ScheduleManager;
 import seedu.command.Command;
 import seedu.exception.InvalidTimeFormatException;
+import seedu.exception.ModuleNotExistsException;
 
 import java.time.LocalDate;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,7 +21,7 @@ class DueQuestTest {
     }
 
     @Test
-    public void addingLesson_addAValidLesson_true() {
+    public void addingLesson_addAValidLesson_true() throws ModuleNotExistsException {
         DueQuest dq = new DueQuest();
         String fullCommand = "lesson online lecture CS2113 /on 5 16:00 18:00";
         LocalDate date = LocalDate.of(2021, 1, 15);
@@ -31,6 +34,9 @@ class DueQuestTest {
 
         }
         assertEquals(dq.getScheduleManager().getNumberOfTaskInADay(date), 1);
+        assertEquals(dq.getModuleManager().getNumberOfModules(), 1);
+        Module module = dq.getModuleManager().getModule("CS2113");
+        assertEquals(module.getListOfTasks().size(), 1);
     }
 
     @Test
@@ -54,6 +60,7 @@ class DueQuestTest {
         } catch (NullPointerException e) {
         }
         assertEquals(dq.getScheduleManager().getNumberOfTaskInADay(date), 2);
+
     }
 
     @Test
