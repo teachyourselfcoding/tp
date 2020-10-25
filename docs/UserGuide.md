@@ -1,4 +1,4 @@
-# User Guide
+User Guide
 
 ## Introduction
 
@@ -13,6 +13,11 @@ as well as tasks related to their modules that they are taking.
 
 ---
 
+## Storage 
+
+The storage directory is specified when launching `java -jar DueQuest.jar SPECIFIED_DIR`. By default, the directory is `data`. In the storage directory, each module will have a txt file that contains related information (e.g. information and tasks), and `additional.txt` is for commands such as delete certain tasks on certain dates. 
+
+The information will be imported and exported automatically by the app. 
 
 ## Add a Module: `module`
 
@@ -63,7 +68,7 @@ Adds a new Lesson into both your Schedule Manager and Module Manager.
 Lesson will only be added into weeks when there are lessons conducted according to the NUS curriculum.
 This means that the lesson will not be added  into dates during Reading Weeks, Vacation, and Examination weeks. 
 
-`lesson TITILE COURSECODE /on DAYOFWEEK 7 STARTTIME ENDTIME`
+`lesson TITILE COURSECODE /on DAYOFWEEK  STARTTIME ENDTIME`
 
 * The `DAYOFWEEK` is the Day Of Week when the lesson is conducted on, starting from Monday (e.g. 1). Type is an integer. If the lesson is held on Thursday, type in 4. If the lesson is held on Wednesday, type in 3.
 * The `START_TIME` and `END_TIME` are both in `HH:MM` format. You are only allowed to type in timings such that `MM` is `00`. For example, `18:00` is allowed but not `18:01`.
@@ -90,7 +95,7 @@ Got it, added lesson to the schedule manager!
 
 Adds an Event into the Schedule Manager. If the Event is associated to a Module, it will be added to the Module Manager as well.
 
-Format: `event MODULE_CODE DESCRIPTION /at DATE_OF_EVENT TIME LOCATION_OF_EVENT`
+Format: `event MODULE_CODE DESCRIPTION /at DATE_OF_EVENT START_TIME END_TIME LOCATION_OF_EVENT`
 
 * `TIME` is in `HH:MM` format. (For now, since the display function only displays timings for every hour, the time of event is such that `MM` needs to be `00`)
 * `DATE_OF_EVENT` is in `yyyy-mm-dd` format.
@@ -418,9 +423,8 @@ Deadlines on 2020-10-16:
 You don't have any tasks!
 ```
 
-
-
 # Command Summary
+
 + Add Module: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
 + Add Lesson: `lesson TITILE COURSECODE /on DAYOFWEEK 7 STARTTIME ENDTIME`
 + Add Event: `event MODULE_CODE DESCRIPTION /at DATE_OF_EVENT TIME LOCATION_OF_EVENT`
