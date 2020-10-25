@@ -221,26 +221,6 @@ public class ScheduleManager {
 		}
 	}
 
-	/**
-	 * Displays tasks on the specific days.
-	 * @param specificDate the specific day
-	 * FIXME
-	 *  - add code and output based on UG
-	 *  - handle the task with frequency!
-	 */
-	public void display(LocalDate specificDate) throws InvalidDateException {
-			ArrayList<Task> list =  semesterSchedule.get(specificDate);
-	if (list == null) {
-		throw new  InvalidDateException();
-	} else if (list.size() != 0) {
-			Ui.print("List of task on " + specificDate.toString() + " :");
-			Ui.printListGenericType(list);
-			Ui.printSeparator();
-	} else {
-			Ui.print("No Task on " + Ui.convertDateToString(specificDate));
-		}
-	}
-
 	public void editTask(String name, LocalDate date, String type, String newProperty){
 		for(Task task :semesterSchedule.get(date)){
 
@@ -368,7 +348,7 @@ public class ScheduleManager {
 		Ui.printListGenericType(nonLessonList);
 	}
 
-	/*
+	/**
 	 * Displays tasks on the days within the range.
 	 * The error message will be printed if startDay and endDay gives wrong range (e.g. endDay < startDay).
 	 * @param startDate the start of the range.
