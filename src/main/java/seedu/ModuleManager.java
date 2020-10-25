@@ -60,7 +60,7 @@ public class ModuleManager {
      */
     public Module getModule(String moduleCode) throws ModuleNotExistsException{
         for (Module m: listOfModules) {
-            if (m.getModuleCode() == moduleCode){
+            if (m.getModuleCode().equals(moduleCode)){  // '==' cannot be used.
                 return m;
             }
         }
@@ -225,5 +225,13 @@ public class ModuleManager {
         if (module != null) {
             module.deleteTask(description, date);
         }
+    }
+
+    String export() {
+        String export = "";
+        for (int i = 0; i < this.listOfModules.size(); i++) {
+            export = this.listOfModules.get(i).export() + '\n';
+        }
+        return export;
     }
 }

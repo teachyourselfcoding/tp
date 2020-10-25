@@ -1,6 +1,7 @@
 package seedu;
 
 import org.junit.jupiter.api.Test;
+import seedu.exception.InvalidDateException;
 import seedu.exception.InvalidDateRangeException;
 import seedu.exception.InvalidStartEndDateException;
 
@@ -13,7 +14,7 @@ class ScheduleManagerTest {
     @Test
     void display_longAgoDate_expectExceptions() {
         ScheduleManager sm = new ScheduleManager();
-        assertThrows(InvalidDateRangeException.class,()->{ sm.displayDate(LocalDate.parse("2010-10-10"));});
+        assertThrows(InvalidDateException.class,()->{ sm.displayDate(LocalDate.parse("2010-10-10"));});
     }
 
     @Test

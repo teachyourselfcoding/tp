@@ -61,6 +61,15 @@ public class Ui {
         return commandString;
     }
 
+    public String readYesOrNo() {
+        System.out.println(SEPARATOR);
+        System.out.println("Clashes detected, are you sure you want to add the task? Answer Yes or No");
+        System.out.println(SEPARATOR);
+
+        String input = scanner.nextLine();
+        return input;
+    }
+
     /**
      * Prints the Exception information based on the parameters.
      * @param e DukeExceptionType
@@ -106,7 +115,7 @@ public class Ui {
             }
         }
         if (lists.size() == 0) {
-            System.out.println("You don't have any tasks!");
+            System.out.println("You don't have any Deadlines!");
         }
         print("");
     }
@@ -158,6 +167,12 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+    public static void printMissingDeadlineTimingDetailsMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("The deadline's time information is missing.");
+        System.out.println(SEPARATOR);
+    }
+
     public static void printEmptyArgumentMessage() {
         System.out.println(SEPARATOR);
         System.out.println("The arguments for this command cannot be empty.");
@@ -166,7 +181,7 @@ public class Ui {
 
     public static void printInvalidModuleCode() {
         System.out.println(SEPARATOR);
-        System.out.println("The module code given is not valid.");
+        System.out.println("The module code is not valid or not typed in.");
         System.out.println(SEPARATOR);
     }
 
@@ -176,15 +191,14 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
-    public static void printInvalidDateRange() {
-        System.out.println(SEPARATOR);
-        System.out.println("The Date is out of range.");
-        System.out.println(SEPARATOR);
-    }
-
     public static void printInvalidStartEndDate() {
         System.out.println(SEPARATOR);
         System.out.println("The Start date cannot be after End date");
+    }
+
+    public static void printInvalidDateMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Please give the date between 2020/10/21 and 2021/05/31.");
         System.out.println(SEPARATOR);
     }
 

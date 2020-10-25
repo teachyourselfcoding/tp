@@ -19,18 +19,25 @@ import java.time.LocalDate;
  * DueQuest class is the main class for running the DueQuest application.
  */
 public class DueQuest {
-    private Storage storage;
     private Ui ui;
     private TaskList tasks;
     private ScheduleManager scheduleManager;
     private ModuleManager moduleManager;
     static final String FILE_PATH = "data/duequest.txt";
+    static Storage storage;
 
     /**
      * The main function to run the whole Duke app.
      */
     public static void main(String[] args) {
+        //assert false : "dummy assertion set to fail";
         DueQuest dq = new DueQuest();
+        try {
+            storage = Storage.setUpStorage(args[0]);
+        } catch (IndexOutOfBoundsException e) {
+            storage = Storage.setUpStorage(null);
+        }
+        storage.loadData(dq.scheduleManager, dq.moduleManager, dq.ui);
         dq.run();
     }
 
@@ -49,7 +56,6 @@ public class DueQuest {
      */
     public void run() {
         boolean isExit = false;
-
         while (!isExit) {
             String fullCommand = ui.readCommand();
 

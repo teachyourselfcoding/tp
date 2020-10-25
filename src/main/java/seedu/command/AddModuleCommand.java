@@ -69,6 +69,7 @@ public class AddModuleCommand extends Command {
             Ui.print("Successfully added to Module Manager! Have fun suffering from " + this.module);
             System.out.println("Here are your modules you are currently taking! " +
                     "\n" + Arrays.toString(moduleManager.getListOfModuleCodes().toArray()));
+            Storage.getStorage().exportData(moduleManager, this.module.getModuleCode());
             Ui.printSeparator();
         } catch (ModuleAlreadyExistsException e) {
             Ui.printModuleAlreadyExistMessage();
