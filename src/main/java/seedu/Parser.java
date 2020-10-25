@@ -113,7 +113,7 @@ public class Parser {
      * @throws DueQuestException if missing information or date is invalid.
      */
     public static Deadline validateDeadline(String input) throws WrongDateFormatException, InvalidDateException,
-            EmptyArgumentException, MissingDeadlineTimingDetailsException {
+            EmptyArgumentException, MissingDeadlineTimingDetailsException, InvalidModuleCodeException {
         String[] filteredInput = input.trim().split(" ", 2);
         if (filteredInput.length == 1) {
             throw new EmptyArgumentException();
@@ -122,6 +122,9 @@ public class Parser {
         }
         String[] moduleCodeAndDescription = filteredInput[1].split("/by",2)[0].trim().split(" ", 2);
         String moduleCode = moduleCodeAndDescription[0].trim();
+        if (!verifyModuleCode(moduleCode)) {
+            throw new InvalidModuleCodeException();
+        }
         String description = moduleCodeAndDescription[1].trim();
         String byInfo = filteredInput[1].split("/by", 2)[1].trim();
         if (byInfo.length() != 10) {
@@ -142,8 +145,7 @@ public class Parser {
      *  - ADD EXCEPTIONS.
      */
     public static Event validateEvent(String input) throws WrongDateFormatException, InvalidDateException,
-            EmptyArgumentException, MissingEventDateAndTimeDetailsException, InvalidTimeFormatException,
-            MissingDeadlineTimingDetailsException {
+            EmptyArgumentException, MissingEventDateAndTimeDetailsException, InvalidTimeFormatException {
         String[] filteredInputTest = input.trim().split(" ", 2);
         if (filteredInputTest.length == 1) {
             throw new EmptyArgumentException();
@@ -210,7 +212,8 @@ public class Parser {
      * @param input the line of the input
      * @return the Lesson object
      */
-    public static Lesson parseLesson(String input) throws EmptyArgumentException, MissingLessonTimingException, InvalidModuleCodeException, InvalidTimeFormatException, InvalidFrequencyException {
+    public static Lesson parseLesson(String input) throws EmptyArgumentException, MissingLessonTimingException,
+            InvalidModuleCodeException, InvalidTimeFormatException, InvalidFrequencyException {
         String[] filteredInput = input.trim().split(" ", 2);
 
         if (filteredInput.length == 1) {  // e.g. lesson [empty_arguments]
