@@ -17,9 +17,6 @@ public class Task {
     protected LocalDate date;
     protected int frequency;
     protected String by;
-    protected String notes; // TODO add it in the constructor. ***Low priority, settle later.
-
-    //FIXME add new event and deadlines to this list whenever created
 
     public Task(String description, String moduleCode) {
         this.description = description;
@@ -70,14 +67,6 @@ public class Task {
         return this.frequency;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
-    }
-
-    public String getTaskType() {
-        return taskType;
-    }
-
     public LocalDate getDate(){ return date;}
 
     public void maskAsDone() {
@@ -88,9 +77,6 @@ public class Task {
         this.description = description;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
 
     public void setModulecode(String newModulecode){ this.moduleCode = newModulecode; }
 
