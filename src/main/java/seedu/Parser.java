@@ -18,6 +18,7 @@ import seedu.task.ToDo;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 
 
@@ -61,10 +62,6 @@ public class Parser {
                     String keywords = sentence[1];
                     //Fallthrough
                     return new FindCommand(keywords);
-                case "todo":
-                    ToDo todo = validateToDo(input);
-                    //Fallthrough
-                    return new AddCommand(todo);
                 case "deadline":
                     Deadline deadline = validateDeadline(input);
                     //Fallthrough
@@ -99,26 +96,12 @@ public class Parser {
             Ui.printInvalidDateMessage();
         } catch (MissingDeadlineTimingDetailsException e) {
             Ui.printMissingDeadlineTimingDetailsMessage();
+        } catch (MissingEventDateAndTimeDetailsException e) {
+            Ui.printMissingEventDateAndTimeDetailsMessage();
+        } catch (InvalidTimeFormatException e) {
+            Ui.printWrongTimeFormatMessage();
         }
         return null;  // the function must return something
-    }
-
-    /**
-     * Used to validate and check for any errors in the user input.
-     * for ToDo object.
-     * @param  input representing user input.
-     * @return Todo object.
-     * @throws DueQuestException if missing information.
-     */
-    public static ToDo validateToDo(String input) throws DueQuestException {
-        ToDo t;
-        String[] filteredInput = input.trim().split(" ",2);
-        if (filteredInput.length == 1) {
-            throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
-        } else {
-            t = new ToDo(filteredInput[1]);
-        }
-        return t;
     }
 
     /**
@@ -157,7 +140,15 @@ public class Parser {
      * TODO
      *  - ADD EXCEPTIONS.
      */
-    public static Event validateEvent(String input) {
+    public static Event validateEvent(String input) throws WrongDateFormatException, InvalidDateException,
+            EmptyArgumentException, MissingEventDateAndTimeDetailsException, InvalidTimeFormatException,
+            MissingDeadlineTimingDetailsException {
+        String[] filteredInputTest = input.trim().split(" ", 2);
+        if (filteredInputTest.length == 1) {
+            throw new EmptyArgumentException();
+        } else if (!filteredInputTest[1].contains("/at")) {
+            throw new MissingEventDateAndTimeDetailsException();
+        }
         String filteredInput = input.trim().split(" ", 2)[1]; //get rid of event word in front
         String moduleCode = filteredInput.split(" ")[0];
         boolean isEventForAModule = verifyModuleCode(moduleCode);
@@ -172,11 +163,43 @@ public class Parser {
         String description = splitDescriptionAndDateTimeDetails[0].trim();
         String dateTimeLocationDetails = splitDescriptionAndDateTimeDetails[1];
         String[] splitDateTimeLocationDetails = dateTimeLocationDetails.trim().split(" ", 4);
+        if (splitDateTimeLocationDetails.length != 4) {
+            throw new MissingEventDateAndTimeDetailsException();
+        }
         String dateOfEvent = splitDateTimeLocationDetails[0];
-        String startTimeOfEvent = splitDateTimeLocationDetails[1];
-        String endTimeOfEvent = splitDateTimeLocationDetails[2];
+        if (dateOfEvent.length() != 10) {
+            throw new WrongDateFormatException();
+        }
+        if (LocalDate.parse(dateOfEvent).isAfter(LocalDate.of(2021, 6, 1)) ||
+                LocalDate.parse(dateOfEvent).isBefore(LocalDate.of(2020, 10, 12))) {
+            throw new InvalidDateException();
+        }
+        String startTime = splitDateTimeLocationDetails[1];
+        String endTime = splitDateTimeLocationDetails[2];
         String locationOfEvent = splitDateTimeLocationDetails[3];
-        return new Event(description, moduleCode, locationOfEvent, startTimeOfEvent, endTimeOfEvent, dateOfEvent);
+
+        if (startTime.length() != 5 || endTime.length() != 5) {
+            throw new InvalidTimeFormatException();
+        }
+        String hhStart = startTime.substring(0, 2);
+        String mmStart = startTime.substring(3);
+        try {
+            LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart));
+        } catch (NumberFormatException e) {
+            throw new InvalidTimeFormatException();
+        } catch (DateTimeException e) {
+            throw new InvalidTimeFormatException();
+        }
+        String hhEnd = startTime.substring(0, 2);
+        String mmEnd = startTime.substring(3);
+        try {
+            LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd));
+        } catch (NumberFormatException e) {
+            throw new InvalidTimeFormatException();
+        } catch (DateTimeException e) {
+            throw new InvalidTimeFormatException();
+        }
+        return new Event(description, moduleCode, locationOfEvent, startTime, endTime, dateOfEvent);
     }
 
     /**
@@ -186,7 +209,7 @@ public class Parser {
      * @param input the line of the input
      * @return the Lesson object
      */
-    public static Lesson parseLesson(String input) throws EmptyArgumentException, MissingLessonTimingException, InvalidModuleCodeException {
+    public static Lesson parseLesson(String input) throws EmptyArgumentException, MissingLessonTimingException, InvalidModuleCodeException, InvalidTimeFormatException {
         String[] filteredInput = input.trim().split(" ", 2);
 
         if (filteredInput.length == 1) {  // e.g. lesson [empty_arguments]
@@ -211,6 +234,27 @@ public class Parser {
         int frequency = Integer.parseInt(frequencyAndTime[0]);
         String startTime = frequencyAndTime[1];
         String endTime = frequencyAndTime[2];
+        if (startTime.length() != 5 || endTime.length() != 5) {
+            throw new InvalidTimeFormatException();
+        }
+        String hhStart = startTime.substring(0, 2);
+        String mmStart = startTime.substring(3);
+        try {
+            LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart));
+        } catch (NumberFormatException e) {
+            throw new InvalidTimeFormatException();
+        } catch (DateTimeException e) {
+            throw new InvalidTimeFormatException();
+        }
+        String hhEnd = startTime.substring(0, 2);
+        String mmEnd = startTime.substring(3);
+        try {
+            LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd));
+        } catch (NumberFormatException e) {
+            throw new InvalidTimeFormatException();
+        } catch (DateTimeException e) {
+            throw new InvalidTimeFormatException();
+        }
         return new Lesson(description, moduleCode, frequency, startTime, endTime);
     }
     /**
