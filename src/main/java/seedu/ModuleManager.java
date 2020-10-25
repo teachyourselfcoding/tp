@@ -72,26 +72,6 @@ public class ModuleManager {
     }
 
     /**
-     * Gives the index of the module in the list.
-     * @param moduleCode module code in string
-     * @return the Module object in list
-     * @throws ModuleNotExistsException if nothing is found
-     */
-    public int getModuleIndex(String moduleCode) throws ModuleNotExistsException{
-        int indexCount = 0;
-
-        for (Module m: listOfModules) {
-            if (m.getModuleCode() == moduleCode){
-                return indexCount;
-            }
-            else{
-                indexCount++;
-            }
-        }
-        throw new ModuleNotExistsException();
-    }
-
-    /**
      *
      * @param moduleCode
      * @param task
