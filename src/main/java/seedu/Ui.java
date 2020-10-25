@@ -173,9 +173,21 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+    public static void printMissingEventDateAndTimeDetailsMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("The event's date, time or location information is missing.");
+        System.out.println(SEPARATOR);
+    }
+
     public static void printEmptyArgumentMessage() {
         System.out.println(SEPARATOR);
         System.out.println("The arguments for this command cannot be empty.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printWrongTimeFormatMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("The format for time should be in HH:MM format.");
         System.out.println(SEPARATOR);
     }
 
