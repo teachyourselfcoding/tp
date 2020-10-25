@@ -37,10 +37,13 @@ public class DeleteCommand extends Command {
         if(this.date == null){
             scheduleManager.deleteTask(description);
             moduleManager.deleteTask(description);
+            Storage.getStorage().exportData(moduleManager);
         }
         else{
             scheduleManager.deleteTask(description, date);
             moduleManager.deleteTask(description, date);
+            String commandString = "delete " + description + " /date " + this.date;
+            Storage.getStorage().exportAdditionalData(commandString);
         }
     }
 }
