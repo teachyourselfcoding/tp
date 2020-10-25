@@ -5,10 +5,8 @@ import seedu.command.AddModuleCommand;
 import seedu.command.Command;
 import seedu.command.DeleteCommand;
 import seedu.command.DisplayCommand;
-import seedu.command.DoneCommand;
 import seedu.command.ExitCommand;
 import seedu.command.FindCommand;
-import seedu.command.ListCommand;
 import seedu.command.EditTaskCommand;
 import seedu.exception.*;
 import seedu.task.Deadline;
@@ -46,13 +44,6 @@ public class Parser {
                 case "bye":
                     //Fallthrough
                     return new ExitCommand();
-                case "list":
-                    //Fallthrough
-                    return new ListCommand();
-                case "done":
-                    taskNum = Integer.parseInt(words[1]);
-                    //Fallthrough
-                    return new DoneCommand(taskNum - 1);
                 case "delete":
                     //Fallthrough
                     return validateDeleteCommand(input);
