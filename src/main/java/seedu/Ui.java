@@ -61,6 +61,15 @@ public class Ui {
         return commandString;
     }
 
+    public String readYesOrNo() {
+        System.out.println(SEPARATOR);
+        System.out.println("Clashes detected, are you sure you want to add the task? Answer Yes or No");
+        System.out.println(SEPARATOR);
+
+        String input = scanner.nextLine();
+        return input;
+    }
+
     /**
      * Prints the Exception information based on the parameters.
      * @param e DukeExceptionType
@@ -106,18 +115,31 @@ public class Ui {
             }
         }
         if (lists.size() == 0) {
-            System.out.println("You don't have any tasks!");
+            System.out.println("You don't have any Deadlines!");
         }
         print("");
     }
 
     /**
-     * convert LocalDate object into String line that is easily readable
+     * convert LocalDate object into readable string format without year
+     * E.g 12 JUN
      * @param date
      * @return
      */
     public static String convertDateToString(LocalDate date){
         String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM"));
+        return stringDate;
+    }
+
+    /**
+     * convert LocalDate object into readable string format with year included
+     * E.g 12 JUN 20
+     * @param date
+     * @return
+     */
+
+    public static String convertDateToStringWithYear(LocalDate date){
+        String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM YY"));
         return stringDate;
     }
 
@@ -145,6 +167,12 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+    public static void printMissingDeadlineTimingDetailsMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("The deadline's time information is missing.");
+        System.out.println(SEPARATOR);
+    }
+
     public static void printEmptyArgumentMessage() {
         System.out.println(SEPARATOR);
         System.out.println("The arguments for this command cannot be empty.");
@@ -153,13 +181,19 @@ public class Ui {
 
     public static void printInvalidModuleCode() {
         System.out.println(SEPARATOR);
-        System.out.println("The module code given is not valid.");
+        System.out.println("The module code is not valid or not typed in.");
         System.out.println(SEPARATOR);
     }
 
     public static void printInvalidDateFormatMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Please give the date in correct format.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printInvalidDateMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Please give the date between 2020/10/21 and 2021/05/31.");
         System.out.println(SEPARATOR);
     }
 

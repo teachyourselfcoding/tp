@@ -8,12 +8,11 @@ import seedu.exception.ModuleNotExistsException;
 import java.time.LocalDate;
 
 public class DisplayCommand extends Command {
-
-    LocalDate startDate;
-    LocalDate endDate;
-    LocalDate specificDate;
-    String moduleCode;
-    String displayOptions; // used to determine what kind of information to display
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private LocalDate specificDate;
+    private String moduleCode;
+    private String displayOptions; // used to determine what kind of information to display
 
     public DisplayCommand() {}
 
