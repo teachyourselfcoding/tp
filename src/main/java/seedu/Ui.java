@@ -209,6 +209,13 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+    public static void printInvalidFrequencyMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Frequency should be a digit from 1 to 7");
+        System.out.println("E.g. 1 represents Monday, 3 represents Wednesday");
+        System.out.println(SEPARATOR);
+    }
+
     public static void printSeparator() {
         System.out.println(SEPARATOR);
     }
