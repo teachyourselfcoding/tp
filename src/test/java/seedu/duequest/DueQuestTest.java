@@ -1,15 +1,15 @@
 package seedu.duequest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
 import seedu.DueQuestException;
 import seedu.Parser;
 import seedu.ScheduleManager;
 import seedu.command.Command;
+import seedu.exception.InvalidTimeFormatException;
 
 import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class DueQuestTest {
     @Test
