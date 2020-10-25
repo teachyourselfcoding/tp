@@ -70,4 +70,20 @@ public class DueQuest {
         }
         ui.byeMessage();
     }
+
+    public Ui getUi() {
+        return ui;
+    }
+
+    public TaskList getTasks() {
+        return tasks;
+    }
+
+    public ScheduleManager getScheduleManager() {
+        return scheduleManager;
+    }
+
+    public ModuleManager getModuleManager() {
+        return moduleManager;
+    }
 }
