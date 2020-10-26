@@ -3,11 +3,9 @@ package seedu.command;
 import seedu.ModuleManager;
 import seedu.ScheduleManager;
 import seedu.Storage;
-import seedu.task.TaskList;
 import seedu.Ui;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 /**
  * DeleteCommand is used to delete a task in the list.

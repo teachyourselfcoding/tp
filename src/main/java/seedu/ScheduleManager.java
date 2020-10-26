@@ -479,5 +479,9 @@ public class ScheduleManager {
 		}
 		return list;
 	}
+
+	public int getNumberOfTaskInADay(LocalDate date) {
+		return semesterSchedule.get(date).size();
+	}
 }
 

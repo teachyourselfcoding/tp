@@ -28,6 +28,10 @@ public class ModuleManager {
         this.listOfModules = listOfModules;
     }
 
+    public int getNumberOfModules() {
+        return this.listOfModules.size();
+    }
+
     /**
      * Add new module to the app.
      * If the module with the same course code exists already, the message will be printed.
@@ -65,30 +69,6 @@ public class ModuleManager {
             }
         }
         throw new ModuleNotExistsException();
-    }
-
-    /**
-     * Gives the index of the module in the list.
-     * @param moduleCode module code in string
-     * @return the Module object in list
-     * @throws ModuleNotExistsException if nothing is found
-     */
-    public int getModuleIndex(String moduleCode) throws ModuleNotExistsException{
-        int indexCount = 0;
-
-        for (Module m: listOfModules) {
-            if (m.getModuleCode() == moduleCode){
-                return indexCount;
-            }
-            else{
-                indexCount++;
-            }
-        }
-        throw new ModuleNotExistsException();
-    }
-
-    public int getTotalNumberOfModules() {
-        return this.listOfModules.size();
     }
 
     /**
