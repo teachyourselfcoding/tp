@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- *Represents the Class for functions related to the CLI User interface
+ * Represents the Class for functions related to the CLI User interface
  * and used to print out exception messages for troubleshooting purpose.
  */
 public class Ui {
@@ -21,29 +21,23 @@ public class Ui {
     }
 
     /**
-     *print out the on startup message.
+     * Print out the on startup message.
      */
     public void welcomeMessage() {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        logo +
         String welcomeMessage =
                 "_____________________________________________\n"
-                +"Whats up people! Duke is here to save the day\n"
+                +"Whats up people! DueQuest is here to save the day\n"
                 +"So, what can I do for you?\n";
         System.out.print(welcomeMessage);
         System.out.println(SEPARATOR);
     }
 
     /**
-     * print out the exit message.
+     * Print out the exit message.
      */
     public void byeMessage() {
         String byeMessage =
-                "Aye captain. This is Duke Signing out!\n";
+                "Aye captain. This is DueQuest Signing out!\n";
         System.out.print(byeMessage);
         
     }
@@ -121,8 +115,8 @@ public class Ui {
     }
 
     /**
-     * convert LocalDate object into readable string format without year
-     * E.g 12 JUN
+     * Convert LocalDate object into readable string format without year.
+     * E.g 12 JUN.
      * @param date
      * @return
      */
@@ -132,8 +126,8 @@ public class Ui {
     }
 
     /**
-     * convert LocalDate object into readable string format with year included
-     * E.g 12 JUN 20
+     * Convert LocalDate object into readable string format with year included.
+     * E.g 12 JUN 20.
      * @param date
      * @return
      */
