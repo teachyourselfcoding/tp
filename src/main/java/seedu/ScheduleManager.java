@@ -1,16 +1,16 @@
 package seedu;
-import seedu.exception.InvalidReplyException;
+
+import seedu.exception.InvalidStartEndDateException;
+import seedu.exception.InvalidDateException;
 import seedu.task.Deadline;
 import seedu.task.Event;
 import seedu.task.Lesson;
 import seedu.task.Task;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -221,24 +221,6 @@ public class ScheduleManager {
 		}
 	}
 
-	/**
-	 * Displays tasks on the specific days.
-	 * @param specificDate the specific day
-	 * FIXME
-	 *  - add code and output based on UG
-	 *  - handle the task with frequency!
-	 */
-	public void display(LocalDate specificDate){
-		ArrayList<Task> list =  semesterSchedule.get(specificDate);
-		if (list.size()!=0){
-			Ui.print("List of task on " + specificDate.toString() + " :");
-			Ui.printListGenericType(list);
-			Ui.printSeparator();
-		} else {
-			Ui.print("No Task on " + Ui.convertDateToString(specificDate));
-		}
-	}
-
 	public void editTask(String name, LocalDate date, String type, String newProperty){
 		for(Task task :semesterSchedule.get(date)){
 
@@ -279,15 +261,15 @@ public class ScheduleManager {
 		}
 	}
 
-	public void editTask(String description, LocalDate date, String property, LocalDate newDate){
+	public void editTask(String description, LocalDate date, String property, LocalDate newDate) {
 		for(Task task : semesterSchedule.get(date)){
-			if(task.getDescription().equals(description)){
+			if(task.getDescription().equals(description)) {
 				System.out.println(task.getDate());
 				this.semesterSchedule.get(newDate).add(task);
 			}
 		}
-		for(Task newTask : semesterSchedule.get(newDate)){
-			if(newTask.getDescription().equals(description)){
+		for (Task newTask : semesterSchedule.get(newDate)) {
+			if (newTask.getDescription().equals(description)){
 				newTask.setDate(newDate.toString()); //Need to change later
 			}
 		}
@@ -295,7 +277,7 @@ public class ScheduleManager {
 	}
 
 
-	public void deleteTask(String description, LocalDate date){
+	public void deleteTask(String description, LocalDate date) {
 		if(semesterSchedule.get(date).size() != 0){
 			semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
 		}
@@ -304,7 +286,7 @@ public class ScheduleManager {
 		}
 	}
 
-	public void deleteTask(String description){
+	public void deleteTask(String description) {
 		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
 			if(semesterSchedule.get(date).size() != 0){
 				semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
@@ -312,7 +294,7 @@ public class ScheduleManager {
 		}
 	}
 
-	public void displayTodaySchedule(){
+	public void displayTodaySchedule() {
 		LocalDate todayDate = LocalDate.now();
 		Ui.print( "Today's Schedule:");
 		ArrayList<Task> taskList = semesterSchedule.get(todayDate);
@@ -366,14 +348,17 @@ public class ScheduleManager {
 		Ui.printListGenericType(nonLessonList);
 	}
 
-	/*
+	/**
 	 * Displays tasks on the days within the range.
 	 * The error message will be printed if startDay and endDay gives wrong range (e.g. endDay < startDay).
 	 * @param startDate the start of the range.
 	 * @param endDate the end of the range.
 	 *
 	 */
-	public void display(LocalDate startDate, LocalDate endDate){
+	public void display(LocalDate startDate, LocalDate endDate) throws InvalidStartEndDateException{
+		if (startDate.isAfter(endDate)){
+			throw new InvalidStartEndDateException();
+		}
 		Ui.print("List of task from " + Ui.convertDateToStringWithYear(startDate) + " to " + Ui.convertDateToStringWithYear(endDate));
 		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
 			if(date.isEqual(startDate)){
@@ -402,12 +387,17 @@ public class ScheduleManager {
 	 * Method to display the schedule of 1 date.
 	 * @param date that user wants to see the schedule of.
 	 */
-	public void displayDate(LocalDate date) {
+	public void displayDate(LocalDate date) throws InvalidDateException {
 		String startTime = null;
 		String endTime = null;
 		boolean taskIsLessonOrEvent = false;
-		Ui.print("Here is your schedule on " + date.toString() + "!! :)");
 		ArrayList<Task> taskList = semesterSchedule.get(date);
+
+		if (taskList==null){
+			throw new InvalidDateException();
+		}
+		Ui.print("Here is your schedule on " + date.toString() + "!! :)");
+
 		ArrayList<Deadline> deadlineList = new ArrayList<>();
 		String[] timing = {"08:00", "09:00","10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
 				"18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};

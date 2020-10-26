@@ -1,19 +1,30 @@
 package seedu;
 
-import seedu.command.AddCommand;
-import seedu.command.AddModuleCommand;
 import seedu.command.Command;
+import seedu.command.AddModuleCommand;
+import seedu.command.AddCommand;
 import seedu.command.DeleteCommand;
 import seedu.command.DisplayCommand;
 import seedu.command.ExitCommand;
-import seedu.command.FindCommand;
+import seedu.command.HelpCommand;
+import seedu.command.EditModuleCommand;
 import seedu.command.EditTaskCommand;
-import seedu.exception.*;
+import seedu.command.FindCommand;
+import seedu.exception.EmptyArgumentException;
+import seedu.exception.InvalidArgumentsException;
+import seedu.exception.InvalidModuleCodeException;
+import seedu.exception.MissingLessonTimingException;
+import seedu.exception.InvalidTimeFormatException;
+import seedu.exception.InvalidFrequencyException;
+import seedu.exception.InvalidDateException;
+import seedu.exception.MissingEventDateAndTimeDetailsException;
+import seedu.exception.WrongDateFormatException;
+import seedu.exception.MissingDeadlineTimingDetailsException;
+import seedu.exception.InvalidDateRangeException;
+import java.time.DateTimeException;
 import seedu.task.Deadline;
 import seedu.task.Event;
 import seedu.task.Lesson;
-
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
@@ -41,6 +52,9 @@ public class Parser {
             String[] words = input.split(" ");
 
             switch (words[0].toLowerCase()) {
+                case "help":
+                    //fallthrough
+                    return new HelpCommand();
                 case "bye":
                     //Fallthrough
                     return new ExitCommand();
@@ -82,6 +96,8 @@ public class Parser {
             Ui.printInvalidModuleCode();
         } catch (WrongDateFormatException e) {
             Ui.printInvalidDateFormatMessage();
+        } catch (InvalidDateRangeException e) {
+
         } catch (InvalidDateException e) {
             Ui.printInvalidDateMessage();
         } catch (MissingDeadlineTimingDetailsException e) {
@@ -288,7 +304,7 @@ public class Parser {
      * @throws WrongDateFormatException if the date in wrong format and cannot be parsed
      * @throws InvalidArgumentsException if the input gives the argument in wrong format
      */
-    public static DisplayCommand parseDisplayCommand(String input) throws WrongDateFormatException, InvalidArgumentsException{
+    public static DisplayCommand parseDisplayCommand(String input) throws WrongDateFormatException, InvalidArgumentsException, InvalidDateRangeException{
         String moduleCode = "";
         String[] filteredInput = input.trim().split(" ",2);
 
