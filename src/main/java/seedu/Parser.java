@@ -1,20 +1,30 @@
 package seedu;
 
-import seedu.command.AddCommand;
-import seedu.command.AddModuleCommand;
 import seedu.command.Command;
+import seedu.command.AddModuleCommand;
+import seedu.command.AddCommand;
 import seedu.command.DeleteCommand;
 import seedu.command.DisplayCommand;
 import seedu.command.ExitCommand;
-import seedu.command.FindCommand;
 import seedu.command.HelpCommand;
+import seedu.command.EditModuleCommand;
 import seedu.command.EditTaskCommand;
-import seedu.exception.*;
+import seedu.command.FindCommand;
+import seedu.exception.EmptyArgumentException;
+import seedu.exception.InvalidArgumentsException;
+import seedu.exception.InvalidModuleCodeException;
+import seedu.exception.MissingLessonTimingException;
+import seedu.exception.InvalidTimeFormatException;
+import seedu.exception.InvalidFrequencyException;
+import seedu.exception.InvalidDateException;
+import seedu.exception.MissingEventDateAndTimeDetailsException;
+import seedu.exception.WrongDateFormatException;
+import seedu.exception.MissingDeadlineTimingDetailsException;
+import seedu.exception.InvalidDateRangeException;
+import java.time.DateTimeException;
 import seedu.task.Deadline;
 import seedu.task.Event;
 import seedu.task.Lesson;
-
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
