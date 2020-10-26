@@ -42,6 +42,22 @@ public class Ui {
         
     }
     
+
+    /**
+     * print out the Help message
+     */
+    public void printHelpGuide() {
+        String helpMessage = " This is the list of Command Available, please refer to the User Guide\n" +
+                " display - display today's Schedule, module info, list of Task \n" +
+                " module  - add a module\n" +
+                " add     - add a deadline, event, lesson\n" +
+                " edit    - edit information\n" +
+                " delete  - delete task in a module\n" +
+                " exit    - exit duequest";
+        print(helpMessage);
+        printSeparator();
+    }
+
     /**
      * Scan and Read in user input on the CLI.
      * @return String command.

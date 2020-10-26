@@ -7,6 +7,7 @@ import seedu.command.DeleteCommand;
 import seedu.command.DisplayCommand;
 import seedu.command.ExitCommand;
 import seedu.command.FindCommand;
+import seedu.command.HelpCommand;
 import seedu.command.EditTaskCommand;
 import seedu.exception.*;
 import seedu.task.Deadline;
@@ -41,6 +42,9 @@ public class Parser {
             String[] words = input.split(" ");
 
             switch (words[0].toLowerCase()) {
+                case "help":
+                    //fallthrough
+                    return new HelpCommand();
                 case "bye":
                     //Fallthrough
                     return new ExitCommand();
