@@ -41,7 +41,6 @@ public class Ui {
         System.out.print(byeMessage);
         
     }
-    
 
     /**
      * print out the Help message
@@ -63,8 +62,7 @@ public class Ui {
      * @return String command.
      */
     public String readCommand() {
-        System.out.println(SEPARATOR);
-        System.out.println("Please type the command!");
+        System.out.println("Please type the next command!");
         System.out.println(SEPARATOR);
 
         String commandString = scanner.nextLine();
