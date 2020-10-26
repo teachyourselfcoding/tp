@@ -102,6 +102,11 @@ public class Ui {
         System.out.println(text);
     }
 
+    /**
+     * Used to print any generic list
+     * @param lists the provided list of generic type
+     * @param <T> the object type
+     */
     public static <T> void printListGenericType(ArrayList<T> lists) {
         if (lists != null) {
             for (T i: lists) {
