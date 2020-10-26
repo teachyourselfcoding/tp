@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner scanner;
-    private static String SEPARATOR="===================";
+    private static String SEPARATOR="<-------------------------------------------------------------->";
 
     /**
      * Constructor of Ui.
@@ -27,6 +27,7 @@ public class Ui {
         String welcomeMessage =
                 "_____________________________________________\n"
                 +"Whats up people! DueQuest is here to save the day\n"
+                +"DueQuest for students by students\n"
                 +"So, what can I do for you?\n";
         System.out.print(welcomeMessage);
         System.out.println(SEPARATOR);
@@ -41,14 +42,28 @@ public class Ui {
         System.out.print(byeMessage);
         
     }
-    
+
+    /**
+     * print out the Help message
+     */
+    public void printHelpGuide() {
+        String helpMessage = " This is the list of Command Available, please refer to the User Guide\n" +
+                " display - display today's Schedule, module info, list of Task \n" +
+                " module  - add a module\n" +
+                " add     - add a deadline, event, lesson\n" +
+                " edit    - edit information\n" +
+                " delete  - delete task in a module\n" +
+                " exit    - exit duequest";
+        print(helpMessage);
+        printSeparator();
+    }
+
     /**
      * Scan and Read in user input on the CLI.
      * @return String command.
      */
     public String readCommand() {
-        System.out.println(SEPARATOR);
-        System.out.println("Please type the command!");
+        System.out.println("Please type the next command!");
         System.out.println(SEPARATOR);
 
         String commandString = scanner.nextLine();
@@ -102,6 +117,11 @@ public class Ui {
         System.out.println(text);
     }
 
+    /**
+     * Used to print any generic list
+     * @param lists the provided list of generic type
+     * @param <T> the object type
+     */
     public static <T> void printListGenericType(ArrayList<T> lists) {
         if (lists != null) {
             for (T i: lists) {
@@ -195,6 +215,11 @@ public class Ui {
         System.out.println(SEPARATOR);
         System.out.println("Please give the date in correct format.");
         System.out.println(SEPARATOR);
+    }
+
+    public static void printInvalidStartEndDate() {
+        System.out.println(SEPARATOR);
+        System.out.println("The Start date cannot be after End date");
     }
 
     public static void printInvalidDateMessage() {
