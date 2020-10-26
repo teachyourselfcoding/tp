@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner scanner;
-    private static String SEPARATOR="===================";
+    private static String SEPARATOR="<-------------------------------------------------------------->";
 
     /**
      * Constructor of Ui.
@@ -32,7 +32,7 @@ public class Ui {
 //        logo +
         String welcomeMessage =
                 "_____________________________________________\n"
-                +"Whats up people! Duke is here to save the day\n"
+                +"DueQuest for students by students\n"
                 +"So, what can I do for you?\n";
         System.out.print(welcomeMessage);
         System.out.println(SEPARATOR);
