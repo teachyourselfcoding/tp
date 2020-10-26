@@ -2,12 +2,7 @@ package seedu.command;
 
 import seedu.ModuleManager;
 import seedu.ScheduleManager;
-import seedu.Storage;
-import seedu.task.Task;
-import seedu.task.TaskList;
 import seedu.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Represents a Command for searching tasks that match the given keywords.
