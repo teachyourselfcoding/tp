@@ -24,12 +24,6 @@ public class Ui {
      *print out the on startup message.
      */
     public void welcomeMessage() {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        logo +
         String welcomeMessage =
                 "_____________________________________________\n"
                 +"DueQuest for students by students\n"
