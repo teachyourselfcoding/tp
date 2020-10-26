@@ -18,6 +18,12 @@ class ScheduleManagerTest {
     }
 
     @Test
+    void display_TooFarAhead_expectExceptions() {
+        ScheduleManager sm = new ScheduleManager();
+        assertThrows(InvalidDateException.class,()->{ sm.displayDate(LocalDate.parse("2100-10-10"));});
+    }
+
+    @Test
     void display_startAndEndDateSwap_expectExceptions() {
         ScheduleManager sm = new ScheduleManager();
         assertThrows(InvalidStartEndDateException.class,()->{
