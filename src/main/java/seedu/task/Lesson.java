@@ -8,7 +8,6 @@ import java.util.Objects;
 public class Lesson extends Task {
     private String startTime;
     private String endTime;
-    private LocalDate specificDate;
 
     /**
      * Constructor of Lesson object.
@@ -67,10 +66,6 @@ public class Lesson extends Task {
 
     public LocalTime getEndTimeInLocalTime() {
         return LocalTime.parse(this.endTime);
-    }
-
-    public LocalDate getDate(){
-        return specificDate;
     }
 
     @Override

@@ -10,20 +10,11 @@ import java.time.LocalTime;
  *  - What is the members attribute for?
  */
 public class Event extends Task {
-    protected String at;
-    protected String startTimeOfEvent;
-    protected String dateOfEvent;
-    protected String endTimeOfEvent;
+    private String at;
+    private String startTimeOfEvent;
+    private String dateOfEvent;
+    private String endTimeOfEvent;
     //TODO add these extra attributes in constructors
-
-    public Event(String description, String moduleCode, String at, String startTimeOfEvent, String dateOfEvent) {
-        super(description, moduleCode);
-        super.taskType = "E";
-        this.at = at;
-        this.startTimeOfEvent = startTimeOfEvent;
-        this.dateOfEvent = dateOfEvent;
-        //this.isDone = false;
-    }
 
     public Event(String description, String moduleCode, String at, String startTimeOfEvent, String endTimeOfEvent, String dateOfEvent) {
         super(description, moduleCode);
