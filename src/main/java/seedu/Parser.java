@@ -10,17 +10,8 @@ import seedu.command.HelpCommand;
 import seedu.command.EditModuleCommand;
 import seedu.command.EditTaskCommand;
 import seedu.command.FindCommand;
-import seedu.exception.EmptyArgumentException;
-import seedu.exception.InvalidArgumentsException;
-import seedu.exception.InvalidModuleCodeException;
-import seedu.exception.MissingLessonTimingException;
-import seedu.exception.InvalidTimeFormatException;
-import seedu.exception.InvalidFrequencyException;
-import seedu.exception.InvalidDateException;
-import seedu.exception.MissingEventDateAndTimeDetailsException;
-import seedu.exception.WrongDateFormatException;
-import seedu.exception.MissingDeadlineTimingDetailsException;
-import seedu.exception.InvalidDateRangeException;
+import seedu.exception.*;
+
 import java.time.DateTimeException;
 import seedu.task.Deadline;
 import seedu.task.Event;
@@ -108,6 +99,8 @@ public class Parser {
             Ui.printWrongTimeFormatMessage();
         } catch (InvalidFrequencyException e) {
             Ui.printInvalidFrequencyMessage();
+        } catch (StartAndEndTimeSameException e) {
+            Ui.printStartAndEndTimeCannotBeTheSameMessage();
         }
         return null;  // the function must return something
     }
@@ -152,7 +145,8 @@ public class Parser {
      *  - ADD EXCEPTIONS.
      */
     public static Event validateEvent(String input) throws WrongDateFormatException, InvalidDateException,
-            EmptyArgumentException, MissingEventDateAndTimeDetailsException, InvalidTimeFormatException {
+            EmptyArgumentException, MissingEventDateAndTimeDetailsException, InvalidTimeFormatException,
+            StartAndEndTimeSameException {
         String[] filteredInputTest = input.trim().split(" ", 2);
         if (filteredInputTest.length == 1) {
             throw new EmptyArgumentException();
@@ -193,6 +187,9 @@ public class Parser {
         }
         String hhStart = startTime.substring(0, 2);
         String mmStart = startTime.substring(3);
+        String hhEnd = endTime.substring(0, 2);
+        String mmEnd = endTime.substring(3);
+
         try {
             LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart));
         } catch (NumberFormatException e) {
@@ -200,14 +197,21 @@ public class Parser {
         } catch (DateTimeException e) {
             throw new InvalidTimeFormatException();
         }
-        String hhEnd = startTime.substring(0, 2);
-        String mmEnd = startTime.substring(3);
+        if (Integer.parseInt(mmStart) != 0) {
+            throw new InvalidTimeFormatException();
+        }
         try {
             LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd));
         } catch (NumberFormatException e) {
             throw new InvalidTimeFormatException();
         } catch (DateTimeException e) {
             throw new InvalidTimeFormatException();
+        }
+        if (Integer.parseInt(mmEnd) != 0) {
+            throw new InvalidTimeFormatException();
+        }
+        if (startTime.equals(endTime)) {
+            throw new StartAndEndTimeSameException();
         }
         return new Event(description, moduleCode, locationOfEvent, startTime, endTime, dateOfEvent);
     }
@@ -220,7 +224,7 @@ public class Parser {
      * @return the Lesson object
      */
     public static Lesson parseLesson(String input) throws EmptyArgumentException, MissingLessonTimingException,
-            InvalidModuleCodeException, InvalidTimeFormatException, InvalidFrequencyException {
+            InvalidModuleCodeException, InvalidTimeFormatException, InvalidFrequencyException, StartAndEndTimeSameException {
         String[] filteredInput = input.trim().split(" ", 2);
 
         if (filteredInput.length == 1) {  // e.g. lesson [empty_arguments]
@@ -252,6 +256,7 @@ public class Parser {
         if (frequency > 7 || frequency < 1) {
             throw new InvalidFrequencyException();
         }
+
         String startTime = frequencyAndTime[1];
         String endTime = frequencyAndTime[2];
         if (startTime.length() != 5 || endTime.length() != 5) {
@@ -259,6 +264,9 @@ public class Parser {
         }
         String hhStart = startTime.substring(0, 2);
         String mmStart = startTime.substring(3);
+        String hhEnd = endTime.substring(0, 2);
+        String mmEnd = endTime.substring(3);
+
         try {
             LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart));
         } catch (NumberFormatException e) {
@@ -266,8 +274,9 @@ public class Parser {
         } catch (DateTimeException e) {
             throw new InvalidTimeFormatException();
         }
-        String hhEnd = startTime.substring(0, 2);
-        String mmEnd = startTime.substring(3);
+        if (Integer.parseInt(mmStart) != 0) {
+            throw new InvalidTimeFormatException();
+        }
         try {
             LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd));
         } catch (NumberFormatException e) {
@@ -275,6 +284,13 @@ public class Parser {
         } catch (DateTimeException e) {
             throw new InvalidTimeFormatException();
         }
+        if (Integer.parseInt(mmEnd) != 0) {
+            throw new InvalidTimeFormatException();
+        }
+        if (startTime.equals(endTime)) {
+            throw new StartAndEndTimeSameException();
+        }
+
         return new Lesson(description, moduleCode, frequency, startTime, endTime);
     }
     /**
