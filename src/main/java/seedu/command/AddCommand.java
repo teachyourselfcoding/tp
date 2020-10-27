@@ -3,12 +3,11 @@ package seedu.command;
 import seedu.ModuleManager;
 import seedu.ScheduleManager;
 import seedu.Storage;
-import seedu.exception.InvalidReplyException;
-import seedu.task.*;
+import seedu.task.Task;
+import seedu.task.Event;
+import seedu.task.Lesson;
+import seedu.task.Deadline;
 import seedu.Ui;
-
-import java.io.IOException;
-import java.time.LocalDate;
 
 /**
  * Represents a command for adding different subclass of tasks
@@ -34,9 +33,6 @@ public class AddCommand  extends Command {
      * @param scheduleManager scheduleManager that handles tasks.
      * @param moduleManager moduleManager that handles modules where we need to add task into module.
      * @param ui ui that helps with ui stuff.
-     * TODO
-     *  - make this work for adding deadlines and events too.
-     *  - add the tasks to the ModuleManager as well.
      */
     @Override
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
