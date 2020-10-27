@@ -37,11 +37,6 @@ public class Event extends Task {
         return "[E] " + super.moduleCode + " " + super.description + " (" + this.startTimeOfEvent + " " + this.dateOfEvent + " at " + this.at + ")";
     }
 
-    @Override
-    public String getFullDescription() {
-        return description + " (at:" + at + ")";
-    }
-
     public String getAt() {
         return at;
     }
