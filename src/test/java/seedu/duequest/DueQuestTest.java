@@ -7,6 +7,7 @@ import seedu.Parser;
 import seedu.ScheduleManager;
 import seedu.command.Command;
 import seedu.exception.InvalidTimeFormatException;
+import seedu.exception.StartAndEndTimeSameException;
 import seedu.exception.ModuleNotExistsException;
 
 import java.time.LocalDate;
