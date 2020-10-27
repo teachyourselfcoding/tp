@@ -202,6 +202,7 @@ public class Ui {
     public static void printWrongTimeFormatMessage() {
         System.out.println(SEPARATOR);
         System.out.println("The format for time should be in HH:MM format.");
+        System.out.println("Make sure MM is 00. E.g. 18:00 is allowed but not 18:01");
         System.out.println(SEPARATOR);
     }
 
@@ -232,6 +233,12 @@ public class Ui {
         System.out.println(SEPARATOR);
         System.out.println("Frequency should be a digit from 1 to 7");
         System.out.println("E.g. 1 represents Monday, 3 represents Wednesday");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printStartAndEndTimeCannotBeTheSameMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Start and End time cannot be the same!");
         System.out.println(SEPARATOR);
     }
 
