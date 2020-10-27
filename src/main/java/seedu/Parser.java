@@ -87,8 +87,6 @@ public class Parser {
             Ui.printInvalidModuleCode();
         } catch (WrongDateFormatException e) {
             Ui.printInvalidDateFormatMessage();
-        } catch (InvalidDateRangeException e) {
-
         } catch (InvalidDateException e) {
             Ui.printInvalidDateMessage();
         } catch (MissingDeadlineTimingDetailsException e) {
@@ -320,7 +318,7 @@ public class Parser {
      * @throws WrongDateFormatException if the date in wrong format and cannot be parsed
      * @throws InvalidArgumentsException if the input gives the argument in wrong format
      */
-    public static DisplayCommand parseDisplayCommand(String input) throws WrongDateFormatException, InvalidArgumentsException, InvalidDateRangeException{
+    public static DisplayCommand parseDisplayCommand(String input) throws WrongDateFormatException, InvalidArgumentsException {
         String moduleCode = "";
         String[] filteredInput = input.trim().split(" ",2);
 
