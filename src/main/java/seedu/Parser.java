@@ -37,8 +37,6 @@ public class Parser {
      * @throws DueQuestException if invalid input.
      */
     public static Command parse(String input) throws DueQuestException {
-        int taskNum;
-
         try {
             String[] words = input.split(" ");
 
@@ -104,11 +102,14 @@ public class Parser {
     }
 
     /**
-     * Used to validate and check for any errors in the user input.
-     * for DeadLine object.
-     * @param  input representing user input.
+     * Used to validate a deadline by checking for any errors in the user input for a Deadline.
+     * @param input representing user input
      * @return DeadLine object including the moduleCode of the deadline.
-     * @throws DueQuestException if missing information or date is invalid.
+     * @throws WrongDateFormatException if date in the input is of wrong format.
+     * @throws InvalidDateException if date in the input is in an invalid range.
+     * @throws EmptyArgumentException if the information of the Deadline is missing in the input.
+     * @throws MissingDeadlineTimingDetailsException  if the timing details of the deadline is missing.
+     * @throws InvalidModuleCodeException if the module code in the input is inbalid.
      */
     public static Deadline validateDeadline(String input) throws WrongDateFormatException, InvalidDateException,
             EmptyArgumentException, MissingDeadlineTimingDetailsException, InvalidModuleCodeException {
@@ -136,11 +137,15 @@ public class Parser {
     }
 
     /**
-     * This is the new validateEvent method for our TP.
-     * @param input the line input.
-     * @return an Event object.
-     * TODO
-     *  - ADD EXCEPTIONS.
+     * Used to validate a Event by checking for any errors in the user input.
+     * @param input representing user input
+     * @return Event object.
+     * @throws WrongDateFormatException if date in the input is of wrong format.
+     * @throws InvalidDateException if date in the input is in an invalid range.
+     * @throws EmptyArgumentException if the information of the Event is missing in the input.
+     * @throws MissingEventDateAndTimeDetailsException if the date or time details are missing.
+     * @throws InvalidTimeFormatException if the time in the input is of wrong format.
+     * @throws StartAndEndTimeSameException if the start time and end time are the same.
      */
     public static Event validateEvent(String input) throws WrongDateFormatException, InvalidDateException,
             EmptyArgumentException, MissingEventDateAndTimeDetailsException, InvalidTimeFormatException,
@@ -156,7 +161,6 @@ public class Parser {
         boolean isEventForAModule = verifyModuleCode(moduleCode);
         if (!isEventForAModule) {
             moduleCode = ""; // then moduleCode make it an empty string.
-            // Aim is just to find a way such that this event wont be added to the module.
         }
         if (isEventForAModule) { //get rid of the module code if it is valid, means event belongs to a module
             filteredInput = filteredInput.split(" ", 2)[1];
@@ -215,11 +219,15 @@ public class Parser {
     }
 
     /**
-     * Parses the Lesson object from input.
-     * Lesson description moduleCode /on 4 (digit represent dayOfWeek), frequency, time.
-     * Example: lesson lecture CS2113 /on 5 7 16:00 18:00.
-     * @param input the line of the input
-     * @return the Lesson object
+     * Used to validate a Lesson by checking for any errors in the user input.
+     * @param input representing user input.
+     * @return Lesson object.
+     * @throws EmptyArgumentException if the information of the Lesson is missing in the input.
+     * @throws MissingLessonTimingException if the timing of the lesson is missing in the input.
+     * @throws InvalidModuleCodeException if the module code in the input is invalid.
+     * @throws InvalidTimeFormatException if the time in the input is of wrong format.
+     * @throws InvalidFrequencyException if the frequency in the input is invalid.
+     * @throws StartAndEndTimeSameException if the start time and end time are the same.
      */
     public static Lesson parseLesson(String input) throws EmptyArgumentException, MissingLessonTimingException,
             InvalidModuleCodeException, InvalidTimeFormatException, InvalidFrequencyException, StartAndEndTimeSameException {
@@ -292,10 +300,10 @@ public class Parser {
         return new Lesson(description, moduleCode, frequency, startTime, endTime);
     }
     /**
-     * Used to validate the input in Delete Command
-     * @param input
-     * @return
-     * @throws DueQuestException
+     * Used to validate the input in Delete Command.
+     * @param input representing user input.
+     * @return returns a DeleteCommand.
+     * @throws DueQuestException if the input date is of wrong format.
      */
     public static DeleteCommand validateDeleteCommand(String input)throws DueQuestException {
         String[] filteredInput = input.trim().split(" ", 2);
@@ -314,9 +322,9 @@ public class Parser {
     /**
      * Parses DisplayCommand from the input.
      * @param input the user's input in string
-     * @return DisplayCommand
-     * @throws WrongDateFormatException if the date in wrong format and cannot be parsed
-     * @throws InvalidArgumentsException if the input gives the argument in wrong format
+     * @return DisplayCommand.
+     * @throws WrongDateFormatException if the date in wrong format and cannot be parsed.
+     * @throws InvalidArgumentsException if the input gives the argument in wrong format.
      */
     public static DisplayCommand parseDisplayCommand(String input) throws WrongDateFormatException, InvalidArgumentsException {
         String moduleCode = "";
@@ -371,8 +379,6 @@ public class Parser {
      * This method is mainly for the parser.
      * @param moduleCode moduleCode in string form that you want to verify if it is valid.
      * @return true if valid, else false.
-     * TODO
-     * 	- refactor this ugly code later.
      */
     public static boolean verifyModuleCode(String moduleCode) {
         if (moduleCode.length() < 6 || moduleCode.length() > 7) {
@@ -429,6 +435,12 @@ public class Parser {
         return true;
     }
 
+    /**
+     *
+     * @param input
+     * @return
+     * @throws WrongDateFormatException
+     */
     public static EditTaskCommand validateEditTaskCommand (String input) throws WrongDateFormatException {
         String filteredInput = input.substring(5);
         String[] name = filteredInput.trim().split("/date",2);
