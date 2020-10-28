@@ -1,0 +1,6 @@
+module c/CS2113 a/0
+event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14
+event CS2113 final exam /at 2021-05-03 16:00 17:00 LT14
+lesson online lecture CS2113 /on 5 16:00 18:00
+lesson online lecture CS2113 /on 5 14:00 16:00
+lesson online lecture CS2113 /on 5 18:00 19:00
