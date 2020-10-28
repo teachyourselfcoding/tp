@@ -6,17 +6,15 @@ import java.time.LocalTime;
 /**
  *Inherited from Task object, Event class has additional attributes.
  * to store logistical information.
- * FIXME
- *  - What is the members attribute for?
  */
 public class Event extends Task {
     private String at;
     private String startTimeOfEvent;
     private String dateOfEvent;
     private String endTimeOfEvent;
-    //TODO add these extra attributes in constructors
 
-    public Event(String description, String moduleCode, String at, String startTimeOfEvent, String endTimeOfEvent, String dateOfEvent) {
+    public Event(String description, String moduleCode, String at, String startTimeOfEvent,
+                 String endTimeOfEvent, String dateOfEvent) {
         super(description, moduleCode);
         super.taskType = "E";
         this.at = at;
@@ -29,12 +27,11 @@ public class Event extends Task {
     /**
      * toString method for the Event object.
      * @return a string representing an Event.
-     * FIXME
-     *  - may want to change how it is being represent.
      */
     @Override
     public String toString() {
-        return "[E] " + super.moduleCode + " " + super.description + " (" + this.startTimeOfEvent + " " + this.dateOfEvent + " at " + this.at + ")";
+        return "[E] " + super.moduleCode + " " + super.description + " (" + this.startTimeOfEvent +
+                " " + this.dateOfEvent + " at " + this.at + ")";
     }
 
     public String getAt() {
