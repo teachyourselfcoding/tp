@@ -17,7 +17,7 @@ public class EditTaskCommand extends editCommand{
     LocalDate newDate = null;
     String type;
     String newProperty;
-    int[] newFrequency;
+    int newFrequency;
 
 
     public EditTaskCommand(String description,  LocalDate date, String type,String newProperty){

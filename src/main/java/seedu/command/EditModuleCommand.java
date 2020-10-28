@@ -20,7 +20,7 @@ public class EditModuleCommand extends editCommand{
     String type;
     String module = "module";
     String newProperty;
-    int[] newFrequency;
+    int newFrequency;
 
 
 
@@ -33,7 +33,7 @@ public class EditModuleCommand extends editCommand{
         this.newProperty = newProperty;
     }//edit module's property
 
-    public EditModuleCommand(String moduleCode,  String task, LocalDate date, String property, int[] newFrequency){
+    public EditModuleCommand(String moduleCode,  String task, LocalDate date, String property, int newFrequency){
         this.moduleCode = moduleCode;
         this.description = task;
         this.date = date;
