@@ -120,36 +120,72 @@ public class ScheduleManager {
 	 *  - add code and output based on UG
 	 *  - handle the task with frequency!
 	 */
-
-
-	public void editTask(String name, LocalDate date, String type, String newProperty){
+	public void editTask(String description, LocalDate date, String type, String newProperty, String moduleCode){
 		for(Task task :semesterSchedule.get(date)){
-
 			switch(type) {
 				case "description":
-					if (task.getDescription().equals(name)) {
+					if (task.getDescription().equals(description) && task.getDescription().equals(moduleCode)) {
 						task.setDescription(newProperty);
 					}
 					break;
 				case "tasktype":
-					if (task.getDescription().equals(name)) {
+					if (task.getDescription().equals(description) && task.getDescription().equals(moduleCode)) {
 						task.setTasktype(newProperty);
 					}
 					break;
 
 				case "module code":
-					if (task.getDescription().equals(name)) {
+					if (task.getDescription().equals(description) && task.getDescription().equals(moduleCode)) {
 						task.setModulecode(newProperty);
 					}
 					break;
 				case "time":
 
-					if (task.getDescription().equals(name)) {
+					if (task.getDescription().equals(description) && task.getDescription().equals(moduleCode)) {
 						task.setTime(newProperty);
 					}
 					break;
 				default:
 					System.out.println("Invalid type");
+			}
+		}
+	}
+
+	public void editTask(String description, LocalDate date, String type, String newProperty){
+		for(Task task :semesterSchedule.get(date)){
+			switch(type) {
+				case "description":
+					if (task.getDescription().equals(description)) {
+						task.setDescription(newProperty);
+					}
+					break;
+				case "tasktype":
+					if (task.getDescription().equals(description)) {
+						task.setTasktype(newProperty);
+					}
+					break;
+
+				case "module code":
+					if (task.getDescription().equals(description)) {
+						task.setModulecode(newProperty);
+					}
+					break;
+				case "time":
+
+					if (task.getDescription().equals(description)) {
+						task.setTime(newProperty);
+					}
+					break;
+				default:
+					System.out.println("Invalid type");
+			}
+		}
+	}
+
+	public void editTask(String description, LocalDate date, String property, int [] newFrequency, String moduleCode){
+		for(Task task : semesterSchedule.get(date)){
+			if(task.getDescription().equals(description) && task.getModuleCode().equals(moduleCode)){
+				task.setFrequency(newFrequency);
 			}
 		}
 	}
@@ -162,10 +198,23 @@ public class ScheduleManager {
 		}
 	}
 
+	public void editTask(String description, LocalDate date, String property, LocalDate newDate, String moduleCode){
+		for(Task task : semesterSchedule.get(date)){
+			if(task.getDescription().equals(description) && task.getModuleCode().equals(moduleCode)){
+				this.semesterSchedule.get(newDate).add(task);
+			}
+		}
+		for(Task newTask : semesterSchedule.get(newDate)){
+			if((newTask.getDescription().equals(description)) && newTask.getModuleCode().equals(moduleCode)){
+				newTask.setDate(newDate.toString()); //Need to change later
+			}
+		}
+		deleteTask(description,date);
+	}
+
 	public void editTask(String description, LocalDate date, String property, LocalDate newDate){
 		for(Task task : semesterSchedule.get(date)){
 			if(task.getDescription().equals(description)){
-				System.out.println(task.getDate());
 				this.semesterSchedule.get(newDate).add(task);
 			}
 		}
@@ -175,6 +224,18 @@ public class ScheduleManager {
 			}
 		}
 		deleteTask(description,date);
+	}
+
+	public void editModulecode(String moduleCode, String newModuleCode){
+		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
+			if(semesterSchedule.get(date).size() != 0){
+				for(Task task: semesterSchedule.get(date)){
+					if(task.getModuleCode().equals(moduleCode)){
+						task.setModulecode(newModuleCode);
+					}
+				}
+			}
+		}
 	}
 
 
@@ -230,6 +291,8 @@ public class ScheduleManager {
 		Ui.print("\n Today's task:");
 		Ui.printListGenericType(nonLessonList);
 	}
+
+
 
 
 	public void display(LocalDate startDate, LocalDate endDate){

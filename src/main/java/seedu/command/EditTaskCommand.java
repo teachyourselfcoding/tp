@@ -10,7 +10,7 @@ import java.time.LocalDate;
  * Commands to execute edit the task's information. This may be implemented by setter functions.
  * TODO add code
  */
-public class EditTaskCommand extends Command{
+public class EditTaskCommand extends editCommand{
     String description;
     LocalDate date = null;
     LocalDate newDate = null;
@@ -55,9 +55,9 @@ public class EditTaskCommand extends Command{
             case "description":
                 //
             case "modulecode":
-                //
+                //??
             case "module code":
-                //
+                //??
             case "time":
                 scheduleManager.editTask(description,date, type, newProperty);
                 break;

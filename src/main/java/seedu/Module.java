@@ -53,6 +53,14 @@ public class Module {
 		this.moduleCode = moduleCode;
 	}
 
+	public void setModuleAu(String aUNumber) {
+		this.aUNumber =  Integer.parseInt(aUNumber);
+	}
+
+//	public void setModuleStaff(String teachingStaffs) {
+//		this.teachingStaffs = teachingStaffs;
+//	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
