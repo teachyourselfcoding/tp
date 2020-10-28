@@ -10,7 +10,6 @@ import java.time.LocalDate;
  */
 public class Task {
     protected String description;
-    protected boolean isDone; // should remove this since no longer seem to be useful in our tp.
     protected String taskType; // can be E or D for our project
     protected String moduleCode; // Module this task belongs to
     protected String time; //Time of the event in HH:MM format
@@ -35,7 +34,6 @@ public class Task {
         this.description = description;
         this.moduleCode = moduleCode;
         this.frequency = frequency;
-        //this.isDone = false;
         this.date =null;
     }
 
@@ -49,14 +47,7 @@ public class Task {
     }
 
     public String getModuleCode() {
-        //if (this.moduleCode.equals("")){
-        //    return "unMod";
-        //}
         return this.moduleCode;
-    }
-
-    public String getFullDescription() {
-        return description;
     }
 
     public String getDescription() {
@@ -69,10 +60,6 @@ public class Task {
 
     public LocalDate getDate(){ return date;}
 
-    public void maskAsDone() {
-        this.isDone = true;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -84,7 +71,7 @@ public class Task {
         this.by = newDate;
     }
 
-    public void setTime( String newTime) {
+    public void setTime(String newTime) {
         int time = Integer.parseInt(newTime);
         if(time > 2359| (time/100)>23|(time%100)>59){
             System.out.println("Invalid Time format");

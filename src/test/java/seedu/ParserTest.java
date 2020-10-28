@@ -143,7 +143,7 @@ class ParserTest {
     @Test
     void parseLesson_validLesson_returnsTrue() throws
             EmptyArgumentException, MissingLessonTimingException, InvalidModuleCodeException,
-            InvalidTimeFormatException, InvalidFrequencyException {
+            InvalidTimeFormatException, InvalidFrequencyException, StartAndEndTimeSameException {
         String input = "lesson online lecture CS2113 /on 5 16:00 18:00";
         Lesson expectedLesson = Parser.parseLesson(input);
         Lesson actualLesson = new Lesson("online lecture", "CS2113",
@@ -167,7 +167,7 @@ class ParserTest {
     @Test
     void validateEvent_validEventLineInput_returnsEvent() throws InvalidDateException,
             MissingEventDateAndTimeDetailsException, WrongDateFormatException, InvalidTimeFormatException,
-            EmptyArgumentException, MissingDeadlineTimingDetailsException {
+            EmptyArgumentException, StartAndEndTimeSameException {
         String input = "event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14";
         Event event = Parser.validateEvent(input);
         // check the properties of event

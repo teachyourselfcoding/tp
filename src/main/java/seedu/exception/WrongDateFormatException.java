@@ -1,4 +1,8 @@
 package seedu.exception;
 
-public class WrongDateFormatException extends Exception{
+/**
+ * Class for WrongDateFormatException.
+ * Thrown when user types in a date in a wrong format as required.
+ */
+public class WrongDateFormatException extends Exception {
 }

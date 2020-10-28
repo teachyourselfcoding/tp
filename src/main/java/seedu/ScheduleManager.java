@@ -129,7 +129,22 @@ public class ScheduleManager {
 			if (task instanceof Lesson) {
 				LocalTime startTimeOfTask = ((Lesson)task).getStartTimeInLocalTime();
 				LocalTime endTimeOfTask = ((Lesson)task).getEndTimeInLocalTime();
+				if (startTimeOfLesson.equals(endTimeOfTask)) {
+					break;
+				}
 				if (startTimeOfLesson.isAfter(startTimeOfTask) && startTimeOfLesson.isBefore(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfLesson) && endTimeOfLesson.isBefore(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfLesson) && endTimeOfLesson.isAfter(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfLesson) && endTimeOfLesson.equals(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.equals(startTimeOfLesson) && endTimeOfTask.equals(endTimeOfLesson)) {
 					return true;
 				}
 				if (endTimeOfLesson.isAfter(startTimeOfTask)) {
@@ -139,7 +154,22 @@ public class ScheduleManager {
 			if (task instanceof Event) {
 				LocalTime startTimeOfTask = ((Event)task).getStartTimeOfEventInLocalTime();
 				LocalTime endTimeOfTask = ((Event)task).getEndTimeOfEventInLocalTime();
+				if (startTimeOfLesson.equals(endTimeOfTask)) {
+					break;
+				}
 				if (startTimeOfLesson.isAfter(startTimeOfTask) && startTimeOfLesson.isBefore(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfLesson) && endTimeOfLesson.isBefore(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfLesson) && endTimeOfLesson.isAfter(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfLesson) && endTimeOfLesson.equals(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.equals(startTimeOfLesson) && endTimeOfTask.equals(endTimeOfLesson)) {
 					return true;
 				}
 				if (endTimeOfLesson.isAfter(startTimeOfTask)) {
@@ -152,26 +182,56 @@ public class ScheduleManager {
 
 	public boolean checkIfEventToBeAddedClashesInADate(Event event, LocalDate date) {
 		ArrayList<Task> listOfTasks = this.semesterSchedule.get(date);
-		LocalTime startTimeOfLesson = event.getStartTimeOfEventInLocalTime();
-		LocalTime endTimeOfLesson = event.getEndTimeOfEventInLocalTime();
+		LocalTime startTimeOfEvent = event.getStartTimeOfEventInLocalTime();
+		LocalTime endTimeOfEvent = event.getEndTimeOfEventInLocalTime();
 		for (Task task : listOfTasks) {
 			if (task instanceof Lesson) {
 				LocalTime startTimeOfTask = ((Lesson)task).getStartTimeInLocalTime();
 				LocalTime endTimeOfTask = ((Lesson)task).getEndTimeInLocalTime();
-				if (startTimeOfLesson.isAfter(startTimeOfTask) && startTimeOfLesson.isBefore(endTimeOfTask)) {
+				if (startTimeOfEvent.equals(endTimeOfTask)) {
+					break;
+				}
+				if (startTimeOfEvent.isAfter(startTimeOfTask) && startTimeOfEvent.isBefore(endTimeOfTask)) {
 					return true;
 				}
-				if (endTimeOfLesson.isAfter(startTimeOfTask)) {
+				if (startTimeOfTask.isBefore(startTimeOfEvent) && endTimeOfEvent.isBefore(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfEvent) && endTimeOfEvent.isAfter(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfEvent) && endTimeOfEvent.equals(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.equals(startTimeOfEvent) && endTimeOfTask.equals(endTimeOfEvent)) {
+					return true;
+				}
+				if (endTimeOfEvent.isAfter(startTimeOfTask)) {
 					return true;
 				}
 			}
 			if (task instanceof Event) {
 				LocalTime startTimeOfTask = ((Event)task).getStartTimeOfEventInLocalTime();
 				LocalTime endTimeOfTask = ((Event)task).getEndTimeOfEventInLocalTime();
-				if (startTimeOfLesson.isAfter(startTimeOfTask) && startTimeOfLesson.isBefore(endTimeOfTask)) {
+				if (startTimeOfEvent.equals(endTimeOfTask)) {
+					break;
+				}
+				if (startTimeOfEvent.isAfter(startTimeOfTask) && startTimeOfEvent.isBefore(endTimeOfTask)) {
 					return true;
 				}
-				if (endTimeOfLesson.isAfter(startTimeOfTask)) {
+				if (startTimeOfTask.isBefore(startTimeOfEvent) && endTimeOfEvent.isBefore(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfEvent) && endTimeOfEvent.isAfter(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfEvent) && endTimeOfEvent.equals(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.equals(startTimeOfEvent) && endTimeOfTask.equals(endTimeOfEvent)) {
+					return true;
+				}
+				if (endTimeOfEvent.isAfter(startTimeOfTask)) {
 					return true;
 				}
 			}
@@ -195,10 +255,8 @@ public class ScheduleManager {
 	 * date where I need to add the event.
 	 * @param event add event inside the list of tasks of the schedule manager.
 	 */
-	public void addEvent(Event event,ModuleManager moduleManager, Ui ui) {
+	public void addEvent(Event event, ModuleManager moduleManager, Ui ui) {
 		LocalDate date = LocalDate.parse(event.getDateOfEvent());
-		LocalTime startTime = event.getStartTimeOfEventInLocalTime();
-		LocalTime endTime = event.getEndTimeOfEventInLocalTime();
 		if (checkIfEventToBeAddedClashesInADate(event, date)) {
 			String verifyIfReallyWantYoAdd = ui.readYesOrNo();
 			if (verifyIfReallyWantYoAdd.equals("No")) {

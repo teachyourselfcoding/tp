@@ -17,8 +17,8 @@ public class AddModuleCommand extends Command {
     /**
      * Creates Module object from arguments given in string.
      * Throws InvalidArgumentsException when the moduleCode is empty or au number is negative.
-     * @param strings the argument array in string
-     * @throws InvalidArgumentsException if the argument is invalid or cannot be parsed correctly
+     * @param strings the argument array in string.
+     * @throws InvalidArgumentsException if the argument is invalid or cannot be parsed correctly.
      */
     public AddModuleCommand(String[] strings) throws InvalidArgumentsException {
         String moduleCode = null;

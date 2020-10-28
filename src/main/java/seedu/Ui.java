@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- *Represents the Class for functions related to the CLI User interface
+ * Represents the Class for functions related to the CLI User interface
  * and used to print out exception messages for troubleshooting purpose.
  */
 public class Ui {
@@ -21,11 +21,12 @@ public class Ui {
     }
 
     /**
-     *print out the on startup message.
+     * Print out the on startup message.
      */
     public void welcomeMessage() {
         String welcomeMessage =
                 "_____________________________________________\n"
+                +"Whats up people! DueQuest is here to save the day\n"
                 +"DueQuest for students by students\n"
                 +"So, what can I do for you?\n";
         System.out.print(welcomeMessage);
@@ -33,11 +34,11 @@ public class Ui {
     }
 
     /**
-     * print out the exit message.
+     * Print out the exit message.
      */
     public void byeMessage() {
         String byeMessage =
-                "Aye captain. This is Duke Signing out!\n";
+                "Aye captain. This is DueQuest Signing out!\n";
         System.out.print(byeMessage);
         
     }
@@ -134,8 +135,8 @@ public class Ui {
     }
 
     /**
-     * convert LocalDate object into readable string format without year
-     * E.g 12 JUN
+     * Convert LocalDate object into readable string format without year.
+     * E.g 12 JUN.
      * @param date
      * @return
      */
@@ -145,8 +146,8 @@ public class Ui {
     }
 
     /**
-     * convert LocalDate object into readable string format with year included
-     * E.g 12 JUN 20
+     * Convert LocalDate object into readable string format with year included.
+     * E.g 12 JUN 20.
      * @param date
      * @return
      */
@@ -201,6 +202,7 @@ public class Ui {
     public static void printWrongTimeFormatMessage() {
         System.out.println(SEPARATOR);
         System.out.println("The format for time should be in HH:MM format.");
+        System.out.println("Make sure MM is 00. E.g. 18:00 is allowed but not 18:01");
         System.out.println(SEPARATOR);
     }
 
@@ -231,6 +233,12 @@ public class Ui {
         System.out.println(SEPARATOR);
         System.out.println("Frequency should be a digit from 1 to 7");
         System.out.println("E.g. 1 represents Monday, 3 represents Wednesday");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printStartAndEndTimeCannotBeTheSameMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Start and End time cannot be the same!");
         System.out.println(SEPARATOR);
     }
 
