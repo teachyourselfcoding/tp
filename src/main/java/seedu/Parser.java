@@ -1,15 +1,8 @@
 package seedu;
 
-import seedu.command.Command;
-import seedu.command.AddModuleCommand;
-import seedu.command.AddCommand;
-import seedu.command.DeleteCommand;
-import seedu.command.DisplayCommand;
-import seedu.command.ExitCommand;
-import seedu.command.HelpCommand;
-import seedu.command.EditModuleCommand;
-import seedu.command.EditTaskCommand;
-import seedu.command.FindCommand;
+
+import seedu.command.*;
+
 import seedu.exception.*;
 
 import java.time.DateTimeException;
@@ -19,7 +12,6 @@ import seedu.task.Lesson;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
-
 
 /**
  *Parser Object is used for translating String user input into.
@@ -50,6 +42,10 @@ public class Parser {
                 case "delete":
                     //Fallthrough
                     return validateDeleteCommand(input);
+
+                case "edit":
+                    return validateEditCommand(input);
+
                 case "find":
                     String[] sentence = input.toLowerCase().split(" ", 2);
                     String keywords = sentence[1];
@@ -70,8 +66,6 @@ public class Parser {
                     return new AddCommand(lesson);
                 case "module": // adding a module
                     return new AddModuleCommand(Arrays.copyOfRange(words, 1, input.length()));  // only pass the arguments
-                case "edit":
-                    return validateEditTaskCommand(input);
                 default:
                     throw new DueQuestException(DueQuestExceptionType.INVALID_COMMAND);
             }
@@ -435,58 +429,88 @@ public class Parser {
         return true;
     }
 
-    /**
-     *
-     * @param input
-     * @return
-     * @throws WrongDateFormatException
-     */
-    public static EditTaskCommand validateEditTaskCommand (String input) throws WrongDateFormatException {
-        String filteredInput = input.substring(5);
+    public static editCommand validateEditCommand(String input) throws DueQuestException, WrongDateFormatException {
+        String moduleCode = null;
+        String[] splitViaModule;
+        String filteredInput;
+
+        if(input.charAt(5)=='c'&& input.charAt(6)=='/'){
+            splitViaModule = ((input.split("c/"))[1].trim()).split(" ",2);
+            filteredInput = splitViaModule[1].trim();
+            moduleCode = splitViaModule[0].trim();
+
+            if(!filteredInput.contains("/date")){
+                String moduleProperty = filteredInput.trim().split("/",2)[0].trim();
+                String newModuleProperty = filteredInput.trim().split("/")[1].trim();
+                if(
+                        moduleProperty.equals("staff")||
+                                moduleProperty.equals("au")||
+                                moduleProperty.equals("modulecode")
+                ){
+                    return new EditModuleCommand(moduleCode, moduleProperty, newModuleProperty);
+                }
+                else{
+                    System.out.println("Invalid input");
+                }
+            }
+
+        }
+        else{
+            filteredInput = input.substring(5);
+        }
+
+
         String[] name = filteredInput.trim().split("/date",2);
         String[] property = name[1].trim().substring(10).trim().split("/",3);
-
         String description = name[0].trim();
+
         String type = (property[1].toLowerCase()).trim();
         String newValue = property[2].trim();
         switch (type){
-            case "description":
-                //Fall through
-            case "tasktype":
-                //Fall through
-            case "module code":
-                //Fall through
-            case "modulecode":
-                //Fall through
-            case "time":
-                try {
-                    LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
+        case "description":
+            //Fall through
+        case "tasktype":
+            //Fall through
+        case "module code":
+            //Fall through
+        case "modulecode":
+            //Fall through
+        case "time":
+            try {
+                LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
+                if(moduleCode == null){
                     return new EditTaskCommand(description, date, type, newValue);
-                }catch (DateTimeException e){
-                    throw new WrongDateFormatException();
-                }
-            case "frequency":
-                //int[] newFrequency = new int[2];
-                //newFrequency[0] = Integer.parseInt(newValue);
-                int newFrequency = Integer.parseInt(newValue);
-                try {
-                    LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
+                } System.out.println("test 1");
+                return new EditModuleCommand(moduleCode, description, date, type, newValue);
+            }catch (DateTimeException e){
+                throw new WrongDateFormatException();
+            }
+        case "frequency":
+            //int[] newFrequency = new int[2];
+            //newFrequency[0] = Integer.parseInt(newValue);
+            int newFrequency = Integer.parseInt(newValue);
+            try {
+                LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
+                if(moduleCode == null){
                     return new EditTaskCommand(description, date, type, newFrequency);
-                }catch (DateTimeException e){
-                    throw new WrongDateFormatException();
-                }
-            case "date":
-                try {
-                    LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
-                    LocalDate newDate = LocalDate.parse(newValue.trim().replace("/","-"));
+                }return new EditModuleCommand(moduleCode, description, date, type, newFrequency);
+            }catch (DateTimeException e){
+                throw new WrongDateFormatException();
+            }
+        case "date":
+            try {
+                LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
+                LocalDate newDate = LocalDate.parse(newValue.trim().replace("/","-"));
+                if(moduleCode == null){
                     return new EditTaskCommand(description, date, type, newDate);
-                }catch (DateTimeException e){
-                    throw new WrongDateFormatException();
-                }
-            default:
-                System.out.println("Wrong type");
-                System.out.println(type);
-                return null;
+                }return new EditModuleCommand(moduleCode, description, date, type, newDate);
+            }catch (DateTimeException e){
+                throw new WrongDateFormatException();
+            }
+        default:
+            System.out.println("Wrong type");
+            System.out.println(type);
+            return null;
         }
     }
 }
