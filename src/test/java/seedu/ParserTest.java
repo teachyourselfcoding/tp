@@ -1,7 +1,9 @@
 package seedu;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.exception.*;
+
 import seedu.task.Deadline;
 import seedu.task.Event;
 import seedu.task.Lesson;
@@ -57,6 +59,7 @@ class ParserTest {
     }
 
     @Test
+
     void parseLesson_validLesson_returnsLesson() {
         String input1 = "lesson online lecture CS2113 /on 5 16:00 18:00";
         String input2 = "lesson online lecture CS2113 5 16:00 18:00";

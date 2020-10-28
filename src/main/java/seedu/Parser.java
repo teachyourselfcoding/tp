@@ -1,15 +1,8 @@
 package seedu;
 
-import seedu.command.Command;
-import seedu.command.AddModuleCommand;
-import seedu.command.AddCommand;
-import seedu.command.DeleteCommand;
-import seedu.command.DisplayCommand;
-import seedu.command.ExitCommand;
-import seedu.command.HelpCommand;
-import seedu.command.EditModuleCommand;
-import seedu.command.EditTaskCommand;
-import seedu.command.FindCommand;
+
+import seedu.command.*;
+
 import seedu.exception.EmptyArgumentException;
 import seedu.exception.InvalidArgumentsException;
 import seedu.exception.InvalidModuleCodeException;
@@ -61,6 +54,10 @@ public class Parser {
                 case "delete":
                     //Fallthrough
                     return validateDeleteCommand(input);
+
+                case "edit":
+                    return validateEditCommand(input);
+
                 case "find":
                     String[] sentence = input.toLowerCase().split(" ", 2);
                     String keywords = sentence[1];
@@ -415,12 +412,42 @@ public class Parser {
         return true;
     }
 
-    public static EditTaskCommand validateEditTaskCommand (String input) throws WrongDateFormatException {
-        String filteredInput = input.substring(5);
+
+    public static editCommand validateEditCommand (String input) throws DueQuestException {
+        String moduleCode = null;
+        String[] splitViaModule;
+        String filteredInput;
+
+        if(input.charAt(5)=='c'&& input.charAt(6)=='/'){
+            splitViaModule = ((input.split("c/"))[1].trim()).split(" ",2);
+            filteredInput = splitViaModule[1].trim();
+            moduleCode = splitViaModule[0].trim();
+
+            if(!filteredInput.contains("/date")){
+                String moduleProperty = filteredInput.trim().split("/",2)[0].trim();
+                String newModuleProperty = filteredInput.trim().split("/")[1].trim();
+                if(
+                       moduleProperty.equals("staff")||
+                       moduleProperty.equals("au")||
+                       moduleProperty.equals("modulecode")
+                ){
+                        return new EditModuleCommand(moduleCode, moduleProperty, newModuleProperty);
+                }
+                else{
+                    System.out.println("Invalid input");
+                }
+            }
+
+        }
+        else{
+            filteredInput = input.substring(5);
+        }
+
+
         String[] name = filteredInput.trim().split("/date",2);
         String[] property = name[1].trim().substring(10).trim().split("/",3);
-
         String description = name[0].trim();
+
         String type = (property[1].toLowerCase()).trim();
         String newValue = property[2].trim();
         switch (type){
@@ -435,7 +462,10 @@ public class Parser {
             case "time":
                 try {
                     LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
-                    return new EditTaskCommand(description, date, type, newValue);
+                    if(moduleCode == null){
+                        return new EditTaskCommand(description, date, type, newValue);
+                    } System.out.println("test 1");
+                    return new EditModuleCommand(moduleCode, description, date, type, newValue);
                 }catch (DateTimeException e){
                     throw new WrongDateFormatException();
                 }
@@ -445,7 +475,9 @@ public class Parser {
                 int newFrequency = Integer.parseInt(newValue);
                 try {
                     LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
-                    return new EditTaskCommand(description, date, type, newFrequency);
+                    if(moduleCode == null){
+                        return new EditTaskCommand(description, date, type, newFrequency);
+                    }return new EditModuleCommand(moduleCode, description, date, type, newFrequency);
                 }catch (DateTimeException e){
                     throw new WrongDateFormatException();
                 }
@@ -453,7 +485,9 @@ public class Parser {
                 try {
                     LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
                     LocalDate newDate = LocalDate.parse(newValue.trim().replace("/","-"));
-                    return new EditTaskCommand(description, date, type, newDate);
+                    if(moduleCode == null){
+                        return new EditTaskCommand(description, date, type, newDate);
+                    }return new EditModuleCommand(moduleCode, description, date, type, newDate);
                 }catch (DateTimeException e){
                     throw new WrongDateFormatException();
                 }
