@@ -285,7 +285,7 @@ public class ScheduleManager {
 	}
 
 
-	public void editTask(String description, LocalDate date, String property, int [] newFrequency, String moduleCode){
+	public void editTask(String description, LocalDate date, String property, int newFrequency, String moduleCode){
 		for(Task task : semesterSchedule.get(date)){
 			if(task.getDescription().equals(description) && task.getModuleCode().equals(moduleCode)){
 				task.setFrequency(newFrequency);

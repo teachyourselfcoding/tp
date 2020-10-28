@@ -165,7 +165,7 @@ public class ModuleManager {
         }
     }
     //Edit module to set new frequency
-    public void editTask(String description, LocalDate date, String property, int [] newFrequency, String moduleCode){
+    public void editTask(String description, LocalDate date, String property, int newFrequency, String moduleCode){
         for(Module m: listOfModules){
             if(m.getModuleCode().equals(moduleCode)){
                 for(Task task : m.getListOfTasks()){
