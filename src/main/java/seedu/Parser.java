@@ -1,18 +1,25 @@
 package seedu;
 
+
 import seedu.command.*;
+
 import seedu.exception.EmptyArgumentException;
 import seedu.exception.InvalidArgumentsException;
 import seedu.exception.InvalidModuleCodeException;
 import seedu.exception.MissingLessonTimingException;
+import seedu.exception.InvalidTimeFormatException;
+import seedu.exception.InvalidFrequencyException;
+import seedu.exception.InvalidDateException;
+import seedu.exception.MissingEventDateAndTimeDetailsException;
 import seedu.exception.WrongDateFormatException;
+import seedu.exception.MissingDeadlineTimingDetailsException;
+import seedu.exception.InvalidDateRangeException;
+import java.time.DateTimeException;
 import seedu.task.Deadline;
 import seedu.task.Event;
 import seedu.task.Lesson;
-import seedu.task.ToDo;
-
-import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 
 
@@ -38,30 +45,24 @@ public class Parser {
             String[] words = input.split(" ");
 
             switch (words[0].toLowerCase()) {
+                case "help":
+                    //fallthrough
+                    return new HelpCommand();
                 case "bye":
                     //Fallthrough
                     return new ExitCommand();
-                case "list":
-                    //Fallthrough
-                    return new ListCommand();
-                case "done":
-                    taskNum = Integer.parseInt(words[1]);
-                    //Fallthrough
-                    return new DoneCommand(taskNum - 1);
                 case "delete":
                     //Fallthrough
                     return validateDeleteCommand(input);
+
                 case "edit":
                     return validateEditCommand(input);
+
                 case "find":
                     String[] sentence = input.toLowerCase().split(" ", 2);
                     String keywords = sentence[1];
                     //Fallthrough
                     return new FindCommand(keywords);
-                case "todo":
-                    ToDo todo = validateToDo(input);
-                    //Fallthrough
-                    return new AddCommand(todo);
                 case "deadline":
                     Deadline deadline = validateDeadline(input);
                     //Fallthrough
@@ -77,6 +78,8 @@ public class Parser {
                     return new AddCommand(lesson);
                 case "module": // adding a module
                     return new AddModuleCommand(Arrays.copyOfRange(words, 1, input.length()));  // only pass the arguments
+                case "edit":
+                    return validateEditTaskCommand(input);
                 default:
                     throw new DueQuestException(DueQuestExceptionType.INVALID_COMMAND);
             }
@@ -90,28 +93,20 @@ public class Parser {
             Ui.printInvalidModuleCode();
         } catch (WrongDateFormatException e) {
             Ui.printInvalidDateFormatMessage();
-        }
+        } catch (InvalidDateRangeException e) {
 
+        } catch (InvalidDateException e) {
+            Ui.printInvalidDateMessage();
+        } catch (MissingDeadlineTimingDetailsException e) {
+            Ui.printMissingDeadlineTimingDetailsMessage();
+        } catch (MissingEventDateAndTimeDetailsException e) {
+            Ui.printMissingEventDateAndTimeDetailsMessage();
+        } catch (InvalidTimeFormatException e) {
+            Ui.printWrongTimeFormatMessage();
+        } catch (InvalidFrequencyException e) {
+            Ui.printInvalidFrequencyMessage();
+        }
         return null;  // the function must return something
-
-    }
-
-    /**
-     * Used to validate and check for any errors in the user input.
-     * for ToDo object.
-     * @param  input representing user input.
-     * @return Todo object.
-     * @throws DueQuestException if missing information.
-     */
-    public static ToDo validateToDo(String input) throws DueQuestException {
-        ToDo t;
-        String[] filteredInput = input.trim().split(" ",2);
-        if (filteredInput.length == 1) {
-            throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
-        } else {
-            t = new ToDo(filteredInput[1]);
-        }
-        return t;
     }
 
     /**
@@ -121,20 +116,27 @@ public class Parser {
      * @return DeadLine object including the moduleCode of the deadline.
      * @throws DueQuestException if missing information or date is invalid.
      */
-    public static Deadline validateDeadline(String input) throws DueQuestException {
+    public static Deadline validateDeadline(String input) throws WrongDateFormatException, InvalidDateException,
+            EmptyArgumentException, MissingDeadlineTimingDetailsException, InvalidModuleCodeException {
         String[] filteredInput = input.trim().split(" ", 2);
         if (filteredInput.length == 1) {
-            throw new DueQuestException(DueQuestExceptionType.MISSING_DESCRIPTION);
-        }  else if (!filteredInput[1].contains("/by")) {
-            throw new DueQuestException(DueQuestExceptionType.MISSING_DEADLINE);
+            throw new EmptyArgumentException();
+        } else if (!filteredInput[1].contains("/by")) {
+            throw new MissingDeadlineTimingDetailsException();
         }
         String[] moduleCodeAndDescription = filteredInput[1].split("/by",2)[0].trim().split(" ", 2);
         String moduleCode = moduleCodeAndDescription[0].trim();
+        if (!verifyModuleCode(moduleCode)) {
+            throw new InvalidModuleCodeException();
+        }
         String description = moduleCodeAndDescription[1].trim();
         String byInfo = filteredInput[1].split("/by", 2)[1].trim();
+        if (byInfo.length() != 10) {
+            throw new WrongDateFormatException();
+        }
         if (LocalDate.parse(byInfo).isAfter(LocalDate.of(2021, 6, 1)) ||
             LocalDate.parse(byInfo).isBefore(LocalDate.of(2020, 10, 12))) {
-            throw new DueQuestException((DueQuestExceptionType.INVALID_DATE));
+            throw new InvalidDateException();
         }
         return new Deadline(moduleCode, description, byInfo);
     }
@@ -144,9 +146,16 @@ public class Parser {
      * @param input the line input.
      * @return an Event object.
      * TODO
-     *  - Handle exceptions.
+     *  - ADD EXCEPTIONS.
      */
-    public static Event validateEvent(String input) {
+    public static Event validateEvent(String input) throws WrongDateFormatException, InvalidDateException,
+            EmptyArgumentException, MissingEventDateAndTimeDetailsException, InvalidTimeFormatException {
+        String[] filteredInputTest = input.trim().split(" ", 2);
+        if (filteredInputTest.length == 1) {
+            throw new EmptyArgumentException();
+        } else if (!filteredInputTest[1].contains("/at")) {
+            throw new MissingEventDateAndTimeDetailsException();
+        }
         String filteredInput = input.trim().split(" ", 2)[1]; //get rid of event word in front
         String moduleCode = filteredInput.split(" ")[0];
         boolean isEventForAModule = verifyModuleCode(moduleCode);
@@ -161,11 +170,43 @@ public class Parser {
         String description = splitDescriptionAndDateTimeDetails[0].trim();
         String dateTimeLocationDetails = splitDescriptionAndDateTimeDetails[1];
         String[] splitDateTimeLocationDetails = dateTimeLocationDetails.trim().split(" ", 4);
+        if (splitDateTimeLocationDetails.length != 4) {
+            throw new MissingEventDateAndTimeDetailsException();
+        }
         String dateOfEvent = splitDateTimeLocationDetails[0];
-        String startTimeOfEvent = splitDateTimeLocationDetails[1];
-        String endTimeOfEvent = splitDateTimeLocationDetails[2];
+        if (dateOfEvent.length() != 10) {
+            throw new WrongDateFormatException();
+        }
+        if (LocalDate.parse(dateOfEvent).isAfter(LocalDate.of(2021, 6, 1)) ||
+                LocalDate.parse(dateOfEvent).isBefore(LocalDate.of(2020, 10, 12))) {
+            throw new InvalidDateException();
+        }
+        String startTime = splitDateTimeLocationDetails[1];
+        String endTime = splitDateTimeLocationDetails[2];
         String locationOfEvent = splitDateTimeLocationDetails[3];
-        return new Event(description, moduleCode, locationOfEvent, startTimeOfEvent, endTimeOfEvent, dateOfEvent);
+
+        if (startTime.length() != 5 || endTime.length() != 5) {
+            throw new InvalidTimeFormatException();
+        }
+        String hhStart = startTime.substring(0, 2);
+        String mmStart = startTime.substring(3);
+        try {
+            LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart));
+        } catch (NumberFormatException e) {
+            throw new InvalidTimeFormatException();
+        } catch (DateTimeException e) {
+            throw new InvalidTimeFormatException();
+        }
+        String hhEnd = startTime.substring(0, 2);
+        String mmEnd = startTime.substring(3);
+        try {
+            LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd));
+        } catch (NumberFormatException e) {
+            throw new InvalidTimeFormatException();
+        } catch (DateTimeException e) {
+            throw new InvalidTimeFormatException();
+        }
+        return new Event(description, moduleCode, locationOfEvent, startTime, endTime, dateOfEvent);
     }
 
     /**
@@ -175,7 +216,8 @@ public class Parser {
      * @param input the line of the input
      * @return the Lesson object
      */
-    public static Lesson parseLesson(String input) throws EmptyArgumentException, MissingLessonTimingException, InvalidModuleCodeException {
+    public static Lesson parseLesson(String input) throws EmptyArgumentException, MissingLessonTimingException,
+            InvalidModuleCodeException, InvalidTimeFormatException, InvalidFrequencyException {
         String[] filteredInput = input.trim().split(" ", 2);
 
         if (filteredInput.length == 1) {  // e.g. lesson [empty_arguments]
@@ -186,22 +228,50 @@ public class Parser {
 
         String[] descriptionWithModuleCode = filteredInput[1].split("/on", 2);
         String[] frequencyAndTime = descriptionWithModuleCode[1].trim().split(" ");
-        if (frequencyAndTime.length != 4) {
-            throw new MissingLessonTimingException();
-        }
         String description = descriptionWithModuleCode[0].trim();
         descriptionWithModuleCode = descriptionWithModuleCode[0].trim().split(" ");
         int size = descriptionWithModuleCode.length;
-        String moduleCode = descriptionWithModuleCode[size - 1];
+        String moduleCode = descriptionWithModuleCode[size - 1].trim();
         if (!verifyModuleCode(moduleCode)) {
             throw new InvalidModuleCodeException();
         }
+        if (frequencyAndTime.length != 3) {
+            throw new MissingLessonTimingException();
+        }
         description = description.substring(0, description.length() - moduleCode.length()).trim();
-        int[] frequency = new int[2];
-        frequency[0] = Integer.parseInt(frequencyAndTime[0]);
-        frequency[1] = Integer.parseInt(frequencyAndTime[1]);
-        String startTime = frequencyAndTime[2];
-        String endTime = frequencyAndTime[3];
+        String freq = frequencyAndTime[0];
+        try {
+            Integer.parseInt(freq);
+        } catch (NumberFormatException e) {
+            throw new InvalidFrequencyException();
+        }
+        int frequency = Integer.parseInt(frequencyAndTime[0]);
+        if (frequency > 7 || frequency < 1) {
+            throw new InvalidFrequencyException();
+        }
+        String startTime = frequencyAndTime[1];
+        String endTime = frequencyAndTime[2];
+        if (startTime.length() != 5 || endTime.length() != 5) {
+            throw new InvalidTimeFormatException();
+        }
+        String hhStart = startTime.substring(0, 2);
+        String mmStart = startTime.substring(3);
+        try {
+            LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart));
+        } catch (NumberFormatException e) {
+            throw new InvalidTimeFormatException();
+        } catch (DateTimeException e) {
+            throw new InvalidTimeFormatException();
+        }
+        String hhEnd = startTime.substring(0, 2);
+        String mmEnd = startTime.substring(3);
+        try {
+            LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd));
+        } catch (NumberFormatException e) {
+            throw new InvalidTimeFormatException();
+        } catch (DateTimeException e) {
+            throw new InvalidTimeFormatException();
+        }
         return new Lesson(description, moduleCode, frequency, startTime, endTime);
     }
     /**
@@ -221,10 +291,8 @@ public class Parser {
             return new DeleteCommand(dateDetails[0], specificDate);
         } catch (DateTimeException e) {
             throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
-
         }
     }
-
 
     /**
      * Parses DisplayCommand from the input.
@@ -233,7 +301,7 @@ public class Parser {
      * @throws WrongDateFormatException if the date in wrong format and cannot be parsed
      * @throws InvalidArgumentsException if the input gives the argument in wrong format
      */
-    public static DisplayCommand parseDisplayCommand(String input) throws WrongDateFormatException, InvalidArgumentsException{
+    public static DisplayCommand parseDisplayCommand(String input) throws WrongDateFormatException, InvalidArgumentsException, InvalidDateRangeException{
         String moduleCode = "";
         String[] filteredInput = input.trim().split(" ",2);
 
@@ -293,6 +361,7 @@ public class Parser {
         if (moduleCode.length() < 6 || moduleCode.length() > 7) {
             return false;
         }
+        moduleCode = moduleCode.toUpperCase();
         char[] charArray = moduleCode.toCharArray();
         if (charArray.length == 6) {
             for (int i = 0; i < 2; i++) {
@@ -325,7 +394,7 @@ public class Parser {
                 if (!(charArray[6] >= 'A' && charArray[6] <= 'Z')) {
                     return false;
                 }
-            } else { // case if DSA 4211
+            } else { // case if DSA4211
                 for (int i = 0; i < 3; i++) {
                     char ch = charArray[i];
                     if (!(ch >= 'A' && ch <= 'Z')) {
@@ -342,6 +411,7 @@ public class Parser {
         }
         return true;
     }
+
 
     public static editCommand validateEditCommand (String input) throws DueQuestException {
         String moduleCode = null;
@@ -373,6 +443,7 @@ public class Parser {
             filteredInput = input.substring(5);
         }
 
+
         String[] name = filteredInput.trim().split("/date",2);
         String[] property = name[1].trim().substring(10).trim().split("/",3);
         String description = name[0].trim();
@@ -396,18 +467,19 @@ public class Parser {
                     } System.out.println("test 1");
                     return new EditModuleCommand(moduleCode, description, date, type, newValue);
                 }catch (DateTimeException e){
-                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+                    throw new WrongDateFormatException();
                 }
             case "frequency":
-                int[] newFrequency = new int[2];
-                newFrequency[0] = Integer.parseInt(newValue);
+                //int[] newFrequency = new int[2];
+                //newFrequency[0] = Integer.parseInt(newValue);
+                int newFrequency = Integer.parseInt(newValue);
                 try {
                     LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
                     if(moduleCode == null){
                         return new EditTaskCommand(description, date, type, newFrequency);
                     }return new EditModuleCommand(moduleCode, description, date, type, newFrequency);
                 }catch (DateTimeException e){
-                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+                    throw new WrongDateFormatException();
                 }
             case "date":
                 try {
@@ -417,14 +489,12 @@ public class Parser {
                         return new EditTaskCommand(description, date, type, newDate);
                     }return new EditModuleCommand(moduleCode, description, date, type, newDate);
                 }catch (DateTimeException e){
-                    throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+                    throw new WrongDateFormatException();
                 }
             default:
                 System.out.println("Wrong type");
                 System.out.println(type);
                 return null;
-
         }
     }
-
 }

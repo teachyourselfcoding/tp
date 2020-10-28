@@ -10,6 +10,7 @@ import java.time.LocalDate;
  * Commands to execute edit the task's information. This may be implemented by setter functions.
  * TODO add code
  */
+
 public class EditTaskCommand extends editCommand{
     String description;
     LocalDate date = null;
@@ -17,6 +18,7 @@ public class EditTaskCommand extends editCommand{
     String type;
     String newProperty;
     int[] newFrequency;
+
 
     public EditTaskCommand(String description,  LocalDate date, String type,String newProperty){
         this.type = type;
@@ -32,15 +34,12 @@ public class EditTaskCommand extends editCommand{
         this.description = description;
     }
 
-    public EditTaskCommand(String description, LocalDate date, String type, int[] newFrequency){
+    public EditTaskCommand(String description, LocalDate date, String type, int newFrequency){
         this.type = type;
         this.date= date;
         this.newFrequency = newFrequency;
         this.description = description;
     }
-
-
-
 
     @Override
     public boolean isExit() {

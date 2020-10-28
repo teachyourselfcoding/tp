@@ -3,7 +3,11 @@ package seedu;
 import seedu.exception.ModuleAlreadyExistsException;
 import seedu.exception.ModuleNotExistsException;
 import seedu.task.Deadline;
+import seedu.task.Lesson;
 import seedu.task.Task;
+
+import java.lang.reflect.Array;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +28,10 @@ public class ModuleManager {
         this.listOfModules = listOfModules;
     }
 
+    public int getNumberOfModules() {
+        return this.listOfModules.size();
+    }
+
     /**
      * Add new module to the app.
      * If the module with the same course code exists already, the message will be printed.
@@ -32,6 +40,7 @@ public class ModuleManager {
     public void addModule(Module module) throws ModuleAlreadyExistsException{
         if (!this.checkIfModuleExist(module)) {
             this.listOfModules.add(module);
+            Ui.print("added: "+ module.getModuleCode().toString());
         } else {
             throw new ModuleAlreadyExistsException();
         }
@@ -55,35 +64,11 @@ public class ModuleManager {
      */
     public Module getModule(String moduleCode) throws ModuleNotExistsException{
         for (Module m: listOfModules) {
-            if (m.getModuleCode() == moduleCode){
+            if (m.getModuleCode().equals(moduleCode)){  // '==' cannot be used.
                 return m;
             }
         }
         throw new ModuleNotExistsException();
-    }
-
-    /**
-     * Gives the index of the module in the list.
-     * @param moduleCode module code in string
-     * @return the Module object in list
-     * @throws ModuleNotExistsException if nothing is found
-     */
-    public int getModuleIndex(String moduleCode) throws ModuleNotExistsException{
-        int indexCount = 0;
-
-        for (Module m: listOfModules) {
-            if (m.getModuleCode() == moduleCode){
-                return indexCount;
-            }
-            else{
-                indexCount++;
-            }
-        }
-        throw new ModuleNotExistsException();
-    }
-
-    public int getTotalNumberOfModules() {
-        return this.listOfModules.size();
     }
 
     /**
@@ -93,14 +78,6 @@ public class ModuleManager {
      * @param date
      * @throws DueQuestException
      */
-    public void addTaskToModule(String moduleCode, Task task, LocalDate date) throws DueQuestException{
-        try {
-            listOfModules.get(getModuleIndex(moduleCode)).addTask(task);
-            ScheduleManager.updateSchedule(date,task);
-        } catch (ModuleNotExistsException e) {
-            Ui.printModuleNotExistMessage();
-        }
-    }
 
     /**
      * Display the tasks of a module.
@@ -242,18 +219,28 @@ public class ModuleManager {
 
     // Display all the task in a module on a specific date
     public void display(String moduleCode, LocalDate date) throws ModuleNotExistsException{
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        ArrayList<Lesson> lessons = new ArrayList<>();
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
         for (Module m : listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
-                ArrayList<Task> filteredTasks = new ArrayList<>();
+
                 for (Task t : m.getListOfTasks()) {
                     if (t instanceof Deadline) {
                         if (((Deadline) t).getDate().isEqual(date)) {
                             filteredTasks.add(t);
                         }
+                    } else if (t instanceof Lesson) {
+                        if (((Lesson) t).getLessonDayInDayOfWeek() == dayOfWeek) {
+                            lessons.add((Lesson)t);
+                        }
                     }
                 }
-                Ui.print("The list of task in " + moduleCode + " on " + date.toString() + " :");
+                Ui.print(moduleCode + " - " + Ui.convertDateToString(date));
+                Ui.print("Events & Deadlines :");
                 Ui.printListGenericType(filteredTasks);
+                Ui.print("Lessons :");
+                Ui.printListGenericType(lessons);
                 Ui.printSeparator();
             }
         }
@@ -296,5 +283,55 @@ public class ModuleManager {
         Module module = new Module(moduleCode);
         module.addTask(task);
         this.listOfModules.add(module);
+    }
+
+
+    /**
+     * Finds the module contains the task with the specified description.
+     * @param description the description in string
+     * @return Module found
+     */
+    private Module findModuleContainsTask(String description) {
+        for (Module m: this.listOfModules) {
+            for (Task t: m.getListOfTasks()) {
+                if (t.getDescription().equals(description)) {
+                    return m;
+                }
+            }
+        }
+        return null;
+    }
+
+    private Module findModuleContainsTask(String description, LocalDate date) {
+        for (Module m: this.listOfModules) {
+            for (Task t: m.getListOfTasks()) {
+                if (t.getDescription().equals(description) && date.isEqual(t.getDate())) {
+                    return m;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void deleteTask(String description) {
+        Module module = findModuleContainsTask(description);
+        if (module != null) {
+            module.deleteTask(description);
+        }
+    }
+
+    public void deleteTask(String description, LocalDate date) {
+        Module module = findModuleContainsTask(description, date);
+        if (module != null) {
+            module.deleteTask(description, date);
+        }
+    }
+
+    String export() {
+        String export = "";
+        for (int i = 0; i < this.listOfModules.size(); i++) {
+            export = this.listOfModules.get(i).export() + '\n';
+        }
+        return export;
     }
 }

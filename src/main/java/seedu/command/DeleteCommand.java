@@ -3,19 +3,17 @@ package seedu.command;
 import seedu.ModuleManager;
 import seedu.ScheduleManager;
 import seedu.Storage;
-import seedu.task.TaskList;
 import seedu.Ui;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 /**
  * DeleteCommand is used to delete a task in the list.
  */
 public class DeleteCommand extends Command {
     private int taskNum;
-    String description;
-    LocalDate date = null;
+    private String description;
+    private LocalDate date = null;
 
     public DeleteCommand(String description) {
         this.description = description;
@@ -33,11 +31,17 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
+        description = description.strip();
         if(this.date == null){
             scheduleManager.deleteTask(description);
+            moduleManager.deleteTask(description);
+            Storage.getStorage().exportData(moduleManager);
         }
         else{
-            scheduleManager.deleteTask(description,date);
+            scheduleManager.deleteTask(description, date);
+            moduleManager.deleteTask(description, date);
+            String commandString = "delete " + description + " /date " + this.date;
+            Storage.getStorage().exportAdditionalData(commandString);
         }
     }
 }
