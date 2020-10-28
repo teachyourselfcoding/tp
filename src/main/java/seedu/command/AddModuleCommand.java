@@ -17,8 +17,8 @@ public class AddModuleCommand extends Command {
     /**
      * Creates Module object from arguments given in string.
      * Throws InvalidArgumentsException when the moduleCode is empty or au number is negative.
-     * @param strings the argument array in string
-     * @throws InvalidArgumentsException if the argument is invalid or cannot be parsed correctly
+     * @param strings the argument array in string.
+     * @throws InvalidArgumentsException if the argument is invalid or cannot be parsed correctly.
      */
     public AddModuleCommand(String[] strings) throws InvalidArgumentsException {
         String moduleCode = null;
@@ -69,6 +69,7 @@ public class AddModuleCommand extends Command {
             Ui.print("Successfully added to Module Manager! Have fun suffering from " + this.module);
             System.out.println("Here are your modules you are currently taking! " +
                     "\n" + Arrays.toString(moduleManager.getListOfModuleCodes().toArray()));
+            Storage.getStorage().exportData(moduleManager, this.module.getModuleCode());
             Ui.printSeparator();
         } catch (ModuleAlreadyExistsException e) {
             Ui.printModuleAlreadyExistMessage();

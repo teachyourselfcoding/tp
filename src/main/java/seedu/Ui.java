@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- *Represents the Class for functions related to the CLI User interface
+ * Represents the Class for functions related to the CLI User interface
  * and used to print out exception messages for troubleshooting purpose.
  */
 public class Ui {
     private Scanner scanner;
-    private static String SEPARATOR="===================";
+    private static String SEPARATOR="<-------------------------------------------------------------->";
 
     /**
      * Constructor of Ui.
@@ -21,44 +21,62 @@ public class Ui {
     }
 
     /**
-     *print out the on startup message.
+     * Print out the on startup message.
      */
     public void welcomeMessage() {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        logo +
         String welcomeMessage =
                 "_____________________________________________\n"
-                +"Whats up people! Duke is here to save the day\n"
+                +"Whats up people! DueQuest is here to save the day\n"
+                +"DueQuest for students by students\n"
                 +"So, what can I do for you?\n";
         System.out.print(welcomeMessage);
         System.out.println(SEPARATOR);
     }
 
     /**
-     * print out the exit message.
+     * Print out the exit message.
      */
     public void byeMessage() {
         String byeMessage =
-                "Aye captain. This is Duke Signing out!\n";
+                "Aye captain. This is DueQuest Signing out!\n";
         System.out.print(byeMessage);
         
     }
-    
+
+    /**
+     * print out the Help message
+     */
+    public void printHelpGuide() {
+        String helpMessage = " This is the list of Command Available, please refer to the User Guide\n" +
+                " display - display today's Schedule, module info, list of Task \n" +
+                " module  - add a module\n" +
+                " add     - add a deadline, event, lesson\n" +
+                " edit    - edit information\n" +
+                " delete  - delete task in a module\n" +
+                " exit    - exit duequest";
+        print(helpMessage);
+        printSeparator();
+    }
+
     /**
      * Scan and Read in user input on the CLI.
      * @return String command.
      */
     public String readCommand() {
-        System.out.println(SEPARATOR);
-        System.out.println("Please type the command!");
+        System.out.println("Please type the next command!");
         System.out.println(SEPARATOR);
 
         String commandString = scanner.nextLine();
         return commandString;
+    }
+
+    public String readYesOrNo() {
+        System.out.println(SEPARATOR);
+        System.out.println("Clashes detected, are you sure you want to add the task? Answer Yes or No");
+        System.out.println(SEPARATOR);
+
+        String input = scanner.nextLine();
+        return input;
     }
 
     /**
@@ -99,6 +117,11 @@ public class Ui {
         System.out.println(text);
     }
 
+    /**
+     * Used to print any generic list
+     * @param lists the provided list of generic type
+     * @param <T> the object type
+     */
     public static <T> void printListGenericType(ArrayList<T> lists) {
         if (lists != null) {
             for (T i: lists) {
@@ -106,18 +129,31 @@ public class Ui {
             }
         }
         if (lists.size() == 0) {
-            System.out.println("You don't have any tasks!");
+            System.out.println("You don't have any Deadlines!");
         }
         print("");
     }
 
     /**
-     * convert LocalDate object into String line that is easily readable
+     * Convert LocalDate object into readable string format without year.
+     * E.g 12 JUN.
      * @param date
      * @return
      */
     public static String convertDateToString(LocalDate date){
         String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM"));
+        return stringDate;
+    }
+
+    /**
+     * Convert LocalDate object into readable string format with year included.
+     * E.g 12 JUN 20.
+     * @param date
+     * @return
+     */
+
+    public static String convertDateToStringWithYear(LocalDate date){
+        String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM YY"));
         return stringDate;
     }
 
@@ -145,21 +181,64 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+    public static void printMissingDeadlineTimingDetailsMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("The deadline's time information is missing.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printMissingEventDateAndTimeDetailsMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("The event's date, time or location information is missing.");
+        System.out.println(SEPARATOR);
+    }
+
     public static void printEmptyArgumentMessage() {
         System.out.println(SEPARATOR);
         System.out.println("The arguments for this command cannot be empty.");
         System.out.println(SEPARATOR);
     }
 
+    public static void printWrongTimeFormatMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("The format for time should be in HH:MM format.");
+        System.out.println("Make sure MM is 00. E.g. 18:00 is allowed but not 18:01");
+        System.out.println(SEPARATOR);
+    }
+
     public static void printInvalidModuleCode() {
         System.out.println(SEPARATOR);
-        System.out.println("The module code given is not valid.");
+        System.out.println("The module code is not valid or not typed in.");
         System.out.println(SEPARATOR);
     }
 
     public static void printInvalidDateFormatMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Please give the date in correct format.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printInvalidStartEndDate() {
+        System.out.println(SEPARATOR);
+        System.out.println("The Start date cannot be after End date");
+    }
+
+    public static void printInvalidDateMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Please give the date between 2020/10/21 and 2021/05/31.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printInvalidFrequencyMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Frequency should be a digit from 1 to 7");
+        System.out.println("E.g. 1 represents Monday, 3 represents Wednesday");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printStartAndEndTimeCannotBeTheSameMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Start and End time cannot be the same!");
         System.out.println(SEPARATOR);
     }
 
