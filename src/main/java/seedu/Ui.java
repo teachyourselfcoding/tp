@@ -242,7 +242,9 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
-    public static void printSeparator() {
+    public static void printSuccessfulEdit() {
+        System.out.println(SEPARATOR);
+        System.out.println("Done. The edit has been made.");
         System.out.println(SEPARATOR);
     }
 }
