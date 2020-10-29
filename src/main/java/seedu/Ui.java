@@ -55,7 +55,7 @@ public class Ui {
                 " delete  - delete task in a module\n" +
                 " exit    - exit duequest";
         print(helpMessage);
-        printSeparator();
+        System.out.println(SEPARATOR);
     }
 
     /**
@@ -244,7 +244,8 @@ public class Ui {
 
     public static void printSuccessfulEdit() {
         System.out.println(SEPARATOR);
-        System.out.println("Done. The edit has been made.");
+        System.out.println("Done. The edit has been made. ");
         System.out.println(SEPARATOR);
     }
 }
+
