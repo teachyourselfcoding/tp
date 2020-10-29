@@ -429,7 +429,13 @@ public class Parser {
         return true;
     }
 
-    public static editCommand validateEditCommand(String input) throws DueQuestException, WrongDateFormatException {
+    /**
+     * Checks and parsers editCommand from input.
+     * @param input user's input string
+     * @return editCommand
+     * @throws WrongDateFormatException
+     */
+    public static editCommand validateEditCommand(String input) throws WrongDateFormatException {
         String moduleCode = null;
         String[] splitViaModule;
         String filteredInput;
@@ -447,6 +453,7 @@ public class Parser {
                                 moduleProperty.equals("au")||
                                 moduleProperty.equals("modulecode")
                 ){
+                    Storage.getStorage().exportAdditionalData(input);
                     return new EditModuleCommand(moduleCode, moduleProperty, newModuleProperty);
                 }
                 else{
@@ -479,8 +486,10 @@ public class Parser {
             try {
                 LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
                 if(moduleCode == null){
+                    Storage.getStorage().exportAdditionalData(input);
                     return new EditTaskCommand(description, date, type, newValue);
                 } System.out.println("test 1");
+                Storage.getStorage().exportAdditionalData(input);
                 return new EditModuleCommand(moduleCode, description, date, type, newValue);
             }catch (DateTimeException e){
                 throw new WrongDateFormatException();
@@ -492,8 +501,11 @@ public class Parser {
             try {
                 LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
                 if(moduleCode == null){
+                    Storage.getStorage().exportAdditionalData(input);
                     return new EditTaskCommand(description, date, type, newFrequency);
-                }return new EditModuleCommand(moduleCode, description, date, type, newFrequency);
+                }
+                Storage.getStorage().exportAdditionalData(input);
+                return new EditModuleCommand(moduleCode, description, date, type, newFrequency);
             }catch (DateTimeException e){
                 throw new WrongDateFormatException();
             }
@@ -502,8 +514,11 @@ public class Parser {
                 LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
                 LocalDate newDate = LocalDate.parse(newValue.trim().replace("/","-"));
                 if(moduleCode == null){
+                    Storage.getStorage().exportAdditionalData(input);
                     return new EditTaskCommand(description, date, type, newDate);
-                }return new EditModuleCommand(moduleCode, description, date, type, newDate);
+                }
+                Storage.getStorage().exportAdditionalData(input);
+                return new EditModuleCommand(moduleCode, description, date, type, newDate);
             }catch (DateTimeException e){
                 throw new WrongDateFormatException();
             }
