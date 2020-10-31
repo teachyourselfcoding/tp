@@ -11,6 +11,7 @@ import seedu.task.Event;
 import seedu.task.Lesson;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 /**
@@ -91,6 +92,8 @@ public class Parser {
             Ui.printInvalidFrequencyMessage();
         } catch (StartAndEndTimeSameException e) {
             Ui.printStartAndEndTimeCannotBeTheSameMessage();
+        } catch (InvalidDateFormatException e) {
+            Ui.printInvalidDateFormatMessage();
         }
         return null;  // the function must return something
     }
@@ -106,7 +109,8 @@ public class Parser {
      * @throws InvalidModuleCodeException if the module code in the input is inbalid.
      */
     public static Deadline validateDeadline(String input) throws WrongDateFormatException, InvalidDateException,
-            EmptyArgumentException, MissingDeadlineTimingDetailsException, InvalidModuleCodeException {
+            EmptyArgumentException, MissingDeadlineTimingDetailsException, InvalidModuleCodeException,
+            InvalidDateFormatException {
         String[] filteredInput = input.trim().split(" ", 2);
         if (filteredInput.length == 1) {
             throw new EmptyArgumentException();
@@ -122,6 +126,11 @@ public class Parser {
         String byInfo = filteredInput[1].split("/by", 2)[1].trim();
         if (byInfo.length() != 10) {
             throw new WrongDateFormatException();
+        }
+        try {
+            LocalDate.parse(byInfo);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateFormatException();
         }
         if (LocalDate.parse(byInfo).isAfter(LocalDate.of(2021, 6, 1)) ||
             LocalDate.parse(byInfo).isBefore(LocalDate.of(2020, 10, 12))) {
@@ -143,7 +152,7 @@ public class Parser {
      */
     public static Event validateEvent(String input) throws WrongDateFormatException, InvalidDateException,
             EmptyArgumentException, MissingEventDateAndTimeDetailsException, InvalidTimeFormatException,
-            StartAndEndTimeSameException {
+            StartAndEndTimeSameException, InvalidDateFormatException {
         String[] filteredInputTest = input.trim().split(" ", 2);
         if (filteredInputTest.length == 1) {
             throw new EmptyArgumentException();
@@ -170,6 +179,12 @@ public class Parser {
         if (dateOfEvent.length() != 10) {
             throw new WrongDateFormatException();
         }
+        try {
+            LocalDate.parse(dateOfEvent);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateFormatException();
+        }
+
         if (LocalDate.parse(dateOfEvent).isAfter(LocalDate.of(2021, 6, 1)) ||
                 LocalDate.parse(dateOfEvent).isBefore(LocalDate.of(2020, 10, 12))) {
             throw new InvalidDateException();
