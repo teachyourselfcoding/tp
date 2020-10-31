@@ -217,7 +217,7 @@ public class Ui {
 
     public static void printInvalidDateFormatMessage() {
         System.out.println(SEPARATOR);
-        System.out.println("Please give the date in correct format. It should be in YYYY-MM-DD format.");
+        System.out.println("Please give the date in correct format and a valid date. It should be in YYYY-MM-DD format.");
         System.out.println(SEPARATOR);
     }
 
