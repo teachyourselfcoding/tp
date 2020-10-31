@@ -143,7 +143,8 @@ class ParserTest {
     @Test
     void parseLesson_validLesson_returnsTrue() throws
             EmptyArgumentException, MissingLessonTimingException, InvalidModuleCodeException,
-            InvalidTimeFormatException, InvalidFrequencyException, StartAndEndTimeSameException, MissingLessonDescriptionException {
+            InvalidTimeFormatException, InvalidFrequencyException, StartAndEndTimeSameException,
+            MissingLessonDescriptionException, StartTimeAndEndTimeTooEarlyException, StartTimeIsAfterEndTimeException {
         String input = "lesson online lecture CS2113 /on 5 16:00 18:00";
         Lesson expectedLesson = Parser.parseLesson(input);
         Lesson actualLesson = new Lesson("online lecture", "CS2113",
@@ -157,7 +158,8 @@ class ParserTest {
     @Test
     void validateDeadline_validDeadline_returnsTrue() throws
             WrongDateFormatException, InvalidDateException,
-            EmptyArgumentException, MissingDeadlineTimingDetailsException, InvalidModuleCodeException, MissingDeadlineDescriptionException, InvalidDateFormatException {
+            EmptyArgumentException, MissingDeadlineTimingDetailsException, InvalidModuleCodeException,
+            MissingDeadlineDescriptionException, InvalidDateFormatException {
         String input = "deadline CS2113 TP version 1 /by 2021-04-04";
         Deadline expectedDeadline = Parser.validateDeadline(input);
         Deadline actualDeadline = new Deadline("CS2113", "TP version 1", "2021-04-04");
@@ -167,7 +169,8 @@ class ParserTest {
     @Test
     void validateEvent_validEventLineInput_returnsEvent() throws InvalidDateException,
             MissingEventDateAndTimeDetailsException, WrongDateFormatException, InvalidTimeFormatException,
-            EmptyArgumentException, StartAndEndTimeSameException, InvalidDateFormatException, MissingEventDescriptionException {
+            EmptyArgumentException, StartAndEndTimeSameException, InvalidDateFormatException,
+            MissingEventDescriptionException, StartTimeIsAfterEndTimeException, StartTimeAndEndTimeTooEarlyException {
         String input = "event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14";
         Event event = Parser.validateEvent(input);
         // check the properties of event

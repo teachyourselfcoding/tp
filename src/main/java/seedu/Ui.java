@@ -274,5 +274,17 @@ public class Ui {
         System.out.println("Done. The edit has been made. ");
         System.out.println(SEPARATOR);
     }
+
+    public static void printStartTimeCannotBeAfterEndTimeMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("The start time cannot be after the end time!");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printStartTimeAndEndTimeCannotBeBeforeEightOClockMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("The start time and end time cannot be before 8am!");
+        System.out.println(SEPARATOR);
+    }
 }
 

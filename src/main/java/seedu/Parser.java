@@ -43,10 +43,8 @@ public class Parser {
                 case "delete":
                     //Fallthrough
                     return validateDeleteCommand(input);
-
                 case "edit":
                     return validateEditCommand(input);
-
                 case "find":
                     String[] sentence = input.toLowerCase().split(" ", 2);
                     String keywords = sentence[1];
@@ -100,6 +98,10 @@ public class Parser {
             Ui.printMissingLessonDescriptionMessage();
         } catch (MissingEventDescriptionException e) {
             Ui.printMissingEventDescriptionMessage();
+        } catch (StartTimeIsAfterEndTimeException e) {
+            Ui.printStartTimeCannotBeAfterEndTimeMessage();
+        } catch (StartTimeAndEndTimeTooEarlyException e) {
+            Ui.printStartTimeAndEndTimeCannotBeBeforeEightOClockMessage();
         } catch (Exception e) {
             Ui.printInvalidInputMessage();
         }
@@ -164,7 +166,8 @@ public class Parser {
      */
     public static Event validateEvent(String input) throws WrongDateFormatException, InvalidDateException,
             EmptyArgumentException, MissingEventDateAndTimeDetailsException, InvalidTimeFormatException,
-            StartAndEndTimeSameException, InvalidDateFormatException, MissingEventDescriptionException {
+            StartAndEndTimeSameException, InvalidDateFormatException, MissingEventDescriptionException,
+            StartTimeIsAfterEndTimeException, StartTimeAndEndTimeTooEarlyException {
         String[] filteredInputTest = input.trim().split(" ", 2);
         if (filteredInputTest.length == 1) {
             throw new EmptyArgumentException();
@@ -233,11 +236,20 @@ public class Parser {
         } catch (DateTimeException e) {
             throw new InvalidTimeFormatException();
         }
+
         if (Integer.parseInt(mmEnd) != 0) {
             throw new InvalidTimeFormatException();
         }
         if (startTime.equals(endTime)) {
             throw new StartAndEndTimeSameException();
+        }
+        if (LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart)).
+                isAfter(LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd)))) {
+            throw new StartTimeIsAfterEndTimeException();
+        }
+        if (LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart)).isBefore(LocalTime.of(8, 0)) ||
+                LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd)).isBefore(LocalTime.of(8,0))) {
+            throw new StartTimeAndEndTimeTooEarlyException();
         }
         return new Event(description, moduleCode, locationOfEvent, startTime, endTime, dateOfEvent);
     }
@@ -255,15 +267,14 @@ public class Parser {
      */
     public static Lesson parseLesson(String input) throws EmptyArgumentException, MissingLessonTimingException,
             InvalidModuleCodeException, InvalidTimeFormatException, InvalidFrequencyException,
-            StartAndEndTimeSameException, MissingLessonDescriptionException {
+            StartAndEndTimeSameException, MissingLessonDescriptionException, StartTimeIsAfterEndTimeException,
+            StartTimeAndEndTimeTooEarlyException {
         String[] filteredInput = input.trim().split(" ", 2);
-
         if (filteredInput.length == 1) {  // e.g. lesson [empty_arguments]
             throw new EmptyArgumentException();
         }  else if (!filteredInput[1].contains("/on")) {
             throw new MissingLessonTimingException();
         }
-
         String[] descriptionWithModuleCode = filteredInput[1].split("/on", 2);
         String[] frequencyAndTime = descriptionWithModuleCode[1].trim().split(" ");
         String description = descriptionWithModuleCode[0].trim();
@@ -290,7 +301,6 @@ public class Parser {
         if (frequency > 7 || frequency < 1) {
             throw new InvalidFrequencyException();
         }
-
         String startTime = frequencyAndTime[1];
         String endTime = frequencyAndTime[2];
         if (startTime.length() != 5 || endTime.length() != 5) {
@@ -300,7 +310,6 @@ public class Parser {
         String mmStart = startTime.substring(3);
         String hhEnd = endTime.substring(0, 2);
         String mmEnd = endTime.substring(3);
-
         try {
             LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart));
         } catch (NumberFormatException e) {
@@ -324,7 +333,14 @@ public class Parser {
         if (startTime.equals(endTime)) {
             throw new StartAndEndTimeSameException();
         }
-
+        if (LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart)).
+                isAfter(LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd)))) {
+            throw new StartTimeIsAfterEndTimeException();
+        }
+        if (LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart)).isBefore(LocalTime.of(8, 0)) ||
+                LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd)).isBefore(LocalTime.of(8,0))) {
+            throw new StartTimeAndEndTimeTooEarlyException();
+        }
         return new Lesson(description, moduleCode, frequency, startTime, endTime);
     }
     /**
