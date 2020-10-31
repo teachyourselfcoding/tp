@@ -1,2 +1,4 @@
-package seedu.exception;public class StartTimeAndEndTimeTooEarlyException {
+package seedu.exception;
+
+public class StartTimeAndEndTimeTooEarlyException extends Exception {
 }
