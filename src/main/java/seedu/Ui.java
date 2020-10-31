@@ -202,6 +202,7 @@ public class Ui {
     public static void printWrongTimeFormatMessage() {
         System.out.println(SEPARATOR);
         System.out.println("The format for time should be in HH:MM format.");
+        System.out.println("Make sure the time you input is valid. E.g. not 30:00, 21:99");
         System.out.println("Make sure MM is 00. E.g. 18:00 is allowed but not 18:01");
         System.out.println(SEPARATOR);
     }
