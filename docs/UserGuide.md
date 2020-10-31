@@ -427,6 +427,15 @@ Deadlines on 2020-10-16:
 You don't have any tasks!
 ```
 
+## Exiting the app: `bye`
+Exits the app and saves the tasks in the txt files.
+Format: `bye`
+
+Example of Usage:
+Input: `bye`
+Output: `Aye captain. This is DueQuest Signing out!`
+
+
 # Command Summary
 
 + Add Module: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
