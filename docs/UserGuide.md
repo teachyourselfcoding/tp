@@ -107,8 +107,10 @@ Format: `event MODULE_CODE DESCRIPTION /at DATE_OF_EVENT START_TIME END_TIME LOC
 
 Example Usage:
 
-`event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14`
-`event play football /at 2021-05-03 14:00 16:00 Ang Mo Kio`
+* If you want to add an event called final exam for module CS2113 at 3rd May 2021, from 2pm to 4pm at LT14, input
+ `event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14`
+* If you want to add an event for a non-module called played football, at 21st May 2021, from 4pm to 6pm at Ang Mo Kio,
+ input `event play football /at 2021-05-21 16:00 18:00 Ang Mo Kio`
 
 ```
 ===================
@@ -124,8 +126,7 @@ Adds a deadline of an assignment into the Schedule Manager and Module Manager.
 Format: `deadline COURSECODE DESCRIPTION /by DATE `
 
 Examples input:
-
-`deadline CS2113 TP version 1 /by 2021-04-04`
+* If you want to add a deadline for CS2113 for TP version 1 at 4th April 2021, input `deadline CS2113 TP version 1 /by 2021-04-04`
 
 ```
 ===================
