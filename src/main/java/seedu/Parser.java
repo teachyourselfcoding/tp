@@ -94,6 +94,14 @@ public class Parser {
             Ui.printStartAndEndTimeCannotBeTheSameMessage();
         } catch (InvalidDateFormatException e) {
             Ui.printInvalidDateFormatMessage();
+        } catch (MissingDeadlineDescriptionException e) {
+            Ui.printMissingDeadlineDescriptionMessage();
+        } catch (MissingLessonDescriptionException e) {
+            Ui.printMissingLessonDescriptionMessage();
+        } catch (MissingEventDescriptionException e) {
+            Ui.printMissingEventDescriptionMessage();
+        } catch (Exception e) {
+            Ui.printInvalidInputMessage();
         }
         return null;  // the function must return something
     }
@@ -106,11 +114,12 @@ public class Parser {
      * @throws InvalidDateException if date in the input is in an invalid range.
      * @throws EmptyArgumentException if the information of the Deadline is missing in the input.
      * @throws MissingDeadlineTimingDetailsException  if the timing details of the deadline is missing.
-     * @throws InvalidModuleCodeException if the module code in the input is inbalid.
+     * @throws InvalidModuleCodeException if the module code in the input is invalid.
+     * @throws InvalidDateFormatException if the input date is of invalid format.
      */
     public static Deadline validateDeadline(String input) throws WrongDateFormatException, InvalidDateException,
             EmptyArgumentException, MissingDeadlineTimingDetailsException, InvalidModuleCodeException,
-            InvalidDateFormatException {
+            InvalidDateFormatException, MissingDeadlineDescriptionException {
         String[] filteredInput = input.trim().split(" ", 2);
         if (filteredInput.length == 1) {
             throw new EmptyArgumentException();
@@ -118,6 +127,9 @@ public class Parser {
             throw new MissingDeadlineTimingDetailsException();
         }
         String[] moduleCodeAndDescription = filteredInput[1].split("/by",2)[0].trim().split(" ", 2);
+        if (moduleCodeAndDescription.length == 1) {
+            throw new MissingDeadlineDescriptionException();
+        }
         String moduleCode = moduleCodeAndDescription[0].trim();
         if (!verifyModuleCode(moduleCode)) {
             throw new InvalidModuleCodeException();
@@ -152,7 +164,7 @@ public class Parser {
      */
     public static Event validateEvent(String input) throws WrongDateFormatException, InvalidDateException,
             EmptyArgumentException, MissingEventDateAndTimeDetailsException, InvalidTimeFormatException,
-            StartAndEndTimeSameException, InvalidDateFormatException {
+            StartAndEndTimeSameException, InvalidDateFormatException, MissingEventDescriptionException {
         String[] filteredInputTest = input.trim().split(" ", 2);
         if (filteredInputTest.length == 1) {
             throw new EmptyArgumentException();
@@ -170,6 +182,9 @@ public class Parser {
         }
         String[] splitDescriptionAndDateTimeDetails = filteredInput.split("/at");
         String description = splitDescriptionAndDateTimeDetails[0].trim();
+        if (description.trim().equals("")) {
+            throw new MissingEventDescriptionException();
+        }
         String dateTimeLocationDetails = splitDescriptionAndDateTimeDetails[1];
         String[] splitDateTimeLocationDetails = dateTimeLocationDetails.trim().split(" ", 4);
         if (splitDateTimeLocationDetails.length != 4) {
@@ -239,7 +254,8 @@ public class Parser {
      * @throws StartAndEndTimeSameException if the start time and end time are the same.
      */
     public static Lesson parseLesson(String input) throws EmptyArgumentException, MissingLessonTimingException,
-            InvalidModuleCodeException, InvalidTimeFormatException, InvalidFrequencyException, StartAndEndTimeSameException {
+            InvalidModuleCodeException, InvalidTimeFormatException, InvalidFrequencyException,
+            StartAndEndTimeSameException, MissingLessonDescriptionException {
         String[] filteredInput = input.trim().split(" ", 2);
 
         if (filteredInput.length == 1) {  // e.g. lesson [empty_arguments]
@@ -256,6 +272,9 @@ public class Parser {
         String moduleCode = descriptionWithModuleCode[size - 1].trim();
         if (!verifyModuleCode(moduleCode)) {
             throw new InvalidModuleCodeException();
+        }
+        if (descriptionWithModuleCode.length == 1) {
+            throw new MissingLessonDescriptionException();
         }
         if (frequencyAndTime.length != 3) {
             throw new MissingLessonTimingException();

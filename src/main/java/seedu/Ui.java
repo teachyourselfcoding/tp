@@ -245,6 +245,30 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+    public static void printMissingDeadlineDescriptionMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Your deadline is missing the description!");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printMissingLessonDescriptionMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Your lesson is missing the description!");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printMissingEventDescriptionMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Your event is missing the description!");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printInvalidInputMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Please Check your input again!");
+        System.out.println(SEPARATOR);
+    }
+
     public static void printSuccessfulEdit() {
         System.out.println(SEPARATOR);
         System.out.println("Done. The edit has been made. ");

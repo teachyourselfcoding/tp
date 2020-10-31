@@ -35,7 +35,7 @@ class ScheduleManagerTest {
     @Test
     public void checkIfLessonToBeAddedClashesWithCurrentTimetable_validLesson_true() throws
             MissingLessonTimingException, EmptyArgumentException, InvalidModuleCodeException,
-            InvalidTimeFormatException, InvalidFrequencyException, StartAndEndTimeSameException {
+            InvalidTimeFormatException, InvalidFrequencyException, StartAndEndTimeSameException, MissingLessonDescriptionException {
         String input1 = "lesson online lecture CS2113 /on 5 16:00 18:00";
         Lesson lesson = Parser.parseLesson(input1);
         ScheduleManager scheduleManager = new ScheduleManager();
@@ -51,7 +51,7 @@ class ScheduleManagerTest {
             MissingLessonTimingException, EmptyArgumentException, InvalidModuleCodeException,
             InvalidTimeFormatException, InvalidFrequencyException, InvalidDateException,
             MissingEventDateAndTimeDetailsException, WrongDateFormatException,
-            StartAndEndTimeSameException {
+            StartAndEndTimeSameException, MissingLessonDescriptionException, InvalidDateFormatException, MissingEventDescriptionException {
         String input1 = "lesson online lecture CS2113 /on 5 16:00 18:00";
         String input2 = "event CS2113 final exam /at 2021-01-15 14:00 16:00 LT14";
         Lesson lesson = Parser.parseLesson(input1);
