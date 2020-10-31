@@ -69,5 +69,6 @@ public class EditTaskCommand extends editCommand {
             default:
                 System.out.println("Invalid type");
         }
+        Ui.printSuccessfulEdit();
     }
 }
