@@ -82,15 +82,8 @@ public class ScheduleManager {
 	public void addLesson(Lesson lesson, ModuleManager moduleManager, Ui ui) {
 		DayOfWeek day = lesson.getLessonDayInDayOfWeek();
 		if (checkIfLessonToBeAddedClashesWithCurrentTimetable((lesson))) {
-			String verifyIfReallyWantToAdd = ui.readYesOrNo();
-			if (verifyIfReallyWantToAdd.equals("No")) {
-				ui.print("Got it! Lesson is not added!");
-				return;
-			} else if (!verifyIfReallyWantToAdd.equals("Yes")) {
-				ui.print("You need to type in Yes or No");
-				ui.print("Lesson is not added");
-				return;
-			}
+			ui.printClashesMessage();
+			return;
 		}
 		for (Map.Entry<LocalDate, ArrayList<Task>> entry : this.semesterSchedule.entrySet()) {
 			LocalDate key = entry.getKey();
@@ -258,15 +251,8 @@ public class ScheduleManager {
 	public void addEvent(Event event, ModuleManager moduleManager, Ui ui) {
 		LocalDate date = LocalDate.parse(event.getDateOfEvent());
 		if (checkIfEventToBeAddedClashesInADate(event, date)) {
-			String verifyIfReallyWantYoAdd = ui.readYesOrNo();
-			if (verifyIfReallyWantYoAdd.equals("No")) {
-				ui.print("Got it! Event is not Added!");
-				return;
-			} else if (!verifyIfReallyWantYoAdd.equals("Yes")) {
-				ui.print("You need to type in Yes or No!");
-				ui.print("Event is not added!");
-				return;
-			}
+			ui.printClashesMessage();
+			return;
 		}
 		this.semesterSchedule.get(date).add(event);
 		if (!event.getModuleCode().equals("")){
