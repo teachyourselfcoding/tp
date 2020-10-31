@@ -70,13 +70,15 @@ public class Ui {
         return commandString;
     }
 
-    public String readYesOrNo() {
-        System.out.println(SEPARATOR);
-        System.out.println("Clashes detected, are you sure you want to add the task? Answer Yes or No");
-        System.out.println(SEPARATOR);
 
-        String input = scanner.nextLine();
-        return input;
+    public void printClashesMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Clashes detected, task is not added.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printSeparator() {
+        System.out.println(SEPARATOR);
     }
 
     /**
