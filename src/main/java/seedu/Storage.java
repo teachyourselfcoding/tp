@@ -1,6 +1,7 @@
 package seedu;
 
 import seedu.command.Command;
+import seedu.exception.ModuleDoesNotExistException;
 import seedu.exception.ModuleNotExistsException;
 
 import java.io.File;
@@ -75,6 +76,7 @@ public class Storage {
 			System.out.println("Error: the file is not found.");
 		} catch (DueQuestException e) {
 			ui.showError(e.getExceptionType());
+		} catch (ModuleDoesNotExistException e) {
 		}
 	}
 
