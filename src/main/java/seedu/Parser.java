@@ -11,6 +11,7 @@ import seedu.task.Event;
 import seedu.task.Lesson;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 /**
@@ -42,10 +43,8 @@ public class Parser {
                 case "delete":
                     //Fallthrough
                     return validateDeleteCommand(input);
-
                 case "edit":
                     return validateEditCommand(input);
-
                 case "find":
                     String[] sentence = input.toLowerCase().split(" ", 2);
                     String keywords = sentence[1];
@@ -91,6 +90,22 @@ public class Parser {
             Ui.printInvalidFrequencyMessage();
         } catch (StartAndEndTimeSameException e) {
             Ui.printStartAndEndTimeCannotBeTheSameMessage();
+        } catch (InvalidDateFormatException e) {
+            Ui.printInvalidDateFormatMessage();
+        } catch (MissingDeadlineDescriptionException e) {
+            Ui.printMissingDeadlineDescriptionMessage();
+        } catch (MissingLessonDescriptionException e) {
+            Ui.printMissingLessonDescriptionMessage();
+        } catch (MissingEventDescriptionException e) {
+            Ui.printMissingEventDescriptionMessage();
+        } catch (StartTimeIsAfterEndTimeException e) {
+            Ui.printStartTimeCannotBeAfterEndTimeMessage();
+        } catch (StartTimeAndEndTimeTooEarlyException e) {
+            Ui.printStartTimeAndEndTimeCannotBeBeforeEightOClockMessage();
+        } catch (MissingModuleCodeOrInvalidModuleCodeException e) {
+            Ui.printMissingModuleCodeOrInvalidModuleCodeMessage();
+        } catch (Exception e) {
+            Ui.printInvalidInputMessage();
         }
         return null;  // the function must return something
     }
@@ -103,10 +118,12 @@ public class Parser {
      * @throws InvalidDateException if date in the input is in an invalid range.
      * @throws EmptyArgumentException if the information of the Deadline is missing in the input.
      * @throws MissingDeadlineTimingDetailsException  if the timing details of the deadline is missing.
-     * @throws InvalidModuleCodeException if the module code in the input is inbalid.
+     * @throws InvalidModuleCodeException if the module code in the input is invalid.
+     * @throws InvalidDateFormatException if the input date is of invalid format.
      */
     public static Deadline validateDeadline(String input) throws WrongDateFormatException, InvalidDateException,
-            EmptyArgumentException, MissingDeadlineTimingDetailsException, InvalidModuleCodeException {
+            EmptyArgumentException, MissingDeadlineTimingDetailsException, InvalidModuleCodeException,
+            InvalidDateFormatException, MissingDeadlineDescriptionException {
         String[] filteredInput = input.trim().split(" ", 2);
         if (filteredInput.length == 1) {
             throw new EmptyArgumentException();
@@ -114,6 +131,9 @@ public class Parser {
             throw new MissingDeadlineTimingDetailsException();
         }
         String[] moduleCodeAndDescription = filteredInput[1].split("/by",2)[0].trim().split(" ", 2);
+        if (moduleCodeAndDescription.length == 1) {
+            throw new MissingDeadlineDescriptionException();
+        }
         String moduleCode = moduleCodeAndDescription[0].trim();
         if (!verifyModuleCode(moduleCode)) {
             throw new InvalidModuleCodeException();
@@ -122,6 +142,11 @@ public class Parser {
         String byInfo = filteredInput[1].split("/by", 2)[1].trim();
         if (byInfo.length() != 10) {
             throw new WrongDateFormatException();
+        }
+        try {
+            LocalDate.parse(byInfo);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateFormatException();
         }
         if (LocalDate.parse(byInfo).isAfter(LocalDate.of(2021, 6, 1)) ||
             LocalDate.parse(byInfo).isBefore(LocalDate.of(2020, 10, 12))) {
@@ -143,7 +168,9 @@ public class Parser {
      */
     public static Event validateEvent(String input) throws WrongDateFormatException, InvalidDateException,
             EmptyArgumentException, MissingEventDateAndTimeDetailsException, InvalidTimeFormatException,
-            StartAndEndTimeSameException {
+            StartAndEndTimeSameException, InvalidDateFormatException, MissingEventDescriptionException,
+            StartTimeIsAfterEndTimeException, StartTimeAndEndTimeTooEarlyException,
+            MissingModuleCodeOrInvalidModuleCodeException {
         String[] filteredInputTest = input.trim().split(" ", 2);
         if (filteredInputTest.length == 1) {
             throw new EmptyArgumentException();
@@ -152,15 +179,19 @@ public class Parser {
         }
         String filteredInput = input.trim().split(" ", 2)[1]; //get rid of event word in front
         String moduleCode = filteredInput.split(" ")[0];
-        boolean isEventForAModule = verifyModuleCode(moduleCode);
-        if (!isEventForAModule) {
-            moduleCode = ""; // then moduleCode make it an empty string.
+        if (!verifyModuleCode(moduleCode)) {
+            throw new MissingModuleCodeOrInvalidModuleCodeException();
         }
-        if (isEventForAModule) { //get rid of the module code if it is valid, means event belongs to a module
-            filteredInput = filteredInput.split(" ", 2)[1];
-        }
+
         String[] splitDescriptionAndDateTimeDetails = filteredInput.split("/at");
         String description = splitDescriptionAndDateTimeDetails[0].trim();
+        if (description.trim().equals("")) {
+            throw new MissingEventDescriptionException();
+        }
+        if (splitDescriptionAndDateTimeDetails[0].split(" ").length == 1) {
+            throw new MissingEventDescriptionException();
+        }
+        description = description.split(" ", 2)[1].trim();
         String dateTimeLocationDetails = splitDescriptionAndDateTimeDetails[1];
         String[] splitDateTimeLocationDetails = dateTimeLocationDetails.trim().split(" ", 4);
         if (splitDateTimeLocationDetails.length != 4) {
@@ -170,6 +201,12 @@ public class Parser {
         if (dateOfEvent.length() != 10) {
             throw new WrongDateFormatException();
         }
+        try {
+            LocalDate.parse(dateOfEvent);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateFormatException();
+        }
+
         if (LocalDate.parse(dateOfEvent).isAfter(LocalDate.of(2021, 6, 1)) ||
                 LocalDate.parse(dateOfEvent).isBefore(LocalDate.of(2020, 10, 12))) {
             throw new InvalidDateException();
@@ -203,11 +240,20 @@ public class Parser {
         } catch (DateTimeException e) {
             throw new InvalidTimeFormatException();
         }
+
         if (Integer.parseInt(mmEnd) != 0) {
             throw new InvalidTimeFormatException();
         }
         if (startTime.equals(endTime)) {
             throw new StartAndEndTimeSameException();
+        }
+        if (LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart)).
+                isAfter(LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd)))) {
+            throw new StartTimeIsAfterEndTimeException();
+        }
+        if (LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart)).isBefore(LocalTime.of(8, 0)) ||
+                LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd)).isBefore(LocalTime.of(8,0))) {
+            throw new StartTimeAndEndTimeTooEarlyException();
         }
         return new Event(description, moduleCode, locationOfEvent, startTime, endTime, dateOfEvent);
     }
@@ -224,15 +270,15 @@ public class Parser {
      * @throws StartAndEndTimeSameException if the start time and end time are the same.
      */
     public static Lesson parseLesson(String input) throws EmptyArgumentException, MissingLessonTimingException,
-            InvalidModuleCodeException, InvalidTimeFormatException, InvalidFrequencyException, StartAndEndTimeSameException {
+            InvalidModuleCodeException, InvalidTimeFormatException, InvalidFrequencyException,
+            StartAndEndTimeSameException, MissingLessonDescriptionException, StartTimeIsAfterEndTimeException,
+            StartTimeAndEndTimeTooEarlyException {
         String[] filteredInput = input.trim().split(" ", 2);
-
         if (filteredInput.length == 1) {  // e.g. lesson [empty_arguments]
             throw new EmptyArgumentException();
         }  else if (!filteredInput[1].contains("/on")) {
             throw new MissingLessonTimingException();
         }
-
         String[] descriptionWithModuleCode = filteredInput[1].split("/on", 2);
         String[] frequencyAndTime = descriptionWithModuleCode[1].trim().split(" ");
         String description = descriptionWithModuleCode[0].trim();
@@ -241,6 +287,9 @@ public class Parser {
         String moduleCode = descriptionWithModuleCode[size - 1].trim();
         if (!verifyModuleCode(moduleCode)) {
             throw new InvalidModuleCodeException();
+        }
+        if (descriptionWithModuleCode.length == 1) {
+            throw new MissingLessonDescriptionException();
         }
         if (frequencyAndTime.length != 3) {
             throw new MissingLessonTimingException();
@@ -256,7 +305,6 @@ public class Parser {
         if (frequency > 7 || frequency < 1) {
             throw new InvalidFrequencyException();
         }
-
         String startTime = frequencyAndTime[1];
         String endTime = frequencyAndTime[2];
         if (startTime.length() != 5 || endTime.length() != 5) {
@@ -266,7 +314,6 @@ public class Parser {
         String mmStart = startTime.substring(3);
         String hhEnd = endTime.substring(0, 2);
         String mmEnd = endTime.substring(3);
-
         try {
             LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart));
         } catch (NumberFormatException e) {
@@ -290,7 +337,14 @@ public class Parser {
         if (startTime.equals(endTime)) {
             throw new StartAndEndTimeSameException();
         }
-
+        if (LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart)).
+                isAfter(LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd)))) {
+            throw new StartTimeIsAfterEndTimeException();
+        }
+        if (LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart)).isBefore(LocalTime.of(8, 0)) ||
+                LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd)).isBefore(LocalTime.of(8,0))) {
+            throw new StartTimeAndEndTimeTooEarlyException();
+        }
         return new Lesson(description, moduleCode, frequency, startTime, endTime);
     }
     /**
@@ -378,7 +432,6 @@ public class Parser {
         if (moduleCode.length() < 6 || moduleCode.length() > 7) {
             return false;
         }
-        moduleCode = moduleCode.toUpperCase();
         char[] charArray = moduleCode.toCharArray();
         if (charArray.length == 6) {
             for (int i = 0; i < 2; i++) {

@@ -269,9 +269,6 @@ public class ModuleManager {
                 return;
             }
         }
-        // if we reach the end of the for loop, it means that the moduleCode does not exist
-        // hence, we create this module first, add the task to it and
-        // then add it to the module manager
         Module module = new Module(moduleCode);
         module.addTask(task);
         this.listOfModules.add(module);

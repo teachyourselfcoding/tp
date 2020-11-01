@@ -3,6 +3,7 @@ package seedu.command;
 import seedu.ModuleManager;
 import seedu.ScheduleManager;
 import seedu.Storage;
+import seedu.exception.ModuleDoesNotExistException;
 import seedu.task.Task;
 import seedu.task.Event;
 import seedu.task.Lesson;
@@ -35,22 +36,26 @@ public class AddCommand  extends Command {
      * @param ui ui that helps with ui stuff.
      */
     @Override
-    public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
-        if (task instanceof Lesson) {
-            scheduleManager.addLesson((Lesson) task, moduleManager, ui); //add the lesson to the schedule manager
-            // if module code exist in the module manager, simply add the task into the module manager
-        } else if (task instanceof Event) {
-            scheduleManager.addEvent((Event) task,moduleManager, ui);
-            //System.out.println(moduleManager.getListOfModuleCodes());
-        } else if (task instanceof Deadline) {
-            scheduleManager.addDeadline((Deadline) task,moduleManager);
-            System.out.println("Got it, added deadline to Schedule Manager and Module Manager");
-        } else {
-            return;
+    public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) throws ModuleDoesNotExistException {
+        try {
+            if (task instanceof Lesson) {
+                scheduleManager.addLesson((Lesson) task, moduleManager, ui); //add the lesson to the schedule manager
+                // if module code exist in the module manager, simply add the task into the module manager
+            } else if (task instanceof Event) {
+                scheduleManager.addEvent((Event) task, moduleManager, ui);
+                //System.out.println(moduleManager.getListOfModuleCodes());
+            } else if (task instanceof Deadline) {
+                scheduleManager.addDeadline((Deadline) task, moduleManager);
+                System.out.println("Got it, added deadline to Schedule Manager and Module Manager");
+            } else {
+                return;
+            }
+            String moduleCode = task.getModuleCode();
+            Storage.getStorage().exportData(moduleManager, moduleCode);
+            Ui.printSeparator();
+        } catch (ModuleDoesNotExistException e) {
+            Ui.printModuleDoesNotExistMessage();
         }
-        String moduleCode = task.getModuleCode();
-        Storage.getStorage().exportData(moduleManager, moduleCode);
-        Ui.printSeparator();
     }
 }
 

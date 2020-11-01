@@ -33,7 +33,7 @@ Format: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
 Example Usage: 
 
 `module c/ST2113 a/4 s/Dr.Lim s/ChengChen`
-
+module c/CS2113 a/4 s/Dr.Lim s/ChengChen
 ```
 ===================
 module c/ST2113 a/4 s/Dr.Lim s/ChengChen
@@ -67,8 +67,8 @@ A Task can be a Lesson, Event or Deadline.
 Adds a new Lesson into both your Schedule Manager and Module Manager.
 Lesson will only be added into weeks when there are lessons conducted according to the NUS curriculum.
 This means that the lesson will not be added  into dates during Reading Weeks, Vacation, and Examination weeks.
-If there is a clash in timings detected (the time of the lesson to be added clashes with another lesson or event), 
-the user will be given a choice if he still wants to add the lesson or not by typing `Yes` or `No` 
+If there is a clash in timings detected (the time of the lesson to be added clashes with another lesson or event), the
+lesson will not be added.
 
 `lesson TITILE COURSECODE /on DAYOFWEEK  STARTTIME ENDTIME`
 
@@ -78,7 +78,7 @@ the user will be given a choice if he still wants to add the lesson or not by ty
 Examples of Usage:
 
 * If you want to add a CS2113 online lecture lesson which starts at 4pm and ends at 6pm, held on every Friday (every 7 days): `lesson online lecture CS2113 /on 5 16:00 18:00`.
-* If you want to add a CS1234 online tutorial lesson which starts at 12pm and ends at 2pm, held on every Thursday (every 7 days): `lesson online tutorial CS1234 /on 4 08:00 10:00`
+* If you want to add a CS1234 online tutorial lesson which starts at 8am and ends at 10am, held on every Thursday (every 7 days): `lesson online tutorial CS1234 /on 4 08:00 10:00`
 
 Example Usage:
 
@@ -95,9 +95,9 @@ Got it, added lesson to the schedule manager!
 
 ## Adding an event: `event`
 
-Adds an Event into the Schedule Manager. If the Event is associated to a Module, it will be added to the Module Manager as well.
-If there is a clash in timings detected (the time of the event to be added clashes with another lesson or event), 
-the user will be given a choice if he still wants to add the event or not by typing `Yes` or `No`.
+Adds an Event asscociated with a module into the Schedule Manager and Module Manager
+If there is a clash in timings detected (the time of the event to be added clashes with another lesson or event), the
+event will not be added.
 
 Format: `event MODULE_CODE DESCRIPTION /at DATE_OF_EVENT START_TIME END_TIME LOCATION_OF_EVENT`
 
@@ -107,9 +107,8 @@ Format: `event MODULE_CODE DESCRIPTION /at DATE_OF_EVENT START_TIME END_TIME LOC
 
 Example Usage:
 
-`event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14`
-`event CS2113 final exam /at 2021-05-04 14:00 16:00 LT14`
-`event play football /at 2021-05-03 14:00 16:00 Ang Mo Kio`
+* If you want to add an event called final exam for module CS2113 at 3rd May 2021, from 2pm to 4pm at LT14, input
+ `event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14`
 
 ```
 ===================
@@ -125,8 +124,7 @@ Adds a deadline of an assignment into the Schedule Manager and Module Manager.
 Format: `deadline COURSECODE DESCRIPTION /by DATE `
 
 Examples input:
-
-`deadline CS2113 TP version 1 /by 2021-04-04`
+* If you want to add a deadline for CS2113 for TP version 1 at 4th April 2021, input `deadline CS2113 TP version 1 /by 2021-04-04`
 
 ```
 ===================
@@ -427,6 +425,15 @@ Here is your schedule on 2020-10-16!! :)
 Deadlines on 2020-10-16:
 You don't have any tasks!
 ```
+
+## Exiting the app: `bye`
+Exits the app and saves the tasks in the txt files.
+Format: `bye`
+
+Example of Usage:
+Input: `bye`
+Output: `Aye captain. This is DueQuest Signing out!`
+
 
 # Command Summary
 
