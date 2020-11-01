@@ -90,8 +90,6 @@ public class Parser {
             Ui.printInvalidFrequencyMessage();
         } catch (StartAndEndTimeSameException e) {
             Ui.printStartAndEndTimeCannotBeTheSameMessage();
-        } catch (InvalidDateFormatException e) {
-            Ui.printInvalidDateFormatMessage();
         } catch (MissingDeadlineDescriptionException e) {
             Ui.printMissingDeadlineDescriptionMessage();
         } catch (MissingLessonDescriptionException e) {
@@ -123,7 +121,7 @@ public class Parser {
      */
     public static Deadline validateDeadline(String input) throws WrongDateFormatException, InvalidDateException,
             EmptyArgumentException, MissingDeadlineTimingDetailsException, InvalidModuleCodeException,
-            InvalidDateFormatException, MissingDeadlineDescriptionException {
+            MissingDeadlineDescriptionException {
         String[] filteredInput = input.trim().split(" ", 2);
         if (filteredInput.length == 1) {
             throw new EmptyArgumentException();
@@ -146,7 +144,7 @@ public class Parser {
         try {
             LocalDate.parse(byInfo);
         } catch (DateTimeParseException e) {
-            throw new InvalidDateFormatException();
+            throw new WrongDateFormatException();
         }
         if (LocalDate.parse(byInfo).isAfter(LocalDate.of(2021, 6, 1)) ||
             LocalDate.parse(byInfo).isBefore(LocalDate.of(2020, 10, 12))) {
@@ -159,16 +157,20 @@ public class Parser {
      * Used to validate a Event by checking for any errors in the user input.
      * @param input representing user input
      * @return Event object.
-     * @throws WrongDateFormatException if date in the input is of wrong format.
-     * @throws InvalidDateException if date in the input is in an invalid range.
-     * @throws EmptyArgumentException if the information of the Event is missing in the input.
-     * @throws MissingEventDateAndTimeDetailsException if the date or time details are missing.
-     * @throws InvalidTimeFormatException if the time in the input is of wrong format.
-     * @throws StartAndEndTimeSameException if the start time and end time are the same.
+     * @throws WrongDateFormatException if the input date is of wrong format.
+     * @throws InvalidDateException if the input date is not in the given range as stated in the User Guide.
+     * @throws EmptyArgumentException if input does not contain anything after the first word.
+     * @throws MissingEventDateAndTimeDetailsException if the event is missing time, date or location details.
+     * @throws InvalidTimeFormatException if the input time is of invalid format.
+     * @throws StartAndEndTimeSameException if the start and end time is the same.
+     * @throws MissingEventDescriptionException if the event description is missing.
+     * @throws StartTimeIsAfterEndTimeException if the start time is later than the end time.
+     * @throws StartTimeAndEndTimeTooEarlyException if start time or end time is before 8am.
+     * @throws MissingModuleCodeOrInvalidModuleCodeException if module code is missing or invalid.
      */
     public static Event validateEvent(String input) throws WrongDateFormatException, InvalidDateException,
             EmptyArgumentException, MissingEventDateAndTimeDetailsException, InvalidTimeFormatException,
-            StartAndEndTimeSameException, InvalidDateFormatException, MissingEventDescriptionException,
+            StartAndEndTimeSameException, MissingEventDescriptionException,
             StartTimeIsAfterEndTimeException, StartTimeAndEndTimeTooEarlyException,
             MissingModuleCodeOrInvalidModuleCodeException {
         String[] filteredInputTest = input.trim().split(" ", 2);
@@ -179,17 +181,15 @@ public class Parser {
         }
         String filteredInput = input.trim().split(" ", 2)[1]; //get rid of event word in front
         String moduleCode = filteredInput.split(" ")[0];
-        if (!verifyModuleCode(moduleCode)) {
-            throw new MissingModuleCodeOrInvalidModuleCodeException();
-        }
 
         String[] splitDescriptionAndDateTimeDetails = filteredInput.split("/at");
         String description = splitDescriptionAndDateTimeDetails[0].trim();
-        if (description.trim().equals("")) {
-            throw new MissingEventDescriptionException();
-        }
+
         if (splitDescriptionAndDateTimeDetails[0].split(" ").length == 1) {
             throw new MissingEventDescriptionException();
+        }
+        if (!verifyModuleCode(moduleCode)) {
+            throw new MissingModuleCodeOrInvalidModuleCodeException();
         }
         description = description.split(" ", 2)[1].trim();
         String dateTimeLocationDetails = splitDescriptionAndDateTimeDetails[1];
@@ -204,7 +204,7 @@ public class Parser {
         try {
             LocalDate.parse(dateOfEvent);
         } catch (DateTimeParseException e) {
-            throw new InvalidDateFormatException();
+            throw new WrongDateFormatException();
         }
 
         if (LocalDate.parse(dateOfEvent).isAfter(LocalDate.of(2021, 6, 1)) ||
@@ -267,7 +267,11 @@ public class Parser {
      * @throws InvalidModuleCodeException if the module code in the input is invalid.
      * @throws InvalidTimeFormatException if the time in the input is of wrong format.
      * @throws InvalidFrequencyException if the frequency in the input is invalid.
+     * @throws StartAndEndTimeSameException if the start time and end time is the same.
+     * @throws MissingLessonDescriptionException if the lesson description is missing.
+     * @throws StartTimeIsAfterEndTimeException if the start time is after the end time.
      * @throws StartAndEndTimeSameException if the start time and end time are the same.
+     * @throws StartTimeAndEndTimeTooEarlyException if the start or end time is before 8am.
      */
     public static Lesson parseLesson(String input) throws EmptyArgumentException, MissingLessonTimingException,
             InvalidModuleCodeException, InvalidTimeFormatException, InvalidFrequencyException,
