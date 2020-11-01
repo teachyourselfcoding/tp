@@ -131,6 +131,12 @@ class ParserTest {
     }
 
     @Test
+    void verifyModuleCode_invalidModuleWithAt_returnsFalse() {
+        String moduleCode = "MA2101/at";
+        assertEquals(Parser.verifyModuleCode(moduleCode), false);
+    }
+
+    @Test
     void verifyModuleCode_invalidModule_returnsFalse() {
         String moduleCode1 = "A1234";
         String moduleCode2 = "CS2113TTTT";
@@ -170,7 +176,8 @@ class ParserTest {
     void validateEvent_validEventLineInput_returnsEvent() throws InvalidDateException,
             MissingEventDateAndTimeDetailsException, WrongDateFormatException, InvalidTimeFormatException,
             EmptyArgumentException, StartAndEndTimeSameException, InvalidDateFormatException,
-            MissingEventDescriptionException, StartTimeIsAfterEndTimeException, StartTimeAndEndTimeTooEarlyException {
+            MissingEventDescriptionException, StartTimeIsAfterEndTimeException, StartTimeAndEndTimeTooEarlyException,
+            MissingModuleCodeOrInvalidModuleCodeException {
         String input = "event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14";
         Event event = Parser.validateEvent(input);
         // check the properties of event
