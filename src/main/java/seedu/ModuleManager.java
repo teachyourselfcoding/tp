@@ -195,13 +195,31 @@ public class ModuleManager {
 
     //delete entire module
     public void delete(String moduleCode){
+        for(Module m: listOfModules){
+            if(m.getModuleCode().equals(moduleCode)){
+                System.out.println("Module deleted eheheheheheh");
+            }
+        }
         listOfModules.removeIf(m -> m.getModuleCode().equals(moduleCode));
     }
 
     //delete a task in a module based on a specific date
     public void delete(String moduleCode, String description, LocalDate date) {
+        boolean deleted = false;
         for (Module m : listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
+                for (Task task : m.getListOfTasks()){
+                    if(task.getDate().equals(date)) {
+                        if (task.getDescription().equals(description)) {
+                            System.out.println("Task deleted eheheheheheh");
+                            deleted = true;
+                        }
+                    }
+                }
+                if (deleted){
+                    System.out.println("No matching task description");
+                    return;
+                }
                 m.getListOfTasks().removeIf(task -> task.getDate() == date);
 
             }

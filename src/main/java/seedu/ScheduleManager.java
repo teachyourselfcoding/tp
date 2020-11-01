@@ -355,8 +355,19 @@ public class ScheduleManager {
 	}
 
 	public void deleteTask(String description) {
+		boolean deleted = false;
 		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
 			if(semesterSchedule.get(date).size() != 0){
+				for (Task task : semesterSchedule.get(date)){
+					if (task.getDescription().equals(description)){
+						System.out.println("Task deleted eheheheheheh");
+						deleted = true;
+					}
+				}
+				if (deleted){
+					System.out.println("No matching task description");
+					return;
+				}
 				semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
 			}
 		}

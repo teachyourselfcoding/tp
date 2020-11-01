@@ -12,15 +12,29 @@ import java.time.LocalDate;
  */
 public class DeleteCommand extends Command {
     private int taskNum;
+    private String type;
     private String description;
     private LocalDate date = null;
+    private String moduleCode = null;
 
     public DeleteCommand(String description) {
         this.description = description;
     }
 
+    public DeleteCommand(String description, String type) {
+        this.type = type;
+        this.description = description;
+    }
+
     public DeleteCommand(String description, LocalDate date) {
         this.description = description;
+        this.date = date;
+    }
+
+
+    public DeleteCommand(String moduleCode, LocalDate date, String description) {
+        this.description = description;
+        this.moduleCode = moduleCode;
         this.date = date;
     }
 
@@ -33,6 +47,9 @@ public class DeleteCommand extends Command {
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
         description = description.strip();
         if(this.date == null){
+            if(moduleCode.equals(null)){
+//                moduleManager.delete();
+            }
             scheduleManager.deleteTask(description);
             moduleManager.deleteTask(description);
             Storage.getStorage().exportData(moduleManager);
