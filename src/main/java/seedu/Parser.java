@@ -123,7 +123,7 @@ public class Parser {
      */
     public static Deadline validateDeadline(String input) throws WrongDateFormatException, InvalidDateException,
             EmptyArgumentException, MissingDeadlineTimingDetailsException, InvalidModuleCodeException,
-            InvalidDateFormatException, MissingDeadlineDescriptionException {
+            MissingDeadlineDescriptionException {
         String[] filteredInput = input.trim().split(" ", 2);
         if (filteredInput.length == 1) {
             throw new EmptyArgumentException();
@@ -146,7 +146,7 @@ public class Parser {
         try {
             LocalDate.parse(byInfo);
         } catch (DateTimeParseException e) {
-            throw new InvalidDateFormatException();
+            throw new WrongDateFormatException();
         }
         if (LocalDate.parse(byInfo).isAfter(LocalDate.of(2021, 6, 1)) ||
             LocalDate.parse(byInfo).isBefore(LocalDate.of(2020, 10, 12))) {
@@ -179,17 +179,15 @@ public class Parser {
         }
         String filteredInput = input.trim().split(" ", 2)[1]; //get rid of event word in front
         String moduleCode = filteredInput.split(" ")[0];
-        if (!verifyModuleCode(moduleCode)) {
-            throw new MissingModuleCodeOrInvalidModuleCodeException();
-        }
 
         String[] splitDescriptionAndDateTimeDetails = filteredInput.split("/at");
         String description = splitDescriptionAndDateTimeDetails[0].trim();
-        if (description.trim().equals("")) {
-            throw new MissingEventDescriptionException();
-        }
+
         if (splitDescriptionAndDateTimeDetails[0].split(" ").length == 1) {
             throw new MissingEventDescriptionException();
+        }
+        if (!verifyModuleCode(moduleCode)) {
+            throw new MissingModuleCodeOrInvalidModuleCodeException();
         }
         description = description.split(" ", 2)[1].trim();
         String dateTimeLocationDetails = splitDescriptionAndDateTimeDetails[1];
@@ -204,7 +202,7 @@ public class Parser {
         try {
             LocalDate.parse(dateOfEvent);
         } catch (DateTimeParseException e) {
-            throw new InvalidDateFormatException();
+            throw new WrongDateFormatException();
         }
 
         if (LocalDate.parse(dateOfEvent).isAfter(LocalDate.of(2021, 6, 1)) ||
