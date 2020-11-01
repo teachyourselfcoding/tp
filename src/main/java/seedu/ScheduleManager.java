@@ -2,6 +2,7 @@ package seedu;
 
 import seedu.exception.InvalidStartEndDateException;
 import seedu.exception.InvalidDateException;
+import seedu.exception.ModuleDoesNotExistException;
 import seedu.task.Deadline;
 import seedu.task.Event;
 import seedu.task.Lesson;
@@ -79,8 +80,11 @@ public class ScheduleManager {
 	 * Add lessons to the day of the week that the lesson is conducted in.
 	 * @param lesson lesson to be added to the schedule manager.
 	 */
-	public void addLesson(Lesson lesson, ModuleManager moduleManager, Ui ui) {
+	public void addLesson(Lesson lesson, ModuleManager moduleManager, Ui ui) throws ModuleDoesNotExistException {
 		DayOfWeek day = lesson.getLessonDayInDayOfWeek();
+		if (!moduleManager.getListOfModuleCodes().contains(lesson.getModuleCode())) {
+			throw new ModuleDoesNotExistException();
+		}
 		if (checkIfLessonToBeAddedClashesWithCurrentTimetable((lesson))) {
 			ui.printClashesMessage();
 			return;
@@ -237,7 +241,10 @@ public class ScheduleManager {
 	 * date where I need to add the deadline,
 	 * @param deadline add deadline inside the list of tasks of the schedule manager.
 	 */
-	public void addDeadline(Deadline deadline, ModuleManager moduleManager) {
+	public void addDeadline(Deadline deadline, ModuleManager moduleManager) throws ModuleDoesNotExistException {
+		if (!moduleManager.getListOfModuleCodes().contains(deadline.getModuleCode())) {
+			throw new ModuleDoesNotExistException();
+		}
 		LocalDate date = LocalDate.parse(deadline.getDeadline());
 		this.semesterSchedule.get(date).add(deadline);
 		moduleManager.addTaskToModule(deadline, deadline.getModuleCode());
@@ -248,8 +255,11 @@ public class ScheduleManager {
 	 * date where I need to add the event.
 	 * @param event add event inside the list of tasks of the schedule manager.
 	 */
-	public void addEvent(Event event, ModuleManager moduleManager, Ui ui) {
+	public void addEvent(Event event, ModuleManager moduleManager, Ui ui) throws ModuleDoesNotExistException {
 		LocalDate date = LocalDate.parse(event.getDateOfEvent());
+		if (!moduleManager.getListOfModuleCodes().contains(event.getModuleCode())) {
+			throw new ModuleDoesNotExistException();
+		}
 		if (checkIfEventToBeAddedClashesInADate(event, date)) {
 			ui.printClashesMessage();
 			return;
