@@ -102,6 +102,8 @@ public class Parser {
             Ui.printStartTimeCannotBeAfterEndTimeMessage();
         } catch (StartTimeAndEndTimeTooEarlyException e) {
             Ui.printStartTimeAndEndTimeCannotBeBeforeEightOClockMessage();
+        } catch (MissingModuleCodeOrInvalidModuleCodeException e) {
+            Ui.printMissingModuleCodeOrInvalidModuleCodeMessage();
         } catch (Exception e) {
             Ui.printInvalidInputMessage();
         }
@@ -167,7 +169,8 @@ public class Parser {
     public static Event validateEvent(String input) throws WrongDateFormatException, InvalidDateException,
             EmptyArgumentException, MissingEventDateAndTimeDetailsException, InvalidTimeFormatException,
             StartAndEndTimeSameException, InvalidDateFormatException, MissingEventDescriptionException,
-            StartTimeIsAfterEndTimeException, StartTimeAndEndTimeTooEarlyException {
+            StartTimeIsAfterEndTimeException, StartTimeAndEndTimeTooEarlyException,
+            MissingModuleCodeOrInvalidModuleCodeException {
         String[] filteredInputTest = input.trim().split(" ", 2);
         if (filteredInputTest.length == 1) {
             throw new EmptyArgumentException();
@@ -176,18 +179,19 @@ public class Parser {
         }
         String filteredInput = input.trim().split(" ", 2)[1]; //get rid of event word in front
         String moduleCode = filteredInput.split(" ")[0];
-        boolean isEventForAModule = verifyModuleCode(moduleCode);
-        if (!isEventForAModule) {
-            moduleCode = ""; // then moduleCode make it an empty string.
+        if (!verifyModuleCode(moduleCode)) {
+            throw new MissingModuleCodeOrInvalidModuleCodeException();
         }
-        if (isEventForAModule) { //get rid of the module code if it is valid, means event belongs to a module
-            filteredInput = filteredInput.split(" ", 2)[1];
-        }
+
         String[] splitDescriptionAndDateTimeDetails = filteredInput.split("/at");
         String description = splitDescriptionAndDateTimeDetails[0].trim();
         if (description.trim().equals("")) {
             throw new MissingEventDescriptionException();
         }
+        if (splitDescriptionAndDateTimeDetails[0].split(" ").length == 1) {
+            throw new MissingEventDescriptionException();
+        }
+        description = description.split(" ", 2)[1].trim();
         String dateTimeLocationDetails = splitDescriptionAndDateTimeDetails[1];
         String[] splitDateTimeLocationDetails = dateTimeLocationDetails.trim().split(" ", 4);
         if (splitDateTimeLocationDetails.length != 4) {
@@ -428,7 +432,6 @@ public class Parser {
         if (moduleCode.length() < 6 || moduleCode.length() > 7) {
             return false;
         }
-        moduleCode = moduleCode.toUpperCase();
         char[] charArray = moduleCode.toCharArray();
         if (charArray.length == 6) {
             for (int i = 0; i < 2; i++) {
