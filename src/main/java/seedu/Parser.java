@@ -3,17 +3,8 @@ package seedu;
 
 import seedu.command.*;
 
-import seedu.exception.EmptyArgumentException;
-import seedu.exception.InvalidArgumentsException;
-import seedu.exception.InvalidModuleCodeException;
-import seedu.exception.MissingLessonTimingException;
-import seedu.exception.InvalidTimeFormatException;
-import seedu.exception.InvalidFrequencyException;
-import seedu.exception.InvalidDateException;
-import seedu.exception.MissingEventDateAndTimeDetailsException;
-import seedu.exception.WrongDateFormatException;
-import seedu.exception.MissingDeadlineTimingDetailsException;
-import seedu.exception.InvalidDateRangeException;
+import seedu.exception.*;
+
 import java.time.DateTimeException;
 import seedu.task.Deadline;
 import seedu.task.Event;
@@ -54,10 +45,6 @@ public class Parser {
                 case "delete":
                     //Fallthrough
                     return validateDeleteCommand(input);
-
-                case "edit":
-                    return validateEditCommand(input);
-
                 case "find":
                     String[] sentence = input.toLowerCase().split(" ", 2);
                     String keywords = sentence[1];
@@ -79,7 +66,7 @@ public class Parser {
                 case "module": // adding a module
                     return new AddModuleCommand(Arrays.copyOfRange(words, 1, input.length()));  // only pass the arguments
                 case "edit":
-                    return validateEditTaskCommand(input);
+                    return validateEditCommand(input);
                 default:
                     throw new DueQuestException(DueQuestExceptionType.INVALID_COMMAND);
             }
@@ -105,6 +92,8 @@ public class Parser {
             Ui.printWrongTimeFormatMessage();
         } catch (InvalidFrequencyException e) {
             Ui.printInvalidFrequencyMessage();
+        } catch (MissingDeleteDetailsException e){
+            Ui.printMissingDeleteDetails();
         }
         return null;  // the function must return something
     }
@@ -280,8 +269,11 @@ public class Parser {
      * @return
      * @throws DueQuestException
      */
-    public static DeleteCommand validateDeleteCommand(String input)throws DueQuestException {
+    public static DeleteCommand validateDeleteCommand(String input)throws DueQuestException, MissingDeleteDetailsException {
         String[] filteredInput = input.trim().split(" ", 2);
+        if(filteredInput.length == 1){
+            throw new MissingDeleteDetailsException();
+        }
         if (!input.contains("/date")) {
             return new DeleteCommand(filteredInput[1]);
         }
@@ -413,7 +405,7 @@ public class Parser {
     }
 
 
-    public static editCommand validateEditCommand (String input) throws DueQuestException {
+    public static editCommand validateEditCommand (String input) throws DueQuestException, WrongDateFormatException {
         String moduleCode = null;
         String[] splitViaModule;
         String filteredInput;
