@@ -286,5 +286,19 @@ public class Ui {
         System.out.println("The start time and end time cannot be before 8am!");
         System.out.println(SEPARATOR);
     }
+
+
+    public static void printModuleDoesNotExistMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Module does not exist, please add the module first!");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printMissingModuleCodeOrInvalidModuleCodeMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Your module code is either missing or in the wrong format!");
+        System.out.println(SEPARATOR);
+    }
+
 }
 
