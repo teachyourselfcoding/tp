@@ -33,7 +33,7 @@ Format: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
 Example Usage: 
 
 `module c/ST2113 a/4 s/Dr.Lim s/ChengChen`
-
+module c/CS2113 a/4 s/Dr.Lim s/ChengChen
 ```
 ===================
 module c/ST2113 a/4 s/Dr.Lim s/ChengChen
@@ -67,8 +67,8 @@ A Task can be a Lesson, Event or Deadline.
 Adds a new Lesson into both your Schedule Manager and Module Manager.
 Lesson will only be added into weeks when there are lessons conducted according to the NUS curriculum.
 This means that the lesson will not be added  into dates during Reading Weeks, Vacation, and Examination weeks.
-If there is a clash in timings detected (the time of the lesson to be added clashes with another lesson or event), 
-the user will be given a choice if he still wants to add the lesson or not by typing `Yes` or `No` 
+If there is a clash in timings detected (the time of the lesson to be added clashes with another lesson or event), the
+lesson will not be added.
 
 `lesson TITILE COURSECODE /on DAYOFWEEK  STARTTIME ENDTIME`
 
@@ -95,9 +95,9 @@ Got it, added lesson to the schedule manager!
 
 ## Adding an event: `event`
 
-Adds an Event into the Schedule Manager. If the Event is associated to a Module, it will be added to the Module Manager as well.
-If there is a clash in timings detected (the time of the event to be added clashes with another lesson or event), 
-the user will be given a choice if he still wants to add the event or not by typing `Yes` or `No`.
+Adds an Event asscociated with a module into the Schedule Manager and Module Manager
+If there is a clash in timings detected (the time of the event to be added clashes with another lesson or event), the
+event will not be added.
 
 Format: `event MODULE_CODE DESCRIPTION /at DATE_OF_EVENT START_TIME END_TIME LOCATION_OF_EVENT`
 
@@ -109,8 +109,6 @@ Example Usage:
 
 * If you want to add an event called final exam for module CS2113 at 3rd May 2021, from 2pm to 4pm at LT14, input
  `event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14`
-* If you want to add an event for a non-module called played football, at 21st May 2021, from 4pm to 6pm at Ang Mo Kio,
- input `event play football /at 2021-05-21 16:00 18:00 Ang Mo Kio`
 
 ```
 ===================
