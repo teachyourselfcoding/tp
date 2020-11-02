@@ -381,46 +381,15 @@ Format: `delete DESCRIPTION /date DATE`
 Example of Usage
 
 ```
+<-------------------------------------------------------------->
+Please type the next command!
+<-------------------------------------------------------------->
+delete tp
+null
+1 or more taks matching description has been deleted
+Please type the next command!
+<-------------------------------------------------------------->
 
-delete tp /date 2020/10/16
-===================
-Please type the command!
-===================
-display CS2113
-
-Course: CS2113
-Title: null
-AU: 0
-Teaching Staffs: []
-The list of task in CS2113:
-[D]CS2113 tp (by: 2020-10-15)
-[D]CS2113 tp (by: 2020-10-15)
-
-===================
-===================
-Please type the command!
-===================
-display /date 2020/10/16
-Here is your schedule on 2020-10-16!! :)
-08:00
-09:00
-10:00
-11:00
-12:00
-13:00
-14:00
-15:00
-16:00
-17:00
-18:00
-19:00
-20:00
-21:00
-22:00
-23:00
-
-Deadlines on 2020-10-16:
-You don't have any tasks!
 ```
 
 ## Exiting the app: `bye`
