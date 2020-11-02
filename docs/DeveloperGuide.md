@@ -260,7 +260,7 @@ manage their schedule and work in the school semester
 This app helps NUS Students by keeping on track with their schedule and work on a daily basis,
 reducing chances of them forgetting about any work related to school.
 
-### User Stories (to be updated)
+### User Stories 
 
 |Version| As a ... | I want to ... | So that I can ...|
 |--------|----------|---------------|------------------|
