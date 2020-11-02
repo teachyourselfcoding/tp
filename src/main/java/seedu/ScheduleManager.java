@@ -537,7 +537,7 @@ public class ScheduleManager {
 		for (String i: timing){
 			Ui.print(i);
 		}
-		Ui.print("\n Today's task:");
+		Ui.print("\nToday's deadline:");
 		Ui.printListGenericType(nonLessonList);
 	}
 
