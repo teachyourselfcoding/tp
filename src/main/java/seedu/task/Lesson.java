@@ -8,15 +8,14 @@ import java.util.Objects;
 public class Lesson extends Task {
     private String startTime;
     private String endTime;
-    private LocalDate specificDate;
 
     /**
      * Constructor of Lesson object.
-     * @param description to say if it is a lecture or tutorial or lab etc
-     * @param moduleCode module code
+     * @param description to say if it is a lecture or tutorial or lab etc.
+     * @param moduleCode module code.
      * @param frequency tells us the day of the week. The lesson will be added to that particular day in every week.
-     * @param startTime the start time of the lesson
-     * @param endTime the end time of the lesson
+     * @param startTime the start time of the lesson.
+     * @param endTime the end time of the lesson.
      */
     public Lesson(String description, String moduleCode, int frequency, String startTime, String endTime) {
         super(description, moduleCode, frequency);
@@ -36,17 +35,12 @@ public class Lesson extends Task {
 
     /**
      * Get the day of the lesson in the week in a String.
-     * @return the day in String
+     * @return the day in String.
      */
     public String getLessonDay() {
         return DayOfWeek.of(this.frequency).toString();
     }
 
-    /**
-     * TODO
-     *  - might want to change the representation of the toString method.
-     * @return string representation of the Lesson Object.
-     */
     @Override
     public String toString() {
         return "[L] " + description + " - " + moduleCode + " " + this.getLessonDayInDayOfWeek() +
@@ -67,10 +61,6 @@ public class Lesson extends Task {
 
     public LocalTime getEndTimeInLocalTime() {
         return LocalTime.parse(this.endTime);
-    }
-
-    public LocalDate getDate(){
-        return specificDate;
     }
 
     @Override

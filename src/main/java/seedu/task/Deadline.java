@@ -23,11 +23,6 @@ public class Deadline extends Task {
         return by;
     }
 
-
-    public String getFullDescription() {
-        return description + " (by:" + by + ")";
-    }
-
     @Override
     public String toString() {
         return "[D] " + super.toString() + " - " + super.moduleCode + " "  + " (by: " + by + ")";

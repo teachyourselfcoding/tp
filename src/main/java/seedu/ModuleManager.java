@@ -18,7 +18,7 @@ import java.util.List;
  * into the ModuleManager as well according to the Module Code.
  */
 public class ModuleManager {
-    ArrayList<Module> listOfModules;
+    public ArrayList<Module> listOfModules;
 
     public ModuleManager() {
         this.listOfModules = new ArrayList<>();
@@ -70,14 +70,6 @@ public class ModuleManager {
         }
         throw new ModuleNotExistsException();
     }
-
-    /**
-     *
-     * @param moduleCode
-     * @param task
-     * @param date
-     * @throws DueQuestException
-     */
 
     /**
      * Display the tasks of a module.
@@ -295,9 +287,6 @@ public class ModuleManager {
                 return;
             }
         }
-        // if we reach the end of the for loop, it means that the moduleCode does not exist
-        // hence, we create this module first, add the task to it and
-        // then add it to the module manager
         Module module = new Module(moduleCode);
         module.addTask(task);
         this.listOfModules.add(module);
@@ -345,7 +334,7 @@ public class ModuleManager {
         }
     }
 
-    String export() {
+    public String export() {
         String export = "";
         for (int i = 0; i < this.listOfModules.size(); i++) {
             export = this.listOfModules.get(i).export() + '\n';

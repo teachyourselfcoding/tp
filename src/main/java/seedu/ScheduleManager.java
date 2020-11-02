@@ -2,6 +2,7 @@ package seedu;
 
 import seedu.exception.InvalidStartEndDateException;
 import seedu.exception.InvalidDateException;
+import seedu.exception.ModuleDoesNotExistException;
 import seedu.task.Deadline;
 import seedu.task.Event;
 import seedu.task.Lesson;
@@ -79,18 +80,14 @@ public class ScheduleManager {
 	 * Add lessons to the day of the week that the lesson is conducted in.
 	 * @param lesson lesson to be added to the schedule manager.
 	 */
-	public void addLesson(Lesson lesson, ModuleManager moduleManager, Ui ui) {
+	public void addLesson(Lesson lesson, ModuleManager moduleManager, Ui ui) throws ModuleDoesNotExistException {
 		DayOfWeek day = lesson.getLessonDayInDayOfWeek();
+		if (!moduleManager.getListOfModuleCodes().contains(lesson.getModuleCode())) {
+			throw new ModuleDoesNotExistException();
+		}
 		if (checkIfLessonToBeAddedClashesWithCurrentTimetable((lesson))) {
-			String verifyIfReallyWantToAdd = ui.readYesOrNo();
-			if (verifyIfReallyWantToAdd.equals("No")) {
-				ui.print("Got it! Lesson is not added!");
-				return;
-			} else if (!verifyIfReallyWantToAdd.equals("Yes")) {
-				ui.print("You need to type in Yes or No");
-				ui.print("Lesson is not added");
-				return;
-			}
+			ui.printClashesMessage();
+			return;
 		}
 		for (Map.Entry<LocalDate, ArrayList<Task>> entry : this.semesterSchedule.entrySet()) {
 			LocalDate key = entry.getKey();
@@ -129,7 +126,22 @@ public class ScheduleManager {
 			if (task instanceof Lesson) {
 				LocalTime startTimeOfTask = ((Lesson)task).getStartTimeInLocalTime();
 				LocalTime endTimeOfTask = ((Lesson)task).getEndTimeInLocalTime();
+				if (startTimeOfLesson.equals(endTimeOfTask)) {
+					break;
+				}
 				if (startTimeOfLesson.isAfter(startTimeOfTask) && startTimeOfLesson.isBefore(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfLesson) && endTimeOfLesson.isBefore(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfLesson) && endTimeOfLesson.isAfter(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfLesson) && endTimeOfLesson.equals(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.equals(startTimeOfLesson) && endTimeOfTask.equals(endTimeOfLesson)) {
 					return true;
 				}
 				if (endTimeOfLesson.isAfter(startTimeOfTask)) {
@@ -139,7 +151,22 @@ public class ScheduleManager {
 			if (task instanceof Event) {
 				LocalTime startTimeOfTask = ((Event)task).getStartTimeOfEventInLocalTime();
 				LocalTime endTimeOfTask = ((Event)task).getEndTimeOfEventInLocalTime();
+				if (startTimeOfLesson.equals(endTimeOfTask)) {
+					break;
+				}
 				if (startTimeOfLesson.isAfter(startTimeOfTask) && startTimeOfLesson.isBefore(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfLesson) && endTimeOfLesson.isBefore(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfLesson) && endTimeOfLesson.isAfter(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfLesson) && endTimeOfLesson.equals(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.equals(startTimeOfLesson) && endTimeOfTask.equals(endTimeOfLesson)) {
 					return true;
 				}
 				if (endTimeOfLesson.isAfter(startTimeOfTask)) {
@@ -152,26 +179,56 @@ public class ScheduleManager {
 
 	public boolean checkIfEventToBeAddedClashesInADate(Event event, LocalDate date) {
 		ArrayList<Task> listOfTasks = this.semesterSchedule.get(date);
-		LocalTime startTimeOfLesson = event.getStartTimeOfEventInLocalTime();
-		LocalTime endTimeOfLesson = event.getEndTimeOfEventInLocalTime();
+		LocalTime startTimeOfEvent = event.getStartTimeOfEventInLocalTime();
+		LocalTime endTimeOfEvent = event.getEndTimeOfEventInLocalTime();
 		for (Task task : listOfTasks) {
 			if (task instanceof Lesson) {
 				LocalTime startTimeOfTask = ((Lesson)task).getStartTimeInLocalTime();
 				LocalTime endTimeOfTask = ((Lesson)task).getEndTimeInLocalTime();
-				if (startTimeOfLesson.isAfter(startTimeOfTask) && startTimeOfLesson.isBefore(endTimeOfTask)) {
+				if (startTimeOfEvent.equals(endTimeOfTask)) {
+					break;
+				}
+				if (startTimeOfEvent.isAfter(startTimeOfTask) && startTimeOfEvent.isBefore(endTimeOfTask)) {
 					return true;
 				}
-				if (endTimeOfLesson.isAfter(startTimeOfTask)) {
+				if (startTimeOfTask.isBefore(startTimeOfEvent) && endTimeOfEvent.isBefore(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfEvent) && endTimeOfEvent.isAfter(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfEvent) && endTimeOfEvent.equals(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.equals(startTimeOfEvent) && endTimeOfTask.equals(endTimeOfEvent)) {
+					return true;
+				}
+				if (endTimeOfEvent.isAfter(startTimeOfTask)) {
 					return true;
 				}
 			}
 			if (task instanceof Event) {
 				LocalTime startTimeOfTask = ((Event)task).getStartTimeOfEventInLocalTime();
 				LocalTime endTimeOfTask = ((Event)task).getEndTimeOfEventInLocalTime();
-				if (startTimeOfLesson.isAfter(startTimeOfTask) && startTimeOfLesson.isBefore(endTimeOfTask)) {
+				if (startTimeOfEvent.equals(endTimeOfTask)) {
+					break;
+				}
+				if (startTimeOfEvent.isAfter(startTimeOfTask) && startTimeOfEvent.isBefore(endTimeOfTask)) {
 					return true;
 				}
-				if (endTimeOfLesson.isAfter(startTimeOfTask)) {
+				if (startTimeOfTask.isBefore(startTimeOfEvent) && endTimeOfEvent.isBefore(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfEvent) && endTimeOfEvent.isAfter(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.isBefore(startTimeOfEvent) && endTimeOfEvent.equals(endTimeOfTask)) {
+					return true;
+				}
+				if (startTimeOfTask.equals(startTimeOfEvent) && endTimeOfTask.equals(endTimeOfEvent)) {
+					return true;
+				}
+				if (endTimeOfEvent.isAfter(startTimeOfTask)) {
 					return true;
 				}
 			}
@@ -184,7 +241,10 @@ public class ScheduleManager {
 	 * date where I need to add the deadline,
 	 * @param deadline add deadline inside the list of tasks of the schedule manager.
 	 */
-	public void addDeadline(Deadline deadline, ModuleManager moduleManager) {
+	public void addDeadline(Deadline deadline, ModuleManager moduleManager) throws ModuleDoesNotExistException {
+		if (!moduleManager.getListOfModuleCodes().contains(deadline.getModuleCode())) {
+			throw new ModuleDoesNotExistException();
+		}
 		LocalDate date = LocalDate.parse(deadline.getDeadline());
 		this.semesterSchedule.get(date).add(deadline);
 		moduleManager.addTaskToModule(deadline, deadline.getModuleCode());
@@ -195,20 +255,14 @@ public class ScheduleManager {
 	 * date where I need to add the event.
 	 * @param event add event inside the list of tasks of the schedule manager.
 	 */
-	public void addEvent(Event event,ModuleManager moduleManager, Ui ui) {
+	public void addEvent(Event event, ModuleManager moduleManager, Ui ui) throws ModuleDoesNotExistException {
 		LocalDate date = LocalDate.parse(event.getDateOfEvent());
-		LocalTime startTime = event.getStartTimeOfEventInLocalTime();
-		LocalTime endTime = event.getEndTimeOfEventInLocalTime();
+		if (!moduleManager.getListOfModuleCodes().contains(event.getModuleCode())) {
+			throw new ModuleDoesNotExistException();
+		}
 		if (checkIfEventToBeAddedClashesInADate(event, date)) {
-			String verifyIfReallyWantYoAdd = ui.readYesOrNo();
-			if (verifyIfReallyWantYoAdd.equals("No")) {
-				ui.print("Got it! Event is not Added!");
-				return;
-			} else if (!verifyIfReallyWantYoAdd.equals("Yes")) {
-				ui.print("You need to type in Yes or No!");
-				ui.print("Event is not added!");
-				return;
-			}
+			ui.printClashesMessage();
+			return;
 		}
 		this.semesterSchedule.get(date).add(event);
 		if (!event.getModuleCode().equals("")){

@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * TODO add code
  */
 
-public class EditTaskCommand extends editCommand{
+public class EditTaskCommand extends editCommand {
     String description;
     LocalDate date = null;
     LocalDate newDate = null;
@@ -69,5 +69,6 @@ public class EditTaskCommand extends editCommand{
             default:
                 System.out.println("Invalid type");
         }
+        Ui.printSuccessfulEdit();
     }
 }

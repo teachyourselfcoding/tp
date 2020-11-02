@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- *Represents the Class for functions related to the CLI User interface
+ * Represents the Class for functions related to the CLI User interface
  * and used to print out exception messages for troubleshooting purpose.
  */
 public class Ui {
@@ -21,11 +21,12 @@ public class Ui {
     }
 
     /**
-     *print out the on startup message.
+     * Print out the on startup message.
      */
     public void welcomeMessage() {
         String welcomeMessage =
                 "_____________________________________________\n"
+                +"Whats up people! DueQuest is here to save the day\n"
                 +"DueQuest for students by students\n"
                 +"So, what can I do for you?\n";
         System.out.print(welcomeMessage);
@@ -33,11 +34,11 @@ public class Ui {
     }
 
     /**
-     * print out the exit message.
+     * Print out the exit message.
      */
     public void byeMessage() {
         String byeMessage =
-                "Aye captain. This is Duke Signing out!\n";
+                "Aye captain. This is DueQuest Signing out!\n";
         System.out.print(byeMessage);
         
     }
@@ -54,7 +55,7 @@ public class Ui {
                 " delete  - delete task in a module\n" +
                 " exit    - exit duequest";
         print(helpMessage);
-        printSeparator();
+        System.out.println(SEPARATOR);
     }
 
     /**
@@ -69,13 +70,15 @@ public class Ui {
         return commandString;
     }
 
-    public String readYesOrNo() {
-        System.out.println(SEPARATOR);
-        System.out.println("Clashes detected, are you sure you want to add the task? Answer Yes or No");
-        System.out.println(SEPARATOR);
 
-        String input = scanner.nextLine();
-        return input;
+    public void printClashesMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Clashes detected, task is not added.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printSeparator() {
+        System.out.println(SEPARATOR);
     }
 
     /**
@@ -134,8 +137,8 @@ public class Ui {
     }
 
     /**
-     * convert LocalDate object into readable string format without year
-     * E.g 12 JUN
+     * Convert LocalDate object into readable string format without year.
+     * E.g 12 JUN.
      * @param date
      * @return
      */
@@ -145,8 +148,8 @@ public class Ui {
     }
 
     /**
-     * convert LocalDate object into readable string format with year included
-     * E.g 12 JUN 20
+     * Convert LocalDate object into readable string format with year included.
+     * E.g 12 JUN 20.
      * @param date
      * @return
      */
@@ -201,6 +204,8 @@ public class Ui {
     public static void printWrongTimeFormatMessage() {
         System.out.println(SEPARATOR);
         System.out.println("The format for time should be in HH:MM format.");
+        System.out.println("Make sure the time you input is valid. E.g. not 30:00, 21:99");
+        System.out.println("Make sure MM is 00. E.g. 18:00 is allowed but not 18:01");
         System.out.println(SEPARATOR);
     }
 
@@ -212,7 +217,7 @@ public class Ui {
 
     public static void printInvalidDateFormatMessage() {
         System.out.println(SEPARATOR);
-        System.out.println("Please give the date in correct format.");
+        System.out.println("Please give the date in correct format and a valid date. It should be in YYYY-MM-DD format.");
         System.out.println(SEPARATOR);
     }
 
@@ -234,6 +239,34 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+    public static void printStartAndEndTimeCannotBeTheSameMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Start and End time cannot be the same!");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printMissingDeadlineDescriptionMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Your deadline is missing the description!");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printMissingLessonDescriptionMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Your lesson is missing the description!");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printMissingEventDescriptionMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Your event is missing the description!");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printInvalidInputMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Please Check your input again!");
+
     public static void printMissingDeleteDetails() {
         System.out.println(SEPARATOR);
         System.out.println("Details cannot be missing");
@@ -241,6 +274,40 @@ public class Ui {
     }
 
     public static void printSeparator() {
+
         System.out.println(SEPARATOR);
     }
+
+    public static void printSuccessfulEdit() {
+        System.out.println(SEPARATOR);
+        System.out.println("Done. The edit has been made. ");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printStartTimeCannotBeAfterEndTimeMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("The start time cannot be after the end time!");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printStartTimeAndEndTimeCannotBeBeforeEightOClockMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("The start time and end time cannot be before 8am!");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printModuleDoesNotExistMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Module does not exist, please add the module first!");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printMissingModuleCodeOrInvalidModuleCodeMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Your module code is either missing or in the wrong format!");
+        System.out.println(SEPARATOR);
+    }
+
 }
+
