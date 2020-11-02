@@ -269,7 +269,7 @@ public class Parser {
      * @return
      * @throws DueQuestException
      */
-    public static DeleteCommand validateDeleteCommand(String input)throws DueQuestException, MissingDeleteDetailsException {
+    public static DeleteCommand validateDeleteCommand(String input) throws DueQuestException, MissingDeleteDetailsException, InvalidTimeFormatException, InvalidDateException {
         String[] InputLength = input.trim().split(" ", 2);
         String moduleCode = " ";
         String description;
@@ -284,32 +284,39 @@ public class Parser {
         if(!input.contains("/")){
             moduleCode = null;
         }
-
-        if(moduleCode != null && (input.charAt(7)== ('c') && input.charAt(8)== ('/') ) ){ //has a module code
-            splitViaModule = ((input.split("c/"))[1].trim()).split(" ",2);
+        if (moduleCode != null && (input.charAt(7) == ('c') && input.charAt(8) == ('/'))) { //has a module code
+            splitViaModule = ((input.split("c/"))[1].trim()).split(" ", 2);
             moduleCode = splitViaModule[0].trim();
-            if(splitViaModule.length == 1){
+            if (splitViaModule.length == 1) {
                 return new DeleteCommand(moduleCode, "module");
             }
             filteredInput = splitViaModule[1].trim();
 
 
-            if(filteredInput.contains("/date")){ //has a module code and date
-                splitViaDate = (filteredInput.split("/date")[1].trim()).split(" ",2);
+            if (filteredInput.contains("/date")) { //has a module code and date
+                splitViaDate = (filteredInput.split("/date")[1].trim()).split(" ", 2);
                 date = LocalDate.parse(splitViaDate[0].trim());
-                if(splitViaDate.length==1){
-                    return new DeleteCommand(moduleCode,"module", date); //has module code, has date
-                } description = splitViaDate[1].trim();
+                if (splitViaDate.length == 1) {
+                    return new DeleteCommand(moduleCode, "module", date); //has module code, has date
+                }
+                description = splitViaDate[1].trim();
                 return new DeleteCommand(moduleCode, date, description);
             }
-        }   filteredInput = input.substring(7);
-            if(!filteredInput.contains("/date")){
-                description = filteredInput;
-                return new DeleteCommand(description);
-            } splitViaDate = filteredInput.split("/date");
+        }
+        filteredInput = input.substring(7);
+        if (!filteredInput.contains("/date")) {
+            description = filteredInput;
+            return new DeleteCommand(description);
+        }
+        splitViaDate = filteredInput.split("/date");
+        try{
             date = LocalDate.parse(splitViaDate[1].trim());
-            description = splitViaDate[0].trim();
-            return new DeleteCommand(description, date);
+        }catch(Exception e){
+            throw new InvalidDateException();
+        }
+
+        description = splitViaDate[0].trim();
+        return new DeleteCommand(description, date);
     }
 
     /**

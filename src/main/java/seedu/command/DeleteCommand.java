@@ -54,27 +54,25 @@ public class DeleteCommand extends Command {
         System.out.println(moduleCode);
         if(!type.equals("module")){
             if(this.date == null){                 //delete task with no date
-                System.out.println("delete task with no date");
+//                System.out.println("delete task with no date");
                 scheduleManager.deleteTask(description);
                 return;
             }
-            System.out.println("delete task with date, with description");
+//            System.out.println("delete task with date, with description");
             scheduleManager.deleteTask(description, date); //delete task with date, with description
             return;
         }
         if(this.date == null){                                                  //delete entire module
             scheduleManager.deleteTask("module",moduleCode);
             moduleManager.delete(moduleCode);
-
-            return;
         }
         else{
             if(description.equals(" ")){                           //delete all task in module matching date
-                System.out.println("delete all task in module matching date");
+//                System.out.println("delete all task in module matching date");
                 scheduleManager.deleteTask(date, moduleCode);
                 moduleManager.delete(moduleCode,date);
             }else {
-                System.out.println("delete all task in module with matching date and description");
+//                System.out.println("delete all task in module with matching date and description");
                 scheduleManager.deleteTask(moduleCode, description, date);
                 moduleManager.delete(moduleCode, description, date);         //delete all task in module with matching date and description
 
