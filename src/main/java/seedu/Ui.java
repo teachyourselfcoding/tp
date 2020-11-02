@@ -53,7 +53,7 @@ public class Ui {
                 " add     - add a deadline, event, lesson\n" +
                 " edit    - edit information\n" +
                 " delete  - delete task in a module\n" +
-                " exit    - exit duequest";
+                " bye    - exit duequest";
         print(helpMessage);
         System.out.println(SEPARATOR);
     }
