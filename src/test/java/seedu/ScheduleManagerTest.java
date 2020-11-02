@@ -1,6 +1,8 @@
 package seedu;
 
 import org.junit.jupiter.api.Test;
+import seedu.exception.InvalidDateException;
+import seedu.exception.InvalidStartEndDateException;
 import seedu.exception.*;
 import seedu.task.Event;
 import seedu.task.Lesson;
@@ -10,15 +12,37 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ScheduleManagerTest {
+    //Three part name for a test: methodUnderTest_inputGiven_expectedOutput
+    @Test
+    public void display_longAgoDate_expectExceptions() {
+        ScheduleManager sm = new ScheduleManager();
+        assertThrows(InvalidDateException.class,()->{ sm.displayDate(LocalDate.parse("2010-10-10"));});
+    }
+
+    @Test
+    public void display_TooFarAhead_expectExceptions() {
+        ScheduleManager sm = new ScheduleManager();
+        assertThrows(InvalidDateException.class,()->{ sm.displayDate(LocalDate.parse("2100-10-10"));});
+    }
+
+    @Test
+    public void display_startAndEndDateSwap_expectExceptions() {
+        ScheduleManager sm = new ScheduleManager();
+        assertThrows(InvalidStartEndDateException.class,()->{
+            sm.display(LocalDate.parse("2020-11-28"),LocalDate.parse("2020-10-20"));});
+    }
 
     @Test
     public void checkIfLessonToBeAddedClashesWithCurrentTimetable_validLesson_true() throws
             MissingLessonTimingException, EmptyArgumentException, InvalidModuleCodeException,
-            InvalidTimeFormatException, InvalidFrequencyException {
+            InvalidTimeFormatException, InvalidFrequencyException, StartAndEndTimeSameException,
+            MissingLessonDescriptionException, StartTimeAndEndTimeTooEarlyException, StartTimeIsAfterEndTimeException,
+            ModuleDoesNotExistException, ModuleAlreadyExistsException {
         String input1 = "lesson online lecture CS2113 /on 5 16:00 18:00";
         Lesson lesson = Parser.parseLesson(input1);
         ScheduleManager scheduleManager = new ScheduleManager();
         ModuleManager moduleManager = new ModuleManager();
+        moduleManager.addModule(new Module("CS2113"));
         Ui ui = new Ui();
         scheduleManager.addLesson(lesson, moduleManager, ui);
         boolean result = scheduleManager.checkIfLessonToBeAddedClashesWithCurrentTimetable(lesson);
@@ -30,13 +54,16 @@ class ScheduleManagerTest {
             MissingLessonTimingException, EmptyArgumentException, InvalidModuleCodeException,
             InvalidTimeFormatException, InvalidFrequencyException, InvalidDateException,
             MissingEventDateAndTimeDetailsException, WrongDateFormatException,
-            MissingDeadlineTimingDetailsException {
+            StartAndEndTimeSameException, MissingLessonDescriptionException, InvalidDateFormatException,
+            MissingEventDescriptionException, StartTimeAndEndTimeTooEarlyException, StartTimeIsAfterEndTimeException,
+            MissingModuleCodeOrInvalidModuleCodeException, ModuleDoesNotExistException, ModuleAlreadyExistsException {
         String input1 = "lesson online lecture CS2113 /on 5 16:00 18:00";
         String input2 = "event CS2113 final exam /at 2021-01-15 14:00 16:00 LT14";
         Lesson lesson = Parser.parseLesson(input1);
         Event event = Parser.validateEvent(input2);
         ScheduleManager scheduleManager = new ScheduleManager();
         ModuleManager moduleManager = new ModuleManager();
+        moduleManager.addModule(new Module("CS2113"));
         Ui ui = new Ui();
         scheduleManager.addLesson(lesson, moduleManager, ui);
         scheduleManager.addEvent(event, moduleManager, ui);
@@ -53,6 +80,5 @@ class ScheduleManagerTest {
         assertEquals(true, scheduleManager.checkIfLessonToBeAddedClashesInADate(
                 lesson4, LocalDate.of(2021, 1, 15)));
     }
-
 
 }

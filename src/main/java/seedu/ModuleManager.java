@@ -6,7 +6,6 @@ import seedu.task.Deadline;
 import seedu.task.Lesson;
 import seedu.task.Task;
 
-import java.lang.reflect.Array;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import java.util.List;
  * into the ModuleManager as well according to the Module Code.
  */
 public class ModuleManager {
-    ArrayList<Module> listOfModules;
+    public ArrayList<Module> listOfModules;
 
     public ModuleManager() {
         this.listOfModules = new ArrayList<>();
@@ -72,14 +71,6 @@ public class ModuleManager {
     }
 
     /**
-     *
-     * @param moduleCode
-     * @param task
-     * @param date
-     * @throws DueQuestException
-     */
-
-    /**
      * Display the tasks of a module.
      * @param moduleCode module code's string
      * @throws ModuleNotExistsException
@@ -97,6 +88,142 @@ public class ModuleManager {
         }
         throw new ModuleNotExistsException();
     }
+
+    public void editModuleCode(String moduleCode, String newProperty){
+        for(Module m: listOfModules){
+            if(m.getModuleCode().equals(moduleCode)){
+                for(Task task : m.getListOfTasks()){
+                    task.setModulecode(newProperty);
+                }
+                m.setModuleCode(newProperty);
+            }
+        }
+    }
+
+    public void editModuleAu(String moduleCode, String newProperty){
+        for(Module m: listOfModules){
+            if(m.getModuleCode().equals(moduleCode)){
+                m.setModuleCode(newProperty);
+            }
+        }
+    }
+
+    public void editModuleStaff(String moduleCode, String newProperty){
+        for(Module m: listOfModules){
+            if(m.getModuleCode().equals(moduleCode)){
+                m.setModuleCode(newProperty);
+            }
+        }
+    }
+
+    public void editTask(String description, LocalDate date, String type, String newProperty, String moduleCode){
+        for(Module m : listOfModules){
+            if(m.getModuleCode().equals(moduleCode)){
+                System.out.println(m.getModuleCode());
+                for(Task task : m.getListOfTasks()) {
+                    if(task.getDate().isEqual(date)){
+                        switch (type) {
+                            case "description":
+                                if (task.getDescription().equals(description)) {
+                                    task.setDescription(newProperty);
+                                    System.out.println("test 3");
+                                }
+                                break;
+                            case "tasktype":
+                                if (task.getDescription().equals(description)) {
+                                    task.setTasktype(newProperty);
+                                }
+                                break;
+
+                            case "module code":
+                                if (task.getDescription().equals(description)) {
+                                    task.setModulecode(newProperty);
+                                }
+                                break;
+                            case "time":
+                                if (task.getDescription().equals(description)) {
+                                    task.setTime(newProperty);
+                                }
+                                break;
+                            default:
+                                System.out.println("Invalid type");
+                        }
+                    }
+                }
+            }
+        }
+    }
+    //Edit module to set new frequency
+    public void editTask(String description, LocalDate date, String property, int newFrequency, String moduleCode){
+        for(Module m: listOfModules){
+            if(m.getModuleCode().equals(moduleCode)){
+                for(Task task : m.getListOfTasks()){
+                    if(task.getDescription().equals(description)){
+                        task.setFrequency(newFrequency);
+                    }
+                }
+            }
+        }
+    }
+
+    //Edit module to set new date
+    public void editTask(String description, LocalDate date, String property, LocalDate newDate, String moduleCode){
+        for(Module m: listOfModules){
+            if(m.getModuleCode().equals(moduleCode)){
+                for(Task task : m.getListOfTasks()){
+                    if(task.getDescription().equals(description)){
+                        Task newTask = task;
+                        newTask.setDate(newDate.toString()); //need to change later
+                        m.addTask(newTask);
+                        m.getListOfTasks().remove(task);
+                    }
+                }
+            }
+        }
+    }
+
+    //delete entire module
+    public void delete(String moduleCode){ //delete entire module
+        for(Module m: listOfModules){
+            if(m.getModuleCode().equals(moduleCode)){
+                System.out.println("Module deleted");
+            }
+        }
+        listOfModules.removeIf(m -> m.getModuleCode().equals(moduleCode));
+    }
+
+    //delete a task in a module based on a specific date
+    public void delete(String moduleCode, String description, LocalDate date) {
+        boolean deleted = false;
+        for (Module m : listOfModules) {
+            if (m.getModuleCode().equals(moduleCode)) {
+                for (Task task : m.getListOfTasks()){
+                    if(task.getDate().equals(date)) {
+                        if (task.getDescription().equals(description)) {
+                            System.out.println("Task deleted eheheheheheh");
+                            deleted = true;
+                        }
+                    }
+                }
+                if (deleted){
+                    System.out.println("No matching task description");
+                    return;
+                }
+                m.getListOfTasks().removeIf(task -> task.getDate() == date);
+
+            }
+        }
+    }
+
+    //delete all the task of a module on a certain date
+    public void delete(String moduleCode, LocalDate date) {
+        for (Module m : listOfModules) {
+            if (m.getModuleCode().equals(moduleCode)) {
+                m.getListOfTasks().removeIf(t -> t.getDate().isEqual(date));
+            }
+        }
+    }
+
     // Display all the task in a module on a specific date
     public void display(String moduleCode, LocalDate date) throws ModuleNotExistsException{
         ArrayList<Task> filteredTasks = new ArrayList<>();
@@ -157,12 +284,6 @@ public class ModuleManager {
                 return;
             }
         }
-        // if we reach the end of the for loop, it means that the moduleCode does not exist
-        // hence, we create this module first, add the task to it and
-        // then add it to the module manager
-        Module module = new Module(moduleCode);
-        module.addTask(task);
-        this.listOfModules.add(module);
     }
 
 
@@ -207,7 +328,7 @@ public class ModuleManager {
         }
     }
 
-    String export() {
+    public String export() {
         String export = "";
         for (int i = 0; i < this.listOfModules.size(); i++) {
             export = this.listOfModules.get(i).export() + '\n';

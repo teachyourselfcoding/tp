@@ -3,6 +3,11 @@ package seedu;
 import org.junit.jupiter.api.Test;
 import seedu.exception.ModuleAlreadyExistsException;
 
+import seedu.exception.ModuleNotExistsException;
+
+import java.time.LocalDate;
+
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ModuleManagerTest {
@@ -49,4 +54,17 @@ class ModuleManagerTest {
         } catch (Exception e) {  // ignore exceptions temporarily
         }
     }
+
+    @Test
+    void display_displayNonExistentModule_expectException() {
+        ModuleManager mm = new ModuleManager();
+        assertThrows(ModuleNotExistsException.class,()->{mm.display("CS2113");});
+    }
+
+    @Test
+    void display_displayNonExistentModuleWithDate_expectException() {
+        ModuleManager mm = new ModuleManager();
+        assertThrows(ModuleNotExistsException.class,()->{mm.display("CS2113", LocalDate.now());});
+    }
+
 }

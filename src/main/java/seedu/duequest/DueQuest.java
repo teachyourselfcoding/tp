@@ -7,6 +7,7 @@ import seedu.ScheduleManager;
 import seedu.Storage;
 import seedu.Ui;
 import seedu.command.Command;
+import seedu.exception.ModuleDoesNotExistException;
 
 
 /**
@@ -59,6 +60,7 @@ public class DueQuest {
             } catch (DueQuestException e) {
                 ui.showError(e.getExceptionType());
             } catch (NullPointerException e) {  // this has been handled within parser
+            } catch (ModuleDoesNotExistException e) {
             }
         }
         ui.byeMessage();

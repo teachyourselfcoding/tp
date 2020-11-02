@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 /**
  * Class for Module.
- * <p>
  * moduleCode e.g. ST2132.
  * title e.g. Statistics.
  * aUNumber e.g. 4.
@@ -59,6 +58,14 @@ public class Module {
 		this.moduleCode = moduleCode;
 	}
 
+	public void setModuleAu(String aUNumber) {
+		this.aUNumber =  Integer.parseInt(aUNumber);
+	}
+
+//	public void setModuleStaff(String teachingStaffs) {
+//		this.teachingStaffs = teachingStaffs;
+//	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -100,7 +107,7 @@ public class Module {
 	 * TODO: task list?
 	 * @return
 	 */
-	String export() {
+	public String export() {
 		assert !this.moduleCode.isEmpty();
 		String export = "module c/" + this.moduleCode;
 		if (this.title != null) {
