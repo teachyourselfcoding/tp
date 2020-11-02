@@ -381,28 +381,7 @@ Format: `delete DESCRIPTION /date DATE`
 Example of Usage
 
 ```
-===================
-===================
-Please type the command!
-===================
-deadline CS2113 tp /by 2020-10-15
-Got it, added deadline to Schedule Manager and Module Manager
-===================
-===================
-Please type the command!
-===================
-deadline CS2113 tp /by 2020-10-16
-Got it, added deadline to Schedule Manager and Module Manager
-===================
-===================
-Please type the command!
-===================
-deadline CS2113 tp /by 2020-10-15
-Got it, added deadline to Schedule Manager and Module Manager
-===================
-===================
-Please type the command!
-===================
+
 delete tp /date 2020/10/16
 ===================
 Please type the command!
@@ -467,4 +446,5 @@ Output: `Aye captain. This is DueQuest Signing out!`
 + Edit a task: `edit TASKNAME /date DATE /	/ATTRIBUTES /NEW_VALUE`
 + Delete tasks of a description:  `delete DESCRIPTION` 
 + Delete all tasks of a description based on date: `delete DESCRIPTION /date DATE`
++ Help: Display the list of available command`help`
 
