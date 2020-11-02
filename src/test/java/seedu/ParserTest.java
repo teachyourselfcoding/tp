@@ -257,9 +257,13 @@ class ParserTest {
         String moduleCode1 = "A1234";
         String moduleCode2 = "CS2113TTTT";
         String moduleCode3 = "CS99999";
-        assertEquals(Parser.verifyModuleCode(moduleCode1), false);
-        assertEquals(Parser.verifyModuleCode(moduleCode2), false);
-        assertEquals(Parser.verifyModuleCode(moduleCode3), false);
+        String moduleCode4 = "CS21a3T";
+        String moduleCode5 = "dsa4211";
+        assertEquals(false, Parser.verifyModuleCode(moduleCode1));
+        assertEquals(false, Parser.verifyModuleCode(moduleCode2));
+        assertEquals(false, Parser.verifyModuleCode(moduleCode3));
+        assertEquals(false, Parser.verifyModuleCode(moduleCode4));
+        assertEquals(false, Parser.verifyModuleCode(moduleCode5));
     }
 
     @Test
