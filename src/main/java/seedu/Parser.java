@@ -289,18 +289,16 @@ public class Parser {
             splitViaModule = ((input.split("c/"))[1].trim()).split(" ",2);
             moduleCode = splitViaModule[0].trim();
             if(splitViaModule.length == 1){
-                System.out.println("test 1");
-                System.out.println(moduleCode);
                 return new DeleteCommand(moduleCode, "module");
             }
             filteredInput = splitViaModule[1].trim();
-//            moduleCode = splitViaModule[0].trim();
 
-            if(filteredInput.contains("/date")){
-                splitViaDate = (filteredInput.split("/date")[1].trim()).split("0",2);
+
+            if(filteredInput.contains("/date")){ //has a module code and date
+                splitViaDate = (filteredInput.split("/date")[1].trim()).split(" ",2);
                 date = LocalDate.parse(splitViaDate[0].trim());
                 if(splitViaDate.length==1){
-                    return new DeleteCommand(moduleCode,date);
+                    return new DeleteCommand(moduleCode,"module", date); //has module code, has date
                 } description = splitViaDate[1].trim();
                 return new DeleteCommand(moduleCode, date, description);
             }

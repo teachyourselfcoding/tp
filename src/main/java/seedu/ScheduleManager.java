@@ -356,18 +356,35 @@ public class ScheduleManager {
 
 	public void deleteTask(String moduleCode, String description, LocalDate date) { //delete all tasking matching description and module code on date
 		boolean deleted = false;
-		if(semesterSchedule.get(date).size() != 0){
-			for(Task task : semesterSchedule.get(date)){
-				if(task.getModuleCode().equals(moduleCode) && task.getDescription().equals(description)){
+		if(semesterSchedule.get(date).size() != 0) {
+			for (Task task : semesterSchedule.get(date)) {
+				if (task.getModuleCode().equals(moduleCode)) {
 					deleted = true;
 				}
 			}
+			if (deleted) {
+				System.out.println("deleted");
+				semesterSchedule.get(date).removeIf(task -> task.getModuleCode().equals(moduleCode));
+			} else {
+				System.out.println("No task on this date matching module code and date");
+			}
 		}
-		if(deleted){
-			semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description) && task.getModuleCode().equals(moduleCode));
-		}
-		else{
-			System.out.println("No task on this date matching module code and description");
+	}
+
+	public void deleteTask(LocalDate date, String moduleCode) { //delete all tasking matching description and module code on date
+		boolean deleted = false;
+		if(semesterSchedule.get(date).size() != 0) {
+			for (Task task : semesterSchedule.get(date)) {
+				if (task.getModuleCode().equals(moduleCode)) {
+					deleted = true;
+				}
+			}
+			if (deleted) {
+				System.out.println("1 or more task has been deleted");
+				semesterSchedule.get(date).removeIf(task -> task.getModuleCode().equals(moduleCode));
+			} else {
+				System.out.println("No task on this date matching module code and date");
+			}
 		}
 	}
 

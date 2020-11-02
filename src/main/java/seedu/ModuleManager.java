@@ -225,12 +225,12 @@ public class ModuleManager {
             }
         }
     }
+
     //delete all the task of a module on a certain date
     public void delete(String moduleCode, LocalDate date) {
         for (Module m : listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
                 m.getListOfTasks().removeIf(t -> t.getDate().isEqual(date));
-
             }
         }
     }
