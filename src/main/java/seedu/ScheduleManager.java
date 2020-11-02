@@ -3,6 +3,7 @@ package seedu;
 import seedu.exception.InvalidStartEndDateException;
 import seedu.exception.InvalidDateException;
 import seedu.exception.ModuleDoesNotExistException;
+import seedu.exception.StartAndEndTimeSameException;
 import seedu.task.Deadline;
 import seedu.task.Event;
 import seedu.task.Lesson;
@@ -548,9 +549,12 @@ public class ScheduleManager {
 	 * @param endDate the end of the range.
 	 *
 	 */
-	public void display(LocalDate startDate, LocalDate endDate) throws InvalidStartEndDateException{
+	public void display(LocalDate startDate, LocalDate endDate) throws InvalidStartEndDateException, StartAndEndTimeSameException {
 		if (startDate.isAfter(endDate)){
 			throw new InvalidStartEndDateException();
+		}
+		else if(startDate.isEqual(endDate)){
+			throw new StartAndEndTimeSameException();
 		}
 		Ui.print("List of task from " + Ui.convertDateToStringWithYear(startDate) + " to " + Ui.convertDateToStringWithYear(endDate));
 		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {

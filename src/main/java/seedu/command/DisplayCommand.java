@@ -6,6 +6,7 @@ import seedu.Ui;
 import seedu.exception.InvalidDateException;
 import seedu.exception.InvalidStartEndDateException;
 import seedu.exception.ModuleNotExistsException;
+import seedu.exception.StartAndEndTimeSameException;
 
 import java.time.LocalDate;
 
@@ -77,6 +78,8 @@ public class DisplayCommand extends Command {
             Ui.printInvalidStartEndDate();
         } catch (InvalidDateException e){
             Ui.printInvalidDateMessage();
+        } catch (StartAndEndTimeSameException e){
+            Ui.printStartAndEndTimeCannotBeTheSameMessage();
         }
     }
 }
