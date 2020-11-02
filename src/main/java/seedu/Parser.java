@@ -103,10 +103,10 @@ public class Parser {
             Ui.printStartTimeAndEndTimeCannotBeBeforeEightOClockMessage();
         } catch (MissingModuleCodeOrInvalidModuleCodeException e) {
             Ui.printMissingModuleCodeOrInvalidModuleCodeMessage();
-        } catch (Exception e) {
-            Ui.printInvalidInputMessage();
         } catch (MissingDeleteDetailsException e){
             Ui.printMissingDeleteDetails();
+        } catch (Exception e) {
+            Ui.printInvalidInputMessage();
         }
         return null;  // the function must return something
     }
