@@ -63,8 +63,9 @@ public class DeleteCommand extends Command {
             return;
         }
         if(this.date == null){                                                  //delete entire module
-            moduleManager.delete(moduleCode);
             scheduleManager.deleteTask("module",moduleCode);
+            moduleManager.delete(moduleCode);
+
             return;
         }
         else{
@@ -74,8 +75,9 @@ public class DeleteCommand extends Command {
                 moduleManager.delete(moduleCode,date);
             }else {
                 System.out.println("delete all task in module with matching date and description");
-                moduleManager.delete(moduleCode, description, date);         //delete all task in module with matching date and description
                 scheduleManager.deleteTask(moduleCode, description, date);
+                moduleManager.delete(moduleCode, description, date);         //delete all task in module with matching date and description
+
             }
         }
     }
