@@ -346,12 +346,20 @@ public class ScheduleManager {
 
 
 	public void deleteTask(String description, LocalDate date) { //delete all tasking matching description on date
-		if(semesterSchedule.get(date).size() != 0){
-			semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
+		boolean deleted = false;
+		for (Task task : semesterSchedule.get(date)) {
+			if (semesterSchedule.get(date).size() != 0) {
+				if (task.getDescription().equals(description)) {
+					deleted = true;
+				}
+			}
 		}
-		else{
-			System.out.println("No task on this date");
-		}
+		if(deleted){
+			if (semesterSchedule.get(date).size() != 0) {
+				semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
+			}System.out.println("1 or more tasks on this day has been deleted");
+			return;
+		}System.out.println("No matching task on the day");
 	}
 
 	public void deleteTask(String moduleCode, String description, LocalDate date) { //delete all task matching description and module code on date
