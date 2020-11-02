@@ -573,9 +573,11 @@ public class ScheduleManager {
 
 				}
 			} else if (date.isEqual(endDate)){
-				Ui.print(date.format(DateTimeFormatter.ofPattern("MMM d"))
-						+ " :");
-				Ui.printListGenericType(semesterSchedule.get(date));
+				if (semesterSchedule.get(date).size() != 0) {
+					Ui.print(date.format(DateTimeFormatter.ofPattern("MMM d"))
+							+ " :");
+					Ui.printListGenericType(semesterSchedule.get(date));
+				}
 			}
 		}
 	}
