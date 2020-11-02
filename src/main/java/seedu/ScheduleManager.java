@@ -406,23 +406,22 @@ public class ScheduleManager {
 		System.out.println("All tasks matching modules have been deleted");
 	}
 
-	public void deleteTask(String description) { //delete all tasking matching description
+	public void deleteTask(String description) { //delete all task matching description
 		boolean deleted = false;
 		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
 			if(semesterSchedule.get(date).size() != 0){
 				for (Task task : semesterSchedule.get(date)){
 					if (task.getDescription().equals(description)){
-						System.out.println("Task deleted eheheheheheh");
 						deleted = true;
 					}
 				}
-				if (deleted){
+				if (!deleted){
 					System.out.println("No matching task description");
 					return;
 				}
 				semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
 			}
-		}
+		}System.out.println("1 or more taks matching description has been deleted");
 	}
 
 	public void displayTodaySchedule() {
