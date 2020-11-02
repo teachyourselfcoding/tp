@@ -301,7 +301,7 @@ Oct 15 schedule :
 ===================
 ```
 
-## Edit a task: `edit TASKNAME /date DATE /	/ATTRIBUTES /NEW_VALUE`
+## Edit a task: `edit TASKNAME /date DATE /ATRIBUTE_TO_BE_CHANGED /NEW_VALUE`
 
 Edit the parameter(description, date, frequency, modulecode, time, tasktype) of a certain task
 Format: `edit TASKNAME /date DATE /ATTRIBUTES /NEW_VALUE`
