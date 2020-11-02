@@ -21,6 +21,8 @@ The information will be imported and exported automatically by the app.
 
 ## Add a Module: `module`
 
+A module can be added into the Module Manager using the command below. You should start adding modules first before you can use most of the other features after this section.
+
 Format: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
 
 + `MODULECODE` must be given, and it should be unique. 
@@ -77,10 +79,11 @@ lesson will not be added.
 
 `lesson DESCRIPTION MODULECODE /on DAYOFWEEK  STARTTIME ENDTIME`
 
-* Please make sure that you do not leave the `description` blank.
+* Please make sure that you do not leave the `DESCRIPTION` blank.
 * Please ensure that your `MODULECODE` is a valid module code in NUS. Refer to the earlier section in Add a Module to find out what is a valid module code.
-* The `DAYOFWEEK` is the Day Of Week when the lesson is conducted on, starting from Monday (e.g. 1). Type is an integer. If the lesson is held on Thursday, type in 4. If the lesson is held on Wednesday, type in 3.
-* The `START_TIME` and `END_TIME` are both in `HH:MM` format. You are only allowed to type in timings such that `MM` is `00`. For example, `18:00` is allowed but not `18:01`.
+* The `DAYOFWEEK` is the Day Of Week when the lesson is conducted on, starting from Monday (e.g. 1). Please type in an integer, meaning if the lesson is held on Thursday, type in 4. If the lesson is held on Wednesday, type in 3.
+* The `START_TIME` and `END_TIME` are both in `HH:MM` format. If you want `START_TIME` to be 4pm, input `16:00`. You are only allowed to type in timings such that `MM` is `00`. For example, `18:00` is allowed but not `18:01`. 
+* For this app, you are not allowed to type in a `START_TIME` and `END_TIME` before 8am.  
 
 Examples of Usage:
 
@@ -103,16 +106,17 @@ Got it, added lesson to the schedule manager!
 
 ## Adding an event: `event`
 
-Adds an Event asscociated with a module into the Schedule Manager and Module Manager.
+Adds an Event associated with a module into the Schedule Manager and Module Manager.
 If there is a clash in timings detected (the time of the event to be added clashes with another lesson or event), the
 event will not be added.
 
 Format: `event MODULE_CODE DESCRIPTION /at DATE_OF_EVENT START_TIME END_TIME LOCATION_OF_EVENT`
 
-* Please make sure that you do not leave the `DESCRIPTION` blank.
 * Please ensure that your `MODULECODE` is a valid module code in NUS. Refer to the earlier section in Add a Module to find out what is a valid module code.
-* `TIME` is in `HH:MM` format. (For now, since the display function only displays timings for every hour, the time of event is such that `MM` needs to be `00`)
-* `DATE_OF_EVENT` is in `YYYY-MM-DD` format.
+* Please make sure that you do not leave the `DESCRIPTION` blank.
+* `DATE_OF_EVENT` is in `YYYY-MM-DD` format. For example, if you want to add an event on 10th April 2021, type in `2021-04-10`.
+* The `START_TIME` and `END_TIME` are both in `HH:MM` format. If you want `START_TIME` to be 4pm, input `16:00`. You are only allowed to type in timings such that `MM` is `00`. For example, `18:00` is allowed but not `18:01`. 
+* For this app, you are not allowed to type in a `START_TIME` and `END_TIME` before 8am.  
 * Please ensure that you do not leave `LOCATION_OF_EVENT` blank.
 
 Example Usage:
@@ -135,7 +139,7 @@ Format: `deadline MODULECODE DESCRIPTION /by DATE_OF_DEADLINE `
 
 * Please ensure that your `MODULECODE` is a valid module code in NUS. Refer to the earlier section in Add a Module to find out what is a valid module code.
 * Please make sure that you do not leave the `DESCRIPTION` blank.
-* `DATE_OF_DEADLINE` is in `YYYY-MM-DD` format.
+* `DATE_OF_DEADLINE` is in `YYYY-MM-DD` format. For example, if you want to add a deadline on 10th April 2021, type in `2021-04-10`.
 
 Examples input:
 * If you want to add a deadline for CS2113 for TP version 1 at 4th April 2021, input `deadline CS2113 TP version 1 /by 2021-04-04`
