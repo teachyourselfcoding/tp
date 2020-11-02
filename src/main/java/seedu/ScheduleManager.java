@@ -399,21 +399,91 @@ public class ScheduleManager {
 	}
 
 
-	public void deleteTask(String description, LocalDate date) {
-		if(semesterSchedule.get(date).size() != 0){
-			semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
+	public void deleteTask(String description, LocalDate date) { //delete all tasking matching description on date
+		boolean deleted = false;
+		for (Task task : semesterSchedule.get(date)) {
+			if (semesterSchedule.get(date).size() != 0) {
+				if (task.getDescription().equals(description)) {
+					deleted = true;
+				}
+			}
 		}
-		else{
-			System.out.println("No task on this date");
+		if(deleted){
+			if (semesterSchedule.get(date).size() != 0) {
+				semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
+			}System.out.println("1 or more tasks on this day has been deleted");
+			return;
+		}System.out.println("No matching task on the day");
+	}
+
+	public void deleteTask(String moduleCode, String description, LocalDate date) { //delete all task matching description and module code on date
+		boolean deleted = false;
+		if(semesterSchedule.get(date).size() != 0) {
+			for (Task task : semesterSchedule.get(date)) {
+				if (task.getModuleCode().equals(moduleCode) && task.getDescription().equals(description)) {
+					deleted = true;
+				}
+			}
+			if (deleted) {
+				System.out.println("1 or more task has been deleted");
+				semesterSchedule.get(date).removeIf(task -> task.getModuleCode().equals(moduleCode) && task.getDescription().equals(description));
+			} else {
+				System.out.println("No task on this date matching module code and date");
+			}
 		}
 	}
 
-	public void deleteTask(String description) {
-		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
-			if(semesterSchedule.get(date).size() != 0){
-				semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
+	public void deleteTask(LocalDate date, String moduleCode) { //delete all tasking matching  module code on date
+		boolean deleted = false;
+		if(semesterSchedule.get(date).size() != 0) {
+			for (Task task : semesterSchedule.get(date)) {
+				if (task.getModuleCode().equals(moduleCode)) {
+					deleted = true;
+				}
+			}
+			if (deleted) {
+				System.out.println("1 or more task has been deleted");
+				semesterSchedule.get(date).removeIf(task -> task.getModuleCode().equals(moduleCode));
+			} else {
+				System.out.println("No task on this date matching module code and date");
 			}
 		}
+	}
+
+	public void deleteTask(String description, String moduleCode) { //delete all tasking matching module code
+		boolean deleted = false;
+		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
+			if(semesterSchedule.get(date).size() != 0){
+				for (Task task : semesterSchedule.get(date)){
+					if (task.getModuleCode().equals(moduleCode)){
+						deleted = true;
+					}
+				}
+				semesterSchedule.get(date).removeIf(task -> task.getModuleCode().equals(moduleCode));
+			}
+		}if (!deleted){
+			System.out.println("No matching Module");
+			return;
+		}
+		System.out.println("All tasks matching modules have been deleted");
+	}
+
+	public void deleteTask(String description) { //delete all task matching description
+		boolean deleted = false;
+		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
+			if(semesterSchedule.get(date).size() != 0){
+				for (Task task : semesterSchedule.get(date)){
+					if (task.getDescription().equals(description)){
+						deleted = true;
+					}
+				}
+				if (!deleted){
+					System.out.println("No matching task description");
+					return;
+				}
+				semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
+			}
+		}System.out.println("1 or more taks matching description has been deleted");
 	}
 
 	public void displayTodaySchedule() {
