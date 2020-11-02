@@ -1,6 +1,6 @@
-# Developer Guide
+# Developer Guide of DueQuest
 
-## Design & implementation
+## Table of contents
 
 1. Introduction
     - Welcome to DueQuest
@@ -41,7 +41,6 @@ uses a Command Line Interface (CLI) specifically for NUS Students to manage thei
 during school. This guide is written to give a clearer understanding for developers who are
 interested in improving the design and implementation of DueQuest.
 
-
 ## 2.Setting Up
 
 ### Prerequisites
@@ -79,6 +78,13 @@ whenever a User wants to add a Task into the `ScheduleManager` or `ModuleManager
 
 ![](Images/3.2Task.JPG)
 
+| Class | Function |
+|--------|----------|
+| `Task` | Parent class of `Lesson`, `Deadline` and `Event` |
+| `Lesson` | Represents an `Lesson` object. A `Lesson` object represents a lesson for a module that occurs during the semester, maintaining information such as the `description` of the lesson, `startTimeOfLesson`, `endTimeOfLesson`, and day of the week which it occurs on (which is noted by the `frequency`). |
+| `Deadline` | Represents an `Event` object. An `Event` object represents a one-off event for a module that maintains information such as `date` of the event, `startTimeOfEvent`, `endTimeOfEvent`. |
+| `Event` | Represents a `Deadline` object. A `Deadline` object represents a deadline for a module that maintains information such as `description` of the deadline and `date` of the deadline. |
+
 ### Command
 The logic of what should be executed whenever the application receives an input will be
 handled by parsing these inputs into Commands using a Parser . Below is a UML Diagram
@@ -86,15 +92,32 @@ showing how the `Parser` classes and the `Command` classes interact. Unless the 
 an `ExitCommand` or `HelpCommand` , the `Command` will be executed to perform an action to
 either the `ScheduleManager` or `ModuleManager` or both.
 
+| Class | Function |
+|--------|----------|
+| `Command` | An Abstract class which is the parent class of all of the commands below. The main method in this class is the `execute()` method, which handles the different executions required depending on the input by the user. |
+| `AddCommand` | A child class of `Command` which helps to execute the feature of adding a `Task` into the `ScheduleManager` and `ModuleManager`. |
+| `AddModuleCommand` | A child class of `Command` which helps to add a `Module` into the `ModuleManager`. |
+| `DeleteCommand` | -- |
+| `DisplayCommand` | A child class of `Command` which helps to display the list of tasks in a any day stated by the user, or the list of tasks from a `Module` stated by the user. |
+| `EditModuleCommand` | -- |
+| `EditTaskCommand` | -- |
+| `HelpCommand` | A child class of `Command` which helps to provides the list of inputs for the user to know what to type in to use any of the features he wants. |
+| `ExitCommand` | A child class of `Command` which helps to exit the app. |
+
 ![](Images/3.3Command.JPG)
 
 ### Managers
 The application consists of two managers, the `ScheduleManager` and `ModuleManager`. The
 `ScheduleManager` will handle the storing of `Task` in each day. The `ModuleManager` will
 handle storing the task of each `Module`. Below is a UML Diagram showing some of the key
-methods and properties of the `ScheduleManager` and `ModuleManager` classes
+methods and properties of the `ScheduleManager` and `ModuleManager` classes.
 
 ![](Images/3.4Managers.JPG)
+
+| Class | Function |
+|--------|----------|
+| `ScheduleManager` | -- |
+| `ModuleManager` | -- |
 
 Some Design Considerations on how to store the `Task` in the `ScheduleManager`:
 - Use of a `TreeMap` to store the date as keys and `ArrayList` as values.
@@ -117,14 +140,13 @@ singleton.
 
 ![](Images/3.5Stroage.JPG)
 
-It exports the data in the application and converts it into the form of a txt file. This allows users
-to retain their saved data after exiting the app. More elaboration of how this will be done will be shown later, 
-where a sequence diagram will show how this process works.
+| Class | Function |
+|--------|----------|
+| `Storage` | It exports the data in the application and converts it into the form of a txt file. This allows users to retain their saved data after exiting the app. More elaboration of how this will be done will be shown later, where a sequence diagram will show how this process works. |
 
 ## 4. Implementation
 
-This section describes some noteworthy details on how certain features are
-implemented.
+This section describes some noteworthy details on how certain features are implemented.
 
 ### Add Feature
 
