@@ -83,14 +83,17 @@ public class EditModuleCommand extends editCommand{
                     case "description":
                         //Fallthrough
                     case "time":
+                        scheduleManager.editTask(description, date, type, newProperty,moduleCode);
                         moduleManager.editTask(description, date , type, newProperty, moduleCode);
+
                         break;
                     case "frequency":
+                        scheduleManager.editTask(description, date, type, newFrequency,moduleCode);
                         moduleManager.editTask(description, date , type, newFrequency, moduleCode);
                         break;
                     case "date":
+                        scheduleManager.editTask(description, date, type, newDate,moduleCode);
                         moduleManager.editTask(description, date , type, newDate, moduleCode);
-                        scheduleManager.editTask(description, date, type, newDate, moduleCode);
                         break;
                     default:
                         System.out.println("Invalid type");

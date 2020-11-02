@@ -305,9 +305,14 @@ Oct 15 schedule :
 ===================
 ```
 
-## Edit a task: `edit TASKNAME /date DATE /	/ATTRIBUTES /NEW_VALUE`
+## Edit a task: `edit TASKNAME /date DATE /ATRIBUTE_TO_BE_CHANGED /NEW_VALUE`
+There is a few things that the user might want to edit.
+1)Edit a task's description/type of task/module code/time/frequency/date
+2)Edit a module's task's description/type of task/module code/time/frequency/date
+3)Edit a module's code
+Difference between 1) and 2) is that for 1)All tasks with that description will be edited, 2)Task under the module and with description will be edited 
 
-Edit the parameter(description, date, frequency, modulecode, time, tasktype) of a certain task
+1) Edit the parameter(description, date, frequency, module code, time, tasktype) of a certain task
 Format: `edit TASKNAME /date DATE /ATTRIBUTES /NEW_VALUE`
 
 Example of Usage: 
@@ -321,7 +326,7 @@ Got it, added deadline to Schedule Manager and Module Manager
 Please type the command!
 ===================
 edit tp /date 2020-10-16 /date /2020-10-15
-2020-10-16
+
 ===================
 Please type the command!
 ===================
@@ -335,10 +340,43 @@ The list of task in CS2113:
 [D]CS2113 tp (by: 2020-10-15)
 ===================
 ```
+2) Edit the parameter(description, date, frequency, module code, time, tasktype) of a certain module's task
+Format: `edit c/MODULE_CODE TASKNAME /date DATE /ATTRIBUTES /NEW_VALUE`
 
+Example of Usage: 
+
+```
+===================
+deadline CS2113 tp /by 2020-10-16
+Got it, added deadline to Schedule Manager and Module Manager
+===================
+===================
+Please type the command!
+===================
+edit c/CS2113 tp /date 2020-10-16 /date /2020-10-15
+
+===================
+Please type the command!
+===================
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+The list of task in CS2113:
+[D]CS2113 tp (by: 2020-10-15)
+===================
+```
 ## Delete tasks of a description:  `delete DESCRIPTION` 
+There are several things that a user might want to delete:
+1) Delete all the task that matches a description
+2) Delete all the task that matches a description on a certain date
+3) Delete all the task that matches a description on a certain date
+4) Delete all the task in a module
+5) Delete the entire module alongside with all its tasks
 
-Delete every task that fits the description regardless of date
+1)Delete every task that fits the description regardless of date
 Format: `delete DESCRIPTION` 
 
 Example of Usage:
@@ -371,12 +409,12 @@ Please type the command!
 
 ```
 
-## Delete all tasks of a description based on date: `delete DESCRIPTION /date DATE`
+2)Delete all tasks of a description on a certain date: 
 
 Delete every task that fits the description on that particular date
 Format: `delete DESCRIPTION /date DATE`
 
-* The DATE must be in YYYY/MM/DD
+* The DATE must be in YYYY-MM-DD
 
 Example of Usage
 
@@ -391,7 +429,204 @@ Please type the next command!
 <-------------------------------------------------------------->
 
 ```
+3)Delete of a module's task on a certain date
 
+Format: `delete c/MODULE_CODE  /date DATE`
+
+* The DATE must be in YYYY-MM-DD
+
+Example of Usage
+
+```
+===================
+===================
+Please type the command!
+===================
+deadline CS2113 tp /by 2020-10-15
+Got it, added deadline to Schedule Manager and Module Manager
+===================
+===================
+Please type the command!
+===================
+deadline CS2113 tp /by 2020-10-16
+Got it, added deadline to Schedule Manager and Module Manager
+===================
+===================
+Please type the command!
+===================
+deadline CS2113 tp /by 2020-10-15
+Got it, added deadline to Schedule Manager and Module Manager
+===================
+===================
+Please type the command!
+===================
+delete c/CS2113 /date 2020/10/15
+===================
+Please type the command!
+===================
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+The list of task in CS2113:
+[D]CS2113 tp (by: 2020-10-16)
+
+
+===================
+===================
+Please type the command!
+===================
+display /date 2020/10/16
+Here is your schedule on 2020-10-16!! :)
+08:00
+09:00
+10:00
+11:00
+12:00
+13:00
+14:00
+15:00
+16:00
+17:00
+18:00
+19:00
+20:00
+21:00
+22:00
+23:00
+
+Deadlines on 2020-10-16:
+You don't have any tasks!
+```
+
+4)Delete all of a module's task's with fitting description, on a certain date
+
+Format: `delete c/MODULE_CODE DESCRIPTION /date DATE`
+
+* The DATE must be in YYYY-MM-DD
+
+Example of Usage
+
+```
+===================
+===================
+Please type the command!
+===================
+deadline CS2113 tpv1 /by 2020-10-15
+Got it, added deadline to Schedule Manager and Module Manager
+===================
+===================
+Please type the command!
+===================
+deadline CS2113 tpv2 /by 2020-10-15
+Got it, added deadline to Schedule Manager and Module Manager
+
+===================
+===================
+Please type the command!
+===================
+delete c/CS2113 tpv2 /date 2020/10/15
+===================
+Please type the command!
+===================
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+The list of task in CS2113:
+[D]CS2113 v1 (by: 2020-10-15)
+
+
+===================
+===================
+Please type the command!
+===================
+display /date 2020/10/15
+Here is your schedule on 2020-10-15!! :)
+08:00
+09:00
+10:00
+11:00
+12:00
+13:00
+14:00
+15:00
+16:00
+17:00
+18:00
+19:00
+20:00
+21:00
+22:00
+23:00
+
+Deadlines on 2020-10-15:
+CS2113 v1
+```
+
+4)Delete entire module
+
+Format: `delete c/MODULE_CODE 
+
+* The DATE must be in YYYY-MM-DD
+
+Example of Usage
+
+```
+===================
+===================
+Please type the command!
+===================
+deadline CS2113 tpv1 /by 2020-10-15
+Got it, added deadline to Schedule Manager and Module Manager
+===================
+===================
+Please type the command!
+===================
+deadline CS2113 tpv2 /by 2020-10-15
+Got it, added deadline to Schedule Manager and Module Manager
+
+===================
+===================
+Please type the command!
+===================
+delete c/CS2113 
+===================
+Please type the command!
+===================
+display 2020-06-01-2021-01-01
+
+
+===================
+===================
+Please type the command!
+===================
+display /date 2020/10/15
+Here is your schedule on 2020-10-15!! :)
+08:00
+09:00
+10:00
+11:00
+12:00
+13:00
+14:00
+15:00
+16:00
+17:00
+18:00
+19:00
+20:00
+21:00
+22:00
+23:00
+
+Deadlines on 2020-10-15:
+
+```
 ## Exiting the app: `bye`
 Exits the app and saves the tasks in the txt files.
 Format: `bye`
