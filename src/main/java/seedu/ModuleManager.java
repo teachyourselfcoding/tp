@@ -101,22 +101,31 @@ public class ModuleManager {
     }
 
     public void editModuleAu(String moduleCode, String newProperty){
+        boolean edited = false;
         for(Module m: listOfModules){
             if(m.getModuleCode().equals(moduleCode)){
                 m.setModuleCode(newProperty);
+                edited = true;
             }
+        }if(edited){
+            System.out.println("Module property has been updated");
         }
     }
 
     public void editModuleStaff(String moduleCode, String newProperty){
+        boolean edited = false;
         for(Module m: listOfModules){
             if(m.getModuleCode().equals(moduleCode)){
                 m.setModuleCode(newProperty);
+                edited = true;
             }
+        }if(edited){
+            System.out.println("Module property has been updated");
         }
     }
 
     public void editTask(String description, LocalDate date, String type, String newProperty, String moduleCode){
+        boolean edit = false;
         for(Module m : listOfModules){
             if(m.getModuleCode().equals(moduleCode)){
                 System.out.println(m.getModuleCode());
@@ -126,23 +135,26 @@ public class ModuleManager {
                             case "description":
                                 if (task.getDescription().equals(description)) {
                                     task.setDescription(newProperty);
-                                    System.out.println("test 3");
+                                    edit = true;
                                 }
                                 break;
                             case "tasktype":
                                 if (task.getDescription().equals(description)) {
                                     task.setTasktype(newProperty);
+                                    edit = true;
                                 }
                                 break;
 
                             case "module code":
                                 if (task.getDescription().equals(description)) {
                                     task.setModulecode(newProperty);
+                                    edit = true;
                                 }
                                 break;
                             case "time":
                                 if (task.getDescription().equals(description)) {
                                     task.setTime(newProperty);
+                                    edit = true;
                                 }
                                 break;
                             default:
@@ -151,23 +163,30 @@ public class ModuleManager {
                     }
                 }
             }
+        } if(edit){
+            System.out.println("Module property has been updated");
         }
     }
     //Edit module to set new frequency
     public void editTask(String description, LocalDate date, String property, int newFrequency, String moduleCode){
+        boolean edited = false;
         for(Module m: listOfModules){
             if(m.getModuleCode().equals(moduleCode)){
                 for(Task task : m.getListOfTasks()){
                     if(task.getDescription().equals(description)){
                         task.setFrequency(newFrequency);
+                        edited = true;
                     }
                 }
             }
+        }if(edited){
+            System.out.println("Module frequency has been edited");
         }
     }
 
     //Edit module to set new date
     public void editTask(String description, LocalDate date, String property, LocalDate newDate, String moduleCode){
+        boolean edited = false;
         for(Module m: listOfModules){
             if(m.getModuleCode().equals(moduleCode)){
                 for(Task task : m.getListOfTasks()){
@@ -176,9 +195,12 @@ public class ModuleManager {
                         newTask.setDate(newDate.toString()); //need to change later
                         m.addTask(newTask);
                         m.getListOfTasks().remove(task);
+                        edited = true;
                     }
                 }
             }
+        }if(edited){
+            System.out.println("Module task's date has been edited");
         }
     }
 
