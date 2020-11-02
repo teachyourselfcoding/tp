@@ -6,7 +6,6 @@ import seedu.task.Deadline;
 import seedu.task.Lesson;
 import seedu.task.Task;
 
-import java.lang.reflect.Array;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -116,8 +115,6 @@ public class ModuleManager {
             }
         }
     }
-
-
 
     public void editTask(String description, LocalDate date, String type, String newProperty, String moduleCode){
         for(Module m : listOfModules){
@@ -269,9 +266,6 @@ public class ModuleManager {
                 return;
             }
         }
-        Module module = new Module(moduleCode);
-        module.addTask(task);
-        this.listOfModules.add(module);
     }
 
 
