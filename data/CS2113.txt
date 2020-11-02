@@ -1,3 +1,4 @@
 module c/CS2113 a/4 s/Dr.Lim s/ChengChen
 lesson online lecture CS2113 /on 5 16:00 18:00
 event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14
+deadline CS2113 TP version 1 /by 2021-04-04

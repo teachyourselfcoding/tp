@@ -345,7 +345,7 @@ public class ScheduleManager {
 	}
 
 
-	public void deleteTask(String description, LocalDate date) {
+	public void deleteTask(String description, LocalDate date) { //delete all tasking matching description on date
 		if(semesterSchedule.get(date).size() != 0){
 			semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
 		}
@@ -354,7 +354,42 @@ public class ScheduleManager {
 		}
 	}
 
-	public void deleteTask(String description) {
+	public void deleteTask(String moduleCode, String description, LocalDate date) { //delete all tasking matching description and module code on date
+		boolean deleted = false;
+		if(semesterSchedule.get(date).size() != 0){
+			for(Task task : semesterSchedule.get(date)){
+				if(task.getModuleCode().equals(moduleCode) && task.getDescription().equals(description)){
+					deleted = true;
+				}
+			}
+		}
+		if(deleted){
+			semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description) && task.getModuleCode().equals(moduleCode));
+		}
+		else{
+			System.out.println("No task on this date matching module code and description");
+		}
+	}
+
+	public void deleteTask(String description, String moduleCode) { //delete all tasking matching module code
+		boolean deleted = false;
+		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
+			if(semesterSchedule.get(date).size() != 0){
+				for (Task task : semesterSchedule.get(date)){
+					if (task.getModuleCode().equals(moduleCode)){
+						deleted = true;
+					}
+				}
+				semesterSchedule.get(date).removeIf(task -> task.getModuleCode().equals(moduleCode));
+			}
+		}if (!deleted){
+			System.out.println("No matching Module");
+			return;
+		}
+		System.out.println("All tasks matching modules have been deleted");
+	}
+
+	public void deleteTask(String description) { //delete all tasking matching description
 		boolean deleted = false;
 		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
 			if(semesterSchedule.get(date).size() != 0){

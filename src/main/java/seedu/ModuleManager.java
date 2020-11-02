@@ -194,10 +194,10 @@ public class ModuleManager {
     }
 
     //delete entire module
-    public void delete(String moduleCode){
+    public void delete(String moduleCode){ //delete entire module
         for(Module m: listOfModules){
             if(m.getModuleCode().equals(moduleCode)){
-                System.out.println("Module deleted eheheheheheh");
+                System.out.println("Module deleted");
             }
         }
         listOfModules.removeIf(m -> m.getModuleCode().equals(moduleCode));

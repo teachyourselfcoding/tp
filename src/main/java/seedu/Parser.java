@@ -281,17 +281,20 @@ public class Parser {
         if(InputLength.length == 1){
             throw new MissingDeleteDetailsException();
         }
-        if(!input.contains("/c")){
+        if(!input.contains("/")){
             moduleCode = null;
         }
 
-        if(moduleCode != null || (input.charAt(7)== ('c') && input.charAt(8)== ('/') ) ){
+        if(moduleCode != null && (input.charAt(7)== ('c') && input.charAt(8)== ('/') ) ){ //has a module code
             splitViaModule = ((input.split("c/"))[1].trim()).split(" ",2);
+            moduleCode = splitViaModule[0].trim();
             if(splitViaModule.length == 1){
+                System.out.println("test 1");
+                System.out.println(moduleCode);
                 return new DeleteCommand(moduleCode, "module");
             }
             filteredInput = splitViaModule[1].trim();
-            moduleCode = splitViaModule[0].trim();
+//            moduleCode = splitViaModule[0].trim();
 
             if(filteredInput.contains("/date")){
                 splitViaDate = (filteredInput.split("/date")[1].trim()).split("0",2);
