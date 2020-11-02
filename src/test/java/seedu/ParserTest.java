@@ -19,7 +19,6 @@ class ParserTest {
     void parseLesson_validLesson_returnsLesson() {
         String input1 = "lesson online lecture CS2113 /on 5 16:00 18:00";
         String input2 = "lesson online lecture CS2113 5 16:00 18:00";
-        String input3 = "lesson        ";
         try {
             Lesson lesson = Parser.parseLesson(input1);
             assertEquals(lesson.getLessonDayInDayOfWeek(), DayOfWeek.FRIDAY);
@@ -30,7 +29,6 @@ class ParserTest {
         } catch (Exception e) {  // ignore exceptions because this is a valid case 
         }
         assertThrows(MissingLessonTimingException.class, () -> Parser.parseLesson(input2));
-        assertThrows(MissingLessonTimingException.class, () -> Parser.parseLesson(input3));
     }
 
     @Test
