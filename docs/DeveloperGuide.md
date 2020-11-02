@@ -1,6 +1,6 @@
-# Developer Guide
+# Developer Guide of DueQuest
 
-## Design & implementation
+## Table of contents
 
 1. Introduction
     - Welcome to DueQuest
@@ -40,7 +40,6 @@ Hello! We appreciate your interest in contributing to DueQuest. DueQuest is an a
 uses a Command Line Interface (CLI) specifically for NUS Students to manage their schedule
 during school. This guide is written to give a clearer understanding for developers who are
 interested in improving the design and implementation of DueQuest.
-
 
 ## 2.Setting Up
 
