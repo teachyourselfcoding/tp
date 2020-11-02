@@ -43,8 +43,6 @@ public class Parser {
                 case "delete":
                     //Fallthrough
                     return validateDeleteCommand(input);
-                case "edit":
-                    return validateEditCommand(input);
                 case "find":
                     String[] sentence = input.toLowerCase().split(" ", 2);
                     String keywords = sentence[1];
@@ -65,6 +63,8 @@ public class Parser {
                     return new AddCommand(lesson);
                 case "module": // adding a module
                     return new AddModuleCommand(Arrays.copyOfRange(words, 1, input.length()));  // only pass the arguments
+                case "edit":
+                    return validateEditCommand(input);
                 default:
                     throw new DueQuestException(DueQuestExceptionType.INVALID_COMMAND);
             }
@@ -88,6 +88,7 @@ public class Parser {
             Ui.printWrongTimeFormatMessage();
         } catch (InvalidFrequencyException e) {
             Ui.printInvalidFrequencyMessage();
+
         } catch (StartAndEndTimeSameException e) {
             Ui.printStartAndEndTimeCannotBeTheSameMessage();
         } catch (MissingDeadlineDescriptionException e) {
@@ -104,6 +105,8 @@ public class Parser {
             Ui.printMissingModuleCodeOrInvalidModuleCodeMessage();
         } catch (Exception e) {
             Ui.printInvalidInputMessage();
+        } catch (MissingDeleteDetailsException e){
+            Ui.printMissingDeleteDetails();
         }
         return null;  // the function must return something
     }
@@ -357,18 +360,54 @@ public class Parser {
      * @return returns a DeleteCommand.
      * @throws DueQuestException if the input date is of wrong format.
      */
-    public static DeleteCommand validateDeleteCommand(String input)throws DueQuestException {
-        String[] filteredInput = input.trim().split(" ", 2);
-        if (!input.contains("/date")) {
-            return new DeleteCommand(filteredInput[1]);
+    public static DeleteCommand validateDeleteCommand(String input) throws DueQuestException, MissingDeleteDetailsException, InvalidTimeFormatException, InvalidDateException {
+        String[] InputLength = input.trim().split(" ", 2);
+        String moduleCode = " ";
+        String description;
+        String[] splitViaModule;
+        String[] splitViaDate;
+        String filteredInput;
+        String splitViadelete;
+        LocalDate date;
+        if(InputLength.length == 1){
+            throw new MissingDeleteDetailsException();
         }
-        try {
-            String[] dateDetails = filteredInput[1].split("/date", 2);
-            LocalDate specificDate = LocalDate.parse(dateDetails[1].trim().replace("/", "-"));
-            return new DeleteCommand(dateDetails[0], specificDate);
-        } catch (DateTimeException e) {
-            throw new DueQuestException(DueQuestExceptionType.WRONG_DATE_FORMAT);
+        if(!input.contains("/")){
+            moduleCode = null;
         }
+        if (moduleCode != null && (input.charAt(7) == ('c') && input.charAt(8) == ('/'))) { //has a module code
+            splitViaModule = ((input.split("c/"))[1].trim()).split(" ", 2);
+            moduleCode = splitViaModule[0].trim();
+            if (splitViaModule.length == 1) {
+                return new DeleteCommand(moduleCode, "module");
+            }
+            filteredInput = splitViaModule[1].trim();
+
+
+            if (filteredInput.contains("/date")) { //has a module code and date
+                splitViaDate = (filteredInput.split("/date")[1].trim()).split(" ", 2);
+                date = LocalDate.parse(splitViaDate[0].trim());
+                if (splitViaDate.length == 1) {
+                    return new DeleteCommand(moduleCode, "module", date); //has module code, has date
+                }
+                description = splitViaDate[1].trim();
+                return new DeleteCommand(moduleCode, date, description);
+            }
+        }
+        filteredInput = input.substring(7);
+        if (!filteredInput.contains("/date")) {
+            description = filteredInput;
+            return new DeleteCommand(description);
+        }
+        splitViaDate = filteredInput.split("/date");
+        try{
+            date = LocalDate.parse(splitViaDate[1].trim());
+        }catch(Exception e){
+            throw new InvalidDateException();
+        }
+
+        description = splitViaDate[0].trim();
+        return new DeleteCommand(description, date);
     }
 
     /**
@@ -486,13 +525,9 @@ public class Parser {
         return true;
     }
 
-    /**
-     * Checks and parsers editCommand from input.
-     * @param input user's input string
-     * @return editCommand
-     * @throws WrongDateFormatException
-     */
-    public static editCommand validateEditCommand(String input) throws WrongDateFormatException {
+
+
+    public static editCommand validateEditCommand (String input) throws DueQuestException, WrongDateFormatException {
         String moduleCode = null;
         String[] splitViaModule;
         String filteredInput;

@@ -186,25 +186,43 @@ public class ModuleManager {
     }
 
     //delete entire module
-    public void delete(String moduleCode){
+    public void delete(String moduleCode){ //delete entire module
+        for(Module m: listOfModules){
+            if(m.getModuleCode().equals(moduleCode)){
+                System.out.println("Module deleted");
+            }
+        }
         listOfModules.removeIf(m -> m.getModuleCode().equals(moduleCode));
     }
 
     //delete a task in a module based on a specific date
     public void delete(String moduleCode, String description, LocalDate date) {
+        boolean deleted = false;
         for (Module m : listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
+                for (Task task : m.getListOfTasks()){
+                    if(task.getDate().equals(date)) {
+                        if (task.getDescription().equals(description)) {
+                            System.out.println("Task deleted eheheheheheh");
+                            deleted = true;
+                        }
+                    }
+                }
+                if (deleted){
+                    System.out.println("No matching task description");
+                    return;
+                }
                 m.getListOfTasks().removeIf(task -> task.getDate() == date);
 
             }
         }
     }
+
     //delete all the task of a module on a certain date
     public void delete(String moduleCode, LocalDate date) {
         for (Module m : listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
                 m.getListOfTasks().removeIf(t -> t.getDate().isEqual(date));
-
             }
         }
     }

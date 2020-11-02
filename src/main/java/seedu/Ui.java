@@ -266,6 +266,15 @@ public class Ui {
     public static void printInvalidInputMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Please Check your input again!");
+
+    public static void printMissingDeleteDetails() {
+        System.out.println(SEPARATOR);
+        System.out.println("Details cannot be missing");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printSeparator() {
+
         System.out.println(SEPARATOR);
     }
 
