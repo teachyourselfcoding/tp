@@ -419,67 +419,15 @@ Format: `delete DESCRIPTION /date DATE`
 Example of Usage
 
 ```
-===================
-===================
-Please type the command!
-===================
-deadline CS2113 tp /by 2020-10-15
-Got it, added deadline to Schedule Manager and Module Manager
-===================
-===================
-Please type the command!
-===================
-deadline CS2113 tp /by 2020-10-16
-Got it, added deadline to Schedule Manager and Module Manager
-===================
-===================
-Please type the command!
-===================
-deadline CS2113 tp /by 2020-10-15
-Got it, added deadline to Schedule Manager and Module Manager
-===================
-===================
-Please type the command!
-===================
-delete tp /date 2020/10/16
-===================
-Please type the command!
-===================
-display CS2113
+<-------------------------------------------------------------->
+Please type the next command!
+<-------------------------------------------------------------->
+delete tp
+null
+1 or more taks matching description has been deleted
+Please type the next command!
+<-------------------------------------------------------------->
 
-Course: CS2113
-Title: null
-AU: 0
-Teaching Staffs: []
-The list of task in CS2113:
-[D]CS2113 tp (by: 2020-10-15)
-[D]CS2113 tp (by: 2020-10-15)
-
-===================
-===================
-Please type the command!
-===================
-display /date 2020/10/16
-Here is your schedule on 2020-10-16!! :)
-08:00
-09:00
-10:00
-11:00
-12:00
-13:00
-14:00
-15:00
-16:00
-17:00
-18:00
-19:00
-20:00
-21:00
-22:00
-23:00
-
-Deadlines on 2020-10-16:
-You don't have any tasks!
 ```
 3)Delete of a module's task on a certain date
 
@@ -702,4 +650,5 @@ Output: `Aye captain. This is DueQuest Signing out!`
 + Edit a task: `edit TASKNAME /date DATE /	/ATTRIBUTES /NEW_VALUE`
 + Delete tasks of a description:  `delete DESCRIPTION` 
 + Delete all tasks of a description based on date: `delete DESCRIPTION /date DATE`
++ Help: Display the list of available command`help`
 

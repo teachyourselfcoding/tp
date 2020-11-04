@@ -421,12 +421,12 @@ public class Parser {
         String moduleCode = "";
         String[] filteredInput = input.trim().split(" ",2);
 
-        if(filteredInput.length==1){  // by default, the display time is now.
+        if ( filteredInput.length==1 ){  // by default, the display time is now.
             return new DisplayCommand(LocalDate.now());
         }
 
         String[] descriptionWithModuleCode = filteredInput[1].trim().split(" ", 2);
-        if(!descriptionWithModuleCode[0].equals("") && !descriptionWithModuleCode[0].contains("/date")) {
+        if (!descriptionWithModuleCode[0].equals("") && !descriptionWithModuleCode[0].contains("/date")) {
             moduleCode = descriptionWithModuleCode[0].trim().toUpperCase();
             if( descriptionWithModuleCode.length == 1){
                 return new DisplayCommand(moduleCode);
@@ -439,29 +439,50 @@ public class Parser {
             if (dateDetails[1].contains("-")){
                 String[] dateRange = dateDetails[1].trim().split("-", 2);
                 try{
-                    LocalDate startDate = LocalDate.parse(dateRange[0].trim().replace("/","-"));
-                    LocalDate endDate = LocalDate.parse(dateRange[1].trim().replace("/","-"));
-                    return new DisplayCommand(startDate,endDate);
+                    return new DisplayCommand(displayDateValidation(dateRange[0]),displayDateValidation(dateRange[1]));
                 } catch (DateTimeException e){
                     throw new WrongDateFormatException();
                 }
             } else if (!moduleCode.equals("")) {
                 try {
-                    LocalDate specificDate = LocalDate.parse(dateDetails[1].trim().replace("/","-"));
-                    return new DisplayCommand(moduleCode, specificDate);
+                    return new DisplayCommand(moduleCode, displayDateValidation(dateDetails[1]));
                 } catch (Exception e) {
                     throw new WrongDateFormatException();
                 }
             } else {
                 try {
-                    LocalDate specificDate = LocalDate.parse(dateDetails[1].trim().replace("/","-"));
-                    return new DisplayCommand(specificDate);
+                    return new DisplayCommand(displayDateValidation(dateDetails[1]));
                 } catch (Exception e) {
                     throw new WrongDateFormatException();
                 }
             }
         }
         throw new InvalidArgumentsException();
+    }
+
+    public static LocalDate displayDateValidation(String input) throws WrongDateFormatException {
+        String[] date = input.split("/",3);
+        String year = date[0].trim();
+        String month;
+        String day;
+        if ( date[1].trim().length()==1 ) {
+            month = "0" + date[1].trim().toString();
+        } else if (date[1].trim().length()==2 ) {
+            month = date[1].trim().toString();
+        } else {
+            throw  new WrongDateFormatException();
+        }
+
+        if ( date[2].trim().length()==1 ) {
+            day = "0" + date[2].trim().toString();
+        } else if(date[2].trim().length()==2 ) {
+            day = date[2].trim().toString();
+        } else {
+            throw  new WrongDateFormatException();
+        }
+        String filterDate = year + "-" + month + "-" + day;
+        LocalDate specificDate=LocalDate.parse(filterDate);
+        return specificDate;
     }
 
     /**

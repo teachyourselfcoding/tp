@@ -3,6 +3,7 @@ package seedu;
 import seedu.exception.InvalidStartEndDateException;
 import seedu.exception.InvalidDateException;
 import seedu.exception.ModuleDoesNotExistException;
+import seedu.exception.StartAndEndTimeSameException;
 import seedu.task.Deadline;
 import seedu.task.Event;
 import seedu.task.Lesson;
@@ -560,7 +561,7 @@ public class ScheduleManager {
 		for (String i: timing){
 			Ui.print(i);
 		}
-		Ui.print("\n Today's task:");
+		Ui.print("\nToday's deadline:");
 		Ui.printListGenericType(nonLessonList);
 	}
 
@@ -572,9 +573,12 @@ public class ScheduleManager {
 	 * @param endDate the end of the range.
 	 *
 	 */
-	public void display(LocalDate startDate, LocalDate endDate) throws InvalidStartEndDateException{
+	public void display(LocalDate startDate, LocalDate endDate) throws InvalidStartEndDateException, StartAndEndTimeSameException {
 		if (startDate.isAfter(endDate)){
 			throw new InvalidStartEndDateException();
+		}
+		else if(startDate.isEqual(endDate)){
+			throw new StartAndEndTimeSameException();
 		}
 		Ui.print("List of task from " + Ui.convertDateToStringWithYear(startDate) + " to " + Ui.convertDateToStringWithYear(endDate));
 		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
@@ -593,9 +597,11 @@ public class ScheduleManager {
 
 				}
 			} else if (date.isEqual(endDate)){
-				Ui.print(date.format(DateTimeFormatter.ofPattern("MMM d"))
-						+ " :");
-				Ui.printListGenericType(semesterSchedule.get(date));
+				if (semesterSchedule.get(date).size() != 0) {
+					Ui.print(date.format(DateTimeFormatter.ofPattern("MMM d"))
+							+ " :");
+					Ui.printListGenericType(semesterSchedule.get(date));
+				}
 			}
 		}
 	}

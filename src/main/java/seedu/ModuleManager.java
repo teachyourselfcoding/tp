@@ -271,6 +271,7 @@ public class ModuleManager {
                 Ui.print("Lessons :");
                 Ui.printListGenericType(lessons);
                 Ui.printSeparator();
+                return;
             }
         }
         throw new ModuleNotExistsException();
