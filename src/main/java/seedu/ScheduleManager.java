@@ -3,6 +3,7 @@ package seedu;
 import seedu.exception.InvalidStartEndDateException;
 import seedu.exception.InvalidDateException;
 import seedu.exception.ModuleDoesNotExistException;
+import seedu.exception.StartAndEndTimeSameException;
 import seedu.task.Deadline;
 import seedu.task.Event;
 import seedu.task.Lesson;
@@ -269,28 +270,28 @@ public class ScheduleManager {
 	}
 
 
-	public void editTask(String description, LocalDate date, String type, String newProperty, String moduleCode){
+	public void editTask(String description, LocalDate date, String type, String newProperty, String moduleCode){ //edit property of module task on a certain date
 		for(Task task :semesterSchedule.get(date)){
 			switch(type) {
 				case "description":
-					if (task.getDescription().equals(description) && task.getDescription().equals(moduleCode)) {
+					if (task.getDescription().equals(description) && task.getModuleCode().equals(moduleCode)) {
 						task.setDescription(newProperty);
 					}
 					break;
 				case "tasktype":
-					if (task.getDescription().equals(description) && task.getDescription().equals(moduleCode)) {
+					if (task.getDescription().equals(description) && task.getModuleCode().equals(moduleCode)) {
 						task.setTasktype(newProperty);
 					}
 					break;
 
 				case "module code":
-					if (task.getDescription().equals(description) && task.getDescription().equals(moduleCode)) {
+					if (task.getDescription().equals(description) && task.getModuleCode().equals(moduleCode)) {
 						task.setModulecode(newProperty);
 					}
 					break;
 				case "time":
 
-					if (task.getDescription().equals(description) && task.getDescription().equals(moduleCode)) {
+					if (task.getDescription().equals(description) && task.getModuleCode().equals(moduleCode)) {
 						task.setTime(newProperty);
 					}
 					break;
@@ -300,39 +301,48 @@ public class ScheduleManager {
 		}
 	}
 
-	public void editTask(String description, LocalDate date, String type, String newProperty){
+	public void editTask(String description, LocalDate date, String type, String newProperty){ //edit property of task on a certain date
+		boolean edited = false;
 		for(Task task :semesterSchedule.get(date)){
 			switch(type) {
 				case "description":
 					if (task.getDescription().equals(description)) {
 						task.setDescription(newProperty);
+						edited = true;
 					}
 					break;
 				case "tasktype":
 					if (task.getDescription().equals(description)) {
 						task.setTasktype(newProperty);
+						edited = true;
 					}
 					break;
 
 				case "module code":
 					if (task.getDescription().equals(description)) {
 						task.setModulecode(newProperty);
+						edited = true;
 					}
 					break;
 				case "time":
 
 					if (task.getDescription().equals(description)) {
 						task.setTime(newProperty);
+						edited = true;
 					}
 					break;
 				default:
 					System.out.println("Invalid type");
+					return;
 			}
-		}
+		}if(edited){
+			System.out.println("Task's property edited");
+			return;
+		}System.out.println("Task not found");
 	}
 
 
-	public void editTask(String description, LocalDate date, String property, int newFrequency, String moduleCode){
+	public void editTask(String description, LocalDate date, String property, int newFrequency, String moduleCode){  //edit frequency of module's task
 		for(Task task : semesterSchedule.get(date)){
 			if(task.getDescription().equals(description) && task.getModuleCode().equals(moduleCode)){
 				task.setFrequency(newFrequency);
@@ -341,54 +351,69 @@ public class ScheduleManager {
 	}
 
 
-	public void editTask(String description, LocalDate date, String property, int newFrequency){
-
+	public void editTask(String description, LocalDate date, String property, int newFrequency){ //edit frequency of task
+		boolean edited = false;
 		for(Task task : semesterSchedule.get(date)){
 			if(task.getDescription().equals(description)){
 				task.setFrequency(newFrequency);
+				edited = true;
 			}
-		}
+		}if(edited){
+			System.out.println("Task's frequency edited");
+			return;
+		}System.out.println("Task not found");
 	}
 
 
-	public void editTask(String description, LocalDate date, String property, LocalDate newDate, String moduleCode){
+	public void editTask(String description, LocalDate date, String property, LocalDate newDate, String moduleCode){  //edit date of module task
+		boolean edited = false;
 		for(Task task : semesterSchedule.get(date)){
 			if(task.getDescription().equals(description) && task.getModuleCode().equals(moduleCode)){
-				this.semesterSchedule.get(newDate).add(task);
+				semesterSchedule.get(newDate).add(task);
+				edited = true;
 			}
+		}if(edited) {
+			for(Task newTask : semesterSchedule.get(newDate)){
+				if((newTask.getDescription().equals(description)) && newTask.getModuleCode().equals(moduleCode)){
+					newTask.setDate(newDate.toString()); //Need to change later
+				}
+			}deleteTask(description,date);
+			return;
 		}
-		for(Task newTask : semesterSchedule.get(newDate)){
-			if((newTask.getDescription().equals(description)) && newTask.getModuleCode().equals(moduleCode)){
-				newTask.setDate(newDate.toString()); //Need to change later
-			}
-		}
-		deleteTask(description,date);
 	}
 
-	public void editTask(String description, LocalDate date, String property, LocalDate newDate){
+	public void editTask(String description, LocalDate date, String property, LocalDate newDate){   //edit date of  task
+		boolean edited = false;
 		for(Task task : semesterSchedule.get(date)){
 			if(task.getDescription().equals(description)){
-				this.semesterSchedule.get(newDate).add(task);
+				semesterSchedule.get(newDate).add(task);
+				edited = true;
 			}
-		}
-		for (Task newTask : semesterSchedule.get(newDate)) {
-			if (newTask.getDescription().equals(description)){
-				newTask.setDate(newDate.toString()); //Need to change later
-			}
-		}
-		deleteTask(description,date);
+		}if(edited) {
+			for (Task newTask : semesterSchedule.get(newDate)) {
+				if (newTask.getDescription().equals(description)) {
+					newTask.setDate(newDate.toString()); //Need to change later
+				}System.out.println("Task's date edited");
+			}deleteTask(description, date);
+			return;
+		}System.out.println("No task found on this date");
 	}
 
-	public void editModulecode(String moduleCode, String newModuleCode){
+	public void editModulecode(String moduleCode, String newModuleCode){  //edit tasks' module code
+		boolean edited = false;
 		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
 			if(semesterSchedule.get(date).size() != 0){
 				for(Task task: semesterSchedule.get(date)){
 					if(task.getModuleCode().equals(moduleCode)){
 						task.setModulecode(newModuleCode);
+						edited = true;
 					}
 				}
 			}
-		}
+		}if(edited){
+			System.out.println("Module Code edited");
+			return;
+		}System.out.println("No task found on this date");
 	}
 
 
@@ -529,7 +554,7 @@ public class ScheduleManager {
 		for (String i: timing){
 			Ui.print(i);
 		}
-		Ui.print("\n Today's task:");
+		Ui.print("\nToday's deadline:");
 		Ui.printListGenericType(nonLessonList);
 	}
 
@@ -541,9 +566,12 @@ public class ScheduleManager {
 	 * @param endDate the end of the range.
 	 *
 	 */
-	public void display(LocalDate startDate, LocalDate endDate) throws InvalidStartEndDateException{
+	public void display(LocalDate startDate, LocalDate endDate) throws InvalidStartEndDateException, StartAndEndTimeSameException {
 		if (startDate.isAfter(endDate)){
 			throw new InvalidStartEndDateException();
+		}
+		else if(startDate.isEqual(endDate)){
+			throw new StartAndEndTimeSameException();
 		}
 		Ui.print("List of task from " + Ui.convertDateToStringWithYear(startDate) + " to " + Ui.convertDateToStringWithYear(endDate));
 		for (LocalDate date = LocalDate.of(2020, 10, 12); date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
@@ -562,9 +590,11 @@ public class ScheduleManager {
 
 				}
 			} else if (date.isEqual(endDate)){
-				Ui.print(date.format(DateTimeFormatter.ofPattern("MMM d"))
-						+ " :");
-				Ui.printListGenericType(semesterSchedule.get(date));
+				if (semesterSchedule.get(date).size() != 0) {
+					Ui.print(date.format(DateTimeFormatter.ofPattern("MMM d"))
+							+ " :");
+					Ui.printListGenericType(semesterSchedule.get(date));
+				}
 			}
 		}
 	}
