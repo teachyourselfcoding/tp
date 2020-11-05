@@ -207,10 +207,34 @@ There are two types of deleting:
     to `AdditionalFile`, so that whenever importing files, this `DeleteCommand` will be
     executed again from `AdditionalFile`.
 
-### Edit Feature (to be updated)
+### Edit Feature
 
-### Delete Feature (to be updated) 
+The `editCommand` base class forms the basis for the two extensions listed below.
 
+1. Edit Module Command
+When the `EditModuleCommand` is executed, it checks for the description of the particular property to 
+edit with `scheduleManager` and `moduleManager`.  The constructor function is overloaded such that the 
+conditions will check for which property to edit. In the case that there are no module details to modify,
+the function execution will go on to check for module tasks to modify.
+
+![](Images/5.1EditModule1.JPEG)
+
+2. Edit Task Command
+When the `EditTaskCommand` is executed, it checks for the description of the particular property to 
+edit with `scheduleManager` and `moduleManager`.  The constructor function is overloaded such that the 
+conditions will check for which property to edit.
+
+![](Images/5.2EditTask2.JPEG)
+
+### Delete Feature
+
+The `deleteCommand` is the class which oversees the deletion of modules and tasks.
+
+1. The `deleteCommand` class is overloaded such that the conditions of the deletion are checked. The 
+`scheduleManager` and `moduleManager` both manage their deletions separately, overloading the deletions
+where necessary.
+
+![](Images/6.1Delete.JPEG)
 
 ## 5. Documentation
 
