@@ -151,6 +151,68 @@ Got it, added deadline to Schedule Manager and Module Manager
 <-------------------------------------------------------------->
 ```
 
+## Adding a assessment: `assessment` 
+
+Adds assessment (e.g. assignments and exams) to a module 
+
+Format: `assessment MODULECODE TITLE FULL_SCORE`
+
+Note: 
+
++ The input should match the order specified in the format 
++ `FULL_SCORE` is  float
+
+Example Input:
+
+`assessment CS2113 TP 100` 
+
+Example output:
+
+```
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+Assessment : 
+TP(0.000000/100.000000)
+
+The list of task in CS2113:
+[D] tp v1 - CS2113  (by: 2020-10-30)
+```
+
+## Delete a assessment: `delete_assessment` 
+
+Delete assessment  (e.g. assignments and exams) from the module 
+
+Format: `delete_assessment MODULE_CODE TITLE` 
+
+Note: 
+
++ If there are multiple assessments with the same title, only the 1st one will be deleted. 
+
+Example Input:
+
+`delete_assessment CS2113 tp` 
+
+Example output:
+
+```
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+Assessment : 
+
+The list of task in CS2113:
+[D] tp v1 - CS2113  (by: 2020-10-30)
+```
+
+
+
 ## Display today's Schedule: `display` 
 
 Display Today's Lesson and Task( Deadline and Event)
@@ -168,14 +230,14 @@ Example output:
 ```
 display
 Today's Schedule:
-08:00
-09:00
-10:00
-11:00
-12:00
-13:00
-14:00
-15:00
+08:00 
+09:00 
+10:00 
+11:00 
+12:00 
+13:00 
+14:00 
+15:00 
 16:00 online lecture - CS2113 |
 17:00 online lecture - CS2113 |
 18:00
