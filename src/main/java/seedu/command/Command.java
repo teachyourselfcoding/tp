@@ -7,7 +7,7 @@ import seedu.exception.ModuleDoesNotExistException;
 
 
 /**
- * the base for all other Command classes to inherit from.
+ * The base for all other Command classes to inherit from.
  */
 public abstract class Command {
     public abstract boolean isExit();

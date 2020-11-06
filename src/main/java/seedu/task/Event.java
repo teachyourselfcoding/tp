@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
- *Inherited from Task object, Event class has additional attributes.
+ * Inherited from Task object, Event class has additional attributes.
  * to store logistical information.
  */
 public class Event extends Task {
