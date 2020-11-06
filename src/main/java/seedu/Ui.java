@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner scanner;
-    private static String SEPARATOR="<-------------------------------------------------------------->";
+    private static String SEPARATOR = "<-------------------------------------------------------------->";
 
     /**
      * Constructor of Ui.
@@ -44,7 +44,7 @@ public class Ui {
     }
 
     /**
-     * print out the Help message
+     * Prints out message for the help guide when a HelpCommand is execute.
      */
     public void printHelpGuide() {
         String helpMessage = " This is the list of Command Available, please refer to the User Guide\n" +
@@ -65,11 +65,9 @@ public class Ui {
     public String readCommand() {
         System.out.println("Please type the next command!");
         System.out.println(SEPARATOR);
-
         String commandString = scanner.nextLine();
         return commandString;
     }
-
 
     public void printClashesMessage() {
         System.out.println(SEPARATOR);
@@ -83,7 +81,7 @@ public class Ui {
 
     /**
      * Prints the Exception information based on the parameters.
-     * @param e DukeExceptionType
+     * @param e DukeExceptionType.
      */
     public void showError(DueQuestExceptionType e) {
         switch (e) {
@@ -120,8 +118,8 @@ public class Ui {
     }
 
     /**
-     * Used to print any generic list
-     * @param lists the provided list of generic type
+     * Used to print any generic list.
+     * @param lists the provided list of generic type.
      * @param <T> the object type
      */
     public static <T> void printListGenericType(ArrayList<T> lists, String modifier) {
@@ -153,7 +151,6 @@ public class Ui {
      * @param date
      * @return
      */
-
     public static String convertDateToStringWithYear(LocalDate date){
         String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM YY"));
         return stringDate;
@@ -277,7 +274,7 @@ public class Ui {
 
     public static void printSuccessfulEdit() {
         System.out.println(SEPARATOR);
-        System.out.println("Done. The edit has been made. ");
+        System.out.println("Done. The edit has been made.");
         System.out.println(SEPARATOR);
     }
 

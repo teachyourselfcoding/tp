@@ -9,7 +9,6 @@ import java.time.LocalDate;
 
 /**
  * Commands to execute edit the module's information. This may be implemented by setter functions.
- * TODO add code
  */
 public class EditModuleCommand extends editCommand{
     String moduleCode;
