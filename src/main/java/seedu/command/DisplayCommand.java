@@ -10,6 +10,9 @@ import seedu.exception.StartAndEndTimeSameException;
 
 import java.time.LocalDate;
 
+/**
+ * DisplayCommand class is used to help display the tasks in the ScheduleManager and ModuleManager.
+ */
 public class DisplayCommand extends Command {
     private LocalDate startDate;
     private LocalDate endDate;

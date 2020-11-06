@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
 
+/**
+ * Represents a Lesson class that handles lessons that have occur on a weekly basis.
+ */
 public class Lesson extends Task {
     private String startTime;
     private String endTime;

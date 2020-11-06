@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- *Inherited from Task object, Deadline class has additional attributes.
+ * Inherited from Task object, Deadline class has additional attributes.
  * to store deadline timing.
  */
 public class Deadline extends Task {

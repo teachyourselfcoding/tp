@@ -45,31 +45,26 @@ public class ScheduleManager {
 	 */
 	public ScheduleManager() {
 		this.semesterSchedule = new TreeMap<>();
-		// Now I will need to populate this hashmap because it is currently empty with no dates.
 		for (LocalDate date = LocalDate.of(2020, 10, 12);
 			 date.isBefore(LocalDate.of(2021, 6, 1));
 			 date = date.plusDays(1)) {
 			this.semesterSchedule.put(date, new ArrayList<>());
 		}
-		// add winter break dates
 		for (LocalDate date = LocalDate.of(2020, 12, 6);
 			 date.isBefore(LocalDate.of(2021, 1, 11));
 			 date = date.plusDays(1)) {
 			this.listOfNonLessonDates.add(date);
 		}
-		// add first reading week dates
 		for (LocalDate date = LocalDate.of(2021, 2, 20);
 			 date.isBefore(LocalDate.of(2021, 3, 1));
 			 date = date.plusDays(1)) {
 			this.listOfNonLessonDates.add(date);
 		}
-		// add second reading week and examination dates
 		for (LocalDate date = LocalDate.of(2021, 4, 17);
 			 date.isBefore(LocalDate.of(2021, 5, 9));
 			 date = date.plusDays(1)) {
 			this.listOfNonLessonDates.add(date);
 		}
-		// add remaining dates after examination week
 		for (LocalDate date = LocalDate.of(2021, 5, 9);
 			 date.isBefore(LocalDate.of(2021, 6, 1));
 			 date = date.plusDays(1)) {
@@ -92,7 +87,6 @@ public class ScheduleManager {
 		}
 		for (Map.Entry<LocalDate, ArrayList<Task>> entry : this.semesterSchedule.entrySet()) {
 			LocalDate key = entry.getKey();
-			// add lessons to weeks when there is school only.
 			if (!this.listOfNonLessonDates.contains(key)) {
 				if (key.getDayOfWeek().getValue() == day.getValue()) {
 					this.semesterSchedule.get(key).add(lesson);
@@ -109,7 +103,6 @@ public class ScheduleManager {
 			LocalDate key = entry.getKey();
 			if (!this.listOfNonLessonDates.contains(key)) {
 				if (key.getDayOfWeek().getValue() == day.getValue()) {
-					// check if got a clash. immediately return true if there is
 					if (checkIfLessonToBeAddedClashesInADate(lesson, key)) {
 						return true;
 					}
