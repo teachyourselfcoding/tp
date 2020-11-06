@@ -25,12 +25,8 @@ A module can be added into the Module Manager using the command below. You shoul
 
 Format: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
 
-+ `MODULECODE` must be given, and it should be unique. 
-  + There are 3 types of valid module codes. 
-    * 6 characters long. The first 2 characters are alphabets. The last 4 characters are digits. Example: CS2113
-    * 7 characters long. The first 3 characters are alphabets. The last 4 characters are digits. Example: DSA4211
-    * 7 characters long. The first 2 characters are alphabets. The next 4 characters are digits. The last character is an alphabet. The  Example: CS2113T
-+ `AU_NUM` must be non-negative integer. 
++ `AU_NUM` must be non-negative integer
++ `MODULECODE` is case-insensitive, e.g. `ST2132` = `st2132`
 
 Example Usage: 
 

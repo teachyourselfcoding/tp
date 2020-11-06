@@ -34,7 +34,7 @@ public class AddModuleCommand extends Command {
                 }
                 switch (argument.substring(0, 2)) {
                     case "c/":
-                        moduleCode = argument.substring(2);
+                        moduleCode = argument.substring(2).toUpperCase();
                         break;
                     case "t/":
                         title = argument.substring(2);
