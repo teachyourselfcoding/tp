@@ -11,7 +11,7 @@ as well as tasks related to their modules that they are taking.
 
 1. Ensure that you have Java 11 or above installed on the machine.
 1. Down the latest version of `DueQuest` from [here](https://github.com/AY2021S1-CS2113-T13-4/tp/releases/tag/v2.1), and put the jar file into a directory.
-1. Type `java -jar DueQuest.jar` to start the app 
+1. Type `java -jar DueQuest_v2.1.jar` to start the app 
 
 ---
 
