@@ -122,14 +122,14 @@ public class Ui {
      * @param lists the provided list of generic type.
      * @param <T> the object type
      */
-    public static <T> void printListGenericType(ArrayList<T> lists) {
+    public static <T> void printListGenericType(ArrayList<T> lists, String modifier) {
         if (lists != null) {
             for (T i: lists) {
                 print(i.toString());
             }
         }
         if (lists.size() == 0) {
-            System.out.println("You don't have any Deadlines!");
+            System.out.println("You don't have any " + modifier + "!");
         }
         print("");
     }

@@ -81,7 +81,7 @@ public class ModuleManager {
                 ArrayList<Task> tasks = m.getListOfTasks();
                 System.out.println(m); // print the module's information
                 Ui.print("The list of task in " + moduleCode + ":");
-                Ui.printListGenericType(tasks);
+                Ui.printListGenericType(tasks,"events,deadline or lessons");
                 Ui.printSeparator();
                 return;
             }
@@ -267,9 +267,9 @@ public class ModuleManager {
                 }
                 Ui.print(moduleCode + " - " + Ui.convertDateToString(date));
                 Ui.print("Events & Deadlines :");
-                Ui.printListGenericType(filteredTasks);
+                Ui.printListGenericType(filteredTasks,"events and deadlines");
                 Ui.print("Lessons :");
-                Ui.printListGenericType(lessons);
+                Ui.printListGenericType(lessons,"lessons");
                 Ui.printSeparator();
                 return;
             }

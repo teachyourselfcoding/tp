@@ -288,20 +288,18 @@ manage their schedule and work in the school semester
 
 ### Value proposition
 
-This app helps NUS Students by keeping on track with their schedule and work on a daily basis,
-reducing chances of them forgetting about any work related to school.
+This app helps NUS Students by keeping them on track with their schedule and work on a daily basis. Thus,
+reducing the chances of them forgetting about any work related to school.
 
 ### User Stories 
 
 |Version| As a ... | I want to ... | So that I can ...|
 |--------|----------|---------------|------------------|
-| v1.0 | user | note down my classes during the semester | know my schedule each day |
-| v1.0 | user | see the tasks I have in a day according to the timings of them | see my schedule in a day listed down in chronological order |
-| v1.0 | user | store the tasks I have for each module | know what specific tasks there are for each module respectively |
-| v2.0 | user | delete tasks | remove tasks that has already been completed or cancelled |
-| v2.0 | user | edit the description or dates of my tasks | I can update them when there happens to be unexpected changes |
-| v2.0 | user | be notified if a task I am adding clashes with an existing task in my schedule | I will not have clashes in my schedule and I can plan my schedule 
-| v2.1 | user | keep track of my results | know how well I amd doing so far for my modules | 
+![](Images/userstories.PNG)
+This is an example of how we originally tackle the user stories.
+
+* The green or orange highlight is to group similar features together
+* The Strikethrough is when a feature is redundant or unneccessary at the stage of planning
 
 ## Glossary
 
