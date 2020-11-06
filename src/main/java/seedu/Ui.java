@@ -303,5 +303,16 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+    public static void printInvalidScoreErrorMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Please give the invalid score.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printNoSuchAssessment(String title, String moduleCode) {
+        System.out.println(SEPARATOR);
+        System.out.printf("There is no assessment with the title %s in Module %s \n", title, moduleCode);
+        System.out.println(SEPARATOR);
+    }
 }
 

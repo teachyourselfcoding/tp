@@ -1,10 +1,9 @@
 package seedu.command;
 
 import seedu.*;
-import seedu.Module;
+import seedu.module.Module;
 import seedu.exception.InvalidArgumentsException;
 import seedu.exception.ModuleAlreadyExistsException;
-import seedu.exception.ModuleDoesNotExistException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +34,7 @@ public class AddModuleCommand extends Command {
                 }
                 switch (argument.substring(0, 2)) {
                     case "c/":
-                        moduleCode = argument.substring(2);
+                        moduleCode = argument.substring(2).toUpperCase();
                         break;
                     case "t/":
                         title = argument.substring(2);
