@@ -182,6 +182,34 @@ The list of task in CS2113:
 [D] tp v1 - CS2113  (by: 2020-10-30)
 ```
 
+## Add score to a assessment: `score`
+
+Assign the score to the assessment.
+
+Format: `score MODULE_CODE TITLE SCORE`
+
+Example Input:
+
+`score CS2113 TP 100`
+
+Example Output:
+
+```
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+Assessment : 
+TP(100.000000/100.000000)
+
+The list of task in CS2113:
+[D] tp v1 - CS2113  (by: 2020-10-30)
+```
+
+
+
 ## Delete a assessment: `delete_assessment` 
 
 Delete assessment  (e.g. assignments and exams) from the module 

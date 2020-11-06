@@ -69,6 +69,8 @@ public class Parser {
                     return validateAddAssessmentCommand(input);
                 case "delete_assessment":
                     return validateDeleteAssessmentCommand(input);
+                case "score":
+                    return validateScoreAssessmentCommand(input);
                 default:
                     throw new DueQuestException(DueQuestExceptionType.INVALID_COMMAND);
             }
@@ -676,5 +678,24 @@ public class Parser {
         }
 
         return new DeleteAssessmentCommand(moduleCode, title);
+    }
+
+    public static ScoreAssessmentCommand validateScoreAssessmentCommand(String input) throws InvalidArgumentsException,
+            InvalidScoreException {
+        String[] splitInput = input.split(" ");
+        String moduleCode;
+        String title;
+        String attemptScore;
+
+        try {
+            moduleCode = splitInput[1];
+            title = splitInput[2];
+            attemptScore = splitInput[3];
+            return new ScoreAssessmentCommand(moduleCode, title, attemptScore);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidArgumentsException();
+        } catch (InvalidScoreException e) {
+            throw new InvalidScoreException();
+        }
     }
 }
