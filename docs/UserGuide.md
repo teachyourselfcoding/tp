@@ -8,14 +8,14 @@ as well as tasks related to their modules that they are taking.
 ## Quick Start
 
 1. Ensure that you have Java 11 or above installed on the machine.
-1. Down the latest version of `DueQuest` from [here](http://link.to/duke), and put the jar file into a directory.
+1. Down the latest version of `DueQuest` from [here](https://github.com/AY2021S1-CS2113-T13-4/tp/releases/tag/v2.1), and put the jar file into a directory.
 1. Type `java -jar DueQuest.jar` to start the app 
 
 ---
 
 ## Storage 
 
-The storage directory is specified when launching `java -jar DueQuest.jar SPECIFIED_DIR`. By default, the directory is `data`. In the storage directory, each module will have a txt file that contains related information (e.g. information and tasks), and `additional.txt` is for commands such as delete certain tasks on certain dates. 
+The storage directory to load from can be specified when launching `java -jar DueQuest.jar SPECIFIED_DIR`. By default, the directory is `data`. In the storage directory, each module will have a txt file that contains related information (e.g. information and tasks), and `additional.txt` is for commands such as delete certain tasks on certain dates. 
 
 The information will be imported and exported automatically by the app. 
 
@@ -166,17 +166,18 @@ Example input:
 Example output:
 
 ```
+display
 Today's Schedule:
 08:00
 09:00
-10:00 quiz - CS2113 |
-11:00 quiz - CS2113 | meeting - CS2113 |
-12:00 lecture - CS2113 | meeting - CS2113 |
-13:00 lecture - CS2113 | meeting - CS2113 |
-14:00 lecture - CS2113 |
-15:00 lecture - CS2113 |
-16:00
-17:00
+10:00
+11:00
+12:00
+13:00
+14:00
+15:00
+16:00 online lecture - CS2113 |
+17:00 online lecture - CS2113 |
 18:00
 19:00
 20:00
@@ -184,9 +185,8 @@ Today's Schedule:
 22:00
 23:00
 
-Today's task:
-You don't have any tasks!
-
+Today's deadline:
+You don't have any deadline!
 
 ```
 
@@ -204,15 +204,14 @@ display CS2113
 
 Course: CS2113
 Title: null
-AU: 0
-Teaching Staffs: []
+AU: 4
+Teaching Staffs: [Dr.Lim, ChengChen]
 The list of task in CS2113:
-[E] CS2113 quiz (10:00 2020-10-21 at LT15)
-[L] lecture - CS2113 WEDNESDAY 12:00 16:00
-[E] CS2113 meeting (11:00 2020-10-21 at LT16)
-[D] TP version 1 - CS2113  (by: 2020-10-21)
+[L] online lecture - CS2113 FRIDAY 16:00 18:00
+[E] CS2113 final exam (14:00 2021-05-03 at LT14)
+[D] TP version 1 - CS2113  (by: 2021-04-04)
+[D] tp - CS2113  (by: 2020-10-16)
 
-===================
 ```
 
 ## Display all the task in a module on a date: `display  MODULECODE /date DATE`
@@ -227,19 +226,14 @@ The list of task in CS2113:
   * `display CS2113 /date 2020/10/15`
 
 ```
-display CS2113
+ display CS2113 /date 2021/04/04
+ CS2113 - 4 Apr
+ Events & Deadlines :
+ [D] TP version 1 - CS2113  (by: 2021-04-04)
+ 
+ Lessons :
+ You don't have any lessons!
 
-Course: CS2113
-Title: null
-AU: 0
-Teaching Staffs: []
-The list of task in CS2113:
-[E] CS2113 quiz (10:00 2020-10-21 at LT15)
-[L] lecture - CS2113 WEDNESDAY 12:00 16:00
-[E] CS2113 meeting (11:00 2020-10-21 at LT16)
-[D] TP version 1 - CS2113  (by: 2020-10-21)
-
-===================
 ```
 
 ## Display all the task on a date: `display /date DATE`
@@ -255,16 +249,16 @@ Example of Usage
 * `display /date 2020/10/15`
 
 ```
-display /date 2020/10/21
-Today's Schedule:
+display /date 2020/10/15
+Here is your schedule on 2020-10-15!! :)
 08:00
 09:00
-10:00 quiz - CS2113 |
-11:00 quiz - CS2113 | meeting - CS2113 |
-12:00 lecture - CS2113 | meeting - CS2113 |
-13:00 lecture - CS2113 | meeting - CS2113 |
-14:00 lecture - CS2113 |
-15:00 lecture - CS2113 |
+10:00
+11:00
+12:00
+13:00
+14:00
+15:00
 16:00
 17:00
 18:00
@@ -274,9 +268,8 @@ Today's Schedule:
 22:00
 23:00
 
-Upcoming deadlines:
-[D] TP version 1 - CS2113  (by: 2020-10-21)
-
+Upcoming Deadlines :
+[D] tp - CS2113  (by: 2020-10-16)
 ```
 
 ## Display all the task on a range of date: `display /date STARTDATE-ENDDATE`
@@ -292,17 +285,24 @@ Example of Usage
 * `display /date 2020/10/13-2020/10/16`
 
 ```
-===================
-display /date 2020/10/13-2020/10/16
-List of task from 2020-10-13 to 2020-10-16
-Oct 14 schedule :
-[L]Lecture ST2132 14:00 16:00
+display /date 2020/10/13-2020/11/16
+List of task from 13 Oct 20 to 16 Nov 20
+Oct 16 :
+[L] online lecture - CS2113 FRIDAY 16:00 18:00
+[D] tp - CS2113  (by: 2020-10-16)
 
-Oct 15 schedule :
-[L]tutorial CS2113 13:00 14:00
-[D]CS2113 Tp version 1 (by: 2020-10-15)
+Oct 23 :
+[L] online lecture - CS2113 FRIDAY 16:00 18:00
 
-===================
+Oct 30 :
+[L] online lecture - CS2113 FRIDAY 16:00 18:00
+
+Nov 6 :
+[L] online lecture - CS2113 FRIDAY 16:00 18:00
+
+Nov 13 :
+[L] online lecture - CS2113 FRIDAY 16:00 18:00
+
 ```
 
 ## Edit a task: `edit TASKNAME /date DATE /ATRIBUTE_TO_BE_CHANGED /NEW_VALUE`
