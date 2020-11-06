@@ -281,14 +281,18 @@ manage their schedule and work in the school semester
 
 ### Value proposition
 
-This app helps NUS Students by keeping on track with their schedule and work on a daily basis,
-reducing chances of them forgetting about any work related to school.
+This app helps NUS Students by keeping them on track with their schedule and work on a daily basis. Thus,
+reducing the chances of them forgetting about any work related to school.
 
 ### User Stories (to be updated)
 
 |Version| As a ... | I want to ... | So that I can ...|
 |--------|----------|---------------|------------------|
+![](Images/userstories.PNG)
+This is an example of how we originally tackle the user stories.
 
+* The green or orange highlight is to group similar features together
+* The Strikethrough is when a feature is redundant or unneccessary at the stage of planning
 
 ## Glossary
 
