@@ -1,4 +1,6 @@
-User Guide
+**Command Sumary** 
+
+![image-20201107003254580](image-20201107003254580.png)
 
 ## Introduction
 
@@ -8,8 +10,8 @@ as well as tasks related to their modules that they are taking.
 ## Quick Start
 
 1. Ensure that you have Java 11 or above installed on the machine.
-1. Down the latest version of `DueQuest` from [here](https://github.com/AY2021S1-CS2113-T13-4/tp/releases/tag/v2.1), and put the jar file into a directory.
-1. Type `java -jar DueQuest.jar` to start the app 
+1. Down the latest version of `DueQuest` from [here](https://github.com/AY2021S1-CS2113-T13-4/tp/releases), and put the jar file into a directory.
+1. Type `java -jar DueQuest_v2.1.jar` to start the app 
 
 ---
 
@@ -25,12 +27,8 @@ A module can be added into the Module Manager using the command below. You shoul
 
 Format: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
 
-+ `MODULECODE` must be given, and it should be unique. 
-  + There are 3 types of valid module codes. 
-    * 6 characters long. The first 2 characters are alphabets. The last 4 characters are digits. Example: CS2113
-    * 7 characters long. The first 3 characters are alphabets. The last 4 characters are digits. Example: DSA4211
-    * 7 characters long. The first 2 characters are alphabets. The next 4 characters are digits. The last character is an alphabet. The  Example: CS2113T
-+ `AU_NUM` must be non-negative integer. 
++ `AU_NUM` must be non-negative integer
++ `MODULECODE` is case-insensitive, e.g. `ST2132` = `st2132`
 
 Example Usage: 
 
@@ -151,6 +149,96 @@ Got it, added deadline to Schedule Manager and Module Manager
 <-------------------------------------------------------------->
 ```
 
+## Adding a assessment: `assessment` 
+
+Adds assessment (e.g. assignments and exams) to a module 
+
+Format: `assessment MODULECODE TITLE FULL_SCORE`
+
+Note: 
+
++ The input should match the order specified in the format 
++ `FULL_SCORE` is  float
+
+Example Input:
+
+`assessment CS2113 TP 100` 
+
+Example output:
+
+```
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+Assessment : 
+TP(0.000000/100.000000)
+
+The list of task in CS2113:
+[D] tp v1 - CS2113  (by: 2020-10-30)
+```
+
+## Add score to a assessment: `score`
+
+Assign the score to the assessment.
+
+Format: `score MODULE_CODE TITLE SCORE`
+
+Example Input:
+
+`score CS2113 TP 100`
+
+Example Output:
+
+```
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+Assessment : 
+TP(100.000000/100.000000)
+
+The list of task in CS2113:
+[D] tp v1 - CS2113  (by: 2020-10-30)
+```
+
+
+
+## Delete a assessment: `delete_assessment` 
+
+Delete assessment  (e.g. assignments and exams) from the module 
+
+Format: `delete_assessment MODULE_CODE TITLE` 
+
+Note: 
+
++ If there are multiple assessments with the same title, only the 1st one will be deleted. 
+
+Example Input:
+
+`delete_assessment CS2113 tp` 
+
+Example output:
+
+```
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+Assessment : 
+
+The list of task in CS2113:
+[D] tp v1 - CS2113  (by: 2020-10-30)
+```
+
+
+
 ## Display today's Schedule: `display` 
 
 Display Today's Lesson and Task( Deadline and Event)
@@ -168,14 +256,14 @@ Example output:
 ```
 display
 Today's Schedule:
-08:00
-09:00
-10:00
-11:00
-12:00
-13:00
-14:00
-15:00
+08:00 
+09:00 
+10:00 
+11:00 
+12:00 
+13:00 
+14:00 
+15:00 
 16:00 online lecture - CS2113 |
 17:00 online lecture - CS2113 |
 18:00
@@ -630,21 +718,3 @@ Format: `bye`
 Example of Usage:
 Input: `bye`
 Output: `Aye captain. This is DueQuest Signing out!`
-
-
-# Command Summary
-
-+ Add Module: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
-+ Add Lesson: `lesson TITILE COURSECODE /on DAYOFWEEK 7 STARTTIME ENDTIME`
-+ Add Event: `event MODULE_CODE DESCRIPTION /at DATE_OF_EVENT TIME LOCATION_OF_EVENT`
-+ Add Deadline: `deadline COURSECODE DESCRIPTION /by DATE`
-+ Display today's Schedule: `display` 
-+ Display all the task in a module: `display  MODULECODE`
-+ Display all the task in a module on a date: `display  MODULECODE /date DATE`
-+ Display all the task on a date: `display /date DATE`
-+ Display all the task on a range of date: `display /date STARTDATE-ENDDATE`
-+ Edit a task: `edit TASKNAME /date DATE /	/ATTRIBUTES /NEW_VALUE`
-+ Delete tasks of a description:  `delete DESCRIPTION` 
-+ Delete all tasks of a description based on date: `delete DESCRIPTION /date DATE`
-+ Help: Display the list of available command`help`
-

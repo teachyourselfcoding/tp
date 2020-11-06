@@ -4,11 +4,13 @@ import org.junit.jupiter.api.Test;
 import seedu.exception.ModuleAlreadyExistsException;
 
 import seedu.exception.ModuleNotExistsException;
+import seedu.module.Module;
 
 import java.time.LocalDate;
 
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ModuleManagerTest {
 
