@@ -562,7 +562,7 @@ public class ScheduleManager {
 			Ui.print(i);
 		}
 		Ui.print("\nToday's deadline:");
-		Ui.printListGenericType(nonLessonList);
+		Ui.printListGenericType(nonLessonList,"deadline");
 	}
 
 
@@ -586,21 +586,21 @@ public class ScheduleManager {
 				if(semesterSchedule.get(date).size() != 0){
 					Ui.print(date.format(DateTimeFormatter.ofPattern("MMM d"))
 							+ " :");
-					Ui.printListGenericType(semesterSchedule.get(date));
+					Ui.printListGenericType(semesterSchedule.get(date),"deadline");
 
 				}
 			} else if (date.isAfter(startDate) && date.isBefore(endDate)){
 				if(semesterSchedule.get(date).size() != 0){
 					Ui.print(date.format(DateTimeFormatter.ofPattern("MMM d"))
 							+ " :");
-					Ui.printListGenericType(semesterSchedule.get(date));
+					Ui.printListGenericType(semesterSchedule.get(date),"deadline");
 
 				}
 			} else if (date.isEqual(endDate)){
 				if (semesterSchedule.get(date).size() != 0) {
 					Ui.print(date.format(DateTimeFormatter.ofPattern("MMM d"))
 							+ " :");
-					Ui.printListGenericType(semesterSchedule.get(date));
+					Ui.printListGenericType(semesterSchedule.get(date),"deadline");
 				}
 			}
 		}
@@ -681,7 +681,7 @@ public class ScheduleManager {
 		deadlineList = addToDeadlineList(date, deadlineList);
 		//Ui.print("\nDeadlines on " + date.toString() + ":" );
 		Ui.print("\nUpcoming Deadlines :" );
-		Ui.printListGenericType(deadlineList);
+		Ui.printListGenericType(deadlineList,"deadline");
 	}
 
 	/**
