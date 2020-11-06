@@ -1,6 +1,8 @@
 package seedu;
 
 import seedu.command.Command;
+import seedu.exception.EmptyArgumentException;
+import seedu.exception.InvalidScoreException;
 import seedu.exception.ModuleDoesNotExistException;
 import seedu.exception.ModuleNotExistsException;
 
@@ -77,6 +79,10 @@ public class Storage {
 		} catch (DueQuestException e) {
 			ui.showError(e.getExceptionType());
 		} catch (ModuleDoesNotExistException e) {
+		} catch (EmptyArgumentException e) {
+
+		} catch (InvalidScoreException e) {
+
 		}
 	}
 

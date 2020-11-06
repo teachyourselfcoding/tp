@@ -303,5 +303,10 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+    public static void printInvalidScoreErrorMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Please give the invalid score.");
+        System.out.println(SEPARATOR);
+    }
 }
 

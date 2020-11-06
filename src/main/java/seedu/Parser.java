@@ -65,6 +65,8 @@ public class Parser {
                     return new AddModuleCommand(Arrays.copyOfRange(words, 1, input.length()));  // only pass the arguments
                 case "edit":
                     return validateEditCommand(input);
+                case "assessment":
+                    return validateAddAssessmentCommand(input);
                 default:
                     throw new DueQuestException(DueQuestExceptionType.INVALID_COMMAND);
             }
@@ -640,5 +642,22 @@ public class Parser {
             System.out.println(type);
             return null;
         }
+    }
+
+    public static AddAssessmentCommand validateAddAssessmentCommand(String input) throws InvalidArgumentsException {
+        String[] splitInput = input.split(" ");
+        String moduleCode;
+        String title;
+        String fullScore;
+        String attemptScore;
+        try {
+            moduleCode = splitInput[1];
+            title = splitInput[2];
+            fullScore = splitInput[3];
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidArgumentsException();
+        }
+
+        return new AddAssessmentCommand(title, fullScore, moduleCode);
     }
 }

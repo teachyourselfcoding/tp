@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import seedu.exception.InvalidDateException;
 import seedu.exception.InvalidStartEndDateException;
 import seedu.exception.*;
+import seedu.module.Module;
 import seedu.task.Event;
 import seedu.task.Lesson;
 

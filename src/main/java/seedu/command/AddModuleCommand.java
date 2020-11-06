@@ -1,10 +1,9 @@
 package seedu.command;
 
 import seedu.*;
-import seedu.Module;
+import seedu.module.Module;
 import seedu.exception.InvalidArgumentsException;
 import seedu.exception.ModuleAlreadyExistsException;
-import seedu.exception.ModuleDoesNotExistException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
