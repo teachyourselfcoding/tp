@@ -1,4 +1,6 @@
-User Guide
+**Command Sumary** 
+
+![image-20201107003254580](image-20201107003254580.png)
 
 ## Introduction
 
@@ -716,21 +718,3 @@ Format: `bye`
 Example of Usage:
 Input: `bye`
 Output: `Aye captain. This is DueQuest Signing out!`
-
-
-# Command Summary
-
-+ Add Module: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
-+ Add Lesson: `lesson TITILE COURSECODE /on DAYOFWEEK 7 STARTTIME ENDTIME`
-+ Add Event: `event MODULE_CODE DESCRIPTION /at DATE_OF_EVENT TIME LOCATION_OF_EVENT`
-+ Add Deadline: `deadline COURSECODE DESCRIPTION /by DATE`
-+ Display today's Schedule: `display` 
-+ Display all the task in a module: `display  MODULECODE`
-+ Display all the task in a module on a date: `display  MODULECODE /date DATE`
-+ Display all the task on a date: `display /date DATE`
-+ Display all the task on a range of date: `display /date STARTDATE-ENDDATE`
-+ Edit a task: `edit TASKNAME /date DATE /	/ATTRIBUTES /NEW_VALUE`
-+ Delete tasks of a description:  `delete DESCRIPTION` 
-+ Delete all tasks of a description based on date: `delete DESCRIPTION /date DATE`
-+ Help: Display the list of available command`help`
-
