@@ -24,7 +24,7 @@ public class Module {
 	private int aUNumber;
 	private ArrayList<String> teachingStaffs = new ArrayList<>();
 	private ArrayList<Task> listOfTasks;
-	private ArrayList<Assessment> assessments = new ArrayList<>();
+	public ArrayList<Assessment> assessments = new ArrayList<>();
 
 	/**
 	 * Constructor when I am adding a task that has a module code that has not exist yet.
@@ -114,6 +114,10 @@ public class Module {
 			content += assessment.toString() + '\n';
 		}
 		return content;
+	}
+
+	public ArrayList<Assessment> getAssessments() {
+		return assessments;
 	}
 
 	/**
