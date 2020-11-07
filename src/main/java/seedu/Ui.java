@@ -47,13 +47,13 @@ public class Ui {
      * Prints out message for the help guide when a HelpCommand is execute.
      */
     public void printHelpGuide() {
-        String helpMessage = " This is the list of Command Available, please refer to the User Guide\n" +
-                " display - display today's Schedule, module info, list of Task \n" +
-                " module  - add a module\n" +
-                " add     - add a deadline, event, lesson\n" +
-                " edit    - edit information\n" +
-                " delete  - delete task in a module\n" +
-                " bye    - exit duequest";
+        String helpMessage = " This is the list of Command Available, please refer to the User Guide\n"
+                + " display - display today's Schedule, module info, list of Task \n"
+                + " module  - add a module\n"
+                + " add     - add a deadline, event, lesson\n"
+                + " edit    - edit information\n"
+                + " delete  - delete task in a module\n"
+                + " bye    - exit duequest";
         print(helpMessage);
         System.out.println(SEPARATOR);
     }
@@ -113,7 +113,7 @@ public class Ui {
         }
     }
 
-    public static void print(String text){
+    public static void print(String text) {
         System.out.println(text);
     }
 
@@ -137,10 +137,10 @@ public class Ui {
     /**
      * Convert LocalDate object into readable string format without year.
      * E.g 12 JUN.
-     * @param date
-     * @return
+     * @param date date to be converted.
+     * @return string form of the converted LocalDate object without year.
      */
-    public static String convertDateToString(LocalDate date){
+    public static String convertDateToString(LocalDate date) {
         String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM"));
         return stringDate;
     }
@@ -148,8 +148,8 @@ public class Ui {
     /**
      * Convert LocalDate object into readable string format with year included.
      * E.g 12 JUN 20.
-     * @param date
-     * @return
+     * @param date date to be converted.
+     * @return string form of the converted LocalDate object with year.
      */
     public static String convertDateToStringWithYear(LocalDate date){
         String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM YY"));
@@ -214,7 +214,8 @@ public class Ui {
 
     public static void printInvalidDateFormatMessage() {
         System.out.println(SEPARATOR);
-        System.out.println("Please give the date in correct format and a valid date. It should be in YYYY-MM-DD format.");
+        System.out.println("Please give the date in correct format and a valid date. "
+                            + "It should be in YYYY-MM-DD format.");
         System.out.println(SEPARATOR);
     }
 
