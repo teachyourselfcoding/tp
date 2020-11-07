@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.Map;
 
 /**
- * READ THIS FIRST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * READ THIS FIRST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!.
  * Class for ScheduleManager.
  * Contains the schedule for the user.
  * We will assume that the ScheduleManager is built for AY 2020/2021 Semester 2.
@@ -26,9 +26,7 @@ import java.util.Map;
  * Dates of the following are obtained from NUS website.
  */
 public class ScheduleManager {
-	private static TreeMap<LocalDate, ArrayList<Task>> semesterSchedule = new TreeMap<>();
-	//private static final String[] timing = {"08:00","09:00","10:00","11:00", "12:00", "13:00", "14:00", "15:00","16:00","17:00","18:00","19:00"
-	//       ,"20:00","21:00","22:00","23:00"};
+	private static TreeMap<LocalDate, ArrayList<Task>>semesterSchedule = new TreeMap<>();
 	private HashSet<LocalDate> listOfNonLessonDates = new HashSet<>();
 	/**
 	 * Constructor for ScheduleManager if a ScheduleManager already exist.
