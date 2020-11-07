@@ -84,7 +84,7 @@ class DueQuestTest {
         DueQuest dq = new DueQuest();
         String addModuleInput = "module c/CS2113 a/4 s/Dr.Akshay s/ChengChen";
         try {
-            Command c = Parser.parse(addModuleInput );
+            Command c = Parser.parse(addModuleInput);
             c.execute(dq.getScheduleManager(), dq.getModuleManager(), dq.getUi());
         } catch (DueQuestException | EmptyArgumentException | InvalidScoreException e) {
             System.out.println(e);
@@ -113,7 +113,7 @@ class DueQuestTest {
         DueQuest dq = new DueQuest();
         String addModuleInput = "module c/CS2113 a/4 s/Dr.Akshay s/ChengChen";
         try {
-            Command c = Parser.parse(addModuleInput );
+            Command c = Parser.parse(addModuleInput);
             c.execute(dq.getScheduleManager(), dq.getModuleManager(), dq.getUi());
         } catch (DueQuestException e) {
             System.out.println(e);
