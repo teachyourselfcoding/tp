@@ -34,45 +34,39 @@ public class Parser {
             String[] words = input.split(" ");
 
             switch (words[0].toLowerCase()) {
-                case "help":
-                    //fallthrough
-                    return new HelpCommand();
-                case "bye":
-                    //Fallthrough
-                    return new ExitCommand();
-                case "delete":
-                    //Fallthrough
-                    return validateDeleteCommand(input);
-                case "find":
-                    String[] sentence = input.toLowerCase().split(" ", 2);
-                    String keywords = sentence[1];
-                    //Fallthrough
-                    return new FindCommand(keywords);
-                case "deadline":
-                    Deadline deadline = validateDeadline(input);
-                    //Fallthrough
-                    return new AddCommand(deadline);
-                case "event":
-                    Event ev = validateEvent(input);
-                    //Fallthrough
-                    return new AddCommand(ev);
-                case "display":
-                    return parseDisplayCommand(input);
-                case "lesson":
-                    Lesson lesson = parseLesson(input);
-                    return new AddCommand(lesson);
-                case "module": // adding a module
-                    return new AddModuleCommand(Arrays.copyOfRange(words, 1, input.length()));  // only pass the arguments
-                case "edit":
-                    return validateEditCommand(input);
-                case "assessment":
-                    return validateAddAssessmentCommand(input);
-                case "delete_assessment":
-                    return validateDeleteAssessmentCommand(input);
-                case "score":
-                    return validateScoreAssessmentCommand(input);
-                default:
-                    throw new DueQuestException(DueQuestExceptionType.INVALID_COMMAND);
+            case "help":
+                return new HelpCommand();
+            case "bye":
+                return new ExitCommand();
+            case "delete":
+                return validateDeleteCommand(input);
+            case "find":
+                String[] sentence = input.toLowerCase().split(" ", 2);
+                String keywords = sentence[1];
+                return new FindCommand(keywords);
+            case "deadline":
+                Deadline deadline = validateDeadline(input);
+                return new AddCommand(deadline);
+            case "event":
+                Event ev = validateEvent(input);
+                return new AddCommand(ev);
+            case "display":
+                return parseDisplayCommand(input);
+            case "lesson":
+                Lesson lesson = parseLesson(input);
+                return new AddCommand(lesson);
+            case "module": // adding a module
+                return new AddModuleCommand(Arrays.copyOfRange(words, 1, input.length()));  // only pass the arguments
+            case "edit":
+                return validateEditCommand(input);
+            case "assessment":
+                return validateAddAssessmentCommand(input);
+            case "delete_assessment":
+                return validateDeleteAssessmentCommand(input);
+            case "score":
+                return validateScoreAssessmentCommand(input);
+            default:
+                throw new DueQuestException(DueQuestExceptionType.INVALID_COMMAND);
             }
         } catch (InvalidArgumentsException e) {
             Ui.printInvalidArgumentsErrorMessage();
@@ -94,7 +88,6 @@ public class Parser {
             Ui.printWrongTimeFormatMessage();
         } catch (InvalidFrequencyException e) {
             Ui.printInvalidFrequencyMessage();
-
         } catch (StartAndEndTimeSameException e) {
             Ui.printStartAndEndTimeCannotBeTheSameMessage();
         } catch (MissingDeadlineDescriptionException e) {
@@ -137,7 +130,8 @@ public class Parser {
         } else if (!filteredInput[1].contains("/by")) {
             throw new MissingDeadlineTimingDetailsException();
         }
-        String[] moduleCodeAndDescription = filteredInput[1].split("/by",2)[0].trim().split(" ", 2);
+        String[] moduleCodeAndDescription = filteredInput[1].
+                split("/by",2)[0].trim().split(" ", 2);
         if (moduleCodeAndDescription.length == 1) {
             throw new MissingDeadlineDescriptionException();
         }
@@ -155,8 +149,8 @@ public class Parser {
         } catch (DateTimeParseException e) {
             throw new WrongDateFormatException();
         }
-        if (LocalDate.parse(byInfo).isAfter(LocalDate.of(2021, 6, 1)) ||
-            LocalDate.parse(byInfo).isBefore(LocalDate.of(2020, 10, 12))) {
+        if (LocalDate.parse(byInfo).isAfter(LocalDate.of(2021, 6, 1))
+            || LocalDate.parse(byInfo).isBefore(LocalDate.of(2020, 10, 12))) {
             throw new InvalidDateException();
         }
         return new Deadline(moduleCode, description, byInfo);
@@ -164,7 +158,7 @@ public class Parser {
 
     /**
      * Used to validate a Event by checking for any errors in the user input.
-     * @param input representing user input
+     * @param input representing user input.
      * @return Event object.
      * @throws WrongDateFormatException if the input date is of wrong format.
      * @throws InvalidDateException if the input date is not in the given range as stated in the User Guide.
@@ -216,15 +210,16 @@ public class Parser {
             throw new WrongDateFormatException();
         }
 
-        if (LocalDate.parse(dateOfEvent).isAfter(LocalDate.of(2021, 6, 1)) ||
-                LocalDate.parse(dateOfEvent).isBefore(LocalDate.of(2020, 10, 12))) {
+        if (LocalDate.parse(dateOfEvent).isAfter(LocalDate.of(2021, 6, 1))
+                || LocalDate.parse(dateOfEvent).isBefore(LocalDate.of(2020, 10, 12))) {
             throw new InvalidDateException();
         }
         String startTime = splitDateTimeLocationDetails[1];
         String endTime = splitDateTimeLocationDetails[2];
         String locationOfEvent = splitDateTimeLocationDetails[3];
 
-        if (startTime.length() != 5 || endTime.length() != 5) {
+        if (startTime.length() != 5
+                || endTime.length() != 5) {
             throw new InvalidTimeFormatException();
         }
         String hhStart = startTime.substring(0, 2);
@@ -256,12 +251,12 @@ public class Parser {
         if (startTime.equals(endTime)) {
             throw new StartAndEndTimeSameException();
         }
-        if (LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart)).
-                isAfter(LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd)))) {
+        if (LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart))
+                .isAfter(LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd)))) {
             throw new StartTimeIsAfterEndTimeException();
         }
-        if (LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart)).isBefore(LocalTime.of(8, 0)) ||
-                LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd)).isBefore(LocalTime.of(8,0))) {
+        if (LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart)).isBefore(LocalTime.of(8, 0))
+            || LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd)).isBefore(LocalTime.of(8,0))) {
             throw new StartTimeAndEndTimeTooEarlyException();
         }
         return new Event(description, moduleCode, locationOfEvent, startTime, endTime, dateOfEvent);
@@ -350,12 +345,12 @@ public class Parser {
         if (startTime.equals(endTime)) {
             throw new StartAndEndTimeSameException();
         }
-        if (LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart)).
-                isAfter(LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd)))) {
+        if (LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart))
+                .isAfter(LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd)))) {
             throw new StartTimeIsAfterEndTimeException();
         }
-        if (LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart)).isBefore(LocalTime.of(8, 0)) ||
-                LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd)).isBefore(LocalTime.of(8,0))) {
+        if (LocalTime.of(Integer.parseInt(hhStart), Integer.parseInt(mmStart)).isBefore(LocalTime.of(8, 0))
+            || LocalTime.of(Integer.parseInt(hhEnd), Integer.parseInt(mmEnd)).isBefore(LocalTime.of(8,0))) {
             throw new StartTimeAndEndTimeTooEarlyException();
         }
         return new Lesson(description, moduleCode, frequency, startTime, endTime);
@@ -366,7 +361,8 @@ public class Parser {
      * @return returns a DeleteCommand.
      * @throws DueQuestException if the input date is of wrong format.
      */
-    public static DeleteCommand validateDeleteCommand(String input) throws DueQuestException, MissingDeleteDetailsException, InvalidTimeFormatException, InvalidDateException {
+    public static DeleteCommand validateDeleteCommand(String input) throws DueQuestException,
+            MissingDeleteDetailsException, InvalidTimeFormatException, InvalidDateException {
         String[] InputLength = input.trim().split(" ", 2);
         String moduleCode = " ";
         String description;
@@ -375,10 +371,10 @@ public class Parser {
         String filteredInput;
         String splitViadelete;
         LocalDate date;
-        if(InputLength.length == 1){
+        if (InputLength.length == 1) {
             throw new MissingDeleteDetailsException();
         }
-        if(!input.contains("/")){
+        if (!input.contains("/")) {
             moduleCode = null;
         }
         if (moduleCode != null && (input.charAt(7) == ('c') && input.charAt(8) == ('/'))) { //has a module code
@@ -388,7 +384,6 @@ public class Parser {
                 return new DeleteCommand(moduleCode, "module");
             }
             filteredInput = splitViaModule[1].trim();
-
 
             if (filteredInput.contains("/date")) { //has a module code and date
                 splitViaDate = (filteredInput.split("/date")[1].trim()).split(" ", 2);
@@ -406,12 +401,11 @@ public class Parser {
             return new DeleteCommand(description);
         }
         splitViaDate = filteredInput.split("/date");
-        try{
+        try {
             date = LocalDate.parse(splitViaDate[1].trim());
-        }catch(Exception e){
+        } catch(Exception e) {
             throw new InvalidDateException();
         }
-
         description = splitViaDate[0].trim();
         return new DeleteCommand(description, date);
     }
@@ -423,7 +417,8 @@ public class Parser {
      * @throws WrongDateFormatException if the date in wrong format and cannot be parsed.
      * @throws InvalidArgumentsException if the input gives the argument in wrong format.
      */
-    public static DisplayCommand parseDisplayCommand(String input) throws WrongDateFormatException, InvalidArgumentsException {
+    public static DisplayCommand parseDisplayCommand(String input) throws WrongDateFormatException,
+            InvalidArgumentsException {
         String moduleCode = "";
         String[] filteredInput = input.trim().split(" ",2);
 
@@ -434,7 +429,7 @@ public class Parser {
         String[] descriptionWithModuleCode = filteredInput[1].trim().split(" ", 2);
         if (!descriptionWithModuleCode[0].equals("") && !descriptionWithModuleCode[0].contains("/date")) {
             moduleCode = descriptionWithModuleCode[0].trim().toUpperCase();
-            if( descriptionWithModuleCode.length == 1){
+            if ( descriptionWithModuleCode.length == 1) {
                 return new DisplayCommand(moduleCode);
             }
         }
@@ -444,9 +439,9 @@ public class Parser {
             String[] dateDetails = filteredInput[1].split("/date",2);
             if (dateDetails[1].contains("-")){
                 String[] dateRange = dateDetails[1].trim().split("-", 2);
-                try{
+                try {
                     return new DisplayCommand(displayDateValidation(dateRange[0]),displayDateValidation(dateRange[1]));
-                } catch (DateTimeException e){
+                } catch (DateTimeException e) {
                     throw new WrongDateFormatException();
                 }
             } else if (!moduleCode.equals("")) {
@@ -471,23 +466,22 @@ public class Parser {
         String year = date[0].trim();
         String month;
         String day;
-        if ( date[1].trim().length()==1 ) {
+        if (date[1].trim().length() == 1) {
             month = "0" + date[1].trim().toString();
         } else if (date[1].trim().length()==2 ) {
             month = date[1].trim().toString();
         } else {
             throw  new WrongDateFormatException();
         }
-
-        if ( date[2].trim().length()==1 ) {
+        if (date[2].trim().length() == 1) {
             day = "0" + date[2].trim().toString();
-        } else if(date[2].trim().length()==2 ) {
+        } else if (date[2].trim().length() ==2) {
             day = date[2].trim().toString();
         } else {
             throw  new WrongDateFormatException();
         }
         String filterDate = year + "-" + month + "-" + day;
-        LocalDate specificDate=LocalDate.parse(filterDate);
+        LocalDate specificDate = LocalDate.parse(filterDate);
         return specificDate;
     }
 
@@ -559,29 +553,29 @@ public class Parser {
         String[] splitViaModule;
         String filteredInput;
 
-        if(input.charAt(5)=='c'&& input.charAt(6)=='/'){
+        if (input.charAt(5)=='c'&& input.charAt(6)=='/'){
             splitViaModule = ((input.split("c/"))[1].trim()).split(" ",2);
             filteredInput = splitViaModule[1].trim();
             moduleCode = splitViaModule[0].trim();
 
-            if(!filteredInput.contains("/date")){
+            if (!filteredInput.contains("/date")){
                 String moduleProperty = filteredInput.trim().split("/",2)[0].trim();
                 String newModuleProperty = filteredInput.trim().split("/")[1].trim();
-                if(
+                if (
                         moduleProperty.equals("staff")||
                                 moduleProperty.equals("au")||
                                 moduleProperty.equals("modulecode")
-                ){
+                ) {
                     Storage.getStorage().exportAdditionalData(input);
                     return new EditModuleCommand(moduleCode, moduleProperty, newModuleProperty);
                 }
-                else{
+                else {
                     System.out.println("Invalid input");
                 }
             }
 
         }
-        else{
+        else {
             filteredInput = input.substring(5);
         }
 
@@ -603,14 +597,15 @@ public class Parser {
             //Fall through
         case "time":
             try {
-                LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
-                if(moduleCode == null){
+                LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim()
+                        .replace("/", "-"));
+                if(moduleCode == null) {
                     Storage.getStorage().exportAdditionalData(input);
                     return new EditTaskCommand(description, date, type, newValue);
                 } System.out.println("test 1");
                 Storage.getStorage().exportAdditionalData(input);
                 return new EditModuleCommand(moduleCode, description, date, type, newValue);
-            }catch (DateTimeException e){
+            } catch (DateTimeException e) {
                 throw new WrongDateFormatException();
             }
         case "frequency":
@@ -618,27 +613,29 @@ public class Parser {
             //newFrequency[0] = Integer.parseInt(newValue);
             int newFrequency = Integer.parseInt(newValue);
             try {
-                LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
+                LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10)
+                        .trim().replace("/", "-"));
                 if(moduleCode == null){
                     Storage.getStorage().exportAdditionalData(input);
                     return new EditTaskCommand(description, date, type, newFrequency);
                 }
                 Storage.getStorage().exportAdditionalData(input);
                 return new EditModuleCommand(moduleCode, description, date, type, newFrequency);
-            }catch (DateTimeException e){
+            } catch (DateTimeException e) {
                 throw new WrongDateFormatException();
             }
         case "date":
             try {
-                LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim().replace("/", "-"));
+                LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10)
+                        .trim().replace("/", "-"));
                 LocalDate newDate = LocalDate.parse(newValue.trim().replace("/","-"));
-                if(moduleCode == null){
+                if (moduleCode == null) {
                     Storage.getStorage().exportAdditionalData(input);
                     return new EditTaskCommand(description, date, type, newDate);
                 }
                 Storage.getStorage().exportAdditionalData(input);
                 return new EditModuleCommand(moduleCode, description, date, type, newDate);
-            }catch (DateTimeException e){
+            } catch (DateTimeException e) {
                 throw new WrongDateFormatException();
             }
         default:
@@ -661,22 +658,20 @@ public class Parser {
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidArgumentsException();
         }
-
         return new AddAssessmentCommand(title, fullScore, moduleCode);
     }
 
-    public static DeleteAssessmentCommand validateDeleteAssessmentCommand(String input) throws InvalidArgumentsException {
+    public static DeleteAssessmentCommand validateDeleteAssessmentCommand(String input)
+            throws InvalidArgumentsException {
         String[] splitInput = input.split(" ");
         String moduleCode;
         String title;
-
         try {
             moduleCode = splitInput[1];
             title = splitInput[2];
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidArgumentsException();
         }
-
         return new DeleteAssessmentCommand(moduleCode, title);
     }
 
@@ -686,7 +681,6 @@ public class Parser {
         String moduleCode;
         String title;
         String attemptScore;
-
         try {
             moduleCode = splitInput[1];
             title = splitInput[2];

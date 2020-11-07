@@ -73,10 +73,10 @@ public class ModuleManager {
 
     /**
      * Display the tasks of a module.
-     * @param moduleCode module code's string
-     * @throws ModuleNotExistsException
+     * @param moduleCode module code's string.
+     * @throws ModuleNotExistsException when the module does not exist.
      */
-    public void display(String moduleCode) throws ModuleNotExistsException{
+    public void display(String moduleCode) throws ModuleNotExistsException {
         for (Module m: listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
                 ArrayList<Task> tasks = m.getListOfTasks();
@@ -90,10 +90,10 @@ public class ModuleManager {
         throw new ModuleNotExistsException();
     }
 
-    public void editModuleCode(String moduleCode, String newProperty){
-        for(Module m: listOfModules){
-            if(m.getModuleCode().equals(moduleCode)){
-                for(Task task : m.getListOfTasks()){
+    public void editModuleCode(String moduleCode, String newProperty) {
+        for (Module m: listOfModules) {
+            if (m.getModuleCode().equals(moduleCode)) {
+                for (Task task : m.getListOfTasks()) {
                     task.setModulecode(newProperty);
                 }
                 m.setModuleCode(newProperty);
@@ -101,91 +101,107 @@ public class ModuleManager {
         }
     }
 
-    public void editModuleAu(String moduleCode, String newProperty){
+    public void editModuleAu(String moduleCode, String newProperty) {
         boolean edited = false;
-        for(Module m: listOfModules){
-            if(m.getModuleCode().equals(moduleCode)){
+        for (Module m: listOfModules) {
+            if (m.getModuleCode().equals(moduleCode)) {
                 m.setModuleCode(newProperty);
                 edited = true;
             }
-        }if(edited){
+        } if (edited) {
             System.out.println("Module property has been updated");
         }
     }
 
-    public void editModuleStaff(String moduleCode, String newProperty){
+    public void editModuleStaff(String moduleCode, String newProperty) {
         boolean edited = false;
-        for(Module m: listOfModules){
-            if(m.getModuleCode().equals(moduleCode)){
+        for (Module m: listOfModules) {
+            if (m.getModuleCode().equals(moduleCode)) {
                 m.setModuleCode(newProperty);
                 edited = true;
             }
-        }if(edited){
+        } if (edited) {
             System.out.println("Module property has been updated");
         }
     }
 
-    public void editTask(String description, LocalDate date, String type, String newProperty, String moduleCode){
+    public void editTask(String description, LocalDate date, String type, String newProperty, String moduleCode) {
         boolean edit = false;
-        for(Module m : listOfModules){
-            if(m.getModuleCode().equals(moduleCode)){
+        for (Module m : listOfModules) {
+            if (m.getModuleCode().equals(moduleCode)) {
                 System.out.println(m.getModuleCode());
-                for(Task task : m.getListOfTasks()) {
-                    if(task.getDate().isEqual(date)){
+                for (Task task : m.getListOfTasks()) {
+                    if (task.getDate().isEqual(date)) {
                         switch (type) {
-                            case "description":
-                                if (task.getDescription().equals(description)) {
-                                    task.setDescription(newProperty);
-                                    edit = true;
-                                }
-                                break;
-                            case "tasktype":
-                                if (task.getDescription().equals(description)) {
-                                    task.setTasktype(newProperty);
-                                    edit = true;
-                                }
-                                break;
-
-                            case "module code":
-                                if (task.getDescription().equals(description)) {
-                                    task.setModulecode(newProperty);
-                                    edit = true;
-                                }
-                                break;
-                            case "time":
-                                if (task.getDescription().equals(description)) {
-                                    task.setTime(newProperty);
-                                    edit = true;
-                                }
-                                break;
-                            default:
-                                System.out.println("Invalid type");
+                        case "description":
+                            if (task.getDescription().equals(description)) {
+                                task.setDescription(newProperty);
+                                edit = true;
+                            }
+                            break;
+                        case "tasktype":
+                            if (task.getDescription().equals(description)) {
+                                task.setTasktype(newProperty);
+                                edit = true;
+                            }
+                            break;
+                        case "module code":
+                            if (task.getDescription().equals(description)) {
+                                task.setModulecode(newProperty);
+                                edit = true;
+                            }
+                            break;
+                        case "time":
+                            if (task.getDescription().equals(description)) {
+                                task.setTime(newProperty);
+                                edit = true;
+                            }
+                            break;
+                        default:
+                            System.out.println("Invalid type");
                         }
                     }
                 }
             }
-        } if(edit){
+        } if (edit) {
             System.out.println("Module property has been updated");
         }
     }
-    //Edit module to set new frequency
-    public void editTask(String description, LocalDate date, String property, int newFrequency, String moduleCode){
+
+    /**
+     * TODO - add the description
+     * Method do edit module to set a new frequency.
+     * @param description description.
+     * @param date date.
+     * @param property property.
+     * @param newFrequency new frequency.
+     * @param moduleCode module code.
+     */
+    public void editTask(String description, LocalDate date, String property, int newFrequency, String moduleCode) {
         boolean edited = false;
-        for(Module m: listOfModules){
-            if(m.getModuleCode().equals(moduleCode)){
-                for(Task task : m.getListOfTasks()){
-                    if(task.getDescription().equals(description)){
+        for (Module m: listOfModules) {
+            if (m.getModuleCode().equals(moduleCode)) {
+                for (Task task : m.getListOfTasks()) {
+                    if (task.getDescription().equals(description)) {
                         task.setFrequency(newFrequency);
                         edited = true;
                     }
                 }
             }
-        }if(edited){
+        } if (edited) {
             System.out.println("Module frequency has been edited");
         }
     }
 
-    //Edit module to set new date
+    /**
+     * TODO - add the description
+     * Edit module to set new date.
+     * @param description description.
+     * @param date date.
+     * @param property property.
+     * @param newDate new date.
+     * @param moduleCode module code.
+     */
     public void editTask(String description, LocalDate date, String property, LocalDate newDate, String moduleCode){
         boolean edited = false;
         for(Module m: listOfModules){
@@ -205,40 +221,51 @@ public class ModuleManager {
         }
     }
 
-    //delete entire module
-    public void delete(String moduleCode){ //delete entire module
-        for(Module m: listOfModules){
-            if(m.getModuleCode().equals(moduleCode)){
+    /**
+     * Method to delete the entire module.
+     * @param moduleCode module code of module to be deleted.
+     */
+    public void delete(String moduleCode) {
+        for (Module m: listOfModules) {
+            if (m.getModuleCode().equals(moduleCode)) {
                 System.out.println("Module deleted");
             }
         }
         listOfModules.removeIf(m -> m.getModuleCode().equals(moduleCode));
     }
 
-    //delete a task in a module based on a specific date
+    /**
+     * Method to delete a task in a module on a specific date.
+     * @param moduleCode module code of the task.
+     * @param description description of the task.
+     * @param date date of the task.
+     */
     public void delete(String moduleCode, String description, LocalDate date) {
         boolean deleted = false;
         for (Module m : listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
-                for (Task task : m.getListOfTasks()){
-                    if(task.getDate().equals(date)) {
+                for (Task task : m.getListOfTasks()) {
+                    if (task.getDate().equals(date)) {
                         if (task.getDescription().equals(description)) {
                             System.out.println("Task deleted eheheheheheh");
                             deleted = true;
                         }
                     }
                 }
-                if (deleted){
+                if (deleted) {
                     System.out.println("No matching task description");
                     return;
                 }
                 m.getListOfTasks().removeIf(task -> task.getDate() == date);
-
             }
         }
     }
 
-    //delete all the task of a module on a certain date
+    /**
+     * Method to delete all the task of a module on a certain date.
+     * @param moduleCode module code of the tasks.
+     * @param date date chosen.
+     */
     public void delete(String moduleCode, LocalDate date) {
         for (Module m : listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
@@ -247,8 +274,13 @@ public class ModuleManager {
         }
     }
 
-    // Display all the task in a module on a specific date
-    public void display(String moduleCode, LocalDate date) throws ModuleNotExistsException{
+    /**
+     * Method to display all the task in a module on a specific date.
+     * @param moduleCode to have tasks to be displayed.
+     * @param date date to be displayed.
+     * @throws ModuleNotExistsException when module does not exist.
+     */
+    public void display(String moduleCode, LocalDate date) throws ModuleNotExistsException {
         ArrayList<Task> filteredTasks = new ArrayList<>();
         ArrayList<Lesson> lessons = new ArrayList<>();
         DayOfWeek dayOfWeek = date.getDayOfWeek();
@@ -310,11 +342,10 @@ public class ModuleManager {
         }
     }
 
-
     /**
      * Finds the module contains the task with the specified description.
-     * @param description the description in string
-     * @return Module found
+     * @param description the description in string.
+     * @return Module found.
      */
     private Module findModuleContainsTask(String description) {
         for (Module m: this.listOfModules) {
