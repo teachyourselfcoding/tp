@@ -101,7 +101,6 @@ lesson online tutorial CS1234 /on 4 08:00 10:00
 Got it, added lesson to the schedule manager!
 <-------------------------------------------------------------->
 ```
-
 ## Adding an event: `event`
 
 Adds an Event associated with a module into the Schedule Manager and Module Manager.

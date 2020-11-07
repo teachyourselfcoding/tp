@@ -37,10 +37,10 @@ public class ModuleManager {
      * If the module with the same course code exists already, the message will be printed.
      * @param module new Module object to add
      */
-    public void addModule(Module module) throws ModuleAlreadyExistsException{
+    public void addModule(Module module) throws ModuleAlreadyExistsException {
         if (!this.checkIfModuleExist(module)) {
             this.listOfModules.add(module);
-            Ui.print("added: "+ module.getModuleCode().toString());
+            Ui.print("added: " + module.getModuleCode().toString());
         } else {
             throw new ModuleAlreadyExistsException();
         }
@@ -62,9 +62,9 @@ public class ModuleManager {
      * @return the Module object in list
      * @throws ModuleNotExistsException if nothing is found
      */
-    public Module getModule(String moduleCode) throws ModuleNotExistsException{
+    public Module getModule(String moduleCode) throws ModuleNotExistsException {
         for (Module m: listOfModules) {
-            if (m.getModuleCode().equals(moduleCode)){  // '==' cannot be used.
+            if (m.getModuleCode().equals(moduleCode)) {  // '==' cannot be used.
                 return m;
             }
         }
