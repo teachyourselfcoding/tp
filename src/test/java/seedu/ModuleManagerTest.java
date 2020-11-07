@@ -54,19 +54,20 @@ class ModuleManagerTest {
             moduleManager.addModule(module1);
             assertEquals(moduleManager.getNumberOfModules(), 3);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @Test
     void display_displayNonExistentModule_expectException() {
         ModuleManager mm = new ModuleManager();
-        assertThrows(ModuleNotExistsException.class,()->{mm.display("CS2113");});
+        assertThrows(ModuleNotExistsException.class,() -> mm.display("CS2113"));
     }
 
     @Test
     void display_displayNonExistentModuleWithDate_expectException() {
         ModuleManager mm = new ModuleManager();
-        assertThrows(ModuleNotExistsException.class,()->{mm.display("CS2113", LocalDate.now());});
+        assertThrows(ModuleNotExistsException.class,() -> {mm.display("CS2113", LocalDate.now());});
     }
 
 }
