@@ -11,35 +11,35 @@ import seedu.exception.ModuleNotExistsException;
 import seedu.module.Module;
 
 
-public class DeleteAssessmentCommand extends Command{
-	String moduleCode;
-	String title;
+public class DeleteAssessmentCommand extends Command {
+    String moduleCode;
+    String title;
 
-	public DeleteAssessmentCommand(String moduleCode, String title) {
-		this.moduleCode = moduleCode;
-		this.title = title.strip();
-	}
+    public DeleteAssessmentCommand(String moduleCode, String title) {
+        this.moduleCode = moduleCode;
+        this.title = title.strip();
+    }
 
-	@Override
-	public boolean isExit() {
-		return false;
-	}
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 
-	@Override
-	public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui)
-			throws ModuleDoesNotExistException, EmptyArgumentException, InvalidScoreException {
-		try {
-			Module module = moduleManager.getModule(this.moduleCode);
-			for (int i = 0; i < module.assessments.size(); i++) {
-				if (module.assessments.get(i).title.equals(this.title)) {
-					module.assessments.remove(i);
-					Storage.getStorage().exportData(moduleManager, module.getModuleCode());
-					return ;
-				}
-			}
-			Ui.printNoSuchAssessment(title, moduleCode);
-		} catch (ModuleNotExistsException e) {
-			throw  new ModuleDoesNotExistException();
-		}
-	}
+    @Override
+    public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui)
+            throws ModuleDoesNotExistException, EmptyArgumentException, InvalidScoreException {
+        try {
+            Module module = moduleManager.getModule(this.moduleCode);
+            for (int i = 0; i < module.assessments.size(); i++) {
+                if (module.assessments.get(i).title.equals(this.title)) {
+                    module.assessments.remove(i);
+                    Storage.getStorage().exportData(moduleManager, module.getModuleCode());
+                    return;
+                }
+            }
+            Ui.printNoSuchAssessment(title, moduleCode);
+        } catch (ModuleNotExistsException e) {
+            throw new ModuleDoesNotExistException();
+        }
+    }
 }

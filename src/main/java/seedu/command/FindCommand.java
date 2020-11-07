@@ -9,9 +9,11 @@ import seedu.Ui;
  */
 public class FindCommand extends Command {
     private String keywords;
-    public FindCommand(String keywords){
+
+    public FindCommand(String keywords) {
         this.keywords = keywords;
     }
+
     @Override
     public boolean isExit() {
         return false;

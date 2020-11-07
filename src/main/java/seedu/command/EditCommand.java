@@ -4,7 +4,7 @@ import seedu.ModuleManager;
 import seedu.ScheduleManager;
 import seedu.Ui;
 
-public class editCommand extends Command {
+public class EditCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
