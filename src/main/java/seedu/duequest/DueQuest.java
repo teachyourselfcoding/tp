@@ -26,7 +26,6 @@ public class DueQuest {
      * The main function to run the whole Duke app.
      */
     public static void main(String[] args) {
-        //assert false : "dummy assertion set to fail";
         DueQuest dq = new DueQuest();
         try {
             storage = Storage.setUpStorage(args[0]);
@@ -38,7 +37,7 @@ public class DueQuest {
     }
 
     /**
-     * Constructor
+     * Constructor for DueQuest.
      */
     public DueQuest() {
         this.ui = new Ui();
@@ -48,7 +47,7 @@ public class DueQuest {
     }
 
     /**
-     * The run method to execute the commands FOR OUR TP!!!!
+     * The run method to execute the commands.
      */
     public void run() {
         boolean isExit = false;

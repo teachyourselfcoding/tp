@@ -53,7 +53,7 @@ class ModuleManagerTest {
             assertEquals(moduleManager.getNumberOfModules(), 3);
             moduleManager.addModule(module1);
             assertEquals(moduleManager.getNumberOfModules(), 3);
-        } catch (Exception e) {  // ignore exceptions temporarily
+        } catch (Exception e) {
         }
     }
 

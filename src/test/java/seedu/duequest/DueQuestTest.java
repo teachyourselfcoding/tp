@@ -140,4 +140,96 @@ class DueQuestTest {
         }
         assertEquals(1, dq.getModuleManager().getModule("CS2113").getListOfTasks().size());
     }
+
+    @Test
+    void addLesson_addLessonWithClashes_returnsTrue() throws ModuleAlreadyExistsException {
+        DueQuest dq = new DueQuest();
+        dq.getModuleManager().addModule(new Module("CS2113"));
+        String input1 = "lesson online lecture CS2113 /on 5 16:00 18:00";
+        try {
+            Command c = Parser.parse(input1);
+            c.execute(dq.getScheduleManager(), dq.getModuleManager(), dq.getUi());
+        } catch (DueQuestException e) {
+        } catch (NullPointerException | EmptyArgumentException | InvalidScoreException e) {
+        } catch (ModuleDoesNotExistException e) {
+        }
+        assertEquals(1, dq.getScheduleManager().getSemesterSchedule()
+                .get(LocalDate.of(2021, 1, 15)).size());
+        String input2 = "lesson online lecture CS2113 /on 5 14:00 18:00";
+        try {
+            Command c = Parser.parse(input2);
+            c.execute(dq.getScheduleManager(), dq.getModuleManager(), dq.getUi());
+        } catch (DueQuestException e) {
+        } catch (NullPointerException | EmptyArgumentException | InvalidScoreException e) {
+        } catch (ModuleDoesNotExistException e) {
+        }
+        assertEquals(1, dq.getScheduleManager().getSemesterSchedule()
+                .get(LocalDate.of(2021, 1, 15)).size());
+        String input3 = "lesson online lecture CS2113 /on 5 16:00 20:00";
+        try {
+            Command c = Parser.parse(input3);
+            c.execute(dq.getScheduleManager(), dq.getModuleManager(), dq.getUi());
+        } catch (DueQuestException e) {
+        } catch (NullPointerException | EmptyArgumentException | InvalidScoreException e) {
+        } catch (ModuleDoesNotExistException e) {
+        }
+        assertEquals(1, dq.getScheduleManager().getSemesterSchedule()
+                .get(LocalDate.of(2021, 1, 15)).size());
+        String input4 = "lesson extra class CS2113 /on 5 20:00 22:00";
+        try {
+            Command c = Parser.parse(input4);
+            c.execute(dq.getScheduleManager(), dq.getModuleManager(), dq.getUi());
+        } catch (DueQuestException e) {
+        } catch (NullPointerException | EmptyArgumentException | InvalidScoreException e) {
+        } catch (ModuleDoesNotExistException e) {
+        }
+        assertEquals(2, dq.getScheduleManager().getSemesterSchedule()
+                .get(LocalDate.of(2021, 1, 15)).size());
+        String input5 = "event CS2113 final exam /at 2021-01-15 14:00 17:00 LT14";
+        try {
+            Command c = Parser.parse(input5);
+            c.execute(dq.getScheduleManager(), dq.getModuleManager(), dq.getUi());
+        } catch (DueQuestException e) {
+        } catch (NullPointerException | EmptyArgumentException | InvalidScoreException e) {
+        } catch (ModuleDoesNotExistException e) {
+        }
+        assertEquals(2, dq.getScheduleManager().getSemesterSchedule()
+                .get(LocalDate.of(2021, 1, 15)).size());
+        String input6 = "event CS2113 final exam /at 2021-01-15 14:00 16:00 LT14";
+        try {
+            Command c = Parser.parse(input6);
+            c.execute(dq.getScheduleManager(), dq.getModuleManager(), dq.getUi());
+        } catch (DueQuestException e) {
+        } catch (NullPointerException | EmptyArgumentException | InvalidScoreException e) {
+        } catch (ModuleDoesNotExistException e) {
+        }
+        assertEquals(3, dq.getScheduleManager().getSemesterSchedule()
+                .get(LocalDate.of(2021, 1, 15)).size());
+    }
+
+    /*
+    @Test
+    void deleteTask_deleteTaskWithDescription_returnTrue() throws ModuleAlreadyExistsException, ModuleNotExistsException {
+        DueQuest dq = new DueQuest();
+        dq.getModuleManager().addModule(new Module("CS2113"));
+        String input1 = "deadline CS2113 tp /by 2020-10-16";
+        try {
+            Command c = Parser.parse(input1);
+            c.execute(dq.getScheduleManager(), dq.getModuleManager(), dq.getUi());
+        } catch (DueQuestException e) {
+        } catch (NullPointerException | EmptyArgumentException | InvalidScoreException e) {
+        } catch (ModuleDoesNotExistException e) {
+        }
+        assertEquals(1, dq.getModuleManager().getNumberOfModules());
+        String input2 = "delete tp";
+        try {
+            Command c = Parser.parse(input2);
+            c.execute(dq.getScheduleManager(), dq.getModuleManager(), dq.getUi());
+        } catch (DueQuestException e) {
+        } catch (NullPointerException | EmptyArgumentException | InvalidScoreException e) {
+        } catch (ModuleDoesNotExistException e) {
+        }
+        assertEquals(0, dq.getModuleManager().getModule("CS2113").getListOfTasks().size());
+    }
+    */
 }
