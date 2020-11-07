@@ -14,9 +14,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.TreeMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * READ THIS FIRST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!.
@@ -27,7 +27,7 @@ import java.util.Map;
  * Dates of the following are obtained from NUS website.
  */
 public class ScheduleManager {
-    private static TreeMap<LocalDate, ArrayList<Task>> semesterSchedule = new TreeMap<>();
+    private TreeMap<LocalDate, ArrayList<Task>> semesterSchedule = new TreeMap<>();
     private HashSet<LocalDate> listOfNonLessonDates = new HashSet<>();
 
     /**
@@ -36,6 +36,14 @@ public class ScheduleManager {
      * @param semesterSchedule treeMap object of Local Date and List of Task
      */
     public ScheduleManager(TreeMap<LocalDate, ArrayList<Task>> semesterSchedule) {
+        this.semesterSchedule = semesterSchedule;
+    }
+
+    public TreeMap<LocalDate, ArrayList<Task>> getSemesterSchedule() {
+        return semesterSchedule;
+    }
+
+    public void setSemesterSchedule(TreeMap<LocalDate, ArrayList<Task>> semesterSchedule) {
         this.semesterSchedule = semesterSchedule;
     }
 

@@ -12,7 +12,6 @@ import seedu.exception.ModuleNotExistsException;
 import seedu.module.Assessment;
 import seedu.module.Module;
 
-
 /**
  * Class represents the command of adding a new assessment.
  */

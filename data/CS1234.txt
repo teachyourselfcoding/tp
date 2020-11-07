@@ -1,2 +1,0 @@
-module c/CS1234 a/0
-lesson online tutorial CS1234 /on 4 08:00 10:00
