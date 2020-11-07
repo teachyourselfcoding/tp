@@ -16,13 +16,14 @@ import seedu.module.Module;
  * Class represents the command of adding a new assessment.
  */
 public class AddAssessmentCommand extends Command {
-	public String title;
-	private float fullScore;
-	private String moduleCode;
+    public String title;
+    private float fullScore;
+    private String moduleCode;
 
     /**
      * Constructor.
-     * @param title title of the assessment.
+     *
+     * @param title      title of the assessment.
      * @param fullScore  score of the assessment
      * @param moduleCode modue code of the assessment.
      * @throws InvalidArgumentsException if there is no float number to parse from fullScore.
