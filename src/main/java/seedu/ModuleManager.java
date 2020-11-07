@@ -89,7 +89,8 @@ public class ModuleManager {
                 m.setModuleCode(newProperty);
                 edited = true;
             }
-        } if (edited) {
+        }
+        if (edited) {
             System.out.println("Module property has been updated");
         }
     }
@@ -101,7 +102,8 @@ public class ModuleManager {
                 m.setModuleCode(newProperty);
                 edited = true;
             }
-        } if (edited) {
+        }
+        if (edited) {
             System.out.println("Module property has been updated");
         }
     }
@@ -144,7 +146,8 @@ public class ModuleManager {
                     }
                 }
             }
-        } if (edit) {
+        }
+        if (edit) {
             System.out.println("Module property has been updated");
         }
     }
@@ -169,7 +172,8 @@ public class ModuleManager {
                     }
                 }
             }
-        } if (edited) {
+        }
+        if (edited) {
             System.out.println("Module frequency has been edited");
         }
     }
@@ -183,7 +187,7 @@ public class ModuleManager {
      * @param newDate new date.
      * @param moduleCode module code.
      */
-    public void editTask(String description, LocalDate date, String property, LocalDate newDate, String moduleCode){
+    public void editTask(String description, LocalDate date, String property, LocalDate newDate, String moduleCode) {
         boolean edited = false;
         for (Module m: listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
@@ -197,7 +201,8 @@ public class ModuleManager {
                     }
                 }
             }
-        } if (edited) {
+        }
+        if (edited) {
             System.out.println("Module task's date has been edited");
         }
     }

@@ -330,11 +330,16 @@ public class Parser {
         if (descriptionWithModuleCode.length == 1) {
             throw new MissingLessonDescriptionException();
         }
+
         if (frequencyAndTime.length != 3) {
             throw new MissingLessonTimingException();
         }
-        String description = descriptionWithModuleCode[0].trim();
-        description = description.substring(0, description.length() - moduleCode.length()).trim();
+        String description = "";
+        for (int i = 0; i < descriptionWithModuleCode.length - 1; i++) {
+            description += descriptionWithModuleCode[i].trim() + " ";
+        }
+        description = description.trim();
+
         String freq = frequencyAndTime[0];
         try {
             Integer.parseInt(freq);
