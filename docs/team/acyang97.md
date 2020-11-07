@@ -19,7 +19,7 @@ as well as tasks related to their modules that they are taking.
 ### Contributions to documentation
 - For User guide:
     - Wrote the introduction.
-    - Wrote description on definiation of a valid MODULECODE.
+    - Wrote description on defination of a valid MODULECODE.
     - Wrote description for adding tasks, adding lessons, adding events, adding deadlines.
     - Wrote description for exiting the app.
 - For Developer Guide
@@ -30,7 +30,6 @@ as well as tasks related to their modules that they are taking.
     - Wrote and drew diagram in Command component in the Design Component.
     - Wrote and drew diagram in Managers component in the Design Component.
     - Wrote and drew diagram in Add Feature in the Implementation Component.
-    - Wrote User Stories.
     
 
 

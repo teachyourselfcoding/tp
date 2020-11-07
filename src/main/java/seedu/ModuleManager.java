@@ -2,6 +2,7 @@ package seedu;
 
 import seedu.exception.ModuleAlreadyExistsException;
 import seedu.exception.ModuleNotExistsException;
+import seedu.module.Module;
 import seedu.task.Deadline;
 import seedu.task.Lesson;
 import seedu.task.Task;
