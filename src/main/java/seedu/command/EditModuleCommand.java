@@ -69,14 +69,14 @@ public class EditModuleCommand extends editCommand{
         if(description.equals("au")) {
             moduleManager.editModuleAu(moduleCode, newProperty);
         }
-        else if(description.equals("staff")) {
+        else if (description.equals("staff")) {
             moduleManager.editModuleStaff(moduleCode, newProperty);
         }
-        else if(description.equals("modulecode")) {
+        else if (description.equals("modulecode")) {
             moduleManager.editModuleCode(moduleCode, newProperty);
             scheduleManager.editModulecode(moduleCode,newProperty);
-        } else{
-                switch(type){
+        } else {
+                switch(type) {
                     case "type":
                         //Fallthrough
                     case "description":
