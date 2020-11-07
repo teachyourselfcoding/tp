@@ -19,10 +19,10 @@ public class AddAssessmentCommand extends Command{
 
 	/**
 	 * Constructor.
-	 * @param title
-	 * @param fullScore
-	 * @param moduleCode
-	 * @throws InvalidArgumentsException if there is no float number to parse from fullScore
+	 * @param title title of the assessment.
+	 * @param fullScore score of the assessment
+	 * @param moduleCode modue code of the assessment.
+	 * @throws InvalidArgumentsException if there is no float number to parse from fullScore.
 	 */
 	public AddAssessmentCommand(String title, String fullScore, String moduleCode) throws InvalidArgumentsException {
 		this.title = title;
@@ -40,7 +40,8 @@ public class AddAssessmentCommand extends Command{
 	}
 
 	@Override
-	public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) throws ModuleDoesNotExistException,
+	public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui)
+			throws ModuleDoesNotExistException,
 			EmptyArgumentException, InvalidScoreException {
 		try {
 			Module module = moduleManager.getModule(this.moduleCode);

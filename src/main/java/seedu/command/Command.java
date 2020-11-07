@@ -7,7 +7,6 @@ import seedu.exception.EmptyArgumentException;
 import seedu.exception.InvalidScoreException;
 import seedu.exception.ModuleDoesNotExistException;
 
-
 /**
  * The base for all other Command classes to inherit from.
  */

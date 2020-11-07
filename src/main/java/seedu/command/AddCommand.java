@@ -37,7 +37,8 @@ public class AddCommand  extends Command {
      * @throws ModuleDoesNotExistException if the module has not been created yet.
      */
     @Override
-    public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) throws ModuleDoesNotExistException {
+    public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui)
+            throws ModuleDoesNotExistException {
         try {
             if (task instanceof Lesson) {
                 scheduleManager.addLesson((Lesson) task, moduleManager, ui);

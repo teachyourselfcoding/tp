@@ -121,10 +121,12 @@ public class ScheduleManager {
 				LocalTime startTimeOfTask = ((Lesson)task).getStartTimeInLocalTime();
 				LocalTime endTimeOfTask = ((Lesson)task).getEndTimeInLocalTime();
 				if (startTimeOfLesson.equals(endTimeOfTask) || startTimeOfLesson.isAfter(endTimeOfTask)) {
-					break;
+					//break;
+					continue;
 				}
 				if (endTimeOfLesson.equals(startTimeOfTask) || endTimeOfLesson.isBefore(startTimeOfTask)) {
-					break;
+					//break;
+					continue;
 				}
 				return true;
 			}
@@ -132,10 +134,12 @@ public class ScheduleManager {
 				LocalTime startTimeOfTask = ((Event)task).getStartTimeOfEventInLocalTime();
 				LocalTime endTimeOfTask = ((Event)task).getEndTimeOfEventInLocalTime();
 				if (startTimeOfLesson.equals(endTimeOfTask) || startTimeOfLesson.isAfter(endTimeOfTask)) {
-					break;
+					//break;
+					continue;
 				}
 				if (endTimeOfLesson.equals(startTimeOfTask) || endTimeOfLesson.isBefore(startTimeOfTask)) {
-					break;
+					//break;
+					continue;
 				}
 				return true;
 			}
@@ -152,10 +156,12 @@ public class ScheduleManager {
 				LocalTime startTimeOfTask = ((Lesson)task).getStartTimeInLocalTime();
 				LocalTime endTimeOfTask = ((Lesson)task).getEndTimeInLocalTime();
 				if (startTimeOfEvent.equals(endTimeOfTask) || startTimeOfEvent.isAfter(endTimeOfTask)) {
-					break;
+					//break;
+					continue;
 				}
 				if (endTimeOfEvent.equals(startTimeOfTask) || endTimeOfEvent.isBefore(startTimeOfTask)) {
-					break;
+					//break;
+					continue;
 				}
 				return true;
 			}
@@ -163,10 +169,12 @@ public class ScheduleManager {
 				LocalTime startTimeOfTask = ((Event)task).getStartTimeOfEventInLocalTime();
 				LocalTime endTimeOfTask = ((Event)task).getEndTimeOfEventInLocalTime();
 				if (startTimeOfEvent.equals(endTimeOfTask) || startTimeOfEvent.isAfter(endTimeOfTask)) {
-					break;
+					//break;
+					continue;
 				}
 				if (endTimeOfEvent.equals(startTimeOfTask) || endTimeOfEvent.isBefore(startTimeOfTask)) {
-					break;
+					//break;
+					continue;
 				}
 				return true;
 			}
