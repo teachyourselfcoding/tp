@@ -25,16 +25,17 @@ public class Task {
     /**
      * Creates new Task object, without frequency.
      * Error message will be printed if the module with the moduleCode doesn't exist.
+     *
      * @param description the task description.
-     * @param moduleCode the code of the module this task relates to.
-     *  - add searching module based on moduleCode(String). Need to search through the ModuleManager.
-     *  - add error handling.
+     * @param moduleCode  the code of the module this task relates to.
+     *                    - add searching module based on moduleCode(String). Need to search through the ModuleManager.
+     *                    - add error handling.
      */
     public Task(String description, String moduleCode, int frequency) {
         this.description = description;
         this.moduleCode = moduleCode;
         this.frequency = frequency;
-        this.date =null;
+        this.date = null;
     }
 
     public Task(String description) {
@@ -58,33 +59,36 @@ public class Task {
         return this.frequency;
     }
 
-    public LocalDate getDate(){ return date;}
+    public LocalDate getDate() {
+        return date;
+    }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
 
-    public void setModulecode(String newModulecode){ this.moduleCode = newModulecode; }
+    public void setModulecode(String newModulecode) {
+        this.moduleCode = newModulecode;
+    }
 
-    public void setDate(String newDate){
+    public void setDate(String newDate) {
         this.by = newDate;
     }
 
     public void setTime(String newTime) {
         int time = Integer.parseInt(newTime);
-        if(time > 2359| (time/100)>23|(time%100)>59){
+        if (time > 2359 | (time / 100) > 23 | (time % 100) > 59) {
             System.out.println("Invalid Time format");
-        } else{
+        } else {
             this.time = newTime;
         }
     }
 
-    public void setTasktype(String newTasktype){
-        if(newTasktype.equals("D") | newTasktype.equals("E")) {
+    public void setTasktype(String newTasktype) {
+        if (newTasktype.equals("D") | newTasktype.equals("E")) {
             this.taskType = newTasktype;
-        }
-        else {
+        } else {
             System.out.println("Invalid Task type");
         }
     }

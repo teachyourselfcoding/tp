@@ -26,9 +26,9 @@ public class Ui {
     public void welcomeMessage() {
         String welcomeMessage =
                 "_____________________________________________\n"
-                +"Whats up people! DueQuest is here to save the day\n"
-                +"DueQuest for students by students\n"
-                +"So, what can I do for you?\n";
+                        + "Whats up people! DueQuest is here to save the day\n"
+                        + "DueQuest for students by students\n"
+                        + "So, what can I do for you?\n";
         System.out.print(welcomeMessage);
         System.out.println(SEPARATOR);
     }
@@ -40,7 +40,7 @@ public class Ui {
         String byeMessage =
                 "Aye captain. This is DueQuest Signing out!\n";
         System.out.print(byeMessage);
-        
+
     }
 
     /**
@@ -48,18 +48,19 @@ public class Ui {
      */
     public void printHelpGuide() {
         String helpMessage = " This is the list of Command Available, please refer to the User Guide\n"
-                + " display - display today's Schedule, module info, list of Task \n"
-                + " module  - add a module\n"
-                + " add     - add a deadline, event, lesson\n"
-                + " edit    - edit information\n"
-                + " delete  - delete task in a module\n"
-                + " bye    - exit duequest";
+                +  " display - display today's Schedule, module info, list of Task \n"
+                +  " module  - add a module\n"
+                +  " add     - add a deadline, event, lesson\n"
+                +  " edit    - edit information\n"
+                +  " delete  - delete task in a module\n"
+                +  " bye    - exit duequest";
         print(helpMessage);
         System.out.println(SEPARATOR);
     }
 
     /**
      * Scan and Read in user input on the CLI.
+     *
      * @return String command.
      */
     public String readCommand() {
@@ -81,6 +82,7 @@ public class Ui {
 
     /**
      * Prints the Exception information based on the parameters.
+     *
      * @param e DukeExceptionType.
      */
     public void showError(DueQuestExceptionType e) {
@@ -119,12 +121,13 @@ public class Ui {
 
     /**
      * Used to print any generic list.
+     *
      * @param lists the provided list of generic type.
-     * @param <T> the object type
+     * @param <T>   the object type
      */
     public static <T> void printListGenericType(ArrayList<T> lists, String modifier) {
         if (lists != null) {
-            for (T i: lists) {
+            for (T i : lists) {
                 print(i.toString());
             }
         }
@@ -137,8 +140,14 @@ public class Ui {
     /**
      * Convert LocalDate object into readable string format without year.
      * E.g 12 JUN.
+<<<<<<< HEAD
      * @param date date to be converted.
      * @return string form of the converted LocalDate object without year.
+=======
+     *
+     * @param date Local date object to convert
+     * @return String
+>>>>>>> upstream/master
      */
     public static String convertDateToString(LocalDate date) {
         String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM"));
@@ -148,10 +157,16 @@ public class Ui {
     /**
      * Convert LocalDate object into readable string format with year included.
      * E.g 12 JUN 20.
+<<<<<<< HEAD
      * @param date date to be converted.
      * @return string form of the converted LocalDate object with year.
+=======
+     *
+     * @param date Local date object to be converted
+     * @return String
+>>>>>>> upstream/master
      */
-    public static String convertDateToStringWithYear(LocalDate date){
+    public static String convertDateToStringWithYear(LocalDate date) {
         String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM YY"));
         return stringDate;
     }
@@ -214,8 +229,8 @@ public class Ui {
 
     public static void printInvalidDateFormatMessage() {
         System.out.println(SEPARATOR);
-        System.out.println("Please give the date in correct format and a valid date. "
-                            + "It should be in YYYY-MM-DD format.");
+        System.out.println("Please give the date in correct format and a valid date."
+                + " It should be in YYYY-MM-DD format.");
         System.out.println(SEPARATOR);
     }
 

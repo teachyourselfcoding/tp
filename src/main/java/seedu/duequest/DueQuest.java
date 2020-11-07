@@ -37,7 +37,7 @@ public class DueQuest {
     }
 
     /**
-     * Constructor for DueQuest.
+     * Constructor.
      */
     public DueQuest() {
         this.ui = new Ui();
@@ -48,6 +48,7 @@ public class DueQuest {
 
     /**
      * The run method to execute the commands.
+     * The run method to execute the commands FOR OUR TP!!!!.
      */
     public void run() {
         boolean isExit = false;
@@ -62,6 +63,7 @@ public class DueQuest {
                 ui.showError(e.getExceptionType());
             } catch (NullPointerException e) {  // this has been handled within parser
             } catch (ModuleDoesNotExistException e) {
+                Ui.printModuleDoesNotExistMessage();
             } catch (EmptyArgumentException e) {
                 Ui.printEmptyArgumentMessage();
             } catch (InvalidScoreException e) {
