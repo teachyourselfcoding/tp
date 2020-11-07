@@ -71,25 +71,6 @@ public class ModuleManager {
         throw new ModuleNotExistsException();
     }
 
-    /**
-     * Display the tasks of a module.
-     * @param moduleCode module code's string.
-     * @throws ModuleNotExistsException when the module does not exist.
-     */
-    public void display(String moduleCode) throws ModuleNotExistsException {
-        for (Module m: listOfModules) {
-            if (m.getModuleCode().equals(moduleCode)) {
-                ArrayList<Task> tasks = m.getListOfTasks();
-                System.out.println(m); // print the module's information
-                Ui.print("The list of task in " + moduleCode + ":");
-                Ui.printListGenericType(tasks,"events,deadline or lessons");
-                Ui.printSeparator();
-                return;
-            }
-        }
-        throw new ModuleNotExistsException();
-    }
-
     public void editModuleCode(String moduleCode, String newProperty) {
         for (Module m: listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
@@ -204,10 +185,10 @@ public class ModuleManager {
      */
     public void editTask(String description, LocalDate date, String property, LocalDate newDate, String moduleCode){
         boolean edited = false;
-        for(Module m: listOfModules){
-            if(m.getModuleCode().equals(moduleCode)){
-                for(Task task : m.getListOfTasks()){
-                    if(task.getDescription().equals(description)){
+        for (Module m: listOfModules) {
+            if (m.getModuleCode().equals(moduleCode)) {
+                for (Task task : m.getListOfTasks()) {
+                    if (task.getDescription().equals(description)) {
                         Task newTask = task;
                         newTask.setDate(newDate.toString()); //need to change later
                         m.addTask(newTask);
@@ -216,7 +197,7 @@ public class ModuleManager {
                     }
                 }
             }
-        }if(edited){
+        } if (edited) {
             System.out.println("Module task's date has been edited");
         }
     }
@@ -272,6 +253,25 @@ public class ModuleManager {
                 m.getListOfTasks().removeIf(t -> t.getDate().isEqual(date));
             }
         }
+    }
+
+    /**
+     * Display the tasks of a module.
+     * @param moduleCode module code's string.
+     * @throws ModuleNotExistsException when the module does not exist.
+     */
+    public void display(String moduleCode) throws ModuleNotExistsException {
+        for (Module m: listOfModules) {
+            if (m.getModuleCode().equals(moduleCode)) {
+                ArrayList<Task> tasks = m.getListOfTasks();
+                System.out.println(m); // print the module's information
+                Ui.print("The list of task in " + moduleCode + ":");
+                Ui.printListGenericType(tasks,"events,deadline or lessons");
+                Ui.printSeparator();
+                return;
+            }
+        }
+        throw new ModuleNotExistsException();
     }
 
     /**
