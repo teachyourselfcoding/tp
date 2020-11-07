@@ -43,31 +43,26 @@ public class ScheduleManager {
 	 */
 	public ScheduleManager() {
 		this.semesterSchedule = new TreeMap<>();
-		// Now I will need to populate this hashmap because it is currently empty with no dates.
 		for (LocalDate date = LocalDate.of(2020, 10, 12);
 			 date.isBefore(LocalDate.of(2021, 6, 1));
 			 date = date.plusDays(1)) {
 			this.semesterSchedule.put(date, new ArrayList<>());
 		}
-		// add winter break dates
 		for (LocalDate date = LocalDate.of(2020, 12, 6);
 			 date.isBefore(LocalDate.of(2021, 1, 11));
 			 date = date.plusDays(1)) {
 			this.listOfNonLessonDates.add(date);
 		}
-		// add first reading week dates
 		for (LocalDate date = LocalDate.of(2021, 2, 20);
 			 date.isBefore(LocalDate.of(2021, 3, 1));
 			 date = date.plusDays(1)) {
 			this.listOfNonLessonDates.add(date);
 		}
-		// add second reading week and examination dates
 		for (LocalDate date = LocalDate.of(2021, 4, 17);
 			 date.isBefore(LocalDate.of(2021, 5, 9));
 			 date = date.plusDays(1)) {
 			this.listOfNonLessonDates.add(date);
 		}
-		// add remaining dates after examination week
 		for (LocalDate date = LocalDate.of(2021, 5, 9);
 			 date.isBefore(LocalDate.of(2021, 6, 1));
 			 date = date.plusDays(1)) {
@@ -90,7 +85,6 @@ public class ScheduleManager {
 		}
 		for (Map.Entry<LocalDate, ArrayList<Task>> entry : this.semesterSchedule.entrySet()) {
 			LocalDate key = entry.getKey();
-			// add lessons to weeks when there is school only.
 			if (!this.listOfNonLessonDates.contains(key)) {
 				if (key.getDayOfWeek().getValue() == day.getValue()) {
 					this.semesterSchedule.get(key).add(lesson);
@@ -107,7 +101,6 @@ public class ScheduleManager {
 			LocalDate key = entry.getKey();
 			if (!this.listOfNonLessonDates.contains(key)) {
 				if (key.getDayOfWeek().getValue() == day.getValue()) {
-					// check if got a clash. immediately return true if there is
 					if (checkIfLessonToBeAddedClashesInADate(lesson, key)) {
 						return true;
 					}
@@ -125,52 +118,28 @@ public class ScheduleManager {
 			if (task instanceof Lesson) {
 				LocalTime startTimeOfTask = ((Lesson)task).getStartTimeInLocalTime();
 				LocalTime endTimeOfTask = ((Lesson)task).getEndTimeInLocalTime();
-				if (startTimeOfLesson.equals(endTimeOfTask)) {
-					break;
+				if (startTimeOfLesson.equals(endTimeOfTask) || startTimeOfLesson.isAfter(endTimeOfTask)) {
+					//break;
+					continue;
 				}
-				if (startTimeOfLesson.isAfter(startTimeOfTask) && startTimeOfLesson.isBefore(endTimeOfTask)) {
-					return true;
+				if (endTimeOfLesson.equals(startTimeOfTask) || endTimeOfLesson.isBefore(startTimeOfTask)) {
+					//break;
+					continue;
 				}
-				if (startTimeOfTask.isBefore(startTimeOfLesson) && endTimeOfLesson.isBefore(endTimeOfTask)) {
-					return true;
-				}
-				if (startTimeOfTask.isBefore(startTimeOfLesson) && endTimeOfLesson.isAfter(endTimeOfTask)) {
-					return true;
-				}
-				if (startTimeOfTask.isBefore(startTimeOfLesson) && endTimeOfLesson.equals(endTimeOfTask)) {
-					return true;
-				}
-				if (startTimeOfTask.equals(startTimeOfLesson) && endTimeOfTask.equals(endTimeOfLesson)) {
-					return true;
-				}
-				if (endTimeOfLesson.isAfter(startTimeOfTask)) {
-					return true;
-				}
+				return true;
 			}
 			if (task instanceof Event) {
 				LocalTime startTimeOfTask = ((Event)task).getStartTimeOfEventInLocalTime();
 				LocalTime endTimeOfTask = ((Event)task).getEndTimeOfEventInLocalTime();
-				if (startTimeOfLesson.equals(endTimeOfTask)) {
-					break;
+				if (startTimeOfLesson.equals(endTimeOfTask) || startTimeOfLesson.isAfter(endTimeOfTask)) {
+					//break;
+					continue;
 				}
-				if (startTimeOfLesson.isAfter(startTimeOfTask) && startTimeOfLesson.isBefore(endTimeOfTask)) {
-					return true;
+				if (endTimeOfLesson.equals(startTimeOfTask) || endTimeOfLesson.isBefore(startTimeOfTask)) {
+					//break;
+					continue;
 				}
-				if (startTimeOfTask.isBefore(startTimeOfLesson) && endTimeOfLesson.isBefore(endTimeOfTask)) {
-					return true;
-				}
-				if (startTimeOfTask.isBefore(startTimeOfLesson) && endTimeOfLesson.isAfter(endTimeOfTask)) {
-					return true;
-				}
-				if (startTimeOfTask.isBefore(startTimeOfLesson) && endTimeOfLesson.equals(endTimeOfTask)) {
-					return true;
-				}
-				if (startTimeOfTask.equals(startTimeOfLesson) && endTimeOfTask.equals(endTimeOfLesson)) {
-					return true;
-				}
-				if (endTimeOfLesson.isAfter(startTimeOfTask)) {
-					return true;
-				}
+				return true;
 			}
 		}
 		return false;
@@ -184,52 +153,28 @@ public class ScheduleManager {
 			if (task instanceof Lesson) {
 				LocalTime startTimeOfTask = ((Lesson)task).getStartTimeInLocalTime();
 				LocalTime endTimeOfTask = ((Lesson)task).getEndTimeInLocalTime();
-				if (startTimeOfEvent.equals(endTimeOfTask)) {
-					break;
+				if (startTimeOfEvent.equals(endTimeOfTask) || startTimeOfEvent.isAfter(endTimeOfTask)) {
+					//break;
+					continue;
 				}
-				if (startTimeOfEvent.isAfter(startTimeOfTask) && startTimeOfEvent.isBefore(endTimeOfTask)) {
-					return true;
+				if (endTimeOfEvent.equals(startTimeOfTask) || endTimeOfEvent.isBefore(startTimeOfTask)) {
+					//break;
+					continue;
 				}
-				if (startTimeOfTask.isBefore(startTimeOfEvent) && endTimeOfEvent.isBefore(endTimeOfTask)) {
-					return true;
-				}
-				if (startTimeOfTask.isBefore(startTimeOfEvent) && endTimeOfEvent.isAfter(endTimeOfTask)) {
-					return true;
-				}
-				if (startTimeOfTask.isBefore(startTimeOfEvent) && endTimeOfEvent.equals(endTimeOfTask)) {
-					return true;
-				}
-				if (startTimeOfTask.equals(startTimeOfEvent) && endTimeOfTask.equals(endTimeOfEvent)) {
-					return true;
-				}
-				if (endTimeOfEvent.isAfter(startTimeOfTask)) {
-					return true;
-				}
+				return true;
 			}
 			if (task instanceof Event) {
 				LocalTime startTimeOfTask = ((Event)task).getStartTimeOfEventInLocalTime();
 				LocalTime endTimeOfTask = ((Event)task).getEndTimeOfEventInLocalTime();
-				if (startTimeOfEvent.equals(endTimeOfTask)) {
-					break;
+				if (startTimeOfEvent.equals(endTimeOfTask) || startTimeOfEvent.isAfter(endTimeOfTask)) {
+					//break;
+					continue;
 				}
-				if (startTimeOfEvent.isAfter(startTimeOfTask) && startTimeOfEvent.isBefore(endTimeOfTask)) {
-					return true;
+				if (endTimeOfEvent.equals(startTimeOfTask) || endTimeOfEvent.isBefore(startTimeOfTask)) {
+					//break;
+					continue;
 				}
-				if (startTimeOfTask.isBefore(startTimeOfEvent) && endTimeOfEvent.isBefore(endTimeOfTask)) {
-					return true;
-				}
-				if (startTimeOfTask.isBefore(startTimeOfEvent) && endTimeOfEvent.isAfter(endTimeOfTask)) {
-					return true;
-				}
-				if (startTimeOfTask.isBefore(startTimeOfEvent) && endTimeOfEvent.equals(endTimeOfTask)) {
-					return true;
-				}
-				if (startTimeOfTask.equals(startTimeOfEvent) && endTimeOfTask.equals(endTimeOfEvent)) {
-					return true;
-				}
-				if (endTimeOfEvent.isAfter(startTimeOfTask)) {
-					return true;
-				}
+				return true;
 			}
 		}
 		return false;

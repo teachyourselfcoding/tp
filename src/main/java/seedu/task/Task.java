@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 /**
  * Class that needs to be accessed by Schedule object.
- * Task is a parent class for two child classes, Lesson and Deadline
+ * Task is a parent class for three child classes, Lesson and Deadline.
  * Lesson helps to keep track of tasks that have a frequency (weekly)
  * Deadline acts like normal Deadline like in IP.
  */

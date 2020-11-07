@@ -92,6 +92,8 @@ showing how the `Parser` classes and the `Command` classes interact. Unless the 
 an `ExitCommand` or `HelpCommand` , the `Command` will be executed to perform an action to
 either the `ScheduleManager` or `ModuleManager` or both.
 
+![](Images/3.3Command.JPG)
+
 | Class | Function |
 |--------|----------|
 | `Command` | An Abstract class which is the parent class of all of the commands below. The main method in this class is the `execute()` method, which handles the different executions required depending on the input by the user. |
@@ -104,8 +106,6 @@ either the `ScheduleManager` or `ModuleManager` or both.
 | `HelpCommand` | A child class of `Command` which helps to provides the list of inputs for the user to know what to type in to use any of the features he wants. |
 | `ExitCommand` | A child class of `Command` which helps to exit the app. |
 
-![](Images/3.3Command.JPG)
-
 ### Managers
 The application consists of two managers, the `ScheduleManager` and `ModuleManager`. The
 `ScheduleManager` will handle the storing of `Task` in each day. The `ModuleManager` will
@@ -116,8 +116,8 @@ methods and properties of the `ScheduleManager` and `ModuleManager` classes.
 
 | Class | Function |
 |--------|----------|
-| `ScheduleManager` | -- |
-| `ModuleManager` | -- |
+| `ScheduleManager` | The `ScheduleManager` class  helps to store the `Task`s in each day. |
+| `ModuleManager` | `ModuleManager` class helps to store the `Task`s of each module. |
 
 Some Design Considerations on how to store the `Task` in the `ScheduleManager`:
 - Use of a `TreeMap` to store the date as keys and `ArrayList` as values.
@@ -158,6 +158,13 @@ that it belongs to. Below is a sequence diagram which shows how adding of a
 `Lesson` works. Adding of a Event or a Deadline is also in a similar fashion.
 
 ![](Images/4.1Add.JPG)
+
+1. The user inputs `lesson online lecutre CS2113 /on 5 16:00 18:00`, which will be by read by the `Ui` by it's `readCommand()` method, and returned as a String variable called `fullCommand`.
+1. A `Parser` is then used to obtain the logic behind the user's input. The `Parser` will first use it's `parse(fullCommand)` method, which will then call the `parseLesson(fullCommand)` method after finding out that the user wants to add a lesson since that was the first word in the user input for this case.
+1. The `parseLesson(fullCommand)` method will return a `Lesson lesson` object. It will also call a `AddCommand`, which will contain the `Lesson lesson` object, and the `AddCommand` will be returned to the `DueQuest` main class.
+1. Next, the `AddCommand` will be executed to handle the logic of adding a lesson with the details as stated by the user's input. 
+1. Finally, the `execute(ScheduleManager scheduleManager, ModuleManager moduleManager)` will first call the `ScheduleManager`, which calls its own `addLesson(lesson, moduleManager, ui)` method to add the lesson to itself. It also calls the `ModuleManager` object, and the `ModuleManager` will call its own `addTaskToModule(lesson, moduleCodeOfLesson)` to add the lesson to the `Module` in it which has the module code stated by the user.
+ 
 
 ### Display Feature
 
@@ -284,7 +291,7 @@ manage their schedule and work in the school semester
 This app helps NUS Students by keeping them on track with their schedule and work on a daily basis. Thus,
 reducing the chances of them forgetting about any work related to school.
 
-### User Stories (to be updated)
+### User Stories 
 
 |Version| As a ... | I want to ... | So that I can ...|
 |--------|----------|---------------|------------------|

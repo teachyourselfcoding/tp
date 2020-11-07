@@ -1,4 +1,4 @@
-package seedu;
+package seedu.module;
 
 import seedu.task.Deadline;
 import seedu.task.Event;
@@ -24,6 +24,7 @@ public class Module {
 	private int aUNumber;
 	private ArrayList<String> teachingStaffs = new ArrayList<>();
 	private ArrayList<Task> listOfTasks;
+	public ArrayList<Assessment> assessments = new ArrayList<>();
 
 	/**
 	 * Constructor when I am adding a task that has a module code that has not exist yet.
@@ -73,7 +74,7 @@ public class Module {
 	@Override
 	public String toString() {
 		String information = "\nCourse: " + this.moduleCode + "\n" + "Title: " + this.title + "\n" + "AU: " + this.aUNumber
-				+ "\n" + "Teaching Staffs: " + teachingStaffs.toString();
+				+ "\n" + "Teaching Staffs: " + teachingStaffs.toString() + "\n" + "Assessment : \n" + printAssessment();
 		return information;
 	}
 
@@ -101,6 +102,22 @@ public class Module {
 				this.listOfTasks.remove(t);
 			}
 		}
+	}
+
+	public void addAssessment(Assessment assessment) {
+		this.assessments.add(assessment);
+	}
+
+	public String printAssessment() {
+		String content = "";
+		for (Assessment assessment: assessments) {
+			content += assessment.toString() + '\n';
+		}
+		return content;
+	}
+
+	public ArrayList<Assessment> getAssessments() {
+		return assessments;
 	}
 
 	/**
@@ -136,6 +153,10 @@ public class Module {
 				export += "deadline " + this.moduleCode + " " + currentTask.getDescription() + " /by " +
 						((Deadline) currentTask).getDeadline() + '\n';
 			}
+		}
+
+		for (Assessment assessment: this.assessments) {
+			export += "assessment " + this.moduleCode + " " + assessment.title + " " + assessment.getFullScore() + '\n';
 		}
 
 		return export;
