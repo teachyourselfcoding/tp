@@ -67,7 +67,7 @@ class ModuleManagerTest {
     @Test
     void display_displayNonExistentModuleWithDate_expectException() {
         ModuleManager mm = new ModuleManager();
-        assertThrows(ModuleNotExistsException.class,() -> {mm.display("CS2113", LocalDate.now());});
+        assertThrows(ModuleNotExistsException.class,() -> mm.display("CS2113", LocalDate.now()));
     }
 
 }
