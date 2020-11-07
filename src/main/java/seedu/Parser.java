@@ -7,7 +7,7 @@ import seedu.command.Command;
 import seedu.command.DeleteAssessmentCommand;
 import seedu.command.DeleteCommand;
 import seedu.command.DisplayCommand;
-import seedu.command.editCommand;
+import seedu.command.EditCommand;
 import seedu.command.EditModuleCommand;
 import seedu.command.EditTaskCommand;
 import seedu.command.ExitCommand;
@@ -460,7 +460,7 @@ public class Parser {
         String moduleCode = "";
         String[] filteredInput = input.trim().split(" ",2);
 
-        if (filteredInput.length == 1){  // by default, the display time is now.
+        if (filteredInput.length == 1) {  // by default, the display time is now.
             return new DisplayCommand(LocalDate.now());
         }
 
@@ -584,12 +584,12 @@ public class Parser {
         return true;
     }
 
-    public static editCommand validateEditCommand(String input) throws DueQuestException, WrongDateFormatException {
+    public static EditCommand validateEditCommand(String input) throws DueQuestException, WrongDateFormatException {
         String moduleCode = null;
         String[] splitViaModule;
         String filteredInput;
 
-        if (input.charAt(5) =='c' && input.charAt(6) == '/'){
+        if (input.charAt(5) == 'c' && input.charAt(6) == '/') {
             splitViaModule = ((input.split("c/"))[1].trim()).split(" ",2);
             filteredInput = splitViaModule[1].trim();
             moduleCode = splitViaModule[0].trim();
@@ -617,7 +617,7 @@ public class Parser {
 
         String type = (property[1].toLowerCase()).trim();
         String newValue = property[2].trim();
-        switch (type){
+        switch (type) {
         case "description":
             //Fall through
         case "tasktype":
@@ -647,7 +647,7 @@ public class Parser {
             try {
                 LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10)
                         .trim().replace("/", "-"));
-                if(moduleCode == null){
+                if (moduleCode == null) {
                     Storage.getStorage().exportAdditionalData(input);
                     return new EditTaskCommand(description, date, type, newFrequency);
                 }
