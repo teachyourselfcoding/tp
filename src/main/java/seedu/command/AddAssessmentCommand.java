@@ -22,8 +22,7 @@ public class AddAssessmentCommand extends Command {
 
     /**
      * Constructor.
-     *
-     * @param title      title of the assessment.
+     * @param title title of the assessment.
      * @param fullScore  score of the assessment
      * @param moduleCode modue code of the assessment.
      * @throws InvalidArgumentsException if there is no float number to parse from fullScore.
