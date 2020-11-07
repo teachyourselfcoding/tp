@@ -4,15 +4,18 @@ import seedu.ModuleManager;
 import seedu.ScheduleManager;
 import seedu.Storage;
 import seedu.Ui;
-import seedu.exception.*;
+import seedu.exception.EmptyArgumentException;
+import seedu.exception.InvalidArgumentsException;
+import seedu.exception.InvalidScoreException;
+import seedu.exception.ModuleDoesNotExistException;
+import seedu.exception.ModuleNotExistsException;
 import seedu.module.Assessment;
 import seedu.module.Module;
-
 
 /**
  * Class represents the command of adding a new assessment.
  */
-public class AddAssessmentCommand extends Command{
+public class AddAssessmentCommand extends Command {
 	public String title;
 	private float fullScore;
 	private String moduleCode;
