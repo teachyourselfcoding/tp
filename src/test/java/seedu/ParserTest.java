@@ -2,7 +2,6 @@ package seedu;
 
 import org.junit.jupiter.api.Test;
 
-
 import seedu.exception.EmptyArgumentException;
 import seedu.exception.InvalidDateException;
 import seedu.exception.InvalidFrequencyException;

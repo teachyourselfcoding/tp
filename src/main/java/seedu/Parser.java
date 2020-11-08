@@ -176,7 +176,7 @@ public class Parser {
             throw new WrongDateFormatException();
         }
         if (LocalDate.parse(byInfo).isAfter(LocalDate.of(2021, 6, 1))
-            || LocalDate.parse(byInfo).isBefore(LocalDate.of(2020, 10, 12))) {
+            || LocalDate.parse(byInfo).isBefore(LocalDate.of(2021, 1, 1))) {
             throw new InvalidDateException();
         }
         String description = moduleCodeAndDescription[1].trim();
@@ -238,7 +238,7 @@ public class Parser {
         }
 
         if (LocalDate.parse(dateOfEvent).isAfter(LocalDate.of(2021, 6, 1))
-                || LocalDate.parse(dateOfEvent).isBefore(LocalDate.of(2020, 10, 12))) {
+                || LocalDate.parse(dateOfEvent).isBefore(LocalDate.of(2021, 1, 1))) {
             throw new InvalidDateException();
         }
         String startTime = splitDateTimeLocationDetails[1];
