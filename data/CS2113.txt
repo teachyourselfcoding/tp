@@ -1,4 +1,0 @@
-module c/CS2113 a/0
-lesson online lecture CS2113 /on 5 16:00 18:00
-event CS2113 final exam /at 2021-01-15 14:00 16:00 LT14
-deadline CS2113 tp /by 2020-10-16
