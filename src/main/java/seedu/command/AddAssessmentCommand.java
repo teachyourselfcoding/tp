@@ -23,13 +23,13 @@ public class AddAssessmentCommand extends Command {
     /**
      * Constructor.
      *
-     * @param title      title of the assessment.
+     * @param title      title of the assessment
      * @param fullScore  score of the assessment
-     * @param moduleCode modue code of the assessment.
-     * @throws InvalidArgumentsException if there is no float number to parse from fullScore.
+     * @param moduleCode module code of the assessment
+     * @throws InvalidArgumentsException if there is no float number to parse from fullScore
      */
     public AddAssessmentCommand(String title, String fullScore, String moduleCode) throws InvalidArgumentsException {
-        this.title = title;
+        this.title = title.strip();
         this.moduleCode = moduleCode;
         try {
             this.fullScore = Float.parseFloat(fullScore);
