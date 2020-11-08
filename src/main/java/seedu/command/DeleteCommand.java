@@ -12,7 +12,6 @@ import java.time.LocalDate;
  * DeleteCommand is used to delete a task in the list.
  */
 public class DeleteCommand extends Command {
-    private int taskNum;
     private String type = " ";
     private String description = " ";
     private LocalDate date = null;
