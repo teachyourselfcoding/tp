@@ -4,6 +4,7 @@ import seedu.exception.ModuleAlreadyExistsException;
 import seedu.exception.ModuleNotExistsException;
 import seedu.module.Module;
 import seedu.task.Deadline;
+import seedu.task.Event;
 import seedu.task.Lesson;
 import seedu.task.Task;
 
@@ -144,7 +145,6 @@ public class ModuleManager {
     }
 
     /**
-     * TODO - add the description
      * Edit module to set new date.
      * @param description description.
      * @param date date.
@@ -299,6 +299,10 @@ public class ModuleManager {
                 for (Task t : m.getListOfTasks()) {
                     if (t instanceof Deadline) {
                         if (((Deadline) t).getDate().isEqual(date)) {
+                            filteredTasks.add(t);
+                        }
+                    } else if (t instanceof Event) {
+                        if (((Event) t).getDate().equals(date)) {
                             filteredTasks.add(t);
                         }
                     } else if (t instanceof Lesson) {

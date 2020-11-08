@@ -175,7 +175,7 @@ public class Parser {
         } catch (DateTimeParseException e) {
             throw new WrongDateFormatException();
         }
-        if (LocalDate.parse(byInfo).isAfter(LocalDate.of(2021, 6, 1))
+        if (LocalDate.parse(byInfo).isAfter(LocalDate.of(2021, 5, 31))
             || LocalDate.parse(byInfo).isBefore(LocalDate.of(2021, 1, 1))) {
             throw new InvalidDateException();
         }
@@ -237,7 +237,7 @@ public class Parser {
             throw new WrongDateFormatException();
         }
 
-        if (LocalDate.parse(dateOfEvent).isAfter(LocalDate.of(2021, 6, 1))
+        if (LocalDate.parse(dateOfEvent).isAfter(LocalDate.of(2021, 5, 31))
                 || LocalDate.parse(dateOfEvent).isBefore(LocalDate.of(2021, 1, 1))) {
             throw new InvalidDateException();
         }
