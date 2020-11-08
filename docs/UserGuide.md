@@ -67,7 +67,9 @@ The module with the same code already exists.
 
 ## Task
 
-A Task can be a Lesson, Event or Deadline. You can only add tasks with dates from 1 January 2021 to 31 May 2021.
+A Task can be a Lesson, Event or Deadline. 
+
+**You can only add tasks with dates from 1 January 2021 to 31 May 2021.**
 
 + Lessons are classes that are held **on every week** in your timetable.
 + Events are one-off, they only take place on a single day.
