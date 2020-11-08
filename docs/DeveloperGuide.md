@@ -133,7 +133,7 @@ Some Design Considerations on how to store the `Task` in the `ScheduleManager`:
       to contain this new class.
     - Pros: Making use of more oop design.
     - Cons: Might be tricky to implement and may need more resources.
-    
+  
 ### Storage
 The application will save all of the user inputs by using a `Storage` class, which is designed as
 singleton.
@@ -164,7 +164,7 @@ that it belongs to. Below is a sequence diagram which shows how adding of a
 1. The `parseLesson(fullCommand)` method will return a `Lesson lesson` object. It will also call a `AddCommand`, which will contain the `Lesson lesson` object, and the `AddCommand` will be returned to the `DueQuest` main class.
 1. Next, the `AddCommand` will be executed to handle the logic of adding a lesson with the details as stated by the user's input. 
 1. Finally, the `execute(ScheduleManager scheduleManager, ModuleManager moduleManager)` will first call the `ScheduleManager`, which calls its own `addLesson(lesson, moduleManager, ui)` method to add the lesson to itself. It also calls the `ModuleManager` object, and the `ModuleManager` will call its own `addTaskToModule(lesson, moduleCodeOfLesson)` to add the lesson to the `Module` in it which has the module code stated by the user.
- 
+
 
 ### Display Feature
 
@@ -189,28 +189,28 @@ object.
 
 ### Storage Feature
 
+The storage is implemented in singleton such that the `Storage` class holds only 1 private instance, the constructor of which (e.g. `Storage(directoryPath)`) is private. Such instance can only be created with the class method, `Storage.setUpStorage(directoryPath)`. 
+
 1. Set up the `Storage` from local disk 
 
 ![](Images/4.3Storage1.JPG)
 
-2. Add/Edit Module
-When modules’ information is changed (e.g. add, delete), the changed module’s code
-will be passed to storage. `Storage` will export the new information of the changed `Module` 
-to the corresponding local files.
+2. Add/Edit Module and Its Components
+When modules’ information or their components are changed (e.g. add, delete the module or add, delete the assessments), the changed module’s code will be passed to storage. `Storage` will export the new information of the changed `Module` to the corresponding local files.
 
 ![](Images/4.3Storage2.JPG)
 
-3. Record Delete Action
+3. Edit/Delete Action
 
-There are two types of deleting:
-- Delete all elements
+There are two types of edit/deleting:
+-  without module specified 
     ![](Images/4.3Storage3.JPG)
     Once some tasks are deleted, the `ModuleManager` is updated. Storage will exported
-    the new content of `ModuleManager`.
+    the new content of `ModuleManager` by iterating all modules in `ModuleManager` , since the module is not specified.
     
-- Delete the element only on that date
+- with module specified 
     ![](Images/4.3Storage4.JPG)
-    The command of deleting is passed to `Storage`, and `Storage` will write this `Command`
+    The command of edit/deleting is passed to `Storage`, and `Storage` will write this `Command`
     to `AdditionalFile`, so that whenever importing files, this `DeleteCommand` will be
     executed again from `AdditionalFile`.
 

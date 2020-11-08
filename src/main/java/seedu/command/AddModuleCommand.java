@@ -1,9 +1,11 @@
 package seedu.command;
 
 import seedu.ModuleManager;
+import seedu.Parser;
 import seedu.ScheduleManager;
 import seedu.Storage;
 import seedu.Ui;
+import seedu.exception.InvalidModuleCodeException;
 import seedu.module.Module;
 import seedu.exception.InvalidArgumentsException;
 import seedu.exception.ModuleAlreadyExistsException;
@@ -39,6 +41,9 @@ public class AddModuleCommand extends Command {
                 switch (argument.substring(0, 2)) {
                 case "c/":
                     moduleCode = argument.substring(2).toUpperCase();
+                    if (!Parser.verifyModuleCode(moduleCode)) {
+                        throw new InvalidModuleCodeException();
+                    }
                     break;
                 case "t/":
                     title = argument.substring(2);
@@ -55,7 +60,7 @@ public class AddModuleCommand extends Command {
         } catch (Exception e) {
             throw new InvalidArgumentsException();
         }
-        if ((moduleCode == null) || (auNum < 0)) {
+        if ((moduleCode == null) || (auNum <= 0)) {
             throw new InvalidArgumentsException();
         }
 

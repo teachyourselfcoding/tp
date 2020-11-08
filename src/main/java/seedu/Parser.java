@@ -407,8 +407,8 @@ public class Parser {
         String[] splitViaModule;
         String[] splitViaDate;
         String filteredInput;
-        String splitViadelete;
         LocalDate date;
+
         if (inputLength.length == 1) {
             throw new MissingDeleteDetailsException();
         }
@@ -419,6 +419,7 @@ public class Parser {
             splitViaModule = ((input.split("c/"))[1].trim()).split(" ", 2);
             moduleCode = splitViaModule[0].trim();
             if (splitViaModule.length == 1) {
+                Storage.getStorage().exportAdditionalData(input);
                 return new DeleteCommand(moduleCode, "module");
             }
             filteredInput = splitViaModule[1].trim();
@@ -427,15 +428,18 @@ public class Parser {
                 splitViaDate = (filteredInput.split("/date")[1].trim()).split(" ", 2);
                 date = LocalDate.parse(splitViaDate[0].trim());
                 if (splitViaDate.length == 1) {
+                    Storage.getStorage().exportAdditionalData(input);
                     return new DeleteCommand(moduleCode, "module", date); //has module code, has date
                 }
                 description = splitViaDate[1].trim();
+                Storage.getStorage().exportAdditionalData(input);
                 return new DeleteCommand(moduleCode, date, description);
             }
         }
         filteredInput = input.substring(7);
         if (!filteredInput.contains("/date")) {
             description = filteredInput;
+            Storage.getStorage().exportAdditionalData(input);
             return new DeleteCommand(description);
         }
         splitViaDate = filteredInput.split("/date");
@@ -445,6 +449,7 @@ public class Parser {
             throw new InvalidDateException();
         }
         description = splitViaDate[0].trim();
+        Storage.getStorage().exportAdditionalData(input);
         return new DeleteCommand(description, date);
     }
 
