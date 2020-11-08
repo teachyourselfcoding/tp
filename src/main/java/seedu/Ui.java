@@ -276,7 +276,7 @@ public class Ui {
     public static void printInvalidDateMessage() {
         System.out.println("(╯°□°）╯︵ ┻━┻");
         System.out.println(SEPARATOR);
-        System.out.println("Please give the date between 2020/10/21 and 2021/05/31.");
+        System.out.println("Please give the date between 2021/01/01 and 2021/05/31.");
         System.out.println(SEPARATOR);
     }
 

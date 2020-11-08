@@ -200,10 +200,23 @@ class ParserTest {
         Lesson expectedLesson = Parser.parseLesson(input);
         Lesson actualLesson = new Lesson("online lecture", "CS2113",
                 5, "16:00", "18:00");
-        Lesson wrongLesson = new Lesson("online lecture", "CS2113T",
+        Lesson wrongLesson = new Lesson("online lecture ", "CS2113",
                 5, "16:00", "18:00");
         assertEquals(expectedLesson, actualLesson);
         assertFalse(expectedLesson.equals(wrongLesson));
+    }
+
+    @Test
+    void validateEvent_validEvent_returnsTrue() throws MissingEventDateAndTimeDetailsException,
+            MissingEventDescriptionException, MissingModuleCodeOrInvalidModuleCodeException, InvalidDateException,
+            StartTimeIsAfterEndTimeException, InvalidTimeFormatException, EmptyArgumentException, StartAndEndTimeSameException,
+            StartTimeAndEndTimeTooEarlyException, WrongDateFormatException {
+        String input1 = "event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14";
+        Event expectedEvent = Parser.validateEvent(input1);
+        Event actualEvent = new Event("final exam", "CS2113",
+                "LT14", "14:00", "16:00", "2021-05-03");
+        assertEquals(expectedEvent.getDescription(), actualEvent.getDescription());
+        assertEquals(expectedEvent, actualEvent);
     }
 
     @Test
