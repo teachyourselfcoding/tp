@@ -35,9 +35,9 @@ Format: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
   + There are 3 types of valid module codes. 
     * 6 characters long. The first 2 characters are alphabets. The last 4 characters are digits. Example: CS2113
     * 7 characters long. The first 3 characters are alphabets. The last 4 characters are digits. Example: DSA4211
-    * 7 characters long. The first 2 characters are alphabets. The next 4 characters are digits. The last character is an alphabet. The  Example: CS2113T
-    * `MODULECODE` is case-insensitive, e.g. `ST2132` = `st2132`
-+ `AU_NUM` must be positive integer, by default it's 0.
+    * 7 characters long. The first 2 characters are alphabets. The next 4 characters are digits. The last character is an alphabet. The  Example: CS2113T.
+    * Alphabets in the module code should be all in capital letters. 
++ `AU_NUM` must be positive integer, meaning it has to be more to more than zero. This has to be specified in the input.
 + `TITLE` shouldn't contain any whitespace, e.g. `t/SE OOP` should be replaced by `t/SE_OOP` or `t/SE-OOP`   
 + `TEACHING_STAFF` is optional, and multiple `[s/TEACHING_STAFF]` are supported, e.g. `module c/ST2113 a/4 s/Dr.Lim s/ChengChen`
 
@@ -159,7 +159,7 @@ Got it, added deadline to Schedule Manager and Module Manager
 <-------------------------------------------------------------->
 ```
 
-## Adding a assessment: `assessment` 
+## Adding an assessment: `assessment` 
 
 Adds assessment (e.g. assignments and exams) to a module 
 
@@ -168,11 +168,13 @@ Format: `assessment MODULECODE TITLE FULL_SCORE`
 Note: 
 
 + The input should match the order specified in the format 
-+ `FULL_SCORE` is  float
++ `FULL_SCORE` is float
 
 Example Input:
 
 `assessment CS2113 TP 100` 
+TODO: 
+round off the number, give a message. 
 
 Example output:
 
