@@ -67,7 +67,18 @@ The diagram below shows a flow chart which gives an overall general picture of h
 
 ![](Images/3.1Archi.jpg)
 
+### Module Component 
+
+![](Module-4838589.jpg)
+
+
+
+`ModuleManager` is the class that maintains the list of `Module` for the app and provides appropriate API to manipulate these modules. `Module` class has attributes such as `moduleCode`, `title`, `auNumber` and `teachingSatffs`, and it also keeps the records of `Assessment` (e.g. assignments, exams, etc.) 
+
+To manipulate the module, the developer needs to access it from `ModuleManager`, generally through APIs such as `getModule(moduleCode: String)` . 
+
 ### Task Component
+
 Each `Task` can be a `Lesson`, `Event` or `Deadline`. Below is a UML diagram showing
 some of the properties and methods that these classes have. A `Task` will be created
 whenever a User wants to add a Task into the `ScheduleManager` or `ModuleManager`.
