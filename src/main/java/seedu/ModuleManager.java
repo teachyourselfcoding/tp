@@ -144,7 +144,6 @@ public class ModuleManager {
     }
 
     /**
-     * TODO - add the description
      * Edit module to set new date.
      * @param description description.
      * @param date date.
