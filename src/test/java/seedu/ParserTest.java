@@ -19,6 +19,7 @@ import seedu.exception.StartAndEndTimeSameException;
 import seedu.exception.StartTimeAndEndTimeTooEarlyException;
 import seedu.exception.StartTimeIsAfterEndTimeException;
 import seedu.exception.WrongDateFormatException;
+import seedu.exception.EmptyArgumentException;
 
 import seedu.task.Deadline;
 import seedu.task.Event;
@@ -33,6 +34,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ParserTest {
+    @Test
+    void parseLesson_emptyArgumentLessonInput_expectEmptyArgumentException() {
+        String input1 = "lesson";
+        assertThrows(EmptyArgumentException.class, () -> Parser.parseLesson(input1));
+        String input2 = "lesson  ";
+        assertThrows(EmptyArgumentException.class, () -> Parser.parseLesson(input2));
+    }
 
     @Test
     void parseLesson_validLesson_returnsLesson() {
