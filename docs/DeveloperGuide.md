@@ -218,16 +218,14 @@ There are two types of edit/deleting:
 
 The `EditCommand` base class forms the basis for the two extensions listed below.
 
-1. Edit Module Command
-When the `EditModuleCommand` is executed, it checks for the description of the particular property to 
+1. Edit Module Command: When the `EditModuleCommand` is executed, it checks for the description of the particular property to 
 edit with `ScheduleManager` and `ModuleManager`.  The constructor function is overloaded such that the 
 conditions will check for which property to edit. In the case that there are no module details to modify,
 the function execution will go on to check for module tasks to modify.
 
 ![](Images/5.1EditModule1.jpeg)
 
-2. Edit Task Command
-When the `EditTaskCommand` is executed, it checks for the description of the particular property to 
+2. Edit Task Command: When the `EditTaskCommand` is executed, it checks for the description of the particular property to 
 edit with `ScheduleManager` and `ModuleManager`.  The constructor function is overloaded such that the 
 conditions will check for which property to edit.
 
