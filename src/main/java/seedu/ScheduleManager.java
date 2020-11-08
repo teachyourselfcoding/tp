@@ -493,7 +493,7 @@ public class ScheduleManager {
                 semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
             }
         }
-        System.out.println("1 or more taks matching description has been deleted");
+        System.out.println("1 or more task matching description has been deleted");
     }
 
     public void displayTodaySchedule() {
