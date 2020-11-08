@@ -4,7 +4,7 @@
 
 ## Overview
 **DueQuest** is an application which helps NUS students manage their schedule in the semester
-as well as tasks related to their modules that they are taking.
+as well as tasks related to their modules that they are taking. Our design of the DueQuest is such that it is specific for AY 2020/2021 Semester 2
 
 ## Summary of Contributions
 
