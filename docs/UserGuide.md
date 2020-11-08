@@ -5,7 +5,7 @@
 ## Introduction
 
 **DueQuest** is an application which helps NUS students manage their schedule in the semester
-as well as tasks related to their modules that they are taking.
+as well as tasks related to their modules that they are taking. DueQuest is made specific for AY2020/2021 semester 2.
 
 ## Quick Start
 
@@ -37,7 +37,7 @@ Format: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
     * 7 characters long. The first 3 characters are alphabets. The last 4 characters are digits. Example: DSA4211
     * 7 characters long. The first 2 characters are alphabets. The next 4 characters are digits. The last character is an alphabet. The  Example: CS2113T.
     * Alphabets in the module code should be all in capital letters. 
-+ `AU_NUM` must be positive integer, meaning it has to be more to more than zero. This has to be specified in the input.
++ `AU_NUM` must be a positive integer, meaning it has to be more to more than zero. This has to be specified in the input.
 + `TITLE` shouldn't contain any whitespace, e.g. `t/SE OOP` should be replaced by `t/SE_OOP` or `t/SE-OOP`   
 + `TEACHING_STAFF` is optional, and multiple `[s/TEACHING_STAFF]` are supported, e.g. `module c/ST2113 a/4 s/Dr.Lim s/ChengChen`
 
@@ -67,7 +67,7 @@ The module with the same code already exists.
 
 ## Task
 
-A Task can be a Lesson, Event or Deadline.
+A Task can be a Lesson, Event or Deadline. You can only add tasks with dates from 1 January 2021 to 31 May 2021.
 
 + Lessons are classes that are held **on every week** in your timetable.
 + Events are one-off, they only take place on a single day.
@@ -120,9 +120,15 @@ event will not be added.
 
 Format: `event MODULE_CODE DESCRIPTION /at DATE_OF_EVENT START_TIME END_TIME LOCATION_OF_EVENT`
 
-* Please ensure that your `MODULECODE` is a valid module code in NUS. Refer to the earlier section in Add a Module to find out what is a valid module code.
+* Please ensure that your `MODULECODE` is a valid module code in NUS.
+  + There are 3 types of valid module codes. 
+    * 6 characters long. The first 2 characters are alphabets. The last 4 characters are digits. Example: CS2113
+    * 7 characters long. The first 3 characters are alphabets. The last 4 characters are digits. Example: DSA4211
+    * 7 characters long. The first 2 characters are alphabets. The next 4 characters are digits. The last character is an alphabet. The  Example: CS2113T.
+    * Alphabets in the module code should be all in capital letters. 
 * Please make sure that you do not leave the `DESCRIPTION` blank.
 * `DATE_OF_EVENT` is in `YYYY-MM-DD` format. For example, if you want to add an event on 10th April 2021, type in `2021-04-10`.
+* Please ensure that `DATE_OF_EVENT` is between `2021/01/01` to `2021/05/31` as well.
 * The `START_TIME` and `END_TIME` are both in `HH:MM` format. If you want `START_TIME` to be 4pm, input `16:00`. You are only allowed to type in timings such that `MM` is `00`. For example, `18:00` is allowed but not `18:01`. 
 * For this app, you are not allowed to type in a `START_TIME` and `END_TIME` before 8am.  
 * Please ensure that you do not leave `LOCATION_OF_EVENT` blank.
@@ -145,9 +151,15 @@ Adds a deadline of an assignment into the Schedule Manager and Module Manager.
 
 Format: `deadline MODULECODE DESCRIPTION /by DATE_OF_DEADLINE `
 
-* Please ensure that your `MODULECODE` is a valid module code in NUS. Refer to the earlier section in Add a Module to find out what is a valid module code.
+* Please ensure that your `MODULECODE` is a valid module code in NUS.
+   + There are 3 types of valid module codes. 
+     * 6 characters long. The first 2 characters are alphabets. The last 4 characters are digits. Example: CS2113
+     * 7 characters long. The first 3 characters are alphabets. The last 4 characters are digits. Example: DSA4211
+     * 7 characters long. The first 2 characters are alphabets. The next 4 characters are digits. The last character is an alphabet. The  Example: CS2113T.
+     * Alphabets in the module code should be all in capital letters. 
 * Please make sure that you do not leave the `DESCRIPTION` blank.
 * `DATE_OF_DEADLINE` is in `YYYY-MM-DD` format. For example, if you want to add a deadline on 10th April 2021, type in `2021-04-10`.
+* Please ensure that `DATE_OF_EVENT` is between `2021/01/01` to `2021/05/31` as well.
 
 Examples input:
 * If you want to add a deadline for CS2113 for TP version 1 at 4th April 2021, input `deadline CS2113 TP version 1 /by 2021-04-04`
@@ -167,6 +179,12 @@ Format: `assessment MODULECODE TITLE FULL_SCORE`
 
 Note: 
 
++ Please ensure that your `MODULECODE` is a valid module code in NUS.
+  + There are 3 types of valid module codes. 
+    * 6 characters long. The first 2 characters are alphabets. The last 4 characters are digits. Example: CS2113
+    * 7 characters long. The first 3 characters are alphabets. The last 4 characters are digits. Example: DSA4211
+    * 7 characters long. The first 2 characters are alphabets. The next 4 characters are digits. The last character is an alphabet. The  Example: CS2113T.
+    * Alphabets in the module code should be all in capital letters. 
 + The input should match the order specified in the format 
 + `FULL_SCORE` is  float, the maximum score the student can obtain of the assessment 
 
@@ -199,7 +217,12 @@ Assign the actual score the student gets for the assessment.
 
 Format: `score MODULE_CODE TITLE SCORE`
 
-+ `MODULE_CODE` should be the same format in the `module` part 
++ Please ensure that your `MODULECODE` is a valid module code in NUS.
+  + There are 3 types of valid module codes. 
+    * 6 characters long. The first 2 characters are alphabets. The last 4 characters are digits. Example: CS2113
+    * 7 characters long. The first 3 characters are alphabets. The last 4 characters are digits. Example: DSA4211
+    * 7 characters long. The first 2 characters are alphabets. The next 4 characters are digits. The last character is an alphabet. The  Example: CS2113T.
+    * Alphabets in the module code should be all in capital letters. 
 + `TITLE` is the title of the assessment to score 
 + `SCORE` is the actual score, it should be non-negative and smaller than the full_score 
 
@@ -231,7 +254,12 @@ Delete assessment  (e.g. assignments and exams) from the module
 
 Format: `delete_assessment MODULE_CODE TITLE` 
 
-+ `MODULE_CODE` should be the same format in the `module` part 
++ Please ensure that your `MODULECODE` is a valid module code in NUS.
+  + There are 3 types of valid module codes. 
+    * 6 characters long. The first 2 characters are alphabets. The last 4 characters are digits. Example: CS2113
+    * 7 characters long. The first 3 characters are alphabets. The last 4 characters are digits. Example: DSA4211
+    * 7 characters long. The first 2 characters are alphabets. The next 4 characters are digits. The last character is an alphabet. The  Example: CS2113T.
+    * Alphabets in the module code should be all in capital letters. 
 + `TITLE` is the title of the assessment to score 
 
 Note: 
@@ -324,14 +352,20 @@ The list of task in CS2113:
 
 ## Display all the task in a module on a date: `display  MODULECODE /date DATE`
 
-  Display task in a specific module on a specific Date
+Display task in a specific module on a specific Date
 
-  Format: `display  MODULECODE /date DATE`
-  * The `DATE` must be in `YYYY/MM/DD`
+Format: `display  MODULECODE /date DATE`
+* Please ensure that your `MODULECODE` is a valid module code in NUS.
+  + There are 3 types of valid module codes. 
+    * 6 characters long. The first 2 characters are alphabets. The last 4 characters are digits. Example: CS2113
+    * 7 characters long. The first 3 characters are alphabets. The last 4 characters are digits. Example: DSA4211
+    * 7 characters long. The first 2 characters are alphabets. The next 4 characters are digits. The last character is an alphabet. The  Example: CS2113T.
+    * Alphabets in the module code should be all in capital letters. 
+* The `DATE` must be in `YYYY/MM/DD`
 
-  Example of Usage
+Example of Usage
 
-  * `display CS2113 /date 2020/10/15`
+* `display CS2113 /date 2020/10/15`
 
 ```
  display CS2113 /date 2021/04/04
