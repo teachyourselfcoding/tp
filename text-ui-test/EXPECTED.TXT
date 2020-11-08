@@ -1,0 +1,78 @@
+_____________________________________________
+Whats up people! DueQuest is here to save the day
+DueQuest for students by students
+So, what can I do for you?
+<-------------------------------------------------------------->
+Loading data from the file...
+Loading completes.
+Please type the next command!
+<-------------------------------------------------------------->
+Today's Schedule:
+08:00
+09:00
+10:00
+11:00
+12:00
+13:00
+14:00
+15:00
+16:00
+17:00
+18:00
+19:00
+20:00
+21:00
+22:00
+23:00
+
+Today's deadline:
+You don't have any deadline!
+
+Please type the next command!
+<-------------------------------------------------------------->
+Today's Schedule:
+08:00
+09:00
+10:00
+11:00
+12:00
+13:00
+14:00
+15:00
+16:00
+17:00
+18:00
+19:00
+20:00
+21:00
+22:00
+23:00
+
+Today's deadline:
+You don't have any deadline!
+
+Please type the next command!
+<-------------------------------------------------------------->
+Today's Schedule:
+08:00
+09:00
+10:00
+11:00
+12:00
+13:00
+14:00
+15:00
+16:00
+17:00
+18:00
+19:00
+20:00
+21:00
+22:00
+23:00
+
+Today's deadline:
+You don't have any deadline!
+
+Please type the next command!
+<-------------------------------------------------------------->
