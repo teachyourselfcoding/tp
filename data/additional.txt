@@ -12,3 +12,19 @@ delete CS2102
 delete c/CS2113 /date 2021-05-03
 delete c/CS2113 /date 2021-05-03
 delete c/CS2113 /date 2021-05-03
+delete c/CS2102 final exam /date 2021-05-03
+delete c/CS2102 final exam /date 2021-05-03
+delete c/CS2113 final exam /date 2021-05-03
+delete c/CS2113 final exam /date 2021-05-03
+delete c/CS2102 final exam /date 2021-05-03
+delete c/CS2113 final exam /at 2021-05-01
+delete c/CS2113 /at 2021-05-01
+delete final exam /at 2021-05-01
+delete c/CS2113 final exam /date 2021-05-03
+delete final exam /date 2021-05-03
+delete final exam /date 2021-05-05
+delete c/CS2113 final exam /date 2021-05-05
+delete c/CS2113 final exam /date 2021-05-04
+delete c/CS2113 final exam /date 2021-05-04
+delete c/CS2113 final exam /date 2021-05-04
+delete c/CS2113 final exam /date 2021-05-04
