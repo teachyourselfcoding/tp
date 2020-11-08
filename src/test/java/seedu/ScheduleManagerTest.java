@@ -1,24 +1,7 @@
 package seedu;
 
 import org.junit.jupiter.api.Test;
-import seedu.exception.InvalidDateException;
-import seedu.exception.InvalidStartEndDateException;
-
-import seedu.exception.EmptyArgumentException;
-import seedu.exception.InvalidFrequencyException;
-import seedu.exception.InvalidModuleCodeException;
-import seedu.exception.InvalidTimeFormatException;
-import seedu.exception.MissingEventDateAndTimeDetailsException;
-import seedu.exception.MissingEventDescriptionException;
-import seedu.exception.MissingLessonDescriptionException;
-import seedu.exception.MissingLessonTimingException;
-import seedu.exception.MissingModuleCodeOrInvalidModuleCodeException;
-import seedu.exception.StartAndEndTimeSameException;
-import seedu.exception.StartTimeAndEndTimeTooEarlyException;
-import seedu.exception.StartTimeIsAfterEndTimeException;
-import seedu.exception.WrongDateFormatException;
-import seedu.exception.ModuleDoesNotExistException;
-import seedu.exception.ModuleAlreadyExistsException;
+import seedu.exception.*;
 
 import seedu.module.Module;
 import seedu.task.Event;
@@ -96,5 +79,170 @@ class ScheduleManagerTest {
         Lesson lesson4 = Parser.parseLesson(input5);
         assertEquals(true, scheduleManager.checkIfLessonToBeAddedClashesInADate(
                 lesson4, LocalDate.of(2021, 1, 15)));
+    }
+
+    @Test
+    void deleteTask_deleteTaskViaDescription_returnsTrue() throws ModuleAlreadyExistsException,
+            StartTimeAndEndTimeTooEarlyException, MissingLessonDescriptionException, StartTimeIsAfterEndTimeException,
+            InvalidTimeFormatException, EmptyArgumentException, InvalidModuleCodeException, InvalidFrequencyException,
+            StartAndEndTimeSameException, MissingLessonTimingException, ModuleDoesNotExistException {
+        ScheduleManager scheduleManager = new ScheduleManager();
+        ModuleManager moduleManager = new ModuleManager();
+        Ui ui = new Ui();
+        moduleManager.addModule(new Module("CS2113"));
+        String input1 = "lesson online lecture CS2113 /on 5 16:00 18:00";
+        scheduleManager.addLesson(Parser.parseLesson(input1), moduleManager, ui);
+        assertEquals(1, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 1, 15)).size());
+        scheduleManager.deleteTask("online lectur");
+        assertEquals(1, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 1, 15)).size());
+        scheduleManager.deleteTask("online lecture");
+        assertEquals(0, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 1, 15)).size());
+    }
+
+    @Test
+    void deleteTask_deleteTaskViaDescriptionAndModuleCode_returnsTrue() throws ModuleAlreadyExistsException,
+            StartTimeAndEndTimeTooEarlyException, MissingLessonDescriptionException, StartTimeIsAfterEndTimeException,
+            InvalidTimeFormatException, EmptyArgumentException, InvalidModuleCodeException, InvalidFrequencyException,
+            StartAndEndTimeSameException, MissingLessonTimingException, ModuleDoesNotExistException {
+        ScheduleManager scheduleManager = new ScheduleManager();
+        ModuleManager moduleManager = new ModuleManager();
+        Ui ui = new Ui();
+        moduleManager.addModule(new Module("CS2113"));
+        String input1 = "lesson online lecture CS2113 /on 5 16:00 18:00";
+        scheduleManager.addLesson(Parser.parseLesson(input1), moduleManager, ui);
+        assertEquals(1, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 1, 15)).size());
+        scheduleManager.deleteTask( "online lecture", "CS2115");
+        assertEquals(1, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 1, 15)).size());
+        scheduleManager.deleteTask("online lecture", "CS2113");
+        assertEquals(0, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 1, 15)).size());
+    }
+
+    @Test
+    void deleteTask_deleteTaskViaModuleCodeAndDate_returnsTrue() throws ModuleAlreadyExistsException,
+            StartTimeAndEndTimeTooEarlyException, StartTimeIsAfterEndTimeException, InvalidTimeFormatException,
+            EmptyArgumentException, StartAndEndTimeSameException,  ModuleDoesNotExistException,
+            InvalidDateException, MissingEventDateAndTimeDetailsException, WrongDateFormatException,
+            MissingModuleCodeOrInvalidModuleCodeException, MissingEventDescriptionException {
+        ScheduleManager scheduleManager = new ScheduleManager();
+        ModuleManager moduleManager = new ModuleManager();
+        Ui ui = new Ui();
+        moduleManager.addModule(new Module("CS2113"));
+        String input1 = "event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14";
+        scheduleManager.addEvent(Parser.validateEvent(input1), moduleManager, ui);
+        assertEquals(1, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 5, 3)).size());
+        scheduleManager.deleteTask(LocalDate.of(2021, 5, 3), "CS2112");
+        assertEquals(1, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 5, 3)).size());
+        scheduleManager.deleteTask(LocalDate.of(2021, 5, 3), "CS2113");
+        assertEquals(0, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 5, 3)).size());
+    }
+
+    @Test
+    void deleteTask_deleteTaskViaModuleCodeDescriptionAndDate_returnsTrue() throws ModuleAlreadyExistsException,
+            StartTimeAndEndTimeTooEarlyException, StartTimeIsAfterEndTimeException, InvalidTimeFormatException,
+            EmptyArgumentException, StartAndEndTimeSameException,  ModuleDoesNotExistException,
+            InvalidDateException, MissingEventDateAndTimeDetailsException, WrongDateFormatException,
+            MissingModuleCodeOrInvalidModuleCodeException, MissingEventDescriptionException {
+        ScheduleManager scheduleManager = new ScheduleManager();
+        ModuleManager moduleManager = new ModuleManager();
+        Ui ui = new Ui();
+        moduleManager.addModule(new Module("CS2113"));
+        String input1 = "event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14";
+        scheduleManager.addEvent(Parser.validateEvent(input1), moduleManager, ui);
+        assertEquals(1, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 5, 3)).size());
+        scheduleManager.deleteTask("CS2113", "final exam", LocalDate
+                .of(2021, 5, 2));
+        assertEquals(1, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 5, 3)).size());
+        scheduleManager.deleteTask("CS2113", "final exam", LocalDate
+                .of(2021, 5, 3));
+        assertEquals(0, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 5, 3)).size());
+    }
+
+    @Test
+    void deleteTask_deleteTaskViaDescriptionAndDate_returnsTrue() throws ModuleAlreadyExistsException,
+            StartTimeAndEndTimeTooEarlyException, StartTimeIsAfterEndTimeException, InvalidTimeFormatException,
+            EmptyArgumentException, StartAndEndTimeSameException, ModuleDoesNotExistException,
+            InvalidDateException, MissingEventDateAndTimeDetailsException, WrongDateFormatException,
+            MissingModuleCodeOrInvalidModuleCodeException, MissingEventDescriptionException,
+            MissingDeadlineTimingDetailsException, MissingDeadlineDescriptionException,
+            InvalidModuleCodeException {
+        ScheduleManager scheduleManager = new ScheduleManager();
+        ModuleManager moduleManager = new ModuleManager();
+        Ui ui = new Ui();
+        moduleManager.addModule(new Module("CS2113"));
+        String input1 = "event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14";
+        scheduleManager.addEvent(Parser.validateEvent(input1), moduleManager, ui);
+        String input2 = "deadline CS2113 TP version 1 /by 2021-05-03";
+        scheduleManager.addDeadline(Parser.validateDeadline(input2), moduleManager);
+        assertEquals(2, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 5, 3)).size());
+        scheduleManager.deleteTask("TP version 1", LocalDate.of(2021, 5, 3));
+        assertEquals(1, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 5, 3)).size());
+    }
+
+    @Test
+    void editTask_editDateOfTask_returnsTrue() throws ModuleAlreadyExistsException,
+            MissingEventDateAndTimeDetailsException, MissingEventDescriptionException,
+            MissingModuleCodeOrInvalidModuleCodeException, InvalidDateException,
+            StartTimeIsAfterEndTimeException, InvalidTimeFormatException, EmptyArgumentException,
+            StartAndEndTimeSameException, StartTimeAndEndTimeTooEarlyException, WrongDateFormatException,
+            ModuleDoesNotExistException, MissingDeadlineTimingDetailsException, MissingDeadlineDescriptionException,
+            InvalidModuleCodeException {
+        ScheduleManager scheduleManager = new ScheduleManager();
+        ModuleManager moduleManager = new ModuleManager();
+        Ui ui = new Ui();
+        moduleManager.addModule(new Module("CS2113"));
+        String input1 = "event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14";
+        scheduleManager.addEvent(Parser.validateEvent(input1), moduleManager, ui);
+        String input2 = "deadline CS2113 TP version 1 /by 2021-05-03";
+        scheduleManager.addDeadline(Parser.validateDeadline(input2), moduleManager);
+        scheduleManager.editTask("final exam", LocalDate.of(2021, 5, 3),
+                "", LocalDate.of(2021, 5, 5));
+        assertEquals(1, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 5, 3)).size());
+        assertEquals(1, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 5, 5)).size());
+    }
+
+    @Test
+    void editTask_editDateOfModuleTask_returnsTrue() throws ModuleAlreadyExistsException,
+            MissingEventDateAndTimeDetailsException, MissingEventDescriptionException,
+            MissingModuleCodeOrInvalidModuleCodeException, InvalidDateException,
+            StartTimeIsAfterEndTimeException, InvalidTimeFormatException, EmptyArgumentException,
+            StartAndEndTimeSameException, StartTimeAndEndTimeTooEarlyException, WrongDateFormatException,
+            ModuleDoesNotExistException, MissingDeadlineTimingDetailsException, MissingDeadlineDescriptionException,
+            InvalidModuleCodeException {
+        ScheduleManager scheduleManager = new ScheduleManager();
+        ModuleManager moduleManager = new ModuleManager();
+        Ui ui = new Ui();
+        moduleManager.addModule(new Module("CS2113"));
+        String input1 = "event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14";
+        scheduleManager.addEvent(Parser.validateEvent(input1), moduleManager, ui);
+        String input2 = "deadline CS2113 TP version 1 /by 2021-05-03";
+        scheduleManager.addDeadline(Parser.validateDeadline(input2), moduleManager);
+        scheduleManager.editTask("final exam", LocalDate.of(2021, 5, 3),
+                "", LocalDate.of(2021, 5, 5), "CS2112");
+        assertEquals(2, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 5, 3)).size());
+        assertEquals(0, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 5, 5)).size());
+        scheduleManager.editTask("final exam", LocalDate.of(2021, 5, 3),
+                "", LocalDate.of(2021, 5, 5), "CS2113");
+        assertEquals(1, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 5, 3)).size());
+        assertEquals(1, scheduleManager.getSemesterSchedule().get(LocalDate
+                .of(2021, 5, 5)).size());
     }
 }
