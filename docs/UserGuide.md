@@ -776,4 +776,8 @@ Format: `bye`
 
 Example of Usage:
 Input: `bye`
-Output: `Aye captain. This is DueQuest Signing out!`
+Output: 
+```
+Aye captain. This is DueQuest Signing out!
+
+```
