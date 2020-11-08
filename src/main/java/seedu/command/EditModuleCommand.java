@@ -2,6 +2,7 @@ package seedu.command;
 
 import seedu.ModuleManager;
 import seedu.ScheduleManager;
+import seedu.Storage;
 import seedu.Ui;
 
 import java.time.LocalDate;
@@ -95,5 +96,6 @@ public class EditModuleCommand extends EditCommand {
             }
         }
         Ui.printSuccessfulEdit();
+        Storage.getStorage().exportData(moduleManager, moduleCode);
     }
 }

@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 /**
  * Class for Module.
+ * <p>
+ * Examples:
  * moduleCode e.g. ST2132.
  * title e.g. Statistics.
  * aUNumber e.g. 4.
