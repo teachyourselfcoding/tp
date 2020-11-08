@@ -319,15 +319,15 @@ public class Parser {
         }  else if (!filteredInput[1].contains("/on")) {
             throw new MissingLessonTimingException();
         }
-        String[] descriptionWithModuleCode = filteredInput[1].split("/on", 2);
-        String[] frequencyAndTime = descriptionWithModuleCode[1].trim().split(" ");
-        descriptionWithModuleCode = descriptionWithModuleCode[0].trim().split(" ");
+        String[] descriptionWithModuleCodeAndTime = filteredInput[1].split("/on", 2);
+        String[] frequencyAndTime = descriptionWithModuleCodeAndTime[1].trim().split(" ");
+        String[] descriptionWithModuleCode = descriptionWithModuleCodeAndTime[0].trim().split(" ");
         int size = descriptionWithModuleCode.length;
         String moduleCode = descriptionWithModuleCode[size - 1].trim();
         if (!verifyModuleCode(moduleCode)) {
             throw new InvalidModuleCodeException();
         }
-        if (descriptionWithModuleCode.length == 1) {
+        if (size == 1) {
             throw new MissingLessonDescriptionException();
         }
 
