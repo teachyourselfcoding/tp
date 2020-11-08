@@ -71,42 +71,6 @@ public class ModuleManager {
         throw new ModuleNotExistsException();
     }
 
-    public void editModuleCode(String moduleCode, String newProperty) {
-        for (Module m: listOfModules) {
-            if (m.getModuleCode().equals(moduleCode)) {
-                for (Task task : m.getListOfTasks()) {
-                    task.setModulecode(newProperty);
-                }
-                m.setModuleCode(newProperty);
-            }
-        }
-    }
-
-    public void editModuleAu(String moduleCode, String newProperty) {
-        boolean edited = false;
-        for (Module m: listOfModules) {
-            if (m.getModuleCode().equals(moduleCode)) {
-                m.setModuleCode(newProperty);
-                edited = true;
-            }
-        }
-        if (edited) {
-            System.out.println("Module property has been updated");
-        }
-    }
-
-    public void editModuleStaff(String moduleCode, String newProperty) {
-        boolean edited = false;
-        for (Module m: listOfModules) {
-            if (m.getModuleCode().equals(moduleCode)) {
-                m.setModuleCode(newProperty);
-                edited = true;
-            }
-        }
-        if (edited) {
-            System.out.println("Module property has been updated");
-        }
-    }
 
     public void editTask(String description, LocalDate date, String type, String newProperty, String moduleCode) {
         boolean edit = false;
