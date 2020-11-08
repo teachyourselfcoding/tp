@@ -69,5 +69,4 @@ class ModuleManagerTest {
         ModuleManager mm = new ModuleManager();
         assertThrows(ModuleNotExistsException.class,() -> mm.display("CS2113", LocalDate.now()));
     }
-
 }
