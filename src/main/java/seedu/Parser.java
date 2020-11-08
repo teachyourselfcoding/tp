@@ -433,7 +433,7 @@ public class Parser {
         }
         filteredInput = input.substring(7);
         if (!filteredInput.contains("/date")) {
-            description = filteredInput;
+            description = filteredInput.trim();
             Storage.getStorage().exportAdditionalData(input);
             return new DeleteCommand(description);
         }
@@ -601,6 +601,7 @@ public class Parser {
                         || moduleProperty.equals("au")
                         || moduleProperty.equals("modulecode")
                 ) {
+                    System.out.println("test");
                     Storage.getStorage().exportAdditionalData(input);
                     return new EditModuleCommand(moduleCode, moduleProperty, newModuleProperty);
                 } else {

@@ -88,6 +88,10 @@ public class Module {
         return information;
     }
 
+    public void setListOfTasks(ArrayList<Task> listOfTasks) {
+        this.listOfTasks = listOfTasks;
+    }
+
     public boolean equals(Module module) {
         return module.getModuleCode().equals(this.moduleCode);
     }
