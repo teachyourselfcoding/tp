@@ -159,7 +159,7 @@ Got it, added deadline to Schedule Manager and Module Manager
 <-------------------------------------------------------------->
 ```
 
-## Adding a assessment: `assessment` 
+## Adding an assessment: `assessment` 
 
 Adds assessment (e.g. assignments and exams) to a module 
 
@@ -168,7 +168,7 @@ Format: `assessment MODULECODE TITLE FULL_SCORE`
 Note: 
 
 + The input should match the order specified in the format 
-+ `FULL_SCORE` is  float
++ `FULL_SCORE` is  float, the maximum score the student can obtain of the assessment 
 
 Example Input:
 
@@ -190,11 +190,15 @@ The list of task in CS2113:
 [D] tp v1 - CS2113  (by: 2020-10-30)
 ```
 
-## Add score to a assessment: `score`
+## Add score to an assessment: `score`
 
-Assign the score to the assessment.
+Assign the actual score the student gets for the assessment.
 
 Format: `score MODULE_CODE TITLE SCORE`
+
++ `MODULE_CODE` should be the same format in the `module` part 
++ `TITLE` is the title of the assessment to score 
++ `SCORE` is the actual score, it should be non-negative and smaller than the full_score 
 
 Example Input:
 
@@ -218,11 +222,14 @@ The list of task in CS2113:
 
 
 
-## Delete a assessment: `delete_assessment` 
+## Delete an assessment: `delete_assessment` 
 
 Delete assessment  (e.g. assignments and exams) from the module 
 
 Format: `delete_assessment MODULE_CODE TITLE` 
+
++ `MODULE_CODE` should be the same format in the `module` part 
++ `TITLE` is the title of the assessment to score 
 
 Note: 
 
@@ -405,15 +412,18 @@ Nov 13 :
 
 ## Edit a task: 
 There is a few things that the user might want to edit.
+
 1)Edit a task's description/type of task/module code/time/frequency/date
 2)Edit a module's task's description/type of task/module code/time/frequency/date
 
 Difference between 1) and 2) is that for 1)All tasks with that description will be edited, 2)Task under the module and with description will be edited 
 Attributes:
 
-
 1) Edit the parameter(description, date, frequency, module code, time, tasktype) of a certain task
-Format: `edit TASKNAME /date DATE /ATTRIBUTES /NEW_VALUE`
+Format: `edit TASKNAME /date DATE /ATTRIBUTES /NEW_VALUE` 
+
++ `DATE` is in format `YYYY-MM-DD`
++ `ATTRIBUTES` ... 
 
 Example of Usage: 
 
@@ -514,7 +524,7 @@ Please type the command!
 Delete every task that fits the description on that particular date
 Format: `delete DESCRIPTION /date DATE`
 
-* The DATE must be in YYYY-MM-DD
+* The DATE must be in `YYYY-MM-DD`
 
 Example of Usage
 
