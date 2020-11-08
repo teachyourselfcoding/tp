@@ -659,9 +659,9 @@ CS2113 v1
 
 4)Delete entire module
 
-Format: `delete c/MODULE_CODE 
+Format: `delete c/MODULE_CODE`
 
-* The DATE must be in YYYY-MM-DD
+* The DATE must be in `YYYY-MM-DD`
 
 Example of Usage
 
