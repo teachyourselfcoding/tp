@@ -9,7 +9,7 @@ as well as tasks related to their modules that they are taking.
 ## Summary of Contributions
 
 ### Code Contribution
-See the [RepoSense Dashboard here](https://nus-cs2113-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=acyang97&sort=groupTitle&sortWithin=title&since=2020-09-27&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other) for my contributions to Zer0Note. 
+See the [RepoSense Dashboard here](https://nus-cs2113-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=acyang97&sort=groupTitle&sortWithin=title&since=2020-09-27&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other) for my contributions to DueQuest.
 
 ### Enhancements Implemented
 - Implemented the creation and design of the ScheduleManager class
