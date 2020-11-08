@@ -66,8 +66,23 @@ public class Ui {
     public String readCommand() {
         System.out.println("Please type the next command!");
         System.out.println(SEPARATOR);
-        String commandString = scanner.nextLine();
+        String commandString;
+        if (scanner.hasNextLine()) {
+            commandString = scanner.nextLine();
+        } else {
+            commandString = "";
+        }
+
         return commandString;
+    }
+
+    /**.
+     * use the scanner to check if there is an input
+     *
+     * @return boolean
+     */
+    public boolean hasNextLine() {
+        return scanner.hasNextLine();
     }
 
     public void printClashesMessage() {
