@@ -63,11 +63,7 @@ File` ).
 ## 3. Design
 
 ### Architecture
-The diagram below shows a flow chart which gives an overall general picture of how the
-application works whenever the application receives an input from the user and a shows how
-each component interacts with one another for different scenarios. The logic behind the
-application is mostly handled by the `Parser` which converts inputs into various executable
-`Command`.
+The diagram below shows a flow chart which gives an overall general picture of how the application works whenever the application receives an input from the user and a shows how each component interacts with one another for different scenarios. The logic behind the application is mostly handled by the `Parser` which converts inputs into various executable `Command`.
 
 ![](Images/3.1Archi.jpg)
 
@@ -105,6 +101,9 @@ either the `ScheduleManager` or `ModuleManager` or both.
 | `EditTaskCommand` | -- |
 | `HelpCommand` | A child class of `Command` which helps to provides the list of inputs for the user to know what to type in to use any of the features he wants. |
 | `ExitCommand` | A child class of `Command` which helps to exit the app. |
+| `AddAssessmentCommand` | A child class of `Command` which adds assessment to the module. |
+| `ScoreAssessmentCommand` | A child class of `Command` which adds actual score to the assessment. |
+| `DeleteAssessmentCommand` | A child class of `Command` which deletes the assessment from the module. |
 
 ### Managers
 The application consists of two managers, the `ScheduleManager` and `ModuleManager`. The
