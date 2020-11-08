@@ -56,6 +56,6 @@ public class Assessment {
 
     @Override
     public String toString() {
-        return String.format("%s(%f/%f)", this.title, this.attemptScore, this.fullScore);
+        return String.format("%s(%.2f/%.2f)", this.title, this.attemptScore, this.fullScore);
     }
 }
