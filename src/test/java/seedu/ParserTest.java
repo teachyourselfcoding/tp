@@ -214,6 +214,7 @@ class ParserTest {
         Event expectedEvent = Parser.validateEvent(input1);
         Event actualEvent = new Event("final exam", "CS2113",
                 "LT14", "14:00", "16:00", "2021-05-03");
+        assertEquals(LocalDate.of(2021, 5, 3), expectedEvent.getDate());
         assertEquals(expectedEvent.getDescription(), actualEvent.getDescription());
         assertEquals(expectedEvent, actualEvent);
     }
@@ -225,7 +226,7 @@ class ParserTest {
         String input = "deadline CS2113 TP version 1 /by 2021-04-04";
         Deadline deadline = Parser.validateDeadline(input);
         assertEquals(deadline.getModuleCode(), "CS2113");
-        assertEquals(deadline.getDate(), LocalDate.of(2021, 4, 4));
+        assertEquals(LocalDate.of(2021, 4, 4), deadline.getDate());
         assertEquals(deadline.getDescription(), "TP version 1");
     }
 
