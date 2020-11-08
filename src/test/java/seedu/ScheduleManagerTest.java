@@ -1,7 +1,26 @@
 package seedu;
 
 import org.junit.jupiter.api.Test;
-import seedu.exception.*;
+import seedu.exception.EmptyArgumentException;
+import seedu.exception.InvalidDateException;
+import seedu.exception.InvalidFrequencyException;
+import seedu.exception.InvalidModuleCodeException;
+import seedu.exception.InvalidTimeFormatException;
+import seedu.exception.MissingDeadlineDescriptionException;
+import seedu.exception.MissingDeadlineTimingDetailsException;
+import seedu.exception.MissingEventDateAndTimeDetailsException;
+import seedu.exception.MissingEventDescriptionException;
+import seedu.exception.MissingLessonDescriptionException;
+import seedu.exception.MissingLessonTimingException;
+import seedu.exception.MissingModuleCodeOrInvalidModuleCodeException;
+import seedu.exception.StartAndEndTimeSameException;
+import seedu.exception.StartTimeAndEndTimeTooEarlyException;
+import seedu.exception.StartTimeIsAfterEndTimeException;
+import seedu.exception.WrongDateFormatException;
+import seedu.exception.InvalidStartEndDateException;
+import seedu.exception.ModuleAlreadyExistsException;
+import seedu.exception.ModuleDoesNotExistException;
+
 
 import seedu.module.Module;
 import seedu.task.Event;
