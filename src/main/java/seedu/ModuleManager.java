@@ -7,6 +7,7 @@ import seedu.task.Deadline;
 import seedu.task.Lesson;
 import seedu.task.Task;
 
+import java.lang.reflect.Array;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -221,6 +222,29 @@ public class ModuleManager {
             if (m.getModuleCode().equals(moduleCode)) {
                 m.getListOfTasks().removeIf(t -> t.getDate().isEqual(date));
             }
+        }
+    }
+    public void deleteModuleTasks(String description, LocalDate date){
+        for (Module m : listOfModules) {
+            for(Task task: m.getListOfTasks()){
+                if(task.getDescription().equals(description) && task.getDate().equals(date)){
+                    m.getListOfTasks().remove(task);
+                }
+            }
+        }
+    }
+
+    public void deleteModuleTasks(String description){
+        for (Module m : listOfModules) {
+//            Module mCopy = m;
+            ArrayList<Task>ls= new ArrayList<>();
+            for(Task task: m.getListOfTasks()){
+                if(!task.getDescription().equals(description)){
+//                    m.getListOfTasks().remove(task);
+                    ls.add(task);
+                }
+            }
+            m.setListOfTasks(ls);
         }
     }
 
