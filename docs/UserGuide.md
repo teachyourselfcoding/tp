@@ -33,8 +33,9 @@ Format: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
     * 7 characters long. The first 3 characters are alphabets. The last 4 characters are digits. Example: DSA4211
     * 7 characters long. The first 2 characters are alphabets. The next 4 characters are digits. The last character is an alphabet. The  Example: CS2113T
     * `MODULECODE` is case-insensitive, e.g. `ST2132` = `st2132`
-+ `AU_NUM` must be non-negative integer. 
++ `AU_NUM` must be positive integer. 
 + `TITLE` shouldn't contain any whitespace, e.g. `t/SE OOP` should be replaced by `t/SE_OOP` or `t/SE-OOP`   
++ multiple `[s/TEACHING_STAFF]` are supported, e.g. `module c/ST2113 a/4 s/Dr.Lim s/ChengChen`
 
 Example Usage: 
 

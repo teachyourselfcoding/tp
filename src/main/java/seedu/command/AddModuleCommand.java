@@ -60,7 +60,7 @@ public class AddModuleCommand extends Command {
         } catch (Exception e) {
             throw new InvalidArgumentsException();
         }
-        if ((moduleCode == null) || (auNum < 0)) {
+        if ((moduleCode == null) || (auNum <= 0)) {
             throw new InvalidArgumentsException();
         }
 
