@@ -76,3 +76,4 @@ You don't have any deadline!
 
 Please type the next command!
 <-------------------------------------------------------------->
+Aye captain. This is DueQuest Signing out!
