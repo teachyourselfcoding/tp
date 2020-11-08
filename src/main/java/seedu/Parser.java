@@ -601,11 +601,10 @@ public class Parser {
                         || moduleProperty.equals("au")
                         || moduleProperty.equals("modulecode")
                 ) {
-                    System.out.println("test");
                     Storage.getStorage().exportAdditionalData(input);
                     return new EditModuleCommand(moduleCode, moduleProperty, newModuleProperty);
                 } else {
-                    System.out.println("Invalid input");
+                    Ui.printInvalidInputMessage();
                 }
             }
         } else {
@@ -635,7 +634,6 @@ public class Parser {
                     Storage.getStorage().exportAdditionalData(input);
                     return new EditTaskCommand(description, date, type, newValue);
                 }
-                System.out.println("test 1");
                 Storage.getStorage().exportAdditionalData(input);
                 return new EditModuleCommand(moduleCode, description, date, type, newValue);
             } catch (DateTimeException e) {
@@ -672,8 +670,7 @@ public class Parser {
                 throw new WrongDateFormatException();
             }
         default:
-            System.out.println("Wrong type");
-            System.out.println(type);
+            Ui.printInvalidEditTypeMessage();
             return null;
         }
     }
