@@ -40,7 +40,7 @@ public class AddModuleCommand extends Command {
                 }
                 switch (argument.substring(0, 2)) {
                 case "c/":
-                    moduleCode = argument.substring(2).toUpperCase();
+                    moduleCode = argument.substring(2);
                     if (!Parser.verifyModuleCode(moduleCode)) {
                         throw new InvalidModuleCodeException();
                     }
