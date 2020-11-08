@@ -601,6 +601,7 @@ public class Parser {
                         || moduleProperty.equals("au")
                         || moduleProperty.equals("modulecode")
                 ) {
+                    System.out.println("test");
                     Storage.getStorage().exportAdditionalData(input);
                     return new EditModuleCommand(moduleCode, moduleProperty, newModuleProperty);
                 } else {

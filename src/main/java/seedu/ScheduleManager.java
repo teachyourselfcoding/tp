@@ -379,25 +379,6 @@ public class ScheduleManager {
         System.out.println("No task found on this date");
     }
 
-    public void editModulecode(String moduleCode, String newModuleCode) {  //edit tasks' module code
-        boolean edited = false;
-        for (LocalDate date = LocalDate.of(2020, 10, 12);
-             date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
-            if (semesterSchedule.get(date).size() != 0) {
-                for (Task task : semesterSchedule.get(date)) {
-                    if (task.getModuleCode().equals(moduleCode)) {
-                        task.setModulecode(newModuleCode);
-                        edited = true;
-                    }
-                }
-            }
-        }
-        if (edited) {
-            System.out.println("Module Code edited");
-            return;
-        }
-        System.out.println("No task found on this date");
-    }
 
 
     public void deleteTask(String description, LocalDate date) {
