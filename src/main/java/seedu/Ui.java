@@ -212,6 +212,8 @@ public class Ui {
     public static void printInvalidModuleCode() {
         System.out.println(SEPARATOR);
         System.out.println("The module code is not valid or not typed in.");
+        System.out.println("Please make sure your module code is typed in follows the specifications stated "
+                + "in the user guide!");
         System.out.println(SEPARATOR);
     }
 
@@ -304,6 +306,8 @@ public class Ui {
     public static void printMissingModuleCodeOrInvalidModuleCodeMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Your module code is either missing or in the wrong format!");
+        System.out.println("Please make sure your module code is typed in follows the specifications stated "
+                + "in the user guide!");
         System.out.println(SEPARATOR);
     }
 
