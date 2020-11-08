@@ -103,7 +103,7 @@ public class ScheduleManager {
             }
         }
         moduleManager.addTaskToModule(lesson, lesson.getModuleCode());
-        System.out.println("Got it, added lesson to the Schedule Manager and Module Manager!");
+        Ui.printLessonAddedMessage();
     }
 
     public boolean checkIfLessonToBeAddedClashesWithCurrentTimetable(Lesson lesson) {
@@ -226,9 +226,9 @@ public class ScheduleManager {
             moduleManager.addTaskToModule(event, event.getModuleCode());
         }
         if (!event.getModuleCode().equals("")) {
-            System.out.println("Event added to both Schedule manager and Module manager");
+            Ui.printEventAddedMessage();
         } else {
-            System.out.println("Event added to Schedule Manager only");
+            Ui.printEventAddedtoScheduleOnlyMessage();
         }
     }
 
@@ -260,8 +260,8 @@ public class ScheduleManager {
                 }
                 break;
             default:
-                System.out.println("Invalid type");
-            }
+                Ui.printInvalidEditTypeMessage();
+            } Ui.printModuleTaskEditedMessage();
         }
     }
 
@@ -297,15 +297,15 @@ public class ScheduleManager {
                 }
                 break;
             default:
-                System.out.println("Invalid type");
+                Ui.printInvalidEditTypeMessage();
                 return;
             }
         }
         if (edited) {
-            System.out.println("Task's property edited");
+            Ui.printSuccessfulEdit();
             return;
         }
-        System.out.println("Task not found");
+        Ui.printTaskNotEditedMessage();
     }
 
 
@@ -329,10 +329,10 @@ public class ScheduleManager {
             }
         }
         if (edited) {
-            System.out.println("Task's frequency edited");
+            Ui.printTaskFrequencyEditedMessage();
             return;
         }
-        System.out.println("Task not found");
+        Ui.printTaskFrequencyNotEditedMessage();
     }
 
 
@@ -370,12 +370,12 @@ public class ScheduleManager {
                 if (newTask.getDescription().equals(description)) {
                     newTask.setDate(newDate.toString()); //Need to change later
                 }
-                System.out.println("Task's date edited");
             }
             deleteTask(description, date);
+            Ui.printTaskDateEditedMessage();
             return;
         }
-        System.out.println("No task found on this date");
+        Ui.printTaskDateNotEditedMessage();
     }
 
 
@@ -394,10 +394,10 @@ public class ScheduleManager {
             if (semesterSchedule.get(date).size() != 0) {
                 semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
             }
-            System.out.println("1 or more tasks on this day has been deleted");
+            Ui.printTaskDeletedMessage();
             return;
         }
-        System.out.println("No matching task on the day");
+        Ui.printTaskNotDeletedMessage();
     }
 
     public void deleteTask(String moduleCode, String description, LocalDate date) {
@@ -410,11 +410,11 @@ public class ScheduleManager {
                 }
             }
             if (deleted) {
-                System.out.println("1 or more task has been deleted");
+                Ui.printTaskDeletedMessage();
                 semesterSchedule.get(date).removeIf(task -> task.getModuleCode().equals(moduleCode)
                         && task.getDescription().equals(description));
             } else {
-                System.out.println("No task on this date matching module code and date");
+                Ui.printTaskNotDeletedMessage();
             }
         }
     }
@@ -428,10 +428,10 @@ public class ScheduleManager {
                 }
             }
             if (deleted) {
-                System.out.println("1 or more task has been deleted");
+                Ui.printModuleTaskDateDeletedMessage();
                 semesterSchedule.get(date).removeIf(task -> task.getModuleCode().equals(moduleCode));
             } else {
-                System.out.println("No task on this date matching module code and date");
+                Ui.printModuleTaskDateNotDeletedMessage();
             }
         }
     }
@@ -450,30 +450,34 @@ public class ScheduleManager {
             }
         }
         if (!deleted) {
-            System.out.println("No matching Module");
+            Ui.printTaskModuleCodeNotDeletedMessage();
             return;
         }
-        System.out.println("All tasks matching modules have been deleted");
+        Ui.printTaskModuleCodeDeletedMessage();
     }
 
     public void deleteTask(String description) { //delete all task matching description
         boolean deleted = false;
         for (LocalDate date = LocalDate.of(2021, 1, 1);
              date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
-            if (semesterSchedule.get(date).size() != 0) {
-                for (Task task : semesterSchedule.get(date)) {
-                    if (task.getDescription().equals(description)) {
-                        deleted = true;
+            try {
+                if (semesterSchedule.get(date).size() != 0) {
+                    for (Task task : semesterSchedule.get(date)) {
+                        if (task.getDescription().equals(description)) {
+                            deleted = true;
+                        }
                     }
+                    if (!deleted) {
+                        Ui.printTaskNotDeletedMessage();
+                        return;
+                    }
+                    semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
                 }
-                if (!deleted) {
-                    System.out.println("No matching task description");
-                    return;
-                }
-                semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
+            } catch (NullPointerException e) {
+                continue;
             }
         }
-        System.out.println("1 or more task matching description has been deleted");
+        Ui.printTaskDeletedMessage();
     }
 
     public void displayTodaySchedule() {

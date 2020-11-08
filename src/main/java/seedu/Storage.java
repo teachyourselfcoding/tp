@@ -43,14 +43,14 @@ public class Storage {
             try {
                 additionalFile.createNewFile();
             } catch (IOException ioException) {
-                System.out.println("Error: additional.txt file cannot be created.");
+                Ui.printAddtionalTxtCreationError();
             }
         }
     }
 
     public void loadData(ScheduleManager scheduleManager, ModuleManager moduleManager,
                          Ui ui) {
-        System.out.println("Loading data from the file...");
+        Ui.printFileLoadingMessage();
         File[] files = this.directory.listFiles();
         try {
             for (File moduleFile : files) {
@@ -63,7 +63,7 @@ public class Storage {
             // no file in dir, so just ignore the iteration
         }
         processFile(scheduleManager, moduleManager, ui, this.additionalFile);
-        System.out.println("Loading completes.");
+        Ui.printFileLoadedMessage();
         this.isImport = false;
     }
 
@@ -77,7 +77,7 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Error: the file is not found.");
+            Ui.printFileMissingError();
         } catch (ModuleDoesNotExistException e) {
             Ui.printModuleDoesNotExistMessage();
         } catch (EmptyArgumentException e) {
@@ -108,9 +108,9 @@ public class Storage {
             moduleWriter.write(moduleManager.getModule(moduleCode).export());
             moduleWriter.close();
         } catch (IOException e) {
-            System.out.println("Error: the file cannot be written.");
+            Ui.printFileWritingError();
         } catch (ModuleNotExistsException e) {
-            System.out.printf("Error: the module %s cannot be written, because it doesn't exist.", moduleCode);
+            Ui.printModuleMissingWritingError();
         }
     }
 
@@ -132,7 +132,7 @@ public class Storage {
             fileWriter.write(command + '\n');
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println("Error: additional.file cannot be written.");
+            Ui.printAddtionalTxtWritingError();
         }
 
     }

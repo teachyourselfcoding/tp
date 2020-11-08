@@ -67,7 +67,7 @@ public class EditTaskCommand extends EditCommand {
             scheduleManager.editTask(description, date, type, newDate);
             break;
         default:
-            System.out.println("Invalid type");
+            Ui.printInvalidEditTypeMessage();
         }
         Ui.printSuccessfulEdit();
     }

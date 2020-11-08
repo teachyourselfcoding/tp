@@ -82,7 +82,7 @@ public class EditModuleCommand extends EditCommand {
                 moduleManager.editTask(description, date, type, newDate, moduleCode);
                 break;
             default:
-                System.out.println("Invalid type");
+                Ui.printInvalidEditTypeMessage();
             }
         Ui.printSuccessfulEdit();
         Storage.getStorage().exportData(moduleManager, moduleCode);

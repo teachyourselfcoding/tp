@@ -77,7 +77,7 @@ public class ModuleManager {
         boolean edit = false;
         for (Module m : listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
-                System.out.println(m.getModuleCode());
+                Ui.printModuleCode(m);
                 for (Task task : m.getListOfTasks()) {
                     if (task.getDate().isEqual(date)) {
                         switch (type) {
@@ -106,14 +106,14 @@ public class ModuleManager {
                             }
                             break;
                         default:
-                            System.out.println("Invalid type");
+                            Ui.printInvalidEditTypeMessage();
                         }
                     }
                 }
             }
         }
         if (edit) {
-            System.out.println("Module property has been updated");
+            Ui.printModulePropertyEditedMessage();
         }
     }
 
@@ -139,7 +139,7 @@ public class ModuleManager {
             }
         }
         if (edited) {
-            System.out.println("Module frequency has been edited");
+            Ui.printModuleFrequencyEditedMessage();
         }
     }
 
@@ -167,8 +167,8 @@ public class ModuleManager {
             }
         }
         if (edited) {
-            System.out.println("Module task's date has been edited");
-        }
+            Ui.printModuleDateEditedMessage();
+        } Ui.printModuleDateNotEditedMessage();
     }
 
     /**
@@ -178,7 +178,7 @@ public class ModuleManager {
     public void delete(String moduleCode) {
         for (Module m: listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
-                System.out.println("Module deleted");
+                Ui.printModuleDeletedMessage();
             }
         }
         listOfModules.removeIf(m -> m.getModuleCode().equals(moduleCode));
@@ -197,16 +197,16 @@ public class ModuleManager {
                 for (Task task : m.getListOfTasks()) {
                     if (task.getDate().equals(date)) {
                         if (task.getDescription().equals(description)) {
-                            System.out.println("Task deleted eheheheheheh");
                             deleted = true;
                         }
                     }
                 }
                 if (deleted) {
-                    System.out.println("No matching task description");
+                    Ui.printTaskDeletedMessage();
+                    m.getListOfTasks().removeIf(task -> task.getDate() == date);
                     return;
-                }
-                m.getListOfTasks().removeIf(task -> task.getDate() == date);
+                } Ui.printTaskNotDeletedMessage();
+
             }
         }
     }
@@ -217,15 +217,29 @@ public class ModuleManager {
      * @param date date chosen.
      */
     public void delete(String moduleCode, LocalDate date) {
-        for (Module m : listOfModules) {
-            if (m.getModuleCode().equals(moduleCode)) {
-                m.getListOfTasks().removeIf(t -> t.getDate().isEqual(date));
+        boolean edited = false;
+        for(Module m: listOfModules){
+            if(m.getModuleCode().equals(moduleCode)) {
+                for (Task task : m.getListOfTasks()) {
+                    if (task.getDate().equals(date)){
+                        edited = true;
+                    }
+                }
             }
-        }
+        }if(edited) {
+            for (Module m : listOfModules) {
+                if (m.getModuleCode().equals(moduleCode)) {
+                    m.getListOfTasks().removeIf(t -> t.getDate().isEqual(date));
+                }
+            }
+            Ui.printModuleTaskDateDeletedMessage();
+            return;
+        }Ui.printModuleTaskDateNotDeletedMessage();
     }
 
     public void deleteModuleTasks(String description, LocalDate date) {
         for (Module m : listOfModules) {
+
             ArrayList<Task> ls = new ArrayList<>();
             for (Task task: m.getListOfTasks()) {
                 if (!task.getDescription().equals(description) && task.getDate().equals(date)) {
@@ -233,6 +247,7 @@ public class ModuleManager {
                 }
             }
             m.setListOfTasks(ls);
+
         }
     }
 
@@ -257,7 +272,7 @@ public class ModuleManager {
         for (Module m: listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
                 ArrayList<Task> tasks = m.getListOfTasks();
-                System.out.println(m); // print the module's information
+                Ui.printModuleInformation(m); // print the module's information
                 Ui.print("The list of task in " + moduleCode + ":");
                 Ui.printListGenericType(tasks,"events,deadline or lessons");
                 Ui.printSeparator();
