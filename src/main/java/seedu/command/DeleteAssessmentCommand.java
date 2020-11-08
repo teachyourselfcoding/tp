@@ -34,6 +34,7 @@ public class DeleteAssessmentCommand extends Command {
                 if (module.assessments.get(i).title.equals(this.title)) {
                     module.assessments.remove(i);
                     Storage.getStorage().exportData(moduleManager, module.getModuleCode());
+                    Ui.printSuccessfulAssessmentDelete(this.title);
                     return;
                 }
             }

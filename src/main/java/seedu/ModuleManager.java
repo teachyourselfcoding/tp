@@ -237,19 +237,26 @@ public class ModuleManager {
             return;
         }Ui.printModuleTaskDateNotDeletedMessage();
     }
-    public void deleteModuleTasks(String description, LocalDate date){
+
+    public void deleteModuleTasks(String description, LocalDate date) {
         for (Module m : listOfModules) {
-            m.getListOfTasks().removeIf(task -> task.getDescription().equals(description) && task.getDate().equals(date));
+
+            ArrayList<Task> ls = new ArrayList<>();
+            for (Task task: m.getListOfTasks()) {
+                if (!task.getDescription().equals(description) && task.getDate().equals(date)) {
+                    ls.add(task);
+                }
+            }
+            m.setListOfTasks(ls);
+
         }
     }
 
     public void deleteModuleTasks(String description){
         for (Module m : listOfModules) {
-//            Module mCopy = m;
-            ArrayList<Task>ls= new ArrayList<>();
-            for(Task task: m.getListOfTasks()){
-                if(!task.getDescription().equals(description)){
-//                    m.getListOfTasks().remove(task);
+            ArrayList<Task> ls = new ArrayList<>();
+            for (Task task: m.getListOfTasks()) {
+                if (!task.getDescription().equals(description)) {
                     ls.add(task);
                 }
             }

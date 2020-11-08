@@ -17,11 +17,13 @@ as well as tasks related to their modules that they are taking. DueQuest is made
 
 ## Storage 
 
-The storage directory to load from can be specified when launching `java -jar DueQuest.jar SPECIFIED_DIR`. By default, the directory is `data`. In the storage directory, each module will have a txt file that contains related information (e.g. information and tasks), and `additional.txt` is for commands such as delete certain tasks on certain dates. 
+The storage directory that contains storage files (in `.txt` format) can be specified when launching `java -jar DueQuest.jar SPECIFIED_DIR`. 
 
-The information will be imported and exported automatically by the app. 
++ By default, the directory is `data`. 
 
-Note:
++ In the storage directory, each module will have a txt file that contains related information (e.g. information and tasks), as well as `additional.txt` is for commands such as delete or edit certain tasks on certain dates. 
+
++ The information will be imported and exported automatically by the app. 
 
 + If you see the error message when loading, such as `No proper comman detected`, please check if the files are modified accidentally. 
 
@@ -260,13 +262,15 @@ display CS2113
 
 Course: CS2113
 Title: null
-AU: 0
+AU: 1
 Teaching Staffs: []
 Assessment : 
+
 TP(0.00/100.000)
 
+
 The list of task in CS2113:
-[D] tp v1 - CS2113  (by: 2020-10-30)
+[L] online lecture - CS2113 FRIDAY 16:00 18:00
 ```
 
 ## Add score to an assessment: `score`
@@ -304,13 +308,16 @@ Example Output 2:
 ```
 Course: CS2113
 Title: null
-AU: 0
+AU: 1
 Teaching Staffs: []
 Assessment : 
+
+=======
 TP(100.00/100.00)
 
+
 The list of task in CS2113:
-[D] tp v1 - CS2113  (by: 2020-10-30)
+[L] online lecture - CS2113 FRIDAY 16:00 18:00
 ```
 Inputting a module that doesn't exist
 ```
@@ -349,8 +356,6 @@ Format: `delete_assessment MODULE_CODE TITLE`
     * 7 characters long. The first 2 characters are alphabets. The next 4 characters are digits. The last character is an alphabet. The  Example: CS2113T.
     * Alphabets in the module code should be all in capital letters. 
 + `TITLE` is the title of the assessment to score 
-
-Note: 
 
 + If there are multiple assessments with the same title, only the 1st one will be deleted. 
 
@@ -1023,4 +1028,8 @@ Format: `bye`
 
 Example of Usage:
 Input: `bye`
-Output: `Aye captain. This is DueQuest Signing out!`
+Output: 
+```
+Aye captain. This is DueQuest Signing out!
+
+```

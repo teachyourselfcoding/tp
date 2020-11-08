@@ -1,0 +1,14 @@
+delete final exam 2021-05-03
+delete final exam
+delete tp
+delete final exam 2021/05/03
+delete final exam 2021-05-03
+delete final exam /date 2021-05-03
+delete final exam /date 2021-05-03
+delete final exam /date 2021-05-06
+delete CS2113 /date 2021-05-03
+delete c/CS2113 /date 2021-05-03
+delete CS2102
+delete c/CS2113 /date 2021-05-03
+delete c/CS2113 /date 2021-05-03
+delete c/CS2113 /date 2021-05-03
