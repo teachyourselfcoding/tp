@@ -218,29 +218,45 @@ public class ModuleManager {
      * @param date date chosen.
      */
     public void delete(String moduleCode, LocalDate date) {
-        for (Module m : listOfModules) {
-            if (m.getModuleCode().equals(moduleCode)) {
-                m.getListOfTasks().removeIf(t -> t.getDate().isEqual(date));
-            }
-        }
-    }
-    public void deleteModuleTasks(String description, LocalDate date){
-        for (Module m : listOfModules) {
-            for(Task task: m.getListOfTasks()){
-                if(task.getDescription().equals(description) && task.getDate().equals(date)){
-                    m.getListOfTasks().remove(task);
+        boolean edited = false;
+        for(Module m: listOfModules){
+            if(m.getModuleCode().equals(moduleCode)) {
+                for (Task task : m.getListOfTasks()) {
+                    if (task.getDate().equals(date)){
+                        edited = true;
+                    }
                 }
             }
+        }if(edited) {
+            for (Module m : listOfModules) {
+                if (m.getModuleCode().equals(moduleCode)) {
+                    m.getListOfTasks().removeIf(t -> t.getDate().isEqual(date));
+                }
+            }
+            Ui.printModuleTaskDateDeletedMessage();
+            return;
+        }Ui.printModuleTaskDateNotDeletedMessage();
+    }
+
+    public void deleteModuleTasks(String description, LocalDate date) {
+        for (Module m : listOfModules) {
+
+            ArrayList<Task> ls = new ArrayList<>();
+            for (Task task: m.getListOfTasks()) {
+                if (!task.getDescription().equals(description) && task.getDate().equals(date)) {
+                    ls.add(task);
+                }
+            }
+            m.setListOfTasks(ls);
+
         }
     }
 
     public void deleteModuleTasks(String description){
         for (Module m : listOfModules) {
-//            Module mCopy = m;
-            ArrayList<Task>ls= new ArrayList<>();
-            for(Task task: m.getListOfTasks()){
-                if(!task.getDescription().equals(description)){
-//                    m.getListOfTasks().remove(task);
+            ArrayList<Task> ls = new ArrayList<>();
+            for (Task task: m.getListOfTasks()) {
+                if (!task.getDescription().equals(description)) {
                     ls.add(task);
                 }
             }

@@ -428,17 +428,17 @@ public class ScheduleManager {
                 }
             }
             if (deleted) {
-                Ui.printTaskDeletedMessage();
+                Ui.printModuleTaskDateDeletedMessage();
                 semesterSchedule.get(date).removeIf(task -> task.getModuleCode().equals(moduleCode));
             } else {
-                Ui.printTaskNotDeletedMessage();
+                Ui.printModuleTaskDateNotDeletedMessage();
             }
         }
     }
 
     public void deleteTask(String description, String moduleCode) { //delete all tasking matching module code
         boolean deleted = false;
-        for (LocalDate date = LocalDate.of(2020, 10, 12);
+        for (LocalDate date = LocalDate.of(2021, 1, 1);
              date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
             if (semesterSchedule.get(date).size() != 0) {
                 for (Task task : semesterSchedule.get(date)) {
@@ -458,7 +458,7 @@ public class ScheduleManager {
 
     public void deleteTask(String description) { //delete all task matching description
         boolean deleted = false;
-        for (LocalDate date = LocalDate.of(2020, 10, 12);
+        for (LocalDate date = LocalDate.of(2021, 1, 1);
              date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
             try {
                 if (semesterSchedule.get(date).size() != 0) {
@@ -553,7 +553,7 @@ public class ScheduleManager {
                 + Ui.convertDateToStringWithYear(startDate)
                 + " to "
                 + Ui.convertDateToStringWithYear(endDate));
-        for (LocalDate date = LocalDate.of(2020, 10, 12);
+        for (LocalDate date = LocalDate.of(2021, 1, 1);
              date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
             if (date.isEqual(startDate)) {
                 if (semesterSchedule.get(date).size() != 0) {

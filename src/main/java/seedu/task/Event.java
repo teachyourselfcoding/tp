@@ -43,6 +43,9 @@ public class Event extends Task {
                 + this.at
                 + ")";
     }
+    public LocalDate getDate() {
+        return LocalDate.parse(dateOfEvent);
+    }
 
     public String getAt() {
         return at;
@@ -91,6 +94,11 @@ public class Event extends Task {
                 Objects.equals(dateOfEvent, event.dateOfEvent) &&
                 Objects.equals(endTimeOfEvent, event.endTimeOfEvent) &&
                 Objects.equals(description, event.getDescription());
+    }
+
+    @Override
+    public LocalDate getDate() {
+        return LocalDate.parse(dateOfEvent);
     }
 }
 
