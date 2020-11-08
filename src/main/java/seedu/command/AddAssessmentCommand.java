@@ -51,6 +51,7 @@ public class AddAssessmentCommand extends Command {
             Module module = moduleManager.getModule(this.moduleCode);
             Assessment assessment = new Assessment(this.title, this.fullScore);
             module.addAssessment(assessment);
+            Ui.printSuccessfulAssessmentAdd(assessment);
             Storage.getStorage().exportData(moduleManager, this.moduleCode);
         } catch (ModuleNotExistsException e) {
             throw new ModuleDoesNotExistException();

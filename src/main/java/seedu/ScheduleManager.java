@@ -460,17 +460,21 @@ public class ScheduleManager {
         boolean deleted = false;
         for (LocalDate date = LocalDate.of(2021, 1, 1);
              date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
-            if (semesterSchedule.get(date).size() != 0) {
-                for (Task task : semesterSchedule.get(date)) {
-                    if (task.getDescription().equals(description)) {
-                        deleted = true;
+            try {
+                if (semesterSchedule.get(date).size() != 0) {
+                    for (Task task : semesterSchedule.get(date)) {
+                        if (task.getDescription().equals(description)) {
+                            deleted = true;
+                        }
                     }
+                    if (!deleted) {
+                        Ui.printTaskNotDeletedMessage();
+                        return;
+                    }
+                    semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
                 }
-                if (!deleted) {
-                    Ui.printTaskNotDeletedMessage();
-                    return;
-                }
-                semesterSchedule.get(date).removeIf(task -> task.getDescription().equals(description));
+            } catch (NullPointerException e) {
+                continue;
             }
         }
         Ui.printTaskDeletedMessage();

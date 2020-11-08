@@ -1,5 +1,6 @@
 package seedu;
 
+import seedu.module.Assessment;
 import seedu.module.Module;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -334,6 +335,28 @@ public class Ui {
         System.out.println("ლ(ಠ益ಠლ)");
         System.out.println(SEPARATOR);
         System.out.println("Done. The edit has been made.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printSuccessfulAssessmentAdd(Assessment assessment) {
+        System.out.println("ლ(ಠ益ಠლ)");
+        System.out.println(SEPARATOR);
+        System.out.printf("Done. The assessment %s has been made.\n", assessment.title);
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printSuccessfulScoreAssessment(Assessment assessment) {
+        System.out.println("ლ(ಠ益ಠლ)");
+        System.out.println(SEPARATOR);
+        System.out.printf("Done. The assessment %s has been scored as %.2f/%.2f.\n", assessment.title,
+                assessment.getAttemptScore(), assessment.getFullScore());
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printSuccessfulAssessmentDelete(String title) {
+        System.out.println("ლ(ಠ益ಠლ)");
+        System.out.println(SEPARATOR);
+        System.out.printf("Done. The assessment %s has been deleted.\n", title);
         System.out.println(SEPARATOR);
     }
 
