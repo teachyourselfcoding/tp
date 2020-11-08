@@ -86,6 +86,8 @@ public class Storage {
             Ui.printInvalidScoreErrorMessage();
         } catch (DueQuestException e) {
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            return ;
         }
     }
 
