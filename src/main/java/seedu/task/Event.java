@@ -95,10 +95,5 @@ public class Event extends Task {
                 Objects.equals(endTimeOfEvent, event.endTimeOfEvent) &&
                 Objects.equals(description, event.getDescription());
     }
-
-    @Override
-    public LocalDate getDate() {
-        return LocalDate.parse(dateOfEvent);
-    }
 }
 
