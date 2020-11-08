@@ -53,7 +53,7 @@ public class ModuleManager {
      * @return ture if the module exist, false if it dosen't.
      */
     public boolean checkIfModuleExist(Module module) {
-        return this.getListOfModuleCodes().contains(module.getModuleCode());
+        return this.getListOfModuleCodes().contains(module.getModuleCode().toUpperCase());
     }
 
     /**

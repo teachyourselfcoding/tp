@@ -21,14 +21,25 @@ The storage directory to load from can be specified when launching `java -jar Du
 
 The information will be imported and exported automatically by the app. 
 
+Note:
+
++ If you see the error message when loading, such as `No proper comman detected`, please check if the files are modified accidentally. 
+
 ## Add a Module: `module`
 
 A module can be added into the Module Manager using the command below. You should start adding modules first before you can use most of the other features after this section.
 
 Format: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
 
-+ `AU_NUM` must be non-negative integer
-+ `MODULECODE` is case-insensitive, e.g. `ST2132` = `st2132`
++ `MODULECODE` must be given, and it should be unique. 
+  + There are 3 types of valid module codes. 
+    * 6 characters long. The first 2 characters are alphabets. The last 4 characters are digits. Example: CS2113
+    * 7 characters long. The first 3 characters are alphabets. The last 4 characters are digits. Example: DSA4211
+    * 7 characters long. The first 2 characters are alphabets. The next 4 characters are digits. The last character is an alphabet. The  Example: CS2113T
+    * `MODULECODE` is case-insensitive, e.g. `ST2132` = `st2132`
++ `AU_NUM` must be positive integer, by default it's 0.
++ `TITLE` shouldn't contain any whitespace, e.g. `t/SE OOP` should be replaced by `t/SE_OOP` or `t/SE-OOP`   
++ `TEACHING_STAFF` is optional, and multiple `[s/TEACHING_STAFF]` are supported, e.g. `module c/ST2113 a/4 s/Dr.Lim s/ChengChen`
 
 Example Usage: 
 
@@ -653,9 +664,9 @@ CS2113 v1
 
 4)Delete entire module
 
-Format: `delete c/MODULE_CODE 
+Format: `delete c/MODULE_CODE`
 
-* The DATE must be in YYYY-MM-DD
+* The DATE must be in `YYYY-MM-DD`
 
 Example of Usage
 

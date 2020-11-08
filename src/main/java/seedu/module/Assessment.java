@@ -8,8 +8,8 @@ import seedu.exception.InvalidScoreException;
  */
 public class Assessment {
     public String title;
-    private float attemptScore = 0;
-    private final float fullScore;
+    private double attemptScore = 0;
+    private final double fullScore;
 
     /**
      * Constructs assessment instance.
@@ -19,8 +19,8 @@ public class Assessment {
      * @throws EmptyArgumentException if the title is empty string
      * @throws InvalidScoreException  if the full score is non-positive
      */
-    public Assessment(String title, float fullScore) throws EmptyArgumentException, InvalidScoreException {
-        if (title.isEmpty()) {
+    public Assessment(String title, double fullScore) throws EmptyArgumentException, InvalidScoreException {
+        if (title == null || title.isEmpty() || title.trim().isEmpty()) {
             throw new EmptyArgumentException();
         } else {
             this.title = title;
@@ -38,7 +38,7 @@ public class Assessment {
      * @param attemptScore the actual score
      * @throws InvalidScoreException if the attempt score is larger than the full score or negative
      */
-    public void setAttemptScore(float attemptScore) throws InvalidScoreException {
+    public void setAttemptScore(double attemptScore) throws InvalidScoreException {
         if (attemptScore < 0 || attemptScore > this.fullScore) {
             throw new InvalidScoreException();
         } else {
@@ -46,11 +46,11 @@ public class Assessment {
         }
     }
 
-    public float getAttemptScore() {
+    public double getAttemptScore() {
         return attemptScore;
     }
 
-    public float getFullScore() {
+    public double getFullScore() {
         return fullScore;
     }
 

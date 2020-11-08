@@ -20,7 +20,7 @@ import java.util.Scanner;
  */
 public class Storage {
     public static final String DEFAULT_FILE_PATH = "data";
-    private static Storage storage;
+    private static Storage storage = null;
     private File directory;
     private File additionalFile;
     private boolean isImport;
@@ -78,14 +78,14 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             System.out.println("Error: the file is not found.");
-        } catch (DueQuestException e) {
-            ui.showError(e.getExceptionType());
         } catch (ModuleDoesNotExistException e) {
             Ui.printModuleDoesNotExistMessage();
         } catch (EmptyArgumentException e) {
             Ui.printEmptyArgumentMessage();
         } catch (InvalidScoreException e) {
             Ui.printInvalidScoreErrorMessage();
+        } catch (DueQuestException e) {
+            e.printStackTrace();
         }
     }
 
@@ -144,8 +144,12 @@ public class Storage {
      * @return newly created storage object
      */
     public static Storage setUpStorage(String directoryPath) {
-        storage = new Storage(Objects.requireNonNullElse(directoryPath, DEFAULT_FILE_PATH));
-        return storage;
+        if (Storage.storage == null) {
+            storage = new Storage(Objects.requireNonNullElse(directoryPath, DEFAULT_FILE_PATH));
+            return storage;
+        } else {
+            return Storage.storage;
+        }
     }
 
     public static Storage getStorage() {
