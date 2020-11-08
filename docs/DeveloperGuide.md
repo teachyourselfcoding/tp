@@ -216,32 +216,30 @@ There are two types of edit/deleting:
 
 ### Edit Feature
 
-The `editCommand` base class forms the basis for the two extensions listed below.
+The `EditCommand` base class forms the basis for the two extensions listed below.
 
-1. Edit Module Command
-When the `EditModuleCommand` is executed, it checks for the description of the particular property to 
-edit with `scheduleManager` and `moduleManager`.  The constructor function is overloaded such that the 
+1. Edit Module Command: When the `EditModuleCommand` is executed, it checks for the description of the particular property to 
+edit with `ScheduleManager` and `ModuleManager`.  The constructor function is overloaded such that the 
 conditions will check for which property to edit. In the case that there are no module details to modify,
 the function execution will go on to check for module tasks to modify.
 
-![](Images/5.1EditModule1.JPEG)
+![](Images/5.1EditModule1.jpeg)
 
-2. Edit Task Command
-When the `EditTaskCommand` is executed, it checks for the description of the particular property to 
-edit with `scheduleManager` and `moduleManager`.  The constructor function is overloaded such that the 
+2. Edit Task Command: When the `EditTaskCommand` is executed, it checks for the description of the particular property to 
+edit with `ScheduleManager` and `ModuleManager`.  The constructor function is overloaded such that the 
 conditions will check for which property to edit.
 
-![](Images/5.2EditTask2.JPEG)
+![](Images/5.2EditTask2.jpeg)
 
 ### Delete Feature
 
-The `deleteCommand` is the class which oversees the deletion of modules and tasks.
+The `DeleteCommand` is the class which oversees the deletion of modules and tasks.
 
-1. The `deleteCommand` class is overloaded such that the conditions of the deletion are checked. The 
-`scheduleManager` and `moduleManager` both manage their deletions separately, overloading the deletions
+1. The `DeleteCommand` class is overloaded such that the conditions of the deletion are checked. The 
+`ScheduleManager` and `ModuleManager` both manage their deletions separately, overloading the deletions
 where necessary.
 
-![](Images/6.1Delete.JPEG)
+![](Images/6.1Delete.jpeg)
 
 ## 5. Documentation
 
@@ -293,8 +291,6 @@ reducing the chances of them forgetting about any work related to school.
 
 ### User Stories 
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
 ![](Images/userstories.PNG)
 This is an example of how we originally tackle the user stories.
 

@@ -52,7 +52,7 @@ public class EditModuleCommand extends EditCommand {
     public EditModuleCommand(String moduleCode, String property, String newProperty) {
         this.moduleCode = moduleCode;
         this.task = module;
-        this.type = property;
+        this.description = property;
         this.newProperty = newProperty;
     }
 
@@ -64,14 +64,6 @@ public class EditModuleCommand extends EditCommand {
 
     @Override
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
-        if (description.equals("au")) {
-            moduleManager.editModuleAu(moduleCode, newProperty);
-        } else if (description.equals("staff")) {
-            moduleManager.editModuleStaff(moduleCode, newProperty);
-        } else if (description.equals("modulecode")) {
-            moduleManager.editModuleCode(moduleCode, newProperty);
-            scheduleManager.editModulecode(moduleCode, newProperty);
-        } else {
             switch (type) {
             case "type":
                 //Fallthrough
@@ -80,7 +72,6 @@ public class EditModuleCommand extends EditCommand {
             case "time":
                 scheduleManager.editTask(description, date, type, newProperty, moduleCode);
                 moduleManager.editTask(description, date, type, newProperty, moduleCode);
-
                 break;
             case "frequency":
                 scheduleManager.editTask(description, date, type, newFrequency, moduleCode);
@@ -92,9 +83,7 @@ public class EditModuleCommand extends EditCommand {
                 break;
             default:
                 System.out.println("Invalid type");
-
             }
-        }
         Ui.printSuccessfulEdit();
         Storage.getStorage().exportData(moduleManager, moduleCode);
     }

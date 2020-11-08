@@ -4,6 +4,7 @@ import seedu.ModuleManager;
 import seedu.ScheduleManager;
 import seedu.Storage;
 import seedu.Ui;
+import seedu.module.Module;
 
 import java.time.LocalDate;
 
@@ -51,13 +52,14 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
-        System.out.println(moduleCode);
         if (!type.equals("module")) {
-            if (this.date == null) {                 //delete task with no date
-                scheduleManager.deleteTask(description);
+            if (this.date == null) {//delete task with no date
+                scheduleManager.deleteTask(description.trim());
+                moduleManager.deleteModuleTasks(description.trim());
                 return;
             }
             scheduleManager.deleteTask(description, date); //delete task with date, with description
+            moduleManager.deleteModuleTasks(description, date);
             return;
         }
         if (this.date == null) {                                                  //delete entire module

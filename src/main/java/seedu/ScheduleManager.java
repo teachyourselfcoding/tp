@@ -54,12 +54,12 @@ public class ScheduleManager {
      */
     public ScheduleManager() {
         this.semesterSchedule = new TreeMap<>();
-        for (LocalDate date = LocalDate.of(2020, 10, 12);
+        for (LocalDate date = LocalDate.of(2021, 1, 1);
              date.isBefore(LocalDate.of(2021, 6, 1));
              date = date.plusDays(1)) {
             this.semesterSchedule.put(date, new ArrayList<>());
         }
-        for (LocalDate date = LocalDate.of(2020, 12, 6);
+        for (LocalDate date = LocalDate.of(2021, 1, 1);
              date.isBefore(LocalDate.of(2021, 1, 11));
              date = date.plusDays(1)) {
             this.listOfNonLessonDates.add(date);
@@ -83,7 +83,6 @@ public class ScheduleManager {
 
     /**
      * Add lessons to the day of the week that the lesson is conducted in.
-     *
      * @param lesson lesson to be added to the schedule manager.
      */
     public void addLesson(Lesson lesson, ModuleManager moduleManager, Ui ui) throws ModuleDoesNotExistException {
@@ -379,25 +378,6 @@ public class ScheduleManager {
         System.out.println("No task found on this date");
     }
 
-    public void editModulecode(String moduleCode, String newModuleCode) {  //edit tasks' module code
-        boolean edited = false;
-        for (LocalDate date = LocalDate.of(2020, 10, 12);
-             date.isBefore(LocalDate.of(2021, 6, 1)); date = date.plusDays(1)) {
-            if (semesterSchedule.get(date).size() != 0) {
-                for (Task task : semesterSchedule.get(date)) {
-                    if (task.getModuleCode().equals(moduleCode)) {
-                        task.setModulecode(newModuleCode);
-                        edited = true;
-                    }
-                }
-            }
-        }
-        if (edited) {
-            System.out.println("Module Code edited");
-            return;
-        }
-        System.out.println("No task found on this date");
-    }
 
 
     public void deleteTask(String description, LocalDate date) {

@@ -11,7 +11,6 @@ import seedu.command.EditCommand;
 import seedu.command.EditModuleCommand;
 import seedu.command.EditTaskCommand;
 import seedu.command.ExitCommand;
-import seedu.command.FindCommand;
 import seedu.command.HelpCommand;
 import seedu.command.ScoreAssessmentCommand;
 
@@ -72,10 +71,6 @@ public class Parser {
                 return new ExitCommand();
             case "delete":
                 return validateDeleteCommand(input);
-            case "find":
-                String[] sentence = input.toLowerCase().split(" ", 2);
-                String keywords = sentence[1];
-                return new FindCommand(keywords);
             case "deadline":
                 Deadline deadline = validateDeadline(input);
                 return new AddCommand(deadline);
@@ -438,7 +433,7 @@ public class Parser {
         }
         filteredInput = input.substring(7);
         if (!filteredInput.contains("/date")) {
-            description = filteredInput;
+            description = filteredInput.trim();
             Storage.getStorage().exportAdditionalData(input);
             return new DeleteCommand(description);
         }
@@ -606,6 +601,7 @@ public class Parser {
                         || moduleProperty.equals("au")
                         || moduleProperty.equals("modulecode")
                 ) {
+                    System.out.println("test");
                     Storage.getStorage().exportAdditionalData(input);
                     return new EditModuleCommand(moduleCode, moduleProperty, newModuleProperty);
                 } else {

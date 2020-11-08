@@ -7,6 +7,7 @@ import seedu.task.Deadline;
 import seedu.task.Lesson;
 import seedu.task.Task;
 
+import java.lang.reflect.Array;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -71,42 +72,6 @@ public class ModuleManager {
         throw new ModuleNotExistsException();
     }
 
-    public void editModuleCode(String moduleCode, String newProperty) {
-        for (Module m: listOfModules) {
-            if (m.getModuleCode().equals(moduleCode)) {
-                for (Task task : m.getListOfTasks()) {
-                    task.setModulecode(newProperty);
-                }
-                m.setModuleCode(newProperty);
-            }
-        }
-    }
-
-    public void editModuleAu(String moduleCode, String newProperty) {
-        boolean edited = false;
-        for (Module m: listOfModules) {
-            if (m.getModuleCode().equals(moduleCode)) {
-                m.setModuleCode(newProperty);
-                edited = true;
-            }
-        }
-        if (edited) {
-            System.out.println("Module property has been updated");
-        }
-    }
-
-    public void editModuleStaff(String moduleCode, String newProperty) {
-        boolean edited = false;
-        for (Module m: listOfModules) {
-            if (m.getModuleCode().equals(moduleCode)) {
-                m.setModuleCode(newProperty);
-                edited = true;
-            }
-        }
-        if (edited) {
-            System.out.println("Module property has been updated");
-        }
-    }
 
     public void editTask(String description, LocalDate date, String type, String newProperty, String moduleCode) {
         boolean edit = false;
@@ -257,6 +222,29 @@ public class ModuleManager {
             if (m.getModuleCode().equals(moduleCode)) {
                 m.getListOfTasks().removeIf(t -> t.getDate().isEqual(date));
             }
+        }
+    }
+    public void deleteModuleTasks(String description, LocalDate date){
+        for (Module m : listOfModules) {
+            for(Task task: m.getListOfTasks()){
+                if(task.getDescription().equals(description) && task.getDate().equals(date)){
+                    m.getListOfTasks().remove(task);
+                }
+            }
+        }
+    }
+
+    public void deleteModuleTasks(String description){
+        for (Module m : listOfModules) {
+//            Module mCopy = m;
+            ArrayList<Task>ls= new ArrayList<>();
+            for(Task task: m.getListOfTasks()){
+                if(!task.getDescription().equals(description)){
+//                    m.getListOfTasks().remove(task);
+                    ls.add(task);
+                }
+            }
+            m.setListOfTasks(ls);
         }
     }
 
