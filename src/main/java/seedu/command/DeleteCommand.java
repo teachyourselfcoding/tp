@@ -52,7 +52,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
-        if (!type.equals("module")) {
+        if (moduleCode==null) {
             if (this.date == null) {//delete task with no date
                 scheduleManager.deleteTask(description.trim());
                 moduleManager.deleteModuleTasks(description.trim());
@@ -62,11 +62,11 @@ public class DeleteCommand extends Command {
             moduleManager.deleteModuleTasks(description, date);
             return;
         }
-        if (this.date == null) {                                                  //delete entire module
+        if(this.date == null) {                                                  //delete entire module
             scheduleManager.deleteTask("module", moduleCode);
             moduleManager.delete(moduleCode);
-        } else {
-            if (description.equals(" ")) {                           //delete all task in module matching date
+        }else {
+            if (description.equals(" ")) {//delete all task in module matching date
                 scheduleManager.deleteTask(date, moduleCode);
                 moduleManager.delete(moduleCode, date);
             } else {

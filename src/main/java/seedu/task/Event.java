@@ -43,6 +43,9 @@ public class Event extends Task {
                 + this.at
                 + ")";
     }
+    public LocalDate getDate() {
+        return LocalDate.parse(dateOfEvent);
+    }
 
     public String getAt() {
         return at;
