@@ -483,6 +483,20 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+    public static void printModuleTaskDateDeletedMessage(){
+        System.out.println("(◕‿◕✿)");
+        System.out.println(SEPARATOR);
+        System.out.println("All task from this module on this date has been deleted");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printModuleTaskDateNotDeletedMessage(){
+        System.out.println("(ง'̀-'́)ง");
+        System.out.println(SEPARATOR);
+        System.out.println("Did not find the task that matches your description");
+        System.out.println(SEPARATOR);
+    }
+
     public static void printTaskDeletedMessage(){
         System.out.println("(◕‿◕✿)");
         System.out.println(SEPARATOR);
@@ -500,7 +514,14 @@ public class Ui {
     public static void printTaskModuleCodeNotDeletedMessage(){
         System.out.println("(ง'̀-'́)ง");
         System.out.println(SEPARATOR);
-        System.out.println("All tasks matching module code have been deleted");
+        System.out.println("Did not find the right task to delete");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printTaskModuleCodeDateNotDeletedMessage(){
+        System.out.println("(ง'̀-'́)ง");
+        System.out.println(SEPARATOR);
+        System.out.println("Did not find task matching module code on this date");
         System.out.println(SEPARATOR);
     }
 

@@ -428,10 +428,10 @@ public class ScheduleManager {
                 }
             }
             if (deleted) {
-                Ui.printTaskDeletedMessage();
+                Ui.printModuleTaskDateDeletedMessage();
                 semesterSchedule.get(date).removeIf(task -> task.getModuleCode().equals(moduleCode));
             } else {
-                Ui.printTaskNotDeletedMessage();
+                Ui.printModuleTaskDateNotDeletedMessage();
             }
         }
     }
