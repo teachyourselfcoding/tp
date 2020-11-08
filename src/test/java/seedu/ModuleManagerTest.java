@@ -127,7 +127,7 @@ class ModuleManagerTest {
         assertEquals(0, moduleManager.getModule("CS2102").getListOfTasks().size());
         assertEquals(0, moduleManager.getModule("CS2113").getListOfTasks().size());
     }
-    /*
+
     @Test
     void deleteModuleTasks_deleteTasksWithDate_returnsTrue() throws ModuleAlreadyExistsException,
             MissingEventDateAndTimeDetailsException, MissingEventDescriptionException,
@@ -150,6 +150,4 @@ class ModuleManagerTest {
         assertEquals(0, moduleManager.getModule("CS2102").getListOfTasks().size());
         assertEquals(1, moduleManager.getModule("CS2113").getListOfTasks().size());
     }
-    
-     */
 }
