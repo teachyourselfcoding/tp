@@ -3,33 +3,50 @@ package seedu;
 import org.junit.jupiter.api.Test;
 import seedu.exception.InvalidDateException;
 import seedu.exception.InvalidStartEndDateException;
-import seedu.exception.*;
+
+import seedu.exception.EmptyArgumentException;
+import seedu.exception.InvalidFrequencyException;
+import seedu.exception.InvalidModuleCodeException;
+import seedu.exception.InvalidTimeFormatException;
+import seedu.exception.MissingEventDateAndTimeDetailsException;
+import seedu.exception.MissingEventDescriptionException;
+import seedu.exception.MissingLessonDescriptionException;
+import seedu.exception.MissingLessonTimingException;
+import seedu.exception.MissingModuleCodeOrInvalidModuleCodeException;
+import seedu.exception.StartAndEndTimeSameException;
+import seedu.exception.StartTimeAndEndTimeTooEarlyException;
+import seedu.exception.StartTimeIsAfterEndTimeException;
+import seedu.exception.WrongDateFormatException;
+import seedu.exception.ModuleDoesNotExistException;
+import seedu.exception.ModuleAlreadyExistsException;
+
+import seedu.module.Module;
 import seedu.task.Event;
 import seedu.task.Lesson;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ScheduleManagerTest {
-    //Three part name for a test: methodUnderTest_inputGiven_expectedOutput
     @Test
     public void display_longAgoDate_expectExceptions() {
         ScheduleManager sm = new ScheduleManager();
-        assertThrows(InvalidDateException.class,()->{ sm.displayDate(LocalDate.parse("2010-10-10"));});
+        assertThrows(InvalidDateException.class, () -> sm.displayDate(LocalDate.parse("2010-10-10")));
     }
 
     @Test
     public void display_TooFarAhead_expectExceptions() {
         ScheduleManager sm = new ScheduleManager();
-        assertThrows(InvalidDateException.class,()->{ sm.displayDate(LocalDate.parse("2100-10-10"));});
+        assertThrows(InvalidDateException.class, () -> sm.displayDate(LocalDate.parse("2100-10-10")));
     }
 
     @Test
     public void display_startAndEndDateSwap_expectExceptions() {
         ScheduleManager sm = new ScheduleManager();
-        assertThrows(InvalidStartEndDateException.class,()->{
-            sm.display(LocalDate.parse("2020-11-28"),LocalDate.parse("2020-10-20"));});
+        assertThrows(InvalidStartEndDateException.class, () -> sm.display(LocalDate.parse("2020-11-28"),
+                LocalDate.parse("2020-10-20")));
     }
 
     @Test
@@ -54,7 +71,7 @@ class ScheduleManagerTest {
             MissingLessonTimingException, EmptyArgumentException, InvalidModuleCodeException,
             InvalidTimeFormatException, InvalidFrequencyException, InvalidDateException,
             MissingEventDateAndTimeDetailsException, WrongDateFormatException,
-            StartAndEndTimeSameException, MissingLessonDescriptionException, InvalidDateFormatException,
+            StartAndEndTimeSameException, MissingLessonDescriptionException,
             MissingEventDescriptionException, StartTimeAndEndTimeTooEarlyException, StartTimeIsAfterEndTimeException,
             MissingModuleCodeOrInvalidModuleCodeException, ModuleDoesNotExistException, ModuleAlreadyExistsException {
         String input1 = "lesson online lecture CS2113 /on 5 16:00 18:00";
@@ -80,5 +97,4 @@ class ScheduleManagerTest {
         assertEquals(true, scheduleManager.checkIfLessonToBeAddedClashesInADate(
                 lesson4, LocalDate.of(2021, 1, 15)));
     }
-
 }

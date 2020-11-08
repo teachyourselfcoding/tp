@@ -7,6 +7,8 @@ import seedu.ScheduleManager;
 import seedu.Storage;
 import seedu.Ui;
 import seedu.command.Command;
+import seedu.exception.EmptyArgumentException;
+import seedu.exception.InvalidScoreException;
 import seedu.exception.ModuleDoesNotExistException;
 
 
@@ -24,7 +26,6 @@ public class DueQuest {
      * The main function to run the whole Duke app.
      */
     public static void main(String[] args) {
-        //assert false : "dummy assertion set to fail";
         DueQuest dq = new DueQuest();
         try {
             storage = Storage.setUpStorage(args[0]);
@@ -36,7 +37,7 @@ public class DueQuest {
     }
 
     /**
-     * Constructor
+     * Constructor.
      */
     public DueQuest() {
         this.ui = new Ui();
@@ -46,7 +47,8 @@ public class DueQuest {
     }
 
     /**
-     * The run method to execute the commands FOR OUR TP!!!!
+     * The run method to execute the commands.
+     * The run method to execute the commands FOR OUR TP!!!!.
      */
     public void run() {
         boolean isExit = false;
@@ -61,6 +63,11 @@ public class DueQuest {
                 ui.showError(e.getExceptionType());
             } catch (NullPointerException e) {  // this has been handled within parser
             } catch (ModuleDoesNotExistException e) {
+                Ui.printModuleDoesNotExistMessage();
+            } catch (EmptyArgumentException e) {
+                Ui.printEmptyArgumentMessage();
+            } catch (InvalidScoreException e) {
+                Ui.printInvalidScoreErrorMessage();
             }
         }
         ui.byeMessage();

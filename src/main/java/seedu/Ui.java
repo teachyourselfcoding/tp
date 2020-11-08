@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner scanner;
-    private static String SEPARATOR="<-------------------------------------------------------------->";
+    private static String SEPARATOR = "<-------------------------------------------------------------->";
 
     /**
      * Constructor of Ui.
@@ -26,9 +26,9 @@ public class Ui {
     public void welcomeMessage() {
         String welcomeMessage =
                 "_____________________________________________\n"
-                +"Whats up people! DueQuest is here to save the day\n"
-                +"DueQuest for students by students\n"
-                +"So, what can I do for you?\n";
+                        + "Whats up people! DueQuest is here to save the day\n"
+                        + "DueQuest for students by students\n"
+                        + "So, what can I do for you?\n";
         System.out.print(welcomeMessage);
         System.out.println(SEPARATOR);
     }
@@ -40,36 +40,50 @@ public class Ui {
         String byeMessage =
                 "Aye captain. This is DueQuest Signing out!\n";
         System.out.print(byeMessage);
-        
+
     }
 
     /**
-     * print out the Help message
+     * Prints out message for the help guide when a HelpCommand is execute.
      */
     public void printHelpGuide() {
-        String helpMessage = " This is the list of Command Available, please refer to the User Guide\n" +
-                " display - display today's Schedule, module info, list of Task \n" +
-                " module  - add a module\n" +
-                " add     - add a deadline, event, lesson\n" +
-                " edit    - edit information\n" +
-                " delete  - delete task in a module\n" +
-                " exit    - exit duequest";
+        String helpMessage = " This is the list of Command Available, please refer to the User Guide\n"
+                +  " display - display today's Schedule, module info, list of Task \n"
+                +  " module  - add a module\n"
+                +  " add     - add a deadline, event, lesson\n"
+                +  " edit    - edit information\n"
+                +  " delete  - delete task in a module\n"
+                +  " bye    - exit duequest";
         print(helpMessage);
         System.out.println(SEPARATOR);
     }
 
     /**
      * Scan and Read in user input on the CLI.
+     *
      * @return String command.
      */
     public String readCommand() {
         System.out.println("Please type the next command!");
         System.out.println(SEPARATOR);
+        String commandString;
+        if (scanner.hasNextLine()) {
+            commandString = scanner.nextLine();
+        } else {
+            commandString = "";
+        }
 
-        String commandString = scanner.nextLine();
         return commandString;
     }
 
+    /**.
+     * use the scanner to check if there is an input
+     *
+     * @return boolean
+     */
+    public boolean hasNextLine() {
+        return scanner.hasNextLine();
+    }
 
     public void printClashesMessage() {
         System.out.println(SEPARATOR);
@@ -83,7 +97,8 @@ public class Ui {
 
     /**
      * Prints the Exception information based on the parameters.
-     * @param e DukeExceptionType
+     *
+     * @param e DukeExceptionType.
      */
     public void showError(DueQuestExceptionType e) {
         switch (e) {
@@ -115,23 +130,24 @@ public class Ui {
         }
     }
 
-    public static void print(String text){
+    public static void print(String text) {
         System.out.println(text);
     }
 
     /**
-     * Used to print any generic list
-     * @param lists the provided list of generic type
-     * @param <T> the object type
+     * Used to print any generic list.
+     *
+     * @param lists the provided list of generic type.
+     * @param <T>   the object type
      */
-    public static <T> void printListGenericType(ArrayList<T> lists) {
+    public static <T> void printListGenericType(ArrayList<T> lists, String modifier) {
         if (lists != null) {
-            for (T i: lists) {
+            for (T i : lists) {
                 print(i.toString());
             }
         }
         if (lists.size() == 0) {
-            System.out.println("You don't have any Deadlines!");
+            System.out.println("You don't have any " + modifier + "!");
         }
         print("");
     }
@@ -139,10 +155,10 @@ public class Ui {
     /**
      * Convert LocalDate object into readable string format without year.
      * E.g 12 JUN.
-     * @param date
-     * @return
+     * @param date Local date object to convert
+     * @return String
      */
-    public static String convertDateToString(LocalDate date){
+    public static String convertDateToString(LocalDate date) {
         String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM"));
         return stringDate;
     }
@@ -150,11 +166,10 @@ public class Ui {
     /**
      * Convert LocalDate object into readable string format with year included.
      * E.g 12 JUN 20.
-     * @param date
-     * @return
+     * @param date date to be converted.
+     * @return string form of the converted LocalDate object with year.
      */
-
-    public static String convertDateToStringWithYear(LocalDate date){
+    public static String convertDateToStringWithYear(LocalDate date) {
         String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM YY"));
         return stringDate;
     }
@@ -212,12 +227,15 @@ public class Ui {
     public static void printInvalidModuleCode() {
         System.out.println(SEPARATOR);
         System.out.println("The module code is not valid or not typed in.");
+        System.out.println("Please make sure your module code is typed in follows the specifications stated "
+                + "in the user guide!");
         System.out.println(SEPARATOR);
     }
 
     public static void printInvalidDateFormatMessage() {
         System.out.println(SEPARATOR);
-        System.out.println("Please give the date in correct format and a valid date. It should be in YYYY-MM-DD format.");
+        System.out.println("Please give the date in correct format and a valid date."
+                + " It should be in YYYY-MM-DD format.");
         System.out.println(SEPARATOR);
     }
 
@@ -277,7 +295,7 @@ public class Ui {
 
     public static void printSuccessfulEdit() {
         System.out.println(SEPARATOR);
-        System.out.println("Done. The edit has been made. ");
+        System.out.println("Done. The edit has been made.");
         System.out.println(SEPARATOR);
     }
 
@@ -303,8 +321,21 @@ public class Ui {
     public static void printMissingModuleCodeOrInvalidModuleCodeMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Your module code is either missing or in the wrong format!");
+        System.out.println("Please make sure your module code is typed in follows the specifications stated "
+                + "in the user guide!");
         System.out.println(SEPARATOR);
     }
 
+    public static void printInvalidScoreErrorMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Please give the invalid score.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printNoSuchAssessment(String title, String moduleCode) {
+        System.out.println(SEPARATOR);
+        System.out.printf("There is no assessment with the title %s in Module %s \n", title, moduleCode);
+        System.out.println(SEPARATOR);
+    }
 }
 

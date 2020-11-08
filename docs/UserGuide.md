@@ -1,4 +1,6 @@
-User Guide
+**Command Sumary** 
+
+![image-20201107003254580](image-20201107003254580.png)
 
 ## Introduction
 
@@ -8,18 +10,24 @@ as well as tasks related to their modules that they are taking.
 ## Quick Start
 
 1. Ensure that you have Java 11 or above installed on the machine.
-1. Down the latest version of `DueQuest` from [here](http://link.to/duke), and put the jar file into a directory.
-1. Type `java -jar DueQuest.jar` to start the app 
+1. Down the latest version of `DueQuest` from [here](https://github.com/AY2021S1-CS2113-T13-4/tp/releases), and put the jar file into a directory.
+1. Type `java -jar DueQuest_v2.1.jar` to start the app 
 
 ---
 
 ## Storage 
 
-The storage directory is specified when launching `java -jar DueQuest.jar SPECIFIED_DIR`. By default, the directory is `data`. In the storage directory, each module will have a txt file that contains related information (e.g. information and tasks), and `additional.txt` is for commands such as delete certain tasks on certain dates. 
+The storage directory to load from can be specified when launching `java -jar DueQuest.jar SPECIFIED_DIR`. By default, the directory is `data`. In the storage directory, each module will have a txt file that contains related information (e.g. information and tasks), and `additional.txt` is for commands such as delete certain tasks on certain dates. 
 
 The information will be imported and exported automatically by the app. 
 
+Note:
+
++ If you see the error message when loading, such as `No proper comman detected`, please check if the files are modified accidentally. 
+
 ## Add a Module: `module`
+
+A module can be added into the Module Manager using the command below. You should start adding modules first before you can use most of the other features after this section.
 
 Format: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
 
@@ -28,14 +36,17 @@ Format: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
     * 6 characters long. The first 2 characters are alphabets. The last 4 characters are digits. Example: CS2113
     * 7 characters long. The first 3 characters are alphabets. The last 4 characters are digits. Example: DSA4211
     * 7 characters long. The first 2 characters are alphabets. The next 4 characters are digits. The last character is an alphabet. The  Example: CS2113T
-+ `AU_NUM` must be non-negative integer. 
+    * `MODULECODE` is case-insensitive, e.g. `ST2132` = `st2132`
++ `AU_NUM` must be positive integer, by default it's 0.
++ `TITLE` shouldn't contain any whitespace, e.g. `t/SE OOP` should be replaced by `t/SE_OOP` or `t/SE-OOP`   
++ `TEACHING_STAFF` is optional, and multiple `[s/TEACHING_STAFF]` are supported, e.g. `module c/ST2113 a/4 s/Dr.Lim s/ChengChen`
 
 Example Usage: 
 
 `module c/ST2113 a/4 s/Dr.Lim s/ChengChen`
 
 ```
-===================
+<-------------------------------------------------------------->
 module c/ST2113 a/4 s/Dr.Lim s/ChengChen
 Successfully added to Module Manager! Have fun suffering from 
 Course: ST2113
@@ -44,14 +55,14 @@ AU: 4
 Teaching Staffs: [Dr.Lim, ChengChen]
 Here are your modules you are currently taking! 
 [ST2113]
-===================
+<-------------------------------------------------------------->
 ```
 
 ```
 module c/ST2113
-===================
+<-------------------------------------------------------------->
 The module with the same code already exists.
-===================
+<-------------------------------------------------------------->
 ```
 
 ## Task
@@ -77,10 +88,11 @@ lesson will not be added.
 
 `lesson DESCRIPTION MODULECODE /on DAYOFWEEK  STARTTIME ENDTIME`
 
-* Please make sure that you do not leave the `description` blank.
+* Please make sure that you do not leave the `DESCRIPTION` blank.
 * Please ensure that your `MODULECODE` is a valid module code in NUS. Refer to the earlier section in Add a Module to find out what is a valid module code.
-* The `DAYOFWEEK` is the Day Of Week when the lesson is conducted on, starting from Monday (e.g. 1). Type is an integer. If the lesson is held on Thursday, type in 4. If the lesson is held on Wednesday, type in 3.
-* The `START_TIME` and `END_TIME` are both in `HH:MM` format. You are only allowed to type in timings such that `MM` is `00`. For example, `18:00` is allowed but not `18:01`.
+* The `DAYOFWEEK` is the Day Of Week when the lesson is conducted on, starting from Monday (e.g. 1). Please type in an integer, meaning if the lesson is held on Thursday, type in 4. If the lesson is held on Wednesday, type in 3.
+* The `START_TIME` and `END_TIME` are both in `HH:MM` format. If you want `START_TIME` to be 4pm, input `16:00`. You are only allowed to type in timings such that `MM` is `00`. For example, `18:00` is allowed but not `18:01`. 
+* For this app, you are not allowed to type in a `START_TIME` and `END_TIME` before 8am.  
 
 Examples of Usage:
 
@@ -91,28 +103,28 @@ Assuming that you have already added the modules that are in the examples(namely
 Example Usage:
 
 ```
-===================
+<-------------------------------------------------------------->
 lesson online lecture CS2113 /on 5 16:00 18:00
 Got it, added lesson to the schedule manager!
-===================
-===================
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
 lesson online tutorial CS1234 /on 4 08:00 10:00
 Got it, added lesson to the schedule manager!
-===================
+<-------------------------------------------------------------->
 ```
-
 ## Adding an event: `event`
 
-Adds an Event asscociated with a module into the Schedule Manager and Module Manager.
+Adds an Event associated with a module into the Schedule Manager and Module Manager.
 If there is a clash in timings detected (the time of the event to be added clashes with another lesson or event), the
 event will not be added.
 
 Format: `event MODULE_CODE DESCRIPTION /at DATE_OF_EVENT START_TIME END_TIME LOCATION_OF_EVENT`
 
-* Please make sure that you do not leave the `DESCRIPTION` blank.
 * Please ensure that your `MODULECODE` is a valid module code in NUS. Refer to the earlier section in Add a Module to find out what is a valid module code.
-* `TIME` is in `HH:MM` format. (For now, since the display function only displays timings for every hour, the time of event is such that `MM` needs to be `00`)
-* `DATE_OF_EVENT` is in `YYYY-MM-DD` format.
+* Please make sure that you do not leave the `DESCRIPTION` blank.
+* `DATE_OF_EVENT` is in `YYYY-MM-DD` format. For example, if you want to add an event on 10th April 2021, type in `2021-04-10`.
+* The `START_TIME` and `END_TIME` are both in `HH:MM` format. If you want `START_TIME` to be 4pm, input `16:00`. You are only allowed to type in timings such that `MM` is `00`. For example, `18:00` is allowed but not `18:01`. 
+* For this app, you are not allowed to type in a `START_TIME` and `END_TIME` before 8am.  
 * Please ensure that you do not leave `LOCATION_OF_EVENT` blank.
 
 Example Usage:
@@ -121,10 +133,10 @@ Example Usage:
  `event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14`
 
 ```
-===================
+<-------------------------------------------------------------->
 event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14
 Event added to both Schedule manager and Module manager
-===================
+<-------------------------------------------------------------->
 ```
 
 ## Adding a deadline: `deadline`
@@ -135,17 +147,107 @@ Format: `deadline MODULECODE DESCRIPTION /by DATE_OF_DEADLINE `
 
 * Please ensure that your `MODULECODE` is a valid module code in NUS. Refer to the earlier section in Add a Module to find out what is a valid module code.
 * Please make sure that you do not leave the `DESCRIPTION` blank.
-* `DATE_OF_DEADLINE` is in `YYYY-MM-DD` format.
+* `DATE_OF_DEADLINE` is in `YYYY-MM-DD` format. For example, if you want to add a deadline on 10th April 2021, type in `2021-04-10`.
 
 Examples input:
 * If you want to add a deadline for CS2113 for TP version 1 at 4th April 2021, input `deadline CS2113 TP version 1 /by 2021-04-04`
 
 ```
-===================
+<-------------------------------------------------------------->
 deadline CS2113 TP version 1 /by 2021-04-04
 Got it, added deadline to Schedule Manager and Module Manager
-===================
+<-------------------------------------------------------------->
 ```
+
+## Adding a assessment: `assessment` 
+
+Adds assessment (e.g. assignments and exams) to a module 
+
+Format: `assessment MODULECODE TITLE FULL_SCORE`
+
+Note: 
+
++ The input should match the order specified in the format 
++ `FULL_SCORE` is  float
+
+Example Input:
+
+`assessment CS2113 TP 100` 
+
+Example output:
+
+```
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+Assessment : 
+TP(0.000000/100.000000)
+
+The list of task in CS2113:
+[D] tp v1 - CS2113  (by: 2020-10-30)
+```
+
+## Add score to a assessment: `score`
+
+Assign the score to the assessment.
+
+Format: `score MODULE_CODE TITLE SCORE`
+
+Example Input:
+
+`score CS2113 TP 100`
+
+Example Output:
+
+```
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+Assessment : 
+TP(100.000000/100.000000)
+
+The list of task in CS2113:
+[D] tp v1 - CS2113  (by: 2020-10-30)
+```
+
+
+
+## Delete a assessment: `delete_assessment` 
+
+Delete assessment  (e.g. assignments and exams) from the module 
+
+Format: `delete_assessment MODULE_CODE TITLE` 
+
+Note: 
+
++ If there are multiple assessments with the same title, only the 1st one will be deleted. 
+
+Example Input:
+
+`delete_assessment CS2113 tp` 
+
+Example output:
+
+```
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+Assessment : 
+
+The list of task in CS2113:
+[D] tp v1 - CS2113  (by: 2020-10-30)
+```
+
+
 
 ## Display today's Schedule: `display` 
 
@@ -162,17 +264,18 @@ Example input:
 Example output:
 
 ```
+display
 Today's Schedule:
-08:00
-09:00
-10:00 quiz - CS2113 |
-11:00 quiz - CS2113 | meeting - CS2113 |
-12:00 lecture - CS2113 | meeting - CS2113 |
-13:00 lecture - CS2113 | meeting - CS2113 |
-14:00 lecture - CS2113 |
-15:00 lecture - CS2113 |
-16:00
-17:00
+08:00 
+09:00 
+10:00 
+11:00 
+12:00 
+13:00 
+14:00 
+15:00 
+16:00 online lecture - CS2113 |
+17:00 online lecture - CS2113 |
 18:00
 19:00
 20:00
@@ -180,9 +283,8 @@ Today's Schedule:
 22:00
 23:00
 
-Today's task:
-You don't have any tasks!
-
+Today's deadline:
+You don't have any deadline!
 
 ```
 
@@ -200,15 +302,14 @@ display CS2113
 
 Course: CS2113
 Title: null
-AU: 0
-Teaching Staffs: []
+AU: 4
+Teaching Staffs: [Dr.Lim, ChengChen]
 The list of task in CS2113:
-[E] CS2113 quiz (10:00 2020-10-21 at LT15)
-[L] lecture - CS2113 WEDNESDAY 12:00 16:00
-[E] CS2113 meeting (11:00 2020-10-21 at LT16)
-[D] TP version 1 - CS2113  (by: 2020-10-21)
+[L] online lecture - CS2113 FRIDAY 16:00 18:00
+[E] CS2113 final exam (14:00 2021-05-03 at LT14)
+[D] TP version 1 - CS2113  (by: 2021-04-04)
+[D] tp - CS2113  (by: 2020-10-16)
 
-===================
 ```
 
 ## Display all the task in a module on a date: `display  MODULECODE /date DATE`
@@ -223,19 +324,14 @@ The list of task in CS2113:
   * `display CS2113 /date 2020/10/15`
 
 ```
-display CS2113
+ display CS2113 /date 2021/04/04
+ CS2113 - 4 Apr
+ Events & Deadlines :
+ [D] TP version 1 - CS2113  (by: 2021-04-04)
+ 
+ Lessons :
+ You don't have any lessons!
 
-Course: CS2113
-Title: null
-AU: 0
-Teaching Staffs: []
-The list of task in CS2113:
-[E] CS2113 quiz (10:00 2020-10-21 at LT15)
-[L] lecture - CS2113 WEDNESDAY 12:00 16:00
-[E] CS2113 meeting (11:00 2020-10-21 at LT16)
-[D] TP version 1 - CS2113  (by: 2020-10-21)
-
-===================
 ```
 
 ## Display all the task on a date: `display /date DATE`
@@ -251,212 +347,8 @@ Example of Usage
 * `display /date 2020/10/15`
 
 ```
-display /date 2020/10/21
-Today's Schedule:
-08:00
-09:00
-10:00 quiz - CS2113 |
-11:00 quiz - CS2113 | meeting - CS2113 |
-12:00 lecture - CS2113 | meeting - CS2113 |
-13:00 lecture - CS2113 | meeting - CS2113 |
-14:00 lecture - CS2113 |
-15:00 lecture - CS2113 |
-16:00
-17:00
-18:00
-19:00
-20:00
-21:00
-22:00
-23:00
-
-Upcoming deadlines:
-[D] TP version 1 - CS2113  (by: 2020-10-21)
-
-```
-
-## Display all the task on a range of date: `display /date STARTDATE-ENDDATE`
-
-Display task on a specific range of days
-Format: `display /date STARTDATE-ENDDATE`
-
-* The `STARTDATE/ENDDATE` must be in `YYYY/MM/DD`
-* Do note the Dash `-` to indicate the end date
-  
-
-Example of Usage
-* `display /date 2020/10/13-2020/10/16`
-
-```
-===================
-display /date 2020/10/13-2020/10/16
-List of task from 2020-10-13 to 2020-10-16
-Oct 14 schedule :
-[L]Lecture ST2132 14:00 16:00
-
-Oct 15 schedule :
-[L]tutorial CS2113 13:00 14:00
-[D]CS2113 Tp version 1 (by: 2020-10-15)
-
-===================
-```
-
-## Edit a task: `edit TASKNAME /date DATE /ATRIBUTE_TO_BE_CHANGED /NEW_VALUE`
-There is a few things that the user might want to edit.
-1)Edit a task's description/type of task/module code/time/frequency/date
-2)Edit a module's task's description/type of task/module code/time/frequency/date
-3)Edit a module's code
-Difference between 1) and 2) is that for 1)All tasks with that description will be edited, 2)Task under the module and with description will be edited 
-
-1) Edit the parameter(description, date, frequency, module code, time, tasktype) of a certain task
-Format: `edit TASKNAME /date DATE /ATTRIBUTES /NEW_VALUE`
-
-Example of Usage: 
-
-```
-===================
-deadline CS2113 tp /by 2020-10-16
-Got it, added deadline to Schedule Manager and Module Manager
-===================
-===================
-Please type the command!
-===================
-edit tp /date 2020-10-16 /date /2020-10-15
-
-===================
-Please type the command!
-===================
-display CS2113
-
-Course: CS2113
-Title: null
-AU: 0
-Teaching Staffs: []
-The list of task in CS2113:
-[D]CS2113 tp (by: 2020-10-15)
-===================
-```
-2) Edit the parameter(description, date, frequency, module code, time, tasktype) of a certain module's task
-Format: `edit c/MODULE_CODE TASKNAME /date DATE /ATTRIBUTES /NEW_VALUE`
-
-Example of Usage: 
-
-```
-===================
-deadline CS2113 tp /by 2020-10-16
-Got it, added deadline to Schedule Manager and Module Manager
-===================
-===================
-Please type the command!
-===================
-edit c/CS2113 tp /date 2020-10-16 /date /2020-10-15
-
-===================
-Please type the command!
-===================
-display CS2113
-
-Course: CS2113
-Title: null
-AU: 0
-Teaching Staffs: []
-The list of task in CS2113:
-[D]CS2113 tp (by: 2020-10-15)
-===================
-```
-## Delete tasks of a description:  `delete DESCRIPTION` 
-There are several things that a user might want to delete:
-1) Delete all the task that matches a description
-2) Delete all the task that matches a description on a certain date
-3) Delete all the task that matches a description on a certain date
-4) Delete all the task in a module
-5) Delete the entire module alongside with all its tasks
-
-1)Delete every task that fits the description regardless of date
-Format: `delete DESCRIPTION` 
-
-Example of Usage:
-
-```
-===================
-deadline CS2113 tp /by 2020-10-16
-Got it, added deadline to Schedule Manager and Module Manager
-===================
-===================
-Please type the command!
-===================
-delete tp
-===================
-Please type the command!
-===================
-display CS2113
-
-Course: CS2113
-Title: null
-AU: 0
-Teaching Staffs: []
-The list of task in CS2113:
-You don't have any tasks!
-
-===================
-===================
-Please type the command!
-===================
-
-```
-
-2)Delete all tasks of a description on a certain date: 
-
-Delete every task that fits the description on that particular date
-Format: `delete DESCRIPTION /date DATE`
-
-* The DATE must be in YYYY-MM-DD
-
-Example of Usage
-
-```
-===================
-===================
-Please type the command!
-===================
-deadline CS2113 tp /by 2020-10-15
-Got it, added deadline to Schedule Manager and Module Manager
-===================
-===================
-Please type the command!
-===================
-deadline CS2113 tp /by 2020-10-16
-Got it, added deadline to Schedule Manager and Module Manager
-===================
-===================
-Please type the command!
-===================
-deadline CS2113 tp /by 2020-10-15
-Got it, added deadline to Schedule Manager and Module Manager
-===================
-===================
-Please type the command!
-===================
-delete tp /date 2020/10/16
-===================
-Please type the command!
-===================
-display CS2113
-
-Course: CS2113
-Title: null
-AU: 0
-Teaching Staffs: []
-The list of task in CS2113:
-[D]CS2113 tp (by: 2020-10-15)
-[D]CS2113 tp (by: 2020-10-15)
-
-===================
-===================
-Please type the command!
-===================
-display /date 2020/10/16
-Here is your schedule on 2020-10-16!! :)
+display /date 2020/10/15
+Here is your schedule on 2020-10-15!! :)
 08:00
 09:00
 10:00
@@ -474,8 +366,166 @@ Here is your schedule on 2020-10-16!! :)
 22:00
 23:00
 
-Deadlines on 2020-10-16:
+Upcoming Deadlines :
+[D] tp - CS2113  (by: 2020-10-16)
+```
+
+## Display all the task on a range of date: `display /date STARTDATE-ENDDATE`
+
+Display task on a specific range of days
+Format: `display /date STARTDATE-ENDDATE`
+
+* The `STARTDATE/ENDDATE` must be in `YYYY/MM/DD`
+* Do note the Dash `-` to indicate the end date
+  
+
+Example of Usage
+* `display /date 2020/10/13-2020/10/16`
+
+```
+display /date 2020/10/13-2020/11/16
+List of task from 13 Oct 20 to 16 Nov 20
+Oct 16 :
+[L] online lecture - CS2113 FRIDAY 16:00 18:00
+[D] tp - CS2113  (by: 2020-10-16)
+
+Oct 23 :
+[L] online lecture - CS2113 FRIDAY 16:00 18:00
+
+Oct 30 :
+[L] online lecture - CS2113 FRIDAY 16:00 18:00
+
+Nov 6 :
+[L] online lecture - CS2113 FRIDAY 16:00 18:00
+
+Nov 13 :
+[L] online lecture - CS2113 FRIDAY 16:00 18:00
+
+```
+
+## Edit a task: `edit TASKNAME /date DATE /ATRIBUTE_TO_BE_CHANGED /NEW_VALUE`
+There is a few things that the user might want to edit.
+1)Edit a task's description/type of task/module code/time/frequency/date
+2)Edit a module's task's description/type of task/module code/time/frequency/date
+3)Edit a module's code
+Difference between 1) and 2) is that for 1)All tasks with that description will be edited, 2)Task under the module and with description will be edited 
+
+1) Edit the parameter(description, date, frequency, module code, time, tasktype) of a certain task
+Format: `edit TASKNAME /date DATE /ATTRIBUTES /NEW_VALUE`
+
+Example of Usage: 
+
+```
+<-------------------------------------------------------------->
+deadline CS2113 tp /by 2020-10-16
+Got it, added deadline to Schedule Manager and Module Manager
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
+Please type the command!
+<-------------------------------------------------------------->
+edit tp /date 2020-10-16 /date /2020-10-15
+
+<-------------------------------------------------------------->
+Please type the command!
+<-------------------------------------------------------------->
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+The list of task in CS2113:
+[D]CS2113 tp (by: 2020-10-15)
+<-------------------------------------------------------------->
+```
+2) Edit the parameter(description, date, frequency, module code, time, tasktype) of a certain module's task
+Format: `edit c/MODULE_CODE TASKNAME /date DATE /ATTRIBUTES /NEW_VALUE`
+
+Example of Usage: 
+
+```
+<-------------------------------------------------------------->
+deadline CS2113 tp /by 2020-10-16
+Got it, added deadline to Schedule Manager and Module Manager
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
+Please type the command!
+<-------------------------------------------------------------->
+edit c/CS2113 tp /date 2020-10-16 /date /2020-10-15
+
+<-------------------------------------------------------------->
+Please type the command!
+<-------------------------------------------------------------->
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+The list of task in CS2113:
+[D]CS2113 tp (by: 2020-10-15)
+<-------------------------------------------------------------->
+```
+## Delete tasks of a description:  `delete DESCRIPTION` 
+There are several things that a user might want to delete:
+1) Delete all the task that matches a description
+2) Delete all the task that matches a description on a certain date
+3) Delete all the task that matches a description on a certain date
+4) Delete all the task in a module
+5) Delete the entire module alongside with all its tasks
+
+1)Delete every task that fits the description regardless of date
+Format: `delete DESCRIPTION` 
+
+Example of Usage:
+
+```
+<-------------------------------------------------------------->
+deadline CS2113 tp /by 2020-10-16
+Got it, added deadline to Schedule Manager and Module Manager
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
+Please type the command!
+<-------------------------------------------------------------->
+delete tp
+<-------------------------------------------------------------->
+Please type the command!
+<-------------------------------------------------------------->
+display CS2113
+
+Course: CS2113
+Title: null
+AU: 0
+Teaching Staffs: []
+The list of task in CS2113:
 You don't have any tasks!
+
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
+Please type the command!
+<-------------------------------------------------------------->
+
+```
+
+2)Delete all tasks of a description on a certain date: 
+
+Delete every task that fits the description on that particular date
+Format: `delete DESCRIPTION /date DATE`
+
+* The DATE must be in YYYY-MM-DD
+
+Example of Usage
+
+```
+<-------------------------------------------------------------->
+Please type the next command!
+<-------------------------------------------------------------->
+delete tp
+null
+1 or more taks matching description has been deleted
+Please type the next command!
+<-------------------------------------------------------------->
+
 ```
 3)Delete of a module's task on a certain date
 
@@ -486,32 +536,32 @@ Format: `delete c/MODULE_CODE  /date DATE`
 Example of Usage
 
 ```
-===================
-===================
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
 Please type the command!
-===================
+<-------------------------------------------------------------->
 deadline CS2113 tp /by 2020-10-15
 Got it, added deadline to Schedule Manager and Module Manager
-===================
-===================
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
 Please type the command!
-===================
+<-------------------------------------------------------------->
 deadline CS2113 tp /by 2020-10-16
 Got it, added deadline to Schedule Manager and Module Manager
-===================
-===================
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
 Please type the command!
-===================
+<-------------------------------------------------------------->
 deadline CS2113 tp /by 2020-10-15
 Got it, added deadline to Schedule Manager and Module Manager
-===================
-===================
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
 Please type the command!
-===================
+<-------------------------------------------------------------->
 delete c/CS2113 /date 2020/10/15
-===================
+<-------------------------------------------------------------->
 Please type the command!
-===================
+<-------------------------------------------------------------->
 display CS2113
 
 Course: CS2113
@@ -522,10 +572,10 @@ The list of task in CS2113:
 [D]CS2113 tp (by: 2020-10-16)
 
 
-===================
-===================
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
 Please type the command!
-===================
+<-------------------------------------------------------------->
 display /date 2020/10/16
 Here is your schedule on 2020-10-16!! :)
 08:00
@@ -558,27 +608,23 @@ Format: `delete c/MODULE_CODE DESCRIPTION /date DATE`
 Example of Usage
 
 ```
-===================
-===================
-Please type the command!
-===================
 deadline CS2113 tpv1 /by 2020-10-15
 Got it, added deadline to Schedule Manager and Module Manager
-===================
-===================
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
 Please type the command!
-===================
+<-------------------------------------------------------------->
 deadline CS2113 tpv2 /by 2020-10-15
 Got it, added deadline to Schedule Manager and Module Manager
 
-===================
-===================
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
 Please type the command!
 ===================
 delete c/CS2113 tpv2 /date 2020/10/15
-===================
+<-------------------------------------------------------------->
 Please type the command!
-===================
+<-------------------------------------------------------------->
 display CS2113
 
 Course: CS2113
@@ -589,10 +635,10 @@ The list of task in CS2113:
 [D]CS2113 v1 (by: 2020-10-15)
 
 
-===================
-===================
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
 Please type the command!
-===================
+<-------------------------------------------------------------->
 display /date 2020/10/15
 Here is your schedule on 2020-10-15!! :)
 08:00
@@ -618,41 +664,41 @@ CS2113 v1
 
 4)Delete entire module
 
-Format: `delete c/MODULE_CODE 
+Format: `delete c/MODULE_CODE`
 
-* The DATE must be in YYYY-MM-DD
+* The DATE must be in `YYYY-MM-DD`
 
 Example of Usage
 
 ```
-===================
-===================
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
 Please type the command!
-===================
+<-------------------------------------------------------------->
 deadline CS2113 tpv1 /by 2020-10-15
 Got it, added deadline to Schedule Manager and Module Manager
-===================
-===================
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
 Please type the command!
-===================
+<-------------------------------------------------------------->
 deadline CS2113 tpv2 /by 2020-10-15
 Got it, added deadline to Schedule Manager and Module Manager
 
-===================
-===================
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
 Please type the command!
-===================
+<-------------------------------------------------------------->
 delete c/CS2113 
-===================
+<-------------------------------------------------------------->
 Please type the command!
-===================
+<-------------------------------------------------------------->
 display 2020-06-01-2021-01-01
 
 
-===================
-===================
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
 Please type the command!
-===================
+<-------------------------------------------------------------->
 display /date 2020/10/15
 Here is your schedule on 2020-10-15!! :)
 08:00
@@ -682,20 +728,3 @@ Format: `bye`
 Example of Usage:
 Input: `bye`
 Output: `Aye captain. This is DueQuest Signing out!`
-
-
-# Command Summary
-
-+ Add Module: `module c/MODULECODE  [t/TITLE] [a/AU_NUM] [s/TEACHING_STAFF]`
-+ Add Lesson: `lesson TITILE COURSECODE /on DAYOFWEEK 7 STARTTIME ENDTIME`
-+ Add Event: `event MODULE_CODE DESCRIPTION /at DATE_OF_EVENT TIME LOCATION_OF_EVENT`
-+ Add Deadline: `deadline COURSECODE DESCRIPTION /by DATE`
-+ Display today's Schedule: `display` 
-+ Display all the task in a module: `display  MODULECODE`
-+ Display all the task in a module on a date: `display  MODULECODE /date DATE`
-+ Display all the task on a date: `display /date DATE`
-+ Display all the task on a range of date: `display /date STARTDATE-ENDDATE`
-+ Edit a task: `edit TASKNAME /date DATE /	/ATTRIBUTES /NEW_VALUE`
-+ Delete tasks of a description:  `delete DESCRIPTION` 
-+ Delete all tasks of a description based on date: `delete DESCRIPTION /date DATE`
-

@@ -1,3 +1,4 @@
-list
-list
+display
+display
+display
 bye

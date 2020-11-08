@@ -6,9 +6,13 @@ import seedu.Ui;
 import seedu.exception.InvalidDateException;
 import seedu.exception.InvalidStartEndDateException;
 import seedu.exception.ModuleNotExistsException;
+import seedu.exception.StartAndEndTimeSameException;
 
 import java.time.LocalDate;
 
+/**
+ * DisplayCommand class is used to help display the tasks in the ScheduleManager and ModuleManager.
+ */
 public class DisplayCommand extends Command {
     private LocalDate startDate;
     private LocalDate endDate;
@@ -16,14 +20,15 @@ public class DisplayCommand extends Command {
     private String moduleCode;
     private String displayOptions; // used to determine what kind of information to display
 
-    public DisplayCommand() {}
+    public DisplayCommand() {
+    }
 
-    public DisplayCommand(String moduleCode){
+    public DisplayCommand(String moduleCode) {
         this.moduleCode = moduleCode.trim();
         displayOptions = "module";
     }
 
-    public DisplayCommand(String moduleCode, LocalDate specificDate){
+    public DisplayCommand(String moduleCode, LocalDate specificDate) {
         this.moduleCode = moduleCode;
         this.specificDate = specificDate;
         displayOptions = "module with date";
@@ -47,36 +52,41 @@ public class DisplayCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui)  {
+    public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
         try {
             switch (displayOptions) {
-                case "module": {
-                    moduleManager.display(moduleCode);
-                    break;
+            case "module": {
+                moduleManager.display(moduleCode);
+                break;
+            }
+            case "module with date": {
+                moduleManager.display(moduleCode, specificDate);
+                break;
+            }
+            case "date": {
+                if (specificDate.equals(LocalDate.now())) {
+                    scheduleManager.displayTodaySchedule();
+                } else {
+                    scheduleManager.displayDate(specificDate);
                 }
-                case "module with date": {
-                    moduleManager.display(moduleCode, specificDate);
-                    break;
-                }
-                case "date": {
-                    if (specificDate.equals(LocalDate.now())) {
-                        scheduleManager.displayTodaySchedule();
-                    } else {
-                        scheduleManager.displayDate(specificDate);
-                    }
-                    break;
-                }
-                case "date with range": {
-                    scheduleManager.display(startDate, endDate);
-                    break;
-                }
+                break;
+            }
+            case "date with range": {
+                scheduleManager.display(startDate, endDate);
+                break;
+            }
+            default: {
+                Ui.printInvalidDateMessage();
+            }
             }
         } catch (ModuleNotExistsException e) {
             Ui.printModuleNotExistMessage();
-        } catch (InvalidStartEndDateException e){
+        } catch (InvalidStartEndDateException e) {
             Ui.printInvalidStartEndDate();
-        } catch (InvalidDateException e){
+        } catch (InvalidDateException e) {
             Ui.printInvalidDateMessage();
+        } catch (StartAndEndTimeSameException e) {
+            Ui.printStartAndEndTimeCannotBeTheSameMessage();
         }
     }
 }
