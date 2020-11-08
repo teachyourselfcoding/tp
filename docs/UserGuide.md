@@ -409,6 +409,8 @@ There is a few things that the user might want to edit.
 2)Edit a module's task's description/type of task/module code/time/frequency/date
 
 Difference between 1) and 2) is that for 1)All tasks with that description will be edited, 2)Task under the module and with description will be edited 
+Attributes:
+
 
 1) Edit the parameter(description, date, frequency, module code, time, tasktype) of a certain task
 Format: `edit TASKNAME /date DATE /ATTRIBUTES /NEW_VALUE`
