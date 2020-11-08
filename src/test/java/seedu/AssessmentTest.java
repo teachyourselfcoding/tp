@@ -89,8 +89,8 @@ public class AssessmentTest {
             d1.execute(scheduleManager, moduleManager, ui);
             DeleteAssessmentCommand d2 = new DeleteAssessmentCommand("CS2113T", "test");
             assertThrows(ModuleDoesNotExistException.class, () -> d2.execute(scheduleManager, moduleManager, ui));
-        } catch (ModuleAlreadyExistsException | ModuleDoesNotExistException | EmptyArgumentException |
-                InvalidScoreException e) {
+        } catch (ModuleAlreadyExistsException | ModuleDoesNotExistException | EmptyArgumentException
+                | InvalidScoreException e) {
             e.printStackTrace();
         }
     }
@@ -104,6 +104,7 @@ public class AssessmentTest {
 
     @Test
     void ParserValidateDeleteCommand_wrongSyntax_throwsInvalidArgumentsException() {
-        assertThrows(InvalidArgumentsException.class, () -> Parser.validateDeleteAssessmentCommand("delete_assessment "));
+        assertThrows(InvalidArgumentsException.class,
+                () -> Parser.validateDeleteAssessmentCommand("delete_assessment "));
     }
 }
