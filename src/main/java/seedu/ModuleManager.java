@@ -224,23 +224,24 @@ public class ModuleManager {
             }
         }
     }
-    public void deleteModuleTasks(String description, LocalDate date){
+
+    public void deleteModuleTasks(String description, LocalDate date) {
         for (Module m : listOfModules) {
-            for(Task task: m.getListOfTasks()){
-                if(task.getDescription().equals(description) && task.getDate().equals(date)){
-                    m.getListOfTasks().remove(task);
+            ArrayList<Task> ls = new ArrayList<>();
+            for (Task task: m.getListOfTasks()) {
+                if (!task.getDescription().equals(description) && task.getDate().equals(date)) {
+                    ls.add(task);
                 }
             }
+            m.setListOfTasks(ls);
         }
     }
 
     public void deleteModuleTasks(String description){
         for (Module m : listOfModules) {
-//            Module mCopy = m;
-            ArrayList<Task>ls= new ArrayList<>();
-            for(Task task: m.getListOfTasks()){
-                if(!task.getDescription().equals(description)){
-//                    m.getListOfTasks().remove(task);
+            ArrayList<Task> ls = new ArrayList<>();
+            for (Task task: m.getListOfTasks()) {
+                if (!task.getDescription().equals(description)) {
                     ls.add(task);
                 }
             }
