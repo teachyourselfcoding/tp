@@ -66,9 +66,13 @@ public class Ui {
     public String readCommand() {
         System.out.println("Please type the next command!");
         System.out.println(SEPARATOR);
-        while (!hasNextLine()) {
+        String commandString;
+        if (scanner.hasNextLine()) {
+            commandString = scanner.nextLine();
+        } else {
+            commandString = "";
         }
-        String commandString = scanner.nextLine();
+
         return commandString;
     }
 
