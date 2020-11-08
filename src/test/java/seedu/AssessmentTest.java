@@ -65,45 +65,45 @@ public class AssessmentTest {
     }
 
     @Test
-	void AddAssessmentCommandExecute_invalidModule_throwsModuleNotExistsException() {
-		ModuleManager moduleManager = new ModuleManager();
-		ScheduleManager scheduleManager = new ScheduleManager();
-		Ui ui = new Ui();
-		try {
-			AddAssessmentCommand a = new AddAssessmentCommand("test", "100", "CZ2003");
-			assertThrows(ModuleDoesNotExistException.class, () -> a.execute(scheduleManager, moduleManager, ui));
-		} catch (InvalidArgumentsException e) {
-			e.printStackTrace();
-		}
-	}
+    void AddAssessmentCommandExecute_invalidModule_throwsModuleNotExistsException() {
+        ModuleManager moduleManager = new ModuleManager();
+        ScheduleManager scheduleManager = new ScheduleManager();
+        Ui ui = new Ui();
+        try {
+            AddAssessmentCommand a = new AddAssessmentCommand("test", "100", "CZ2003");
+            assertThrows(ModuleDoesNotExistException.class, () -> a.execute(scheduleManager, moduleManager, ui));
+        } catch (InvalidArgumentsException e) {
+            e.printStackTrace();
+        }
+    }
 
-	@Test
-	void DeleteAssessmentCommandExecute_NoSuchAssessmentAndModule() {
-		ModuleManager moduleManager = new ModuleManager();
-		ScheduleManager scheduleManager = new ScheduleManager();
-		Ui ui = new Ui();
-		Module module = new Module("CS2113");
-		try {
-			moduleManager.addModule(module);
-			DeleteAssessmentCommand d1 = new DeleteAssessmentCommand("CS2113", "test");
-			d1.execute(scheduleManager, moduleManager, ui);
-			DeleteAssessmentCommand d2 = new DeleteAssessmentCommand("CS2113T", "test");
-			assertThrows(ModuleDoesNotExistException.class, () -> d2.execute(scheduleManager, moduleManager, ui));
-		} catch (ModuleAlreadyExistsException | ModuleDoesNotExistException | EmptyArgumentException |
-				InvalidScoreException e) {
-			e.printStackTrace();
-		}
-	}
+    @Test
+    void DeleteAssessmentCommandExecute_NoSuchAssessmentAndModule() {
+        ModuleManager moduleManager = new ModuleManager();
+        ScheduleManager scheduleManager = new ScheduleManager();
+        Ui ui = new Ui();
+        Module module = new Module("CS2113");
+        try {
+            moduleManager.addModule(module);
+            DeleteAssessmentCommand d1 = new DeleteAssessmentCommand("CS2113", "test");
+            d1.execute(scheduleManager, moduleManager, ui);
+            DeleteAssessmentCommand d2 = new DeleteAssessmentCommand("CS2113T", "test");
+            assertThrows(ModuleDoesNotExistException.class, () -> d2.execute(scheduleManager, moduleManager, ui));
+        } catch (ModuleAlreadyExistsException | ModuleDoesNotExistException | EmptyArgumentException |
+                InvalidScoreException e) {
+            e.printStackTrace();
+        }
+    }
 
 
-	@Test
-	void ParserValidateAddCommand_wrongSyntax_throwsInvalidArgumentsException() {
-		assertThrows(InvalidArgumentsException.class, () -> Parser.validateAddAssessmentCommand("assessment "));
-		assertThrows(InvalidArgumentsException.class, () -> Parser.validateAddAssessmentCommand("assessment 100"));
-	}
+    @Test
+    void ParserValidateAddCommand_wrongSyntax_throwsInvalidArgumentsException() {
+        assertThrows(InvalidArgumentsException.class, () -> Parser.validateAddAssessmentCommand("assessment "));
+        assertThrows(InvalidArgumentsException.class, () -> Parser.validateAddAssessmentCommand("assessment 100"));
+    }
 
-	@Test
-	void ParserValidateDeleteCommand_wrongSyntax_throwsInvalidArgumentsException() {
-		assertThrows(InvalidArgumentsException.class, () -> Parser.validateDeleteAssessmentCommand("delete_assessment "));
-	}
+    @Test
+    void ParserValidateDeleteCommand_wrongSyntax_throwsInvalidArgumentsException() {
+        assertThrows(InvalidArgumentsException.class, () -> Parser.validateDeleteAssessmentCommand("delete_assessment "));
+    }
 }
