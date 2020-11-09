@@ -38,15 +38,6 @@ public class Lesson extends Task {
         return DayOfWeek.of(this.frequency);
     }
 
-    /**
-     * Get the day of the lesson in the week in a String.
-     *
-     * @return the day in String.
-     */
-    public String getLessonDay() {
-        return DayOfWeek.of(this.frequency).toString();
-    }
-
     @Override
     public String toString() {
         return "[L] "
