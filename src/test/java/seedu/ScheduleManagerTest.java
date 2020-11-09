@@ -134,7 +134,7 @@ class ScheduleManagerTest {
         scheduleManager.addLesson(Parser.parseLesson(input1), moduleManager, ui);
         assertEquals(1, scheduleManager.getSemesterSchedule().get(LocalDate
                 .of(2021, 1, 15)).size());
-        scheduleManager.deleteTask( "online lecture", "CS2115");
+        scheduleManager.deleteTask("online lecture", "CS2115");
         assertEquals(1, scheduleManager.getSemesterSchedule().get(LocalDate
                 .of(2021, 1, 15)).size());
         scheduleManager.deleteTask("online lecture", "CS2113");

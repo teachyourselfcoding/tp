@@ -43,6 +43,8 @@ public class Event extends Task {
                 + this.at
                 + ")";
     }
+
+    @Override
     public LocalDate getDate() {
         return LocalDate.parse(dateOfEvent);
     }
@@ -86,19 +88,18 @@ public class Event extends Task {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Event event = (Event) o;
-        return Objects.equals(at, event.at) &&
-                Objects.equals(startTimeOfEvent, event.startTimeOfEvent) &&
-                Objects.equals(dateOfEvent, event.dateOfEvent) &&
-                Objects.equals(endTimeOfEvent, event.endTimeOfEvent) &&
-                Objects.equals(description, event.getDescription());
-    }
-
-    @Override
-    public LocalDate getDate() {
-        return LocalDate.parse(dateOfEvent);
+        return Objects.equals(at, event.at)
+                && Objects.equals(startTimeOfEvent, event.startTimeOfEvent)
+                && Objects.equals(dateOfEvent, event.dateOfEvent)
+                && Objects.equals(endTimeOfEvent, event.endTimeOfEvent)
+                && Objects.equals(description, event.getDescription());
     }
 }
 

@@ -2,6 +2,7 @@ package seedu;
 
 import seedu.module.Assessment;
 import seedu.module.Module;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -27,10 +28,11 @@ public class Ui {
      */
     public void welcomeMessage() {
         String welcomeMessage =
+
                 "_____________________________________________\n"
-                + "Whats up people! DueQuest is here to save the day\n"
-                + "DueQuest for students by students\n"
-                + "So, what can I do for you?\n";
+                        + "Whats up people! DueQuest is here to save the day\n"
+                        + "DueQuest for students by students\n"
+                        + "So, what can I do for you?\n";
         System.out.print(welcomeMessage);
         System.out.println(SEPARATOR);
     }
@@ -50,12 +52,12 @@ public class Ui {
      */
     public void printHelpGuide() {
         String helpMessage = " This is the list of Command Available, please refer to the User Guide\n"
-                +  " display - display today's Schedule, module info, list of Task \n"
-                +  " module  - add a module\n"
-                +  " add     - add a deadline, event, lesson\n"
-                +  " edit    - edit information\n"
-                +  " delete  - delete task in a module\n"
-                +  " bye    - exit duequest";
+                + " display - display today's Schedule, module info, list of Task \n"
+                + " module  - add a module\n"
+                + " add     - add a deadline, event, lesson\n"
+                + " edit    - edit information\n"
+                + " delete  - delete task in a module\n"
+                + " bye    - exit duequest";
         print(helpMessage);
         System.out.println(SEPARATOR);
     }
@@ -78,7 +80,8 @@ public class Ui {
         return commandString;
     }
 
-    /**.
+    /**
+     * .
      * use the scanner to check if there is an input
      *
      * @return boolean
@@ -88,7 +91,6 @@ public class Ui {
     }
 
     public void printClashesMessage() {
-        System.out.println("(╯°□°）╯︵ ┻━┻");
         System.out.println(SEPARATOR);
         System.out.println("Clashes detected, task is not added.");
         System.out.println(SEPARATOR);
@@ -158,6 +160,7 @@ public class Ui {
     /**
      * Convert LocalDate object into readable string format without year.
      * E.g 12 JUN.
+     *
      * @param date Local date object to convert
      * @return String
      */
@@ -169,6 +172,7 @@ public class Ui {
     /**
      * Convert LocalDate object into readable string format with year included.
      * E.g 12 JUN 20.
+     *
      * @param date date to be converted.
      * @return string form of the converted LocalDate object with year.
      */
@@ -228,7 +232,6 @@ public class Ui {
     }
 
     public static void printInvalidModuleCode() {
-        System.out.println("(╯°□°）╯︵ ┻━┻");
         System.out.println(SEPARATOR);
         System.out.println("The module code is not valid or not typed in.");
         System.out.println("Please make sure your module code is typed in follows the specifications stated "
@@ -367,192 +370,214 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
-    public static void printModuleInformation(Module m){
+    public static void printModuleInformation(Module m) {
         System.out.println(m);
     }
 
-    public static void printModuleCode(Module m){
+    public static void printModuleCode(Module m) {
         System.out.println(m.getModuleCode());
     }
 
-    public static void printModulePropertyEditedMessage(){
+
+    public static void printModulePropertyEditedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Module tasks property has been updated");
         System.out.println(SEPARATOR);
     }
 
-    public static void printModuleFrequencyEditedMessage(){
+
+    public static void printModuleFrequencyEditedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Module tasks frequency has been updated");
         System.out.println(SEPARATOR);
     }
-    public static void printTaskFrequencyEditedMessage(){
+
+
+    public static void printTaskFrequencyEditedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Task's frequency has been updated");
         System.out.println(SEPARATOR);
     }
 
-    public static void printTaskFrequencyNotEditedMessage(){
+
+    public static void printTaskFrequencyNotEditedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Task not found");
         System.out.println(SEPARATOR);
     }
 
-    public static void printModuleDateEditedMessage(){
+
+    public static void printModuleDateEditedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("The tasks' date in this module has been updated");
         System.out.println(SEPARATOR);
     }
 
-    public static void printModuleDateNotEditedMessage(){
+
+    public static void printModuleDateNotEditedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Cant find a matching task");
         System.out.println(SEPARATOR);
     }
 
-    public static void printTaskDateEditedMessage(){
+
+    public static void printTaskDateEditedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("The tasks' date has been updated");
         System.out.println(SEPARATOR);
     }
 
-    public static void printTaskDateNotEditedMessage(){
+
+    public static void printTaskDateNotEditedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Cant find a matching task");
         System.out.println(SEPARATOR);
     }
 
 
-    public static void printModuleDeletedMessage(){
+    public static void printModuleDeletedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("This module has been deleted");
         System.out.println(SEPARATOR);
     }
 
-    public static void printModuleTaskDateDeletedMessage(){
+
+    public static void printModuleTaskDateDeletedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("All task from this module on this date has been deleted");
         System.out.println(SEPARATOR);
     }
 
-    public static void printModuleTaskDateNotDeletedMessage(){
+
+    public static void printModuleTaskDateNotDeletedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Did not find the task that matches your description");
         System.out.println(SEPARATOR);
     }
 
-    public static void printTaskDeletedMessage(){
+
+    public static void printTaskDeletedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("1 or more tasks has been deleted");
         System.out.println(SEPARATOR);
     }
 
-    public static void printTaskModuleCodeDeletedMessage(){
+    public static void printTaskModuleCodeDeletedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("All tasks matching module code have been deleted");
         System.out.println(SEPARATOR);
     }
 
-    public static void printTaskModuleCodeNotDeletedMessage(){
+
+    public static void printTaskModuleCodeNotDeletedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Did not find the right task to delete");
         System.out.println(SEPARATOR);
     }
 
-    public static void printTaskModuleCodeDateNotDeletedMessage(){
+    public static void printTaskModuleCodeDateNotDeletedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Did not find task matching module code on this date");
         System.out.println(SEPARATOR);
     }
 
-    public static void printTaskNotDeletedMessage(){
+
+    public static void printTaskNotDeletedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("No task matching description or module code or date found");
         System.out.println(SEPARATOR);
     }
 
 
-    public static void printModuleTaskEditedMessage(){
+    public static void printModuleTaskEditedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Module task's date has been edited");
         System.out.println(SEPARATOR);
     }
 
-    public static void printTaskNotEditedMessage(){
+
+    public static void printTaskNotEditedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Task not found");
         System.out.println(SEPARATOR);
     }
 
-    public static void printLessonAddedMessage(){
+
+    public static void printLessonAddedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Got it, added lesson to the Schedule Manager and Module Manager!");
         System.out.println(SEPARATOR);
     }
 
-    public static void printEventAddedMessage(){
+
+    public static void printEventAddedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Event added to both Schedule manager and Module manager");
         System.out.println(SEPARATOR);
     }
 
-    public static void printEventAddedtoScheduleOnlyMessage(){
+
+    public static void printEventAddedtoScheduleOnlyMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Event added to Schedule Manager only");
         System.out.println(SEPARATOR);
     }
 
-    public static void printAddtionalTxtCreationError(){
+
+    public static void printAddtionalTxtCreationError() {
         System.out.println(SEPARATOR);
         System.out.println("Error: additional.txt file cannot be created.");
         System.out.println(SEPARATOR);
     }
 
-    public static void printAddtionalTxtWritingError(){
+
+    public static void printAddtionalTxtWritingError() {
         System.out.println(SEPARATOR);
         System.out.println("Error: additional.txt file cannot be written.");
         System.out.println(SEPARATOR);
     }
 
-    public static void printFileLoadingMessage(){
+
+    public static void printFileLoadingMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Loading data from the file...");
         System.out.println(SEPARATOR);
     }
 
-    public static void printFileLoadedMessage(){
+
+    public static void printFileLoadedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Loading completed.");
         System.out.println(SEPARATOR);
     }
 
-    public static void printFileMissingError(){
+
+    public static void printFileMissingError() {
         System.out.println(SEPARATOR);
         System.out.println("Error: the file is not found.");
         System.out.println(SEPARATOR);
     }
 
-    public static void printFileWritingError(){
+
+    public static void printFileWritingError() {
         System.out.println(SEPARATOR);
         System.out.println("Error: the file cannot be written.");
         System.out.println(SEPARATOR);
     }
 
-    public static void printModuleMissingWritingError(){
+    public static void printModuleMissingWritingError() {
         System.out.println(SEPARATOR);
         System.out.println("Cannot find the relevant module");
         System.out.println(SEPARATOR);
     }
 
-
-
-
-
-
-
-
-
-
+    public static void printDisplayTodayNotWithinSemester() {
+        System.out.println(SEPARATOR);
+        System.out.println("Today's date is not within the set Semester Date."
+                + "\nValid Date: 2021 Jan 1 - 2021 May 31 "
+                + "\nPlease proceed to using other type of Display Commands");
+        System.out.println(SEPARATOR);
+    }
 
 
 }

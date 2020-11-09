@@ -70,7 +70,9 @@ The module with the same code already exists.
 
 ## Task
 
-A Task can be a Lesson, Event or Deadline. You can only add tasks with dates from 1 January 2021 to 31 May 2021.
+A Task can be a Lesson, Event or Deadline. 
+
+**You can only add tasks with dates from 1 January 2021 to 31 May 2021.**
 
 + Lessons are classes that are held **on every week** in your timetable.
 + Events are one-off, they only take place on a single day.
@@ -379,8 +381,8 @@ The list of task in CS2113:
 ## Display today's Schedule: `display` 
 
 Display Today's Lesson and Task( Deadline and Event)
-
-Task that are in the same time slot are Separated with "|"
+* Note: The full feature only works within the Set Semester Schedule date
+* Else it will be disabled.
 
 Format: `display`
 
@@ -388,7 +390,16 @@ Example input:
 
 `display`
 
-Example output:
+Disabled Feature output
+```
+display
+<-------------------------------------------------------------->
+Today's date is not within the set Semester Date.
+Valid Date: 2021 Jan 1 - 2021 May 31 
+Please proceed to using other type of Display Commands
+<-------------------------------------------------------------->
+```
+Full Feature Enabled output:
 
 ```
 display
@@ -430,12 +441,13 @@ display CS2113
 Course: CS2113
 Title: null
 AU: 4
-Teaching Staffs: [Dr.Lim, ChengChen]
+Teaching Staffs: [Dr.lim]
+Assessment : 
+
 The list of task in CS2113:
-[L] online lecture - CS2113 FRIDAY 16:00 18:00
+[L] online lecture - CS2113 MONDAY 12:00 14:00
 [E] CS2113 final exam (14:00 2021-05-03 at LT14)
 [D] TP version 1 - CS2113  (by: 2021-04-04)
-[D] tp - CS2113  (by: 2020-10-16)
 
 ```
 
@@ -454,16 +466,16 @@ Format: `display  MODULECODE /date DATE`
 
 Example of Usage
 
-* `display CS2113 /date 2020/10/15`
+* `display CS2113 /date 2021/05/03`
 
 ```
- display CS2113 /date 2021/04/04
- CS2113 - 4 Apr
- Events & Deadlines :
- [D] TP version 1 - CS2113  (by: 2021-04-04)
- 
- Lessons :
- You don't have any lessons!
+display CS2113 /date 2021/05/03
+CS2113 - 3 May
+Events & Deadlines :
+[E] CS2113 final exam (14:00 2021-05-03 at LT14)
+
+Lessons :
+[L] online lecture - CS2113 MONDAY 12:00 14:00
 
 ```
 
@@ -477,19 +489,19 @@ Format: `display /date DATE`
   
 
 Example of Usage
-* `display /date 2020/10/15`
+* `display /date 2021/05/03`
 
 ```
-display /date 2020/10/15
-Here is your schedule on 2020-10-15!! :)
+display /date 2021/05/03
+Here is your schedule on 2021-05-03!! :)
 08:00
 09:00
 10:00
 11:00
 12:00
 13:00
-14:00
-15:00
+14:00 final exam - CS2113 at LT14 |
+15:00 final exam - CS2113 at LT14 |
 16:00
 17:00
 18:00
@@ -500,7 +512,8 @@ Here is your schedule on 2020-10-15!! :)
 23:00
 
 Upcoming Deadlines :
-[D] tp - CS2113  (by: 2020-10-16)
+You don't have any deadline!
+
 ```
 
 ## Display all the task on a range of date: `display /date STARTDATE-ENDDATE`
@@ -513,26 +526,25 @@ Format: `display /date STARTDATE-ENDDATE`
   
 
 Example of Usage
-* `display /date 2020/10/13-2020/10/16`
+* `display /date 2021/01/01-2021/02/13`
 
 ```
-display /date 2020/10/13-2020/11/16
-List of task from 13 Oct 20 to 16 Nov 20
-Oct 16 :
-[L] online lecture - CS2113 FRIDAY 16:00 18:00
-[D] tp - CS2113  (by: 2020-10-16)
+display /date 2021/01/01-2021/02/13
+List of task from 1 Jan 21 to 13 Feb 21
+Jan 11 :
+[L] online lecture - CS2113 MONDAY 12:00 14:00
 
-Oct 23 :
-[L] online lecture - CS2113 FRIDAY 16:00 18:00
+Jan 18 :
+[L] online lecture - CS2113 MONDAY 12:00 14:00
 
-Oct 30 :
-[L] online lecture - CS2113 FRIDAY 16:00 18:00
+Jan 25 :
+[L] online lecture - CS2113 MONDAY 12:00 14:00
 
-Nov 6 :
-[L] online lecture - CS2113 FRIDAY 16:00 18:00
+Feb 1 :
+[L] online lecture - CS2113 MONDAY 12:00 14:00
 
-Nov 13 :
-[L] online lecture - CS2113 FRIDAY 16:00 18:00
+Feb 8 :
+[L] online lecture - CS2113 MONDAY 12:00 14:00
 
 ```
 

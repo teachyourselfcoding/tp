@@ -480,8 +480,17 @@ public class ScheduleManager {
         Ui.printTaskDeletedMessage();
     }
 
+    /**.
+     * based on the system date, it will retrieved the task for today's date
+     *
+     */
     public void displayTodaySchedule() {
         LocalDate todayDate = LocalDate.now();
+        if (todayDate.isBefore(LocalDate.of(2021, 1, 1))
+                || todayDate.isAfter(LocalDate.of(2021,5,31))) {
+            Ui.printDisplayTodayNotWithinSemester();
+            return;
+        }
         Ui.print("Today's Schedule:");
         ArrayList<Task> taskList = semesterSchedule.get(todayDate);
         ArrayList<Task> nonLessonList = new ArrayList<>();
