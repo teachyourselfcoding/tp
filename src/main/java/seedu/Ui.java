@@ -52,12 +52,15 @@ public class Ui {
      */
     public void printHelpGuide() {
         String helpMessage = " This is the list of Command Available, please refer to the User Guide\n"
-                + " display - display today's Schedule, module info, list of Task \n"
-                + " module  - add a module\n"
-                + " add     - add a deadline, event, lesson\n"
-                + " edit    - edit information\n"
-                + " delete  - delete task in a module\n"
-                + " bye    - exit duequest";
+                + " display          - display today's Schedule, module info, list of Task \n"
+                + " module           - add a module\n"
+                + " add              - add a deadline, event, lesson\n"
+                + " edit             - edit information\n"
+                + " delete           - delete task in a module\n"
+                + " assessment       - create an assessment\n"
+                + " delete_assessment- delete an assessment\n"
+                + " score            - score the assessment\n"
+                + " bye              - exit DueQuest";
         print(helpMessage);
         System.out.println(SEPARATOR);
     }
