@@ -639,7 +639,7 @@ The list of task in CS2113:
 
 <-------------------------------------------------------------->
 ```
-## Delete tasks of a description:  `delete DESCRIPTION` 
+## Delete tasks of a description:  `delete` 
 There are several things that a user might want to delete:
 1) Delete all the task that matches a description
 2) Delete all the task that matches a description on a certain date
