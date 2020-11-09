@@ -85,6 +85,7 @@ public class Storage {
                         command.execute(scheduleManager, moduleManager, ui);
                     }
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         } catch (NullPointerException e) {
