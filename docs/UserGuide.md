@@ -1,6 +1,6 @@
 **Command Sumary** 
 
-![image-20201107003254580](image-20201107003254580.png)
+![](Images/toc.jpg)
 
 ## Introduction
 
@@ -80,7 +80,7 @@ A Task can be a Lesson, Event or Deadline.
 
 ## Adding tasks
 A task can be added into both the Schedule Manager and Module Manager using the commands below.
- 
+
 The Schedule Manager and Module Manager both share the same database, but can be used separately.
 +Schedule Manager primarily handles tasks. It can handle tasks with "module" attributes, but it mainly handles tasks operations
 +Module Manager primarily handles modules. It can be used to handle both module information as well as tasks.
@@ -163,7 +163,7 @@ Format: `event MODULE_CODE DESCRIPTION /at DATE_OF_EVENT START_TIME END_TIME LOC
 Example Usage:
 
 * If you want to add an event called final exam for module CS2113 at 3rd May 2021, from 2pm to 4pm at LT14, input
- 
+
  `event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14`
 
 ```
