@@ -37,6 +37,7 @@ public class ModuleManager {
     /**
      * Add new module to the app.
      * If the module with the same course code exists already, the message will be printed.
+     *
      * @param module new Module object to add
      */
     public void addModule(Module module) throws ModuleAlreadyExistsException {
@@ -51,6 +52,7 @@ public class ModuleManager {
     /**
      * Check if the module with the same module code already exists in the ModuleManager.
      * This is to check before adding in any modules.
+     *
      * @param module module to be check if it already exist.
      * @return ture if the module exist, false if it dosen't.
      */
@@ -60,12 +62,13 @@ public class ModuleManager {
 
     /**
      * Gets the module with specified module code from the list.
+     *
      * @param moduleCode module code in string
      * @return the Module object in list
      * @throws ModuleNotExistsException if nothing is found
      */
     public Module getModule(String moduleCode) throws ModuleNotExistsException {
-        for (Module m: listOfModules) {
+        for (Module m : listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {  // '==' cannot be used.
                 return m;
             }
@@ -121,15 +124,16 @@ public class ModuleManager {
     /**
      * TODO - add the description
      * Method do edit module to set a new frequency.
-     * @param description description.
-     * @param date date.
-     * @param property property.
+     *
+     * @param description  description.
+     * @param date         date.
+     * @param property     property.
      * @param newFrequency new frequency.
-     * @param moduleCode module code.
+     * @param moduleCode   module code.
      */
     public void editTask(String description, LocalDate date, String property, int newFrequency, String moduleCode) {
         boolean edited = false;
-        for (Module m: listOfModules) {
+        for (Module m : listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
                 for (Task task : m.getListOfTasks()) {
                     if (task.getDescription().equals(description)) {
@@ -146,15 +150,16 @@ public class ModuleManager {
 
     /**
      * Edit module to set new date.
+     *
      * @param description description.
-     * @param date date.
-     * @param property property.
-     * @param newDate new date.
-     * @param moduleCode module code.
+     * @param date        date.
+     * @param property    property.
+     * @param newDate     new date.
+     * @param moduleCode  module code.
      */
     public void editTask(String description, LocalDate date, String property, LocalDate newDate, String moduleCode) {
         boolean edited = false;
-        for (Module m: listOfModules) {
+        for (Module m : listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
                 for (Task task : m.getListOfTasks()) {
                     if (task.getDescription().equals(description)) {
@@ -169,15 +174,17 @@ public class ModuleManager {
         }
         if (edited) {
             Ui.printModuleDateEditedMessage();
-        } Ui.printModuleDateNotEditedMessage();
+        }
+        Ui.printModuleDateNotEditedMessage();
     }
 
     /**
      * Method to delete the entire module.
+     *
      * @param moduleCode module code of module to be deleted.
      */
     public void delete(String moduleCode) {
-        for (Module m: listOfModules) {
+        for (Module m : listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
                 Ui.printModuleDeletedMessage();
             }
@@ -187,9 +194,10 @@ public class ModuleManager {
 
     /**
      * Method to delete a task in a module on a specific date.
-     * @param moduleCode module code of the task.
+     *
+     * @param moduleCode  module code of the task.
      * @param description description of the task.
-     * @param date date of the task.
+     * @param date        date of the task.
      */
     public void delete(String moduleCode, String description, LocalDate date) {
         boolean deleted = false;
@@ -206,7 +214,8 @@ public class ModuleManager {
                     Ui.printTaskDeletedMessage();
                     m.getListOfTasks().removeIf(task -> task.getDate() == date);
                     return;
-                } Ui.printTaskNotDeletedMessage();
+                }
+                Ui.printTaskNotDeletedMessage();
 
             }
         }
@@ -214,20 +223,22 @@ public class ModuleManager {
 
     /**
      * Method to delete all the task of a module on a certain date.
+     *
      * @param moduleCode module code of the tasks.
-     * @param date date chosen.
+     * @param date       date chosen.
      */
     public void delete(String moduleCode, LocalDate date) {
         boolean edited = false;
-        for(Module m: listOfModules){
-            if(m.getModuleCode().equals(moduleCode)) {
+        for (Module m : listOfModules) {
+            if (m.getModuleCode().equals(moduleCode)) {
                 for (Task task : m.getListOfTasks()) {
-                    if (task.getDate().equals(date)){
+                    if (task.getDate().equals(date)) {
                         edited = true;
                     }
                 }
             }
-        }if(edited) {
+        }
+        if (edited) {
             for (Module m : listOfModules) {
                 if (m.getModuleCode().equals(moduleCode)) {
                     m.getListOfTasks().removeIf(t -> t.getDate().isEqual(date));
@@ -235,14 +246,15 @@ public class ModuleManager {
             }
             Ui.printModuleTaskDateDeletedMessage();
             return;
-        }Ui.printModuleTaskDateNotDeletedMessage();
+        }
+        Ui.printModuleTaskDateNotDeletedMessage();
     }
 
     public void deleteModuleTasks(String description, LocalDate date) {
         for (Module m : listOfModules) {
 
             ArrayList<Task> ls = new ArrayList<>();
-            for (Task task: m.getListOfTasks()) {
+            for (Task task : m.getListOfTasks()) {
                 if (!task.getDescription().equals(description) && task.getDate().equals(date)) {
                     ls.add(task);
                 }
@@ -252,10 +264,10 @@ public class ModuleManager {
         }
     }
 
-    public void deleteModuleTasks(String description){
+    public void deleteModuleTasks(String description) {
         for (Module m : listOfModules) {
             ArrayList<Task> ls = new ArrayList<>();
-            for (Task task: m.getListOfTasks()) {
+            for (Task task : m.getListOfTasks()) {
                 if (!task.getDescription().equals(description)) {
                     ls.add(task);
                 }
@@ -266,16 +278,17 @@ public class ModuleManager {
 
     /**
      * Display the tasks of a module.
+     *
      * @param moduleCode module code's string.
      * @throws ModuleNotExistsException when the module does not exist.
      */
     public void display(String moduleCode) throws ModuleNotExistsException {
-        for (Module m: listOfModules) {
+        for (Module m : listOfModules) {
             if (m.getModuleCode().equals(moduleCode)) {
                 ArrayList<Task> tasks = m.getListOfTasks();
                 Ui.printModuleInformation(m); // print the module's information
                 Ui.print("The list of task in " + moduleCode + ":");
-                Ui.printListGenericType(tasks,"events,deadline or lessons");
+                Ui.printListGenericType(tasks, "events,deadline or lessons");
                 Ui.printSeparator();
                 return;
             }
@@ -285,8 +298,9 @@ public class ModuleManager {
 
     /**
      * Method to display all the task in a module on a specific date.
+     *
      * @param moduleCode to have tasks to be displayed.
-     * @param date date to be displayed.
+     * @param date       date to be displayed.
      * @throws ModuleNotExistsException when module does not exist.
      */
     public void display(String moduleCode, LocalDate date) throws ModuleNotExistsException {
@@ -307,15 +321,15 @@ public class ModuleManager {
                         }
                     } else if (t instanceof Lesson) {
                         if (((Lesson) t).getLessonDayInDayOfWeek() == dayOfWeek) {
-                            lessons.add((Lesson)t);
+                            lessons.add((Lesson) t);
                         }
                     }
                 }
                 Ui.print(moduleCode + " - " + Ui.convertDateToString(date));
                 Ui.print("Events & Deadlines :");
-                Ui.printListGenericType(filteredTasks,"events and deadlines");
+                Ui.printListGenericType(filteredTasks, "events and deadlines");
                 Ui.print("Lessons :");
-                Ui.printListGenericType(lessons,"lessons");
+                Ui.printListGenericType(lessons, "lessons");
                 Ui.printSeparator();
                 return;
             }
@@ -329,11 +343,12 @@ public class ModuleManager {
 
     /**
      * Method to get a list of Module Codes in String form.
+     *
      * @return the list of module codes.
      */
     public List<String> getListOfModuleCodes() {
         List<String> listOfModuleCodes = new ArrayList<>();
-        for (Module module: listOfModules) {
+        for (Module module : listOfModules) {
             listOfModuleCodes.add(module.getModuleCode());
         }
         return listOfModuleCodes;
@@ -343,7 +358,8 @@ public class ModuleManager {
      * Method to add a task to the module inside the list of the module manager.
      * This is executed in the AddCommand method, when a task is added to both.
      * the module manager and schedule manager.
-     * @param task task to be added into the module manager.
+     *
+     * @param task       task to be added into the module manager.
      * @param moduleCode this is the modulecode of the task. Remember, moduleCode is an attribute of task.
      */
     public void addTaskToModule(Task task, String moduleCode) {
@@ -357,12 +373,13 @@ public class ModuleManager {
 
     /**
      * Finds the module contains the task with the specified description.
+     *
      * @param description the description in string.
      * @return Module found.
      */
     private Module findModuleContainsTask(String description) {
-        for (Module m: this.listOfModules) {
-            for (Task t: m.getListOfTasks()) {
+        for (Module m : this.listOfModules) {
+            for (Task t : m.getListOfTasks()) {
                 if (t.getDescription().equals(description)) {
                     return m;
                 }
@@ -372,8 +389,8 @@ public class ModuleManager {
     }
 
     private Module findModuleContainsTask(String description, LocalDate date) {
-        for (Module m: this.listOfModules) {
-            for (Task t: m.getListOfTasks()) {
+        for (Module m : this.listOfModules) {
+            for (Task t : m.getListOfTasks()) {
                 if (t.getDescription().equals(description) && date.isEqual(t.getDate())) {
                     return m;
                 }

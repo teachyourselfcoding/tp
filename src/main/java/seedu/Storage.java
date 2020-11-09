@@ -87,7 +87,7 @@ public class Storage {
         } catch (DueQuestException e) {
             e.printStackTrace();
         } catch (NullPointerException e) {
-            return ;
+            return;
         }
     }
 
