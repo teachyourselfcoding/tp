@@ -175,6 +175,7 @@ Event added to both Schedule manager and Module manager
 
 
 * If you try to add a lesson that already exist
+
 ```
 event ST2113 final exam /at 2021-05-03 14:00 16:00 LT14
 <-------------------------------------------------------------->
@@ -184,6 +185,7 @@ Clashes detected, task is not added.
 Please type the next command!
 <-------------------------------------------------------------->
 ```
+
 ## Adding a deadline: `deadline`
 
 Adds a deadline of an assignment into the Schedule Manager and Module Manager.
@@ -755,7 +757,6 @@ Adding a lesson
 ```
 <-------------------------------------------------------------->
 lesson online lecture ST2113 /on 5 16:00 18:00
-(◕‿◕✿)
 <-------------------------------------------------------------->
 Got it, added lesson to the Schedule Manager and Module Manager!
 <-------------------------------------------------------------->
@@ -785,7 +786,6 @@ Deleting all task on Jan 15
 ```
 <-------------------------------------------------------------->
 delete c/ST2113 /date 2021-01-15
-(◕‿◕✿)
 <-------------------------------------------------------------->
 All task from this module on this date has been deleted
 <-------------------------------------------------------------->
@@ -927,7 +927,6 @@ Deleting all task on Jan 15 that matches "online lecture"
 ```
 <-------------------------------------------------------------->
 delete c/ST2113 online lecture /date 2021-01-15
-(◕‿◕✿)
 <-------------------------------------------------------------->
 All task from this module on this date has been deleted
 <-------------------------------------------------------------->
