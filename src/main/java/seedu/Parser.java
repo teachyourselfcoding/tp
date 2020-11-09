@@ -422,6 +422,9 @@ public class Parser {
             if (filteredInput.contains("/date")) { //has a module code and date
                 splitViaDate = (filteredInput.split("/date")[1].trim()).split(" ", 2);
                 date = LocalDate.parse(splitViaDate[0].trim());
+                if(date.isBefore(LocalDate.of(2021,1,1))||date.isAfter(LocalDate.of(2021,5,31))){
+                    throw new InvalidDateException();
+                }
                 if (splitViaDate.length == 1) {
                     Storage.getStorage().exportAdditionalData(input);
                     return new DeleteCommand(moduleCode, "module", date); //has module code, has date
@@ -440,6 +443,9 @@ public class Parser {
         splitViaDate = filteredInput.split("/date");
         try {
             date = LocalDate.parse(splitViaDate[1].trim());
+            if(date.isBefore(LocalDate.of(2021,1,1))||date.isAfter(LocalDate.of(2021,5,31))){
+                throw new InvalidDateException();
+            }
         } catch (Exception e) {
             throw new InvalidDateException();
         }
@@ -630,13 +636,16 @@ public class Parser {
             try {
                 LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim()
                         .replace("/", "-"));
+                if(date.isBefore(LocalDate.of(2021,1,1))||date.isAfter(LocalDate.of(2021,5,31))){
+                    throw new InvalidDateException();
+                }
                 if (moduleCode == null) {
                     Storage.getStorage().exportAdditionalData(input);
                     return new EditTaskCommand(description, date, type, newValue);
                 }
                 Storage.getStorage().exportAdditionalData(input);
                 return new EditModuleCommand(moduleCode, description, date, type, newValue);
-            } catch (DateTimeException e) {
+            } catch (DateTimeException | InvalidDateException e) {
                 throw new WrongDateFormatException();
             }
         case "frequency":
@@ -646,27 +655,35 @@ public class Parser {
             try {
                 LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10)
                         .trim().replace("/", "-"));
-                if (moduleCode == null) {
+                if(date.isBefore(LocalDate.of(2021,1,1))||date.isAfter(LocalDate.of(2021,5,31))){
+                    throw new InvalidDateException();
+                }if (moduleCode == null) {
                     Storage.getStorage().exportAdditionalData(input);
                     return new EditTaskCommand(description, date, type, newFrequency);
                 }
                 Storage.getStorage().exportAdditionalData(input);
                 return new EditModuleCommand(moduleCode, description, date, type, newFrequency);
-            } catch (DateTimeException e) {
+            } catch (DateTimeException | InvalidDateException e) {
                 throw new WrongDateFormatException();
             }
         case "date":
             try {
                 LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10)
                         .trim().replace("/", "-"));
+                if(date.isBefore(LocalDate.of(2021,1,1))||date.isAfter(LocalDate.of(2021,5,31))){
+                    throw new InvalidDateException();
+                }
                 LocalDate newDate = LocalDate.parse(newValue.trim().replace("/","-"));
+                if(newDate.isBefore(LocalDate.of(2021,1,1))||newDate.isAfter(LocalDate.of(2021,5,31))){
+                    throw new InvalidDateException();
+                }
                 if (moduleCode == null) {
                     Storage.getStorage().exportAdditionalData(input);
                     return new EditTaskCommand(description, date, type, newDate);
                 }
                 Storage.getStorage().exportAdditionalData(input);
                 return new EditModuleCommand(moduleCode, description, date, type, newDate);
-            } catch (DateTimeException e) {
+            } catch (DateTimeException | InvalidDateException e) {
                 throw new WrongDateFormatException();
             }
         default:
