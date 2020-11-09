@@ -11,12 +11,12 @@ import seedu.task.Deadline;
 import seedu.Ui;
 
 /**
- * Represents a command for adding different subclass of tasks
+ * Represents a command for adding different subclass of tasks.
  */
 public class AddCommand  extends Command {
     private Task task;
 
-    public AddCommand(Task task){
+    public AddCommand(Task task) {
         this.task = task;
     }
 
@@ -34,16 +34,16 @@ public class AddCommand  extends Command {
      * @param scheduleManager scheduleManager that handles tasks.
      * @param moduleManager moduleManager that handles modules where we need to add task into module.
      * @param ui ui that helps with ui stuff.
+     * @throws ModuleDoesNotExistException if the module has not been created yet.
      */
     @Override
-    public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) throws ModuleDoesNotExistException {
+    public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui)
+            throws ModuleDoesNotExistException {
         try {
             if (task instanceof Lesson) {
-                scheduleManager.addLesson((Lesson) task, moduleManager, ui); //add the lesson to the schedule manager
-                // if module code exist in the module manager, simply add the task into the module manager
+                scheduleManager.addLesson((Lesson) task, moduleManager, ui);
             } else if (task instanceof Event) {
                 scheduleManager.addEvent((Event) task, moduleManager, ui);
-                //System.out.println(moduleManager.getListOfModuleCodes());
             } else if (task instanceof Deadline) {
                 scheduleManager.addDeadline((Deadline) task, moduleManager);
                 System.out.println("Got it, added deadline to Schedule Manager and Module Manager");

@@ -1,5 +1,8 @@
 package seedu;
 
+import seedu.module.Assessment;
+import seedu.module.Module;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -11,7 +14,7 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner scanner;
-    private static String SEPARATOR="<-------------------------------------------------------------->";
+    private static String SEPARATOR = "<-------------------------------------------------------------->";
 
     /**
      * Constructor of Ui.
@@ -25,10 +28,11 @@ public class Ui {
      */
     public void welcomeMessage() {
         String welcomeMessage =
+
                 "_____________________________________________\n"
-                +"Whats up people! DueQuest is here to save the day\n"
-                +"DueQuest for students by students\n"
-                +"So, what can I do for you?\n";
+                        + "Whats up people! DueQuest is here to save the day\n"
+                        + "DueQuest for students by students\n"
+                        + "So, what can I do for you?\n";
         System.out.print(welcomeMessage);
         System.out.println(SEPARATOR);
     }
@@ -40,36 +44,51 @@ public class Ui {
         String byeMessage =
                 "Aye captain. This is DueQuest Signing out!\n";
         System.out.print(byeMessage);
-        
+
     }
 
     /**
-     * print out the Help message
+     * Prints out message for the help guide when a HelpCommand is execute.
      */
     public void printHelpGuide() {
-        String helpMessage = " This is the list of Command Available, please refer to the User Guide\n" +
-                " display - display today's Schedule, module info, list of Task \n" +
-                " module  - add a module\n" +
-                " add     - add a deadline, event, lesson\n" +
-                " edit    - edit information\n" +
-                " delete  - delete task in a module\n" +
-                " exit    - exit duequest";
+        String helpMessage = " This is the list of Command Available, please refer to the User Guide\n"
+                + " display - display today's Schedule, module info, list of Task \n"
+                + " module  - add a module\n"
+                + " add     - add a deadline, event, lesson\n"
+                + " edit    - edit information\n"
+                + " delete  - delete task in a module\n"
+                + " bye    - exit duequest";
         print(helpMessage);
         System.out.println(SEPARATOR);
     }
 
     /**
      * Scan and Read in user input on the CLI.
+     *
      * @return String command.
      */
     public String readCommand() {
         System.out.println("Please type the next command!");
         System.out.println(SEPARATOR);
+        String commandString;
+        if (scanner.hasNextLine()) {
+            commandString = scanner.nextLine();
+        } else {
+            commandString = "";
+        }
 
-        String commandString = scanner.nextLine();
         return commandString;
     }
 
+    /**
+     * .
+     * use the scanner to check if there is an input
+     *
+     * @return boolean
+     */
+    public boolean hasNextLine() {
+        return scanner.hasNextLine();
+    }
 
     public void printClashesMessage() {
         System.out.println(SEPARATOR);
@@ -83,7 +102,8 @@ public class Ui {
 
     /**
      * Prints the Exception information based on the parameters.
-     * @param e DukeExceptionType
+     *
+     * @param e DukeExceptionType.
      */
     public void showError(DueQuestExceptionType e) {
         switch (e) {
@@ -115,23 +135,24 @@ public class Ui {
         }
     }
 
-    public static void print(String text){
+    public static void print(String text) {
         System.out.println(text);
     }
 
     /**
-     * Used to print any generic list
-     * @param lists the provided list of generic type
-     * @param <T> the object type
+     * Used to print any generic list.
+     *
+     * @param lists the provided list of generic type.
+     * @param <T>   the object type
      */
-    public static <T> void printListGenericType(ArrayList<T> lists) {
+    public static <T> void printListGenericType(ArrayList<T> lists, String modifier) {
         if (lists != null) {
-            for (T i: lists) {
+            for (T i : lists) {
                 print(i.toString());
             }
         }
         if (lists.size() == 0) {
-            System.out.println("You don't have any Deadlines!");
+            System.out.println("You don't have any " + modifier + "!");
         }
         print("");
     }
@@ -139,10 +160,11 @@ public class Ui {
     /**
      * Convert LocalDate object into readable string format without year.
      * E.g 12 JUN.
-     * @param date
-     * @return
+     *
+     * @param date Local date object to convert
+     * @return String
      */
-    public static String convertDateToString(LocalDate date){
+    public static String convertDateToString(LocalDate date) {
         String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM"));
         return stringDate;
     }
@@ -150,11 +172,11 @@ public class Ui {
     /**
      * Convert LocalDate object into readable string format with year included.
      * E.g 12 JUN 20.
-     * @param date
-     * @return
+     *
+     * @param date date to be converted.
+     * @return string form of the converted LocalDate object with year.
      */
-
-    public static String convertDateToStringWithYear(LocalDate date){
+    public static String convertDateToStringWithYear(LocalDate date) {
         String stringDate = date.format(DateTimeFormatter.ofPattern("d MMM YY"));
         return stringDate;
     }
@@ -212,12 +234,15 @@ public class Ui {
     public static void printInvalidModuleCode() {
         System.out.println(SEPARATOR);
         System.out.println("The module code is not valid or not typed in.");
+        System.out.println("Please make sure your module code is typed in follows the specifications stated "
+                + "in the user guide!");
         System.out.println(SEPARATOR);
     }
 
     public static void printInvalidDateFormatMessage() {
         System.out.println(SEPARATOR);
-        System.out.println("Please give the date in correct format and a valid date. It should be in YYYY-MM-DD format.");
+        System.out.println("Please give the date in correct format and a valid date."
+                + " It should be in YYYY-MM-DD format.");
         System.out.println(SEPARATOR);
     }
 
@@ -228,7 +253,7 @@ public class Ui {
 
     public static void printInvalidDateMessage() {
         System.out.println(SEPARATOR);
-        System.out.println("Please give the date between 2020/10/21 and 2021/05/31.");
+        System.out.println("Please give the date between 2021/01/01 and 2021/05/31.");
         System.out.println(SEPARATOR);
     }
 
@@ -265,7 +290,9 @@ public class Ui {
 
     public static void printInvalidInputMessage() {
         System.out.println(SEPARATOR);
-        System.out.println("Please Check your input again!");
+        System.out.println("Input doesnt seems right, please check again");
+        System.out.println(SEPARATOR);
+    }
 
     public static void printMissingDeleteDetails() {
         System.out.println(SEPARATOR);
@@ -273,14 +300,28 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
-    public static void printSeparator() {
-
+    public static void printSuccessfulEdit() {
+        System.out.println(SEPARATOR);
+        System.out.println("Done. The edit has been made.");
         System.out.println(SEPARATOR);
     }
 
-    public static void printSuccessfulEdit() {
+    public static void printSuccessfulAssessmentAdd(Assessment assessment) {
         System.out.println(SEPARATOR);
-        System.out.println("Done. The edit has been made. ");
+        System.out.printf("Done. The assessment %s has been made.\n", assessment.title);
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printSuccessfulScoreAssessment(Assessment assessment) {
+        System.out.println(SEPARATOR);
+        System.out.printf("Done. The assessment %s has been scored as %.2f/%.2f.\n", assessment.title,
+                assessment.getAttemptScore(), assessment.getFullScore());
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printSuccessfulAssessmentDelete(String title) {
+        System.out.println(SEPARATOR);
+        System.out.printf("Done. The assessment %s has been deleted.\n", title);
         System.out.println(SEPARATOR);
     }
 
@@ -306,8 +347,238 @@ public class Ui {
     public static void printMissingModuleCodeOrInvalidModuleCodeMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Your module code is either missing or in the wrong format!");
+        System.out.println("Please make sure your module code is typed in follows the specifications stated "
+                + "in the user guide!");
         System.out.println(SEPARATOR);
     }
+
+    public static void printInvalidScoreErrorMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Please give the invalid score.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printNoSuchAssessment(String title, String moduleCode) {
+        System.out.println(SEPARATOR);
+        System.out.printf("There is no assessment with the title %s in Module %s \n", title, moduleCode);
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printInvalidEditTypeMessage() {
+        System.out.println(SEPARATOR);
+        System.out.printf("Looks like an invalid type edit to me");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printModuleInformation(Module m) {
+        System.out.println(m);
+    }
+
+    public static void printModuleCode(Module m) {
+        System.out.println(m.getModuleCode());
+    }
+
+
+    public static void printModulePropertyEditedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Module tasks property has been updated");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printModuleFrequencyEditedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Module tasks frequency has been updated");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printTaskFrequencyEditedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Task's frequency has been updated");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printTaskFrequencyNotEditedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Task not found");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printModuleDateEditedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("The tasks' date in this module has been updated");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printModuleDateNotEditedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Cant find a matching task");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printTaskDateEditedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("The tasks' date has been updated");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printTaskDateNotEditedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Cant find a matching task");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printModuleDeletedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("This module has been deleted");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printModuleTaskDateDeletedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("All task from this module on this date has been deleted");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printModuleTaskDateNotDeletedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Did not find the task that matches your description");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printTaskDeletedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("1 or more tasks has been deleted");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printTaskModuleCodeDeletedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("All tasks matching module code have been deleted");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printTaskModuleCodeNotDeletedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Did not find the right task to delete");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printTaskModuleCodeDateNotDeletedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Did not find task matching module code on this date");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printTaskNotDeletedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("No task matching description or module code or date found");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printModuleTaskEditedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Module task's date has been edited");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printTaskNotEditedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Task not found");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printLessonAddedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Got it, added lesson to the Schedule Manager and Module Manager!");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printEventAddedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Event added to both Schedule manager and Module manager");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printEventAddedtoScheduleOnlyMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Event added to Schedule Manager only");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printAddtionalTxtCreationError() {
+        System.out.println(SEPARATOR);
+        System.out.println("Error: additional.txt file cannot be created.");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printAddtionalTxtWritingError() {
+        System.out.println(SEPARATOR);
+        System.out.println("Error: additional.txt file cannot be written.");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printFileLoadingMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Loading data from the file...");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printFileLoadedMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("Loading completed.");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printFileMissingError() {
+        System.out.println(SEPARATOR);
+        System.out.println("Error: the file is not found.");
+        System.out.println(SEPARATOR);
+    }
+
+
+    public static void printFileWritingError() {
+        System.out.println(SEPARATOR);
+        System.out.println("Error: the file cannot be written.");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printModuleMissingWritingError() {
+        System.out.println(SEPARATOR);
+        System.out.println("Cannot find the relevant module");
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printDisplayTodayNotWithinSemester() {
+        System.out.println(SEPARATOR);
+        System.out.println("Today's date is not within the set Semester Date."
+                + "\nValid Date: 2021 Jan 1 - 2021 May 31 "
+                + "\nPlease proceed to using other type of Display Commands");
+        System.out.println(SEPARATOR);
+    }
+
 
 }
 

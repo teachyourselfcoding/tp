@@ -1,18 +1,14 @@
 _____________________________________________
-Whats up people! Duke is here to save the day
+Whats up people! DueQuest is here to save the day
+DueQuest for students by students
 So, what can I do for you?
-_____________________________________________
-
-Duke couldn't find duke.txt to load saved data from
-So we have create a duke.txt under the data directory
-_____________________________________________
-
-No list Detected, add some text!
-_____________________________________________
-
-No list Detected, add some text!
-_____________________________________________
-
-Aye captain. This is Duke Signing out!
-_____________________________________________
-
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
+Loading data from the file...
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
+Loading completed.
+<-------------------------------------------------------------->
+Please type the next command!
+<-------------------------------------------------------------->
+Aye captain. This is DueQuest Signing out!

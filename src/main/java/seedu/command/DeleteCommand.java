@@ -4,6 +4,7 @@ import seedu.ModuleManager;
 import seedu.ScheduleManager;
 import seedu.Storage;
 import seedu.Ui;
+import seedu.module.Module;
 
 import java.time.LocalDate;
 
@@ -11,8 +12,7 @@ import java.time.LocalDate;
  * DeleteCommand is used to delete a task in the list.
  */
 public class DeleteCommand extends Command {
-    private int taskNum;
-    private String type= " ";
+    private String type = " ";
     private String description = " ";
     private LocalDate date = null;
     private String moduleCode = null;
@@ -51,30 +51,27 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
-        System.out.println(moduleCode);
-        if(!type.equals("module")){
-            if(this.date == null){                 //delete task with no date
-//                System.out.println("delete task with no date");
-                scheduleManager.deleteTask(description);
+        if (moduleCode == null) {
+            if (this.date == null) { //delete task with no date
+                scheduleManager.deleteTask(description.trim());
+                moduleManager.deleteModuleTasks(description.trim());
                 return;
             }
-//            System.out.println("delete task with date, with description");
             scheduleManager.deleteTask(description, date); //delete task with date, with description
+            moduleManager.deleteModuleTasks(description, date);
             return;
         }
-        if(this.date == null){                                                  //delete entire module
-            scheduleManager.deleteTask("module",moduleCode);
+        if (this.date == null) {                                                  //delete entire module
+            scheduleManager.deleteTask("module", moduleCode);
             moduleManager.delete(moduleCode);
-        }
-        else{
-            if(description.equals(" ")){                           //delete all task in module matching date
-//                System.out.println("delete all task in module matching date");
+        } else {
+            if (description.equals(" ")) { //delete all task in module matching date
                 scheduleManager.deleteTask(date, moduleCode);
-                moduleManager.delete(moduleCode,date);
-            }else {
-//                System.out.println("delete all task in module with matching date and description");
+                moduleManager.delete(moduleCode, date);
+            } else {
                 scheduleManager.deleteTask(moduleCode, description, date);
-                moduleManager.delete(moduleCode, description, date);         //delete all task in module with matching date and description
+                moduleManager.delete(moduleCode, description, date);
+                //delete all task in module with matching date and description
 
             }
         }
