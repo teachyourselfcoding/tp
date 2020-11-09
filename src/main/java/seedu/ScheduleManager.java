@@ -463,7 +463,6 @@ public class ScheduleManager {
             try {
                 if (semesterSchedule.get(date).size() != 0) {
                     for (Task task : semesterSchedule.get(date)) {
-                        System.out.println(task.getDescription());
                         if (task.getDescription().equals(description)) {
                             deleted = true;
                         }
