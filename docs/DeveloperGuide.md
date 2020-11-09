@@ -71,7 +71,7 @@ The diagram below shows a flow chart which gives an overall general picture of h
 
 ### Module Component 
 
-![](Module-4838589.jpg)
+![](Images/Module.png)
 
 `ModuleManager` is the class that maintains the list of `Module` for the app and provides appropriate API to manipulate these modules.  
 
@@ -125,9 +125,10 @@ either the `ScheduleManager` or `ModuleManager` or both.
 
 ### Managers
 The application consists of two managers, the `ScheduleManager` and `ModuleManager`. The
-`ScheduleManager` will handle the storing of `Task` in each day. The `ModuleManager` will
-handle storing the task of each `Module`. Below is a UML Diagram showing some of the key
-methods and properties of the `ScheduleManager` and `ModuleManager` classes.
+ `ScheduleManager` will handle the storing of `Task` in each day. The `ModuleManager` will
+handle storing the task of each `Module`. 
+
+Below is a UML Diagram showing some of the key methods and properties of the `ScheduleManager` and `ModuleManager` classes.
 
 ![](Images/3.4Managers.JPG)
 
@@ -152,8 +153,13 @@ Some Design Considerations on how to store the `Task` in the `ScheduleManager`:
     - Cons: Might be tricky to implement and may need more resources.
   
 ### Storage
-The application will save all of the user inputs by using a `Storage` class, which is designed as
-singleton.
+The application will save all of the application's data to a local directory (specified when launching the `jar` file) by using a `Storage` class, which is designed as singleton and can only be created and assessed through public class methods of Storage.
+
+When `DueQuest` is launched, the `Storage` instance will be created and read all the files in the specified storage directory. After that, it will load data into `ScheduleManager` and `ModuleManager`. 
+
+When using the app, the commands (not all of them, e.g. exit, help, display commands won't call `Storage`) will call `Storage` to export updated module to local files every time they are executed. 
+
+Below is the UML of `Storage`:
 
 ![](Images/3.5Stroage.JPG)
 
@@ -208,28 +214,26 @@ object.
 
 The storage is implemented in singleton such that the `Storage` class holds only 1 private instance, the constructor of which (e.g. `Storage(directoryPath)`) is private. Such instance can only be created with the class method, `Storage.setUpStorage(directoryPath)`. 
 
-1. Set up the `Storage` from local disk 
+1. Set up the `Storage` from local disk. `storage` instance will be created. 
 
 ![](Images/4.3Storage1.JPG)
 
 2. Add/Edit Module and Its Components
-When modules’ information or their components are changed (e.g. add, delete the module or add, delete the assessments), the changed module’s code will be passed to storage. `Storage` will export the new information of the changed `Module` to the corresponding local files.
+When modules’ information or their components are changed (e.g. add, delete the module or add, delete the assessments, etc.), the changed module’s code will be passed to storage. `Storage` will export the new information of the changed `Module` to the corresponding local files.
 
 ![](Images/4.3Storage2.JPG)
 
 3. Edit/Delete Action
 
-There are two types of edit/deleting:
--  without module specified 
-    ![](Images/4.3Storage3.JPG)
-    Once some tasks are deleted, the `ModuleManager` is updated. Storage will exported
-    the new content of `ModuleManager` by iterating all modules in `ModuleManager` , since the module is not specified.
-    
-- with module specified 
-    ![](Images/4.3Storage4.JPG)
-    The command of edit/deleting is passed to `Storage`, and `Storage` will write this `Command`
-    to `AdditionalFile`, so that whenever importing files, this `DeleteCommand` will be
-    executed again from `AdditionalFile`.
+-  When multiple modules are affected. Storage will export the new content of `ModuleManager` by iterating all modules in `ModuleManager` , since the module is not specified. Below is the sequence diagram with the example of task deletion: 
+
+![](Images/4.3Storage3.JPG)
+
+-  When the task only on specific date is modified. The command of edit/deleting is passed to `Storage`, and `Storage` will write this command string to `AdditionalFile`, so that whenever importing files, this `DeleteCommand` or `EditCommand` will be executed again from `AdditionalFile`. Below is an example of deleting the task:
+
+![](Images/4.3Storage4.JPG)
+
++ When the frequent task of a module is deleted for all dates, `Storage` will export the updated module to the corresponding local file. (the sequence diagram is the same as *2. Add/Edit Module and Its Components*)
 
 ### Edit Feature
 
@@ -271,7 +275,7 @@ written in GitHub-Flavoured Markdown
 - [se-edu/guides] Markdown coding standards
 
 ### Diagrams
-- Draw.io ( free )
+- Draw.io (free)
 
 ## Testing
 

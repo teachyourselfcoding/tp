@@ -13,14 +13,17 @@ https://nus-cs2113-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=TANG%2
 
 ### Enhancements Implemented
 
-+ Design and implement `Storage`
-+ Design and implement part of  `Module` 
-+ Implement `Assessment` and related commands
++ Design, implement and test  `Storage` functions
++ Design and implement part of  `Module` functions
+  + Test some functions such as `AddModuleTest`
++ Implement and test `Assessment` functions and related commands
 
 ### Contributions to documentation
 - For User guide:
-    - Draft and format UG
+    - Draft and format the initial version of UG
     -  Write `Storage` and assessment related parts 
+    -  Update the example out of UG 
 - For Developer Guide
-    - Draw diagrams for archtecture, `Command` UML
-    - Write parts of `Module`
+    - Check and draw UML diagrams 
+    - Write `Storage` and parts of `Module` 
+    - Format instructions for manual testing 
