@@ -470,7 +470,7 @@ Format: `display  MODULECODE /date DATE`
 
 Example of Usage
 
-* `display CS2113 /date 2020/10/15`
+* `display CS2113 /date 2021/05/03`
 
 ```
 display CS2113 /date 2021/05/03
@@ -493,7 +493,7 @@ Format: `display /date DATE`
   
 
 Example of Usage
-* `display /date 2020/10/15`
+* `display /date 2021/05/03`
 
 ```
 display /date 2021/05/03
