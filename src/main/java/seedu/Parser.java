@@ -590,7 +590,7 @@ public class Parser {
         return true;
     }
 
-    public static EditCommand validateEditCommand(String input) throws DueQuestException, WrongDateFormatException {
+    public static EditCommand validateEditCommand(String input) throws DueQuestException, WrongDateFormatException, InvalidDateException {
         String moduleCode = null;
         String[] splitViaModule;
         String filteredInput;
@@ -645,8 +645,10 @@ public class Parser {
                 }
                 Storage.getStorage().exportAdditionalData(input);
                 return new EditModuleCommand(moduleCode, description, date, type, newValue);
-            } catch (DateTimeException | InvalidDateException e) {
+            } catch (DateTimeException e) {
                 throw new WrongDateFormatException();
+            } catch (InvalidDateException e){
+                throw new InvalidDateException();
             }
         case "frequency":
             //int[] newFrequency = new int[2];
@@ -663,8 +665,10 @@ public class Parser {
                 }
                 Storage.getStorage().exportAdditionalData(input);
                 return new EditModuleCommand(moduleCode, description, date, type, newFrequency);
-            } catch (DateTimeException | InvalidDateException e) {
+            } catch (DateTimeException e) {
                 throw new WrongDateFormatException();
+            } catch (InvalidDateException e){
+                throw new InvalidDateException();
             }
         case "date":
             try {
@@ -683,8 +687,10 @@ public class Parser {
                 }
                 Storage.getStorage().exportAdditionalData(input);
                 return new EditModuleCommand(moduleCode, description, date, type, newDate);
-            } catch (DateTimeException | InvalidDateException e) {
+            } catch (DateTimeException e) {
                 throw new WrongDateFormatException();
+            } catch (InvalidDateException e){
+                throw new InvalidDateException();
             }
         default:
             Ui.printInvalidEditTypeMessage();
