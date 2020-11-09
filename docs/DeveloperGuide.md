@@ -73,9 +73,13 @@ The diagram below shows a flow chart which gives an overall general picture of h
 
 ![](Module-4838589.jpg)
 
+`ModuleManager` is the class that maintains the list of `Module` for the app and provides appropriate API to manipulate these modules.  
 
+| Class | Function |
+|--------|----------|
+| `Module` | `Module` class has attributes such as `moduleCode`, `title`, `auNumber` and `teachingSatffs`, and it also keeps the records of `Assessment` (e.g. assignments, exams, etc.) |
+| `Assessment` | `Assessment` class stores the scores obtained by the user for the assessments he did for the `Module`|
 
-`ModuleManager` is the class that maintains the list of `Module` for the app and provides appropriate API to manipulate these modules. `Module` class has attributes such as `moduleCode`, `title`, `auNumber` and `teachingSatffs`, and it also keeps the records of `Assessment` (e.g. assignments, exams, etc.) 
 
 To manipulate the module, the developer needs to access it from `ModuleManager`, generally through APIs such as `getModule(moduleCode: String)` . 
 
@@ -108,10 +112,11 @@ either the `ScheduleManager` or `ModuleManager` or both.
 | `Command` | An Abstract class which is the parent class of all of the commands below. The main method in this class is the `execute()` method, which handles the different executions required depending on the input by the user. |
 | `AddCommand` | A child class of `Command` which helps to execute the feature of adding a `Task` into the `ScheduleManager` and `ModuleManager`. |
 | `AddModuleCommand` | A child class of `Command` which helps to add a `Module` into the `ModuleManager`. |
-| `DeleteCommand` | -- |
+| `DeleteCommand` | A child class of `Command` to execute methods to delete a `Task` and `Module` |
 | `DisplayCommand` | A child class of `Command` which helps to display the list of tasks in a any day stated by the user, or the list of tasks from a `Module` stated by the user. |
-| `EditModuleCommand` | -- |
-| `EditTaskCommand` | -- |
+| `EditCommand` | A child class of `Command` to execute edit methods |
+| `EditModuleCommand` | A child class of `EditCommand` to execute edit methods that has a module code in the input. |
+| `EditTaskCommand` | A child class of `EditCommand`  to execute edit methods without a module code in the input. |
 | `HelpCommand` | A child class of `Command` which helps to provides the list of inputs for the user to know what to type in to use any of the features he wants. |
 | `ExitCommand` | A child class of `Command` which helps to exit the app. |
 | `AddAssessmentCommand` | A child class of `Command` which adds assessment to the module. |
@@ -284,16 +289,9 @@ and choose run “ScheduleManagerTest”
     2. For Mac or linux users, use ./gradlew clean test
     
 ### Types of Tests
-For this project, we are using one type of test:
-- Unit Test.
-- For eg, seedu.duequest.ModuleManagerTest.
-
-Appendices
-Appendix A: Product Scope
-Appendix B: User Stories
-Appendix C: Non Functional Requirements
-Appendix D: Glossary
-APpendix E: Instructions for Manual Testing
+For this project, we used:
+    - Unit Test. For eg, seedu.ModuleManagerTest.
+    - Integration Testing. For eg, seedu.duequest.DueQuestTest. 
 
 ## 7. Appendices
 
@@ -340,21 +338,29 @@ Given below are instructions to test the app manually.
 1. Run the program using the command line by inputting `java -jar DueQuestv2.1jar`.
 1. You should see the following below
 
-
+![](ManualTestingImages/InitialLaunch-1.JPG)
 
 #### Adding a module
 
 #### Positive Test
 1. Enter `module c/CS2113 a/4 s/Dr.Akshay s/ChengChen` into the console and you should see the following below:
 
+![](ManualTestingImages/AddingAModule-PositiveTest.JPG)
+
 #### Negative Test 1: Duplicate module code
 1. Enter `module c/CS2113 a/4 s/Dr.Akshay s/ChengChen` again into the console and you should see the following below:
+
+![](ManualTestingImages/AddingAModule-NegativeTest-1.JPG)
 
 #### Negative Test 2: Invalid module code
 1. Enter `module c/cs2113 a/4 s/Dr.Akshay s/ChengChen` into the console and you should see the following below:
 
+![](ManualTestingImages/AddingAModule-NegativeTest-2.JPG)
+
 #### Negative Test 3: au not specified
 1. Enter `module c/ST2113` into the console and you should see the following below:
+
+![](ManualTestingImages/AddingAModule-NegativeTest-3.JPG)
 
 #### Adding Tasks.
 
@@ -365,143 +371,221 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 #### Positive Test
 1. Enter `lesson online lecture CS2113 /on 5 16:00 18:00` into the console and you should see the following below:
 
+![](ManualTestingImages/AddingALessonPositiveTest-1.JPG)
+
 1. Enter `display CS2113` into the console and you should see if the lesson has been indeed added to the module. You should see the following below:
+
+![](ManualTestingImages/AddingALessonPositiveTest-2.JPG)
 
 #### Negative Test 1: A module code that does not exist in the ModuleManager
 1. Enter `lesson online lecture MA2113 /on 5 16:00 18:00` into the console and you should see the following below:
 
+![](ManualTestingImages/AddingALesson-NegativeTest1.JPG)
+
 #### Negative Test 2: Invalid Start Time 
 1. Enter `lesson online lecture CS2113 /on 5 16:aa 18:00` into the console and you should see the following below:
+
+![](ManualTestingImages/AddingALesson-NegativeTest2.JPG)
 
 #### Negative Test 3: Invalid frequency
 1. Enter `lesson online lecture CS2113 /on 8 16:00 18:00` into the console and you should see the following below:
 
+![](ManualTestingImages/AddingALesson-NegativeTest3.JPG)
 
 #### Adding an Event
 
 #### Positive Test
 1. Enter `event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14` into the console and you should see the following below:
 
+![](ManualTestingImages/AddingAEvent-PositiveTest-1.JPG)
+
 1. Enter `display /date 2021/05/03` into the console and to see that the event has been indeed added to the date. You should see the following below:
 
+![](ManualTestingImages/AddingAEvent-PositiveTest-2.JPG)
+
 1. Enter `display CS2113` into the console and to see that the event has been indeed added to the module. You should see the following below:
+*Note: The lesson added previously is still inside CS2113*
+
+![](ManualTestingImages/AddingAEvent-PositiveTest-3.JPG)
 
 
 #### Negative Test 1: A module code that does not exist in the ModuleManager
 1. Enter `event MA3333 final exam /at 2021-05-03 14:00 16:00 LT14` into the console and you should see the following below:
 
+![](ManualTestingImages/AddingAEvent-NegativeTest-1.JPG)
+
 #### Negative Test 2: A date that is out of range (meaning not between 1 January 2021 and 31 May 2021)
 1. Enter `event CS2113 final exam /at 2021-06-01 14:00 16:00 LT14` into the console and you should see the following below:
+
+![](ManualTestingImages/AddingAEvent-NegativeTest-2.JPG)
 
 #### Negative Test 3: A start time that is too early
 1. Enter `event CS2113 final exam /at 2021-05-01 07:00 10:00 LT14` into the console and you should see the following below:
 
+![](ManualTestingImages/AddingAEvent-NegativeTest-3.JPG)
 
 #### Adding an Deadline
 
 #### Positive Test
 1. Enter `deadline CS2113 TP version 1 /by 2021-04-04` into the console and you should see the following below:
 
+![](ManualTestingImages/AddingADeadline-PositiveTest-1.JPG)
+
 1. Enter `display /date 2021/04/04` into the console and to see that the deadline has been indeed added to the date. You should see the following below:
 
+![](ManualTestingImages/AddingADeadline-PositiveTest-2.JPG)
+
 1. Enter `display CS2113` into the console to see that the deadline has been indeed added to the module. You should see the following below:
+*Note: the lesson and event added before this is still inside CS2113*
+
+![](ManualTestingImages/AddingADeadline-PositiveTest-3.JPG)
 
 #### Negative Test 1: deadline with empty description
 1. Enter `deadline CS2113  /by 2021-04-04` into the console and you should see the following below:
 
+![](ManualTestingImages/AddingADeadline-NegativeTest-1.JPG)
+
 #### Negative Test 2: deadline with invalid date format
 1. Enter `deadline CS2113 TP version 1 /by 2021-4-4` into the console and you should see the following below:
+
+![](ManualTestingImages/AddingADeadline-NegativeTest-2.JPG)
 
 #### Adding an Assessment
 
 #### Positive Test
 1. Enter `assessment CS2113 TP 100` into the console and you should see the following below:
 
+![](ManualTestingImages/AddingAnAssessment-PositiveTest-1.JPG)
+
 1. Enter `display CS2113` into the console to see if the assessment has been indeed added. You should see the following below:
+*Note: the lesson, event and deadline added before is still inside CS2113*
+
+![](ManualTestingImages/AddingAnAssessment-PositiveTest-2.JPG)
 
 #### Negative Test 1: Missing assessment title name
 1. Enter `assessment CS2113 100` into the console and you should see the following below:
+
+![](ManualTestingImages/AddingAnAssessment-NegativeTest-1.JPG)
 
 #### Add score to an assessment
 
 #### Positive Test
 1. Enter `score CS2113 TP 100` into the console and you should see the following below:
 
+![](ManualTestingImages/AddScoreToAnAssessment-PositiveTest-1.JPG)
+
 1. Enter `display CS2113` into the console to see if the score of the assessment has been indeed added. You should see the following below:
+
+![](ManualTestingImages/AddScoreToAnAssessment-PositiveTest-2.JPG)
 
 #### Negative Test 1: Adding score to an assessment with a title that does not exist in the module.
 1. Enter `score CS2113 aa 100` into the console and you should see the following below:
 
+![](ManualTestingImages/AddScoreToAnAssessment-NegativeTest-1.JPG)
+
 #### Negative Test 2: Adding score to an assessment to a module that does not exist
 1. Enter `score CT2113 TP 100` into the console and you should see the following below:
+
+![](ManualTestingImages/AddScoreToAnAssessment-NegativeTest-2.JPG)
 
 #### Delete an assessment
 
 #### Positive Test
 1. Enter `delete_assessment CS2113 TP` into the console and you should see the following below:
 
+![](ManualTestingImages/DeleteAnAssessment-PositiveTest-1.JPG)
+
 1. Enter `display CS2113` into the console to see if the assessment has been indeed deleted. You should see the following below:
 
+![](ManualTestingImages/DeleteAnAssessment-PositiveTest-2.JPG)
 
 #### Negative Test 1: Deleting of an assessment that does not exist
-1. Enter `delete_assessment CS2113 aa` into the console and you should see the following below:
+1. Enter `delete_assessment CS2113 minitest` into the console and you should see the following below:
+
+![](ManualTestingImages/DeleteAnAssessment-NegativeTest-1.JPG)
 
 #### Display
 
 #### Positive Test
 1. Enter `display CS2113` into the console and you should see the following below:
 
+![](ManualTestingImages/Display-PositiveTest-1.JPG)
+
 #### Negative Test 1: Module code that does not exist
 1. Enter `display CS2113T` into the console and you should see the following below:
+
+![](ManualTestingImages/Display-NegativeTest-1.JPG)
 
 #### Display all the task in a module on a date
 
 #### Positive Test
 1. Enter `display CS2113 /date 2021/04/04` into the console and you should see the following below:
 
+![](ManualTestingImages/DisplayAllTheTaskInAModuleOnADate-PositiveTest-1.JPG)
+
 #### Negative Test 1: Invalid date
 1. Enter `display CS2113 /date 2021/04/0a` into the console and you should see the following below:
 
+![](ManualTestingImages/DisplayAllTheTaskInAModuleOnADate-NegativeTest-1.JPG)
 
 #### Display all the task on a date
 
 #### Positive Test
 1. Enter `display /date 2021/05/03` into the console and you should see the following below:
 
+![](ManualTestingImages/DisplayAllTheTaskOnADate-PositiveTest-1.JPG)
 
 #### Negative Test 1: Invalid Date: Date not between 1 January 2021 and 31 May 2021
 1. Enter `display /date 2020/12/31` into the console and you should see the following below:
+
+![](ManualTestingImages/DisplayAllTheTaskOnADate-NegativeTest-1.JPG)
 
 #### Display all the task on a range of date
 
 #### Positive Test
 1. Enter `display /date 2021/05/02-2021/05/05` into the console and you should see the following below:
 
+![](ManualTestingImages/DisplayAllTheTaskOnARangeOfDate-PositiveTest-1.JPG)
+
 #### Negative Test 1: Invalid date format
 1. Enter `display /date 2021/00/02-2021/06/05` into the console and you should see the following below:
 
-
+![](ManualTestingImages/DisplayAllTheTaskOnARangeOfDate-NegativeTest-1.JPG)
 
 #### Editing a task
 **Important! Please do the following before carrying on with the rest of the tests for this section.**
 1. Enter `delete c/CS2113` into the console and you should see the following below:
+
+![](ManualTestingImages/EditingATask-1.JPG)
+
 1. Enter `module c/CS2113 a/4` to add the module and you should see the following below:
 
+![](ManualTestingImages/EditingATask-2.JPG)
 
 #### Edit the date of a task with description
 
 #### Positive Test
 1. Enter `deadline CS2113 tp /by 2021-04-20` into the console and you should see the following below:
 
+![](ManualTestingImages/EditingDateOfTaskWithDescription-PositiveTest-1.JPG)
+
 1. Enter `edit tp /date 2021-04-20 /date /2021-04-21` into the console and you should see the following below:
+
+![](ManualTestingImages/EditingDateOfTaskWithDescription-PositiveTest-2.JPG)
 
 1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed changed in the module, and you should see the following below:
 
+![](ManualTestingImages/EditingDateOfTaskWithDescription-PositiveTest-3.JPG)
+
 1. Enter `display /date 2021/04/21` into the console to check if the date of the task tp has been indeed changed in the date, and you should see the following below:
 
+![](ManualTestingImages/EditingDateOfTaskWithDescription-PositiveTest-4.JPG)
 
-#### Negative Test 1: Invalid module code
-1. Enter `edit c/CS2114 tp /date 2021-04-21 /date /2021-04-20` into the console and you should see the following below:
+#### Negative Test 1: Description that does not match any task
+
+1. Enter `edit team_pro /date 2021-04-20 /date /2021-04-21` into the console and you should see the following below:
+
+![](ManualTestingImages/EditingDateOfTaskWithDescription-NegativeTest-1.JPG)
 
 #### Edit the date of a task with description and module code
 
@@ -509,33 +593,62 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 *Note: We carry on from the previous example, so there exist a task on 2021/04/21 tp from before*
 1. Enter `edit c/CS2113 tp /date 2021-04-21 /date /2021-04-20` into the console and you should see the following below:
 
+![](ManualTestingImages/EditingDateOfTaskWithDescriptionAndModuleCode-PositiveTest-1.JPG)
+
 1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed changed in the module, and you should see the following below:
+
+![](ManualTestingImages/EditingDateOfTaskWithDescriptionAndModuleCode-PositiveTest-2.JPG)
    
+1. Enter `display /date 2021/04/20` into the console to check if the date of the task tp has been indeed changed in the date, and you should see the following below:
+
+![](ManualTestingImages/EditingDateOfTaskWithDescriptionAndModuleCode-PositiveTest-3.JPG)
+
 1. Enter `display /date 2021/04/21` into the console to check if the date of the task tp has been indeed changed in the date, and you should see the following below:
 
+![](ManualTestingImages/EditingDateOfTaskWithDescriptionAndModuleCode-PositiveTest-4.JPG)
+
 #### Negative Test 1: Invalid module code
-1. Enter `edit c/CS2114 tp /date 2021-04-21 /date /2021-04-20` into the console and you should see the following below:
+1. Enter `edit c/CS2114 tp /date 2021-04-20 /date /2021-04-21` into the console and you should see the following below:
+
+![](ManualTestingImages/EditingDateOfTaskWithDescriptionAndModuleCode-NegativeTest-1.JPG)
 
 #### Deleting tasks
 **Important! Please do the following before carrying on with the rest of the tests for this section.**
 1. Enter `delete c/CS2113` into the console and you should see the following below:
+
+![](ManualTestingImages/DeletingTasks-1.JPG)
+
 1. Enter `module c/CS2113 a/4` to add the module and you should see the following below:
+
+![](ManualTestingImages/DeletingTasks-2.JPG)
 
 #### Deleting task via description
 
 #### Positive Test
 1. Enter `deadline CS2113 tp /by 2021-04-20` into the console and you should see the following below:
 
+![](ManualTestingImages/DeletingTaskViaDescription-PositiveTest-1.JPG)
+
 1. Enter `delete tp` into the console and you should see the following below:
+
+![](ManualTestingImages/DeletingTaskViaDescription-PositiveTest-2.JPG)
 
 1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:
    
+![](ManualTestingImages/DeletingTaskViaDescription-PositiveTest-3.JPG)   
+*Note: Notice that the deadline has been deleted*   
 1. Enter `display /date 2021/04/20` into the console to check if the date of the task tp has been indeed deleted in the date, and you should see the following below:
+
+![](ManualTestingImages/DeletingTaskViaDescription-PositiveTest-4.JPG)
 
 #### Negative test 1: deleting task with description that does not exist in the app
 1. Add back the deadline by entering `deadline CS2113 tp /by 2021-04-20` into the console and you should see the following below:
 
+![](ManualTestingImages/DeletingTaskViaDescription-NegativeTest-1.JPG)
+
 1. Enter `delete tpp` into the console and you should see the following below:
+
+![](ManualTestingImages/DeletingTaskViaDescription-NegativeTest-2.JPG)
 
 #### Deleting task via description and date
 *Note: Remember that there is already a deadline that was not deleted in the earlier part*
@@ -543,32 +656,55 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 #### Positive test
 1. Enter `delete tp /date 2021-04-20` into the console and you should see the following below:
 
+![](ManualTestingImages/DeletingTaskViaDescriptionAndDate-PositiveTest-1.JPG)
+
 1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:
+
+![](ManualTestingImages/DeletingTaskViaDescriptionAndDate-PositiveTest-2.JPG)
    
 1. Enter `display /date 2021/04/20` into the console to check if the date of the task tp has been indeed deleted in the date, and you should see the following below:
+*Note: Notice that the deadline has been deleted*
+
+![](ManualTestingImages/DeletingTaskViaDescriptionAndDate-PositiveTest-3.JPG)
 
 #### Negative Test 1:Invalid date
 1. Add back the deadline by entering `deadline CS2113 tp /by 2021-04-20` into the console and you should see the following below:
 
+![](ManualTestingImages/DeletingTaskViaDescriptionAndDate-NegativeTest-1.JPG)
+
 1. Enter `delete tp /date 2021-04-aa` into the console and you should see the following below:
 
+![](ManualTestingImages/DeletingTaskViaDescriptionAndDate-NegativeTest-2.JPG)
 
 #### Delete all of a module's task on a certain date
 *Note: Remember that there is already a deadline that was not deleted in the earlier part*
 
 1. Add another deadline by entering `deadline CS2113 tp jar file /by 2021-04-20` into the console and you should see the following below:
 
+![](ManualTestingImages/DeleteAllTaskOnDate-PositiveTest-1.JPG)
+
 1. Enter `delete c/CS2113 /date 2021-04-20` into the console and you should see the following below:
 
+![](ManualTestingImages/DeleteAllTaskOnDate-PositiveTest-2.JPG)
+
 1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:
+*Note: Notice all the tasks of CS2113 has been deleted)
+
+![](ManualTestingImages/DeleteAllTaskOnDate-PositiveTest-3.JPG)   
    
 1. Enter `display /date 2021/04/20` into the console to check if the date of the task tp has been indeed deleted in the date, and you should see the following below:
+*Note: Notice all the tasks of on 2021/04/20 has been deleted)
+
+![](ManualTestingImages/DeleteAllTaskOnDate-PositiveTest-4.JPG)
 
 #### Negative Test 1: Invalid date
 1. Add back the deadline by entering `deadline CS2113 tp /by 2021-04-20` into the console and you should see the following below:
 
+![](ManualTestingImages/DeleteAllTaskOnDate-NegativeTest-1.JPG)
+
 1. Enter `delete c/CS2113 /date 2021-04-2a` into the console and you should see the following below:
 
+![](ManualTestingImages/DeleteAllTaskOnDate-NegativeTest-2.JPG)
 
 #### Delete all of a module's task's with fitting description, on a certain date
 *Note: Remember that there is already a deadline that was not deleted in the earlier part*
@@ -577,16 +713,26 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 1. Add another deadline by entering `deadline CS2113 tp dg /by 2021-04-25` into the console and you should see the following below:
 
+![](ManualTestingImages/DeleteAllTaskWithFittingDescription-PositiveTest-1.JPG)
+
 1. Enter `delete c/CS2113 tp /date 2021-04-20` into the console and you should see the following below:
+
+![](ManualTestingImages/DeleteAllTaskWithFittingDescription-PositiveTest-2.JPG)
 
 1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:
    
+![](ManualTestingImages/DeleteAllTaskWithFittingDescription-PositiveTest-3.JPG)   
+   
 1. Enter `display /date 2021/04/20` into the console to check if the date of the task tp has been indeed deleted in the date, and you should see the following below:
+
+![](ManualTestingImages/DeleteAllTaskWithFittingDescription-PositiveTest-4.JPG)
 
 #### Negative Test: Invalid date
 *Note: Remember that you still have the deadline tp dg by 2021-04-25 in the app*
 
 1. Enter `delete c/CS2113 tp /date 2021-04-2a` into the console and you should see the following below:
+
+![](ManualTestingImages/DeleteAllTaskWithFittingDescription-NegativeTest-1.JPG)
 
 #### Deleting entire module
 
@@ -594,13 +740,21 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 1. Enter `delete c/CS2113` into the console and you should see the following below:
 
+![](ManualTestingImages/DeleteModule-PositiveTest-1.JPG)
+
 1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:
+
+![](ManualTestingImages/DeleteModule-PositiveTest-2.JPG)
 
 #### Negative Test: Module code that does not exist in the app
 
 1. Add the module back by entering `module c/CS2113 a/4` into the console and you should see the following below:
 
+![](ManualTestingImages/DeleteModule-NegativeTest-1.JPG)
+
 1. Enter `delete c/CS2113T` into the console and you should see the following below:
+
+![](ManualTestingImages/DeleteModule-NegativeTest-2.JPG)
 
 #### Exiting the app
 
@@ -608,6 +762,10 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 1. Enter `bye` into the console and you should see the following below:
 
+![](ManualTestingImages/Bye-PositiveTest-1.JPG)
+
 #### Negative Test 1: Invalid input
 
 1. Enter `byee` into the console and you should see the following below:
+
+![](ManualTestingImages/Bye-NegativeTest-1.JPG)
