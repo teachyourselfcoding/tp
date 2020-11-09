@@ -8,7 +8,7 @@ import seedu.exception.InvalidScoreException;
 import seedu.exception.ModuleDoesNotExistException;
 
 /**
- * The base class for all other Command classes to inherit from.
+ * The base for all other Command classes to inherit from.
  */
 public abstract class Command {
     public abstract boolean isExit();
