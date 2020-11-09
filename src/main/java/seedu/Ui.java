@@ -52,12 +52,15 @@ public class Ui {
      */
     public void printHelpGuide() {
         String helpMessage = " This is the list of Command Available, please refer to the User Guide\n"
-                + " display - display today's Schedule, module info, list of Task \n"
-                + " module  - add a module\n"
-                + " add     - add a deadline, event, lesson\n"
-                + " edit    - edit information\n"
-                + " delete  - delete task in a module\n"
-                + " bye    - exit duequest";
+                + " display          - display today's Schedule, module info, list of Task \n"
+                + " module           - add a module\n"
+                + " add              - add a deadline, event, lesson\n"
+                + " edit             - edit information\n"
+                + " delete           - delete task in a module\n"
+                + " assessment       - create an assessment\n"
+                + " delete_assessment- delete an assessment\n"
+                + " score            - score the assessment\n"
+                + " bye              - exit DueQuest";
         print(helpMessage);
         System.out.println(SEPARATOR);
     }
@@ -378,11 +381,13 @@ public class Ui {
         System.out.println(m.getModuleCode());
     }
 
+
     public static void printModulePropertyEditedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Module tasks property has been updated");
         System.out.println(SEPARATOR);
     }
+
 
     public static void printModuleFrequencyEditedMessage() {
         System.out.println(SEPARATOR);
@@ -390,11 +395,13 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+
     public static void printTaskFrequencyEditedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Task's frequency has been updated");
         System.out.println(SEPARATOR);
     }
+
 
     public static void printTaskFrequencyNotEditedMessage() {
         System.out.println(SEPARATOR);
@@ -402,11 +409,13 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+
     public static void printModuleDateEditedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("The tasks' date in this module has been updated");
         System.out.println(SEPARATOR);
     }
+
 
     public static void printModuleDateNotEditedMessage() {
         System.out.println(SEPARATOR);
@@ -414,11 +423,13 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+
     public static void printTaskDateEditedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("The tasks' date has been updated");
         System.out.println(SEPARATOR);
     }
+
 
     public static void printTaskDateNotEditedMessage() {
         System.out.println(SEPARATOR);
@@ -433,17 +444,20 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+
     public static void printModuleTaskDateDeletedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("All task from this module on this date has been deleted");
         System.out.println(SEPARATOR);
     }
 
+
     public static void printModuleTaskDateNotDeletedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Did not find the task that matches your description");
         System.out.println(SEPARATOR);
     }
+
 
     public static void printTaskDeletedMessage() {
         System.out.println(SEPARATOR);
@@ -457,6 +471,7 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+
     public static void printTaskModuleCodeNotDeletedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Did not find the right task to delete");
@@ -468,6 +483,7 @@ public class Ui {
         System.out.println("Did not find task matching module code on this date");
         System.out.println(SEPARATOR);
     }
+
 
     public static void printTaskNotDeletedMessage() {
         System.out.println(SEPARATOR);
@@ -482,11 +498,13 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+
     public static void printTaskNotEditedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Task not found");
         System.out.println(SEPARATOR);
     }
+
 
     public static void printLessonAddedMessage() {
         System.out.println(SEPARATOR);
@@ -494,11 +512,13 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+
     public static void printEventAddedMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Event added to both Schedule manager and Module manager");
         System.out.println(SEPARATOR);
     }
+
 
     public static void printEventAddedtoScheduleOnlyMessage() {
         System.out.println(SEPARATOR);
@@ -506,11 +526,13 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+
     public static void printAddtionalTxtCreationError() {
         System.out.println(SEPARATOR);
         System.out.println("Error: additional.txt file cannot be created.");
         System.out.println(SEPARATOR);
     }
+
 
     public static void printAddtionalTxtWritingError() {
         System.out.println(SEPARATOR);
@@ -518,11 +540,13 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+
     public static void printFileLoadingMessage() {
         System.out.println(SEPARATOR);
         System.out.println("Loading data from the file...");
         System.out.println(SEPARATOR);
     }
+
 
     public static void printFileLoadedMessage() {
         System.out.println(SEPARATOR);
@@ -530,11 +554,13 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+
     public static void printFileMissingError() {
         System.out.println(SEPARATOR);
         System.out.println("Error: the file is not found.");
         System.out.println(SEPARATOR);
     }
+
 
     public static void printFileWritingError() {
         System.out.println(SEPARATOR);
