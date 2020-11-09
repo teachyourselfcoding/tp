@@ -104,7 +104,8 @@ class ScheduleManagerTest {
     void deleteTask_deleteTaskViaDescription_returnsTrue() throws ModuleAlreadyExistsException,
             StartTimeAndEndTimeTooEarlyException, MissingLessonDescriptionException, StartTimeIsAfterEndTimeException,
             InvalidTimeFormatException, EmptyArgumentException, InvalidModuleCodeException, InvalidFrequencyException,
-            StartAndEndTimeSameException, MissingLessonTimingException, ModuleDoesNotExistException {
+            StartAndEndTimeSameException, MissingLessonTimingException, ModuleDoesNotExistException,
+            InvalidDateException {
         ScheduleManager scheduleManager = new ScheduleManager();
         ModuleManager moduleManager = new ModuleManager();
         Ui ui = new Ui();
@@ -125,7 +126,8 @@ class ScheduleManagerTest {
     void deleteTask_deleteTaskViaDescriptionAndModuleCode_returnsTrue() throws ModuleAlreadyExistsException,
             StartTimeAndEndTimeTooEarlyException, MissingLessonDescriptionException, StartTimeIsAfterEndTimeException,
             InvalidTimeFormatException, EmptyArgumentException, InvalidModuleCodeException, InvalidFrequencyException,
-            StartAndEndTimeSameException, MissingLessonTimingException, ModuleDoesNotExistException {
+            StartAndEndTimeSameException, MissingLessonTimingException, ModuleDoesNotExistException,
+            InvalidDateException {
         ScheduleManager scheduleManager = new ScheduleManager();
         ModuleManager moduleManager = new ModuleManager();
         Ui ui = new Ui();
@@ -242,7 +244,7 @@ class ScheduleManagerTest {
             StartTimeIsAfterEndTimeException, InvalidTimeFormatException, EmptyArgumentException,
             StartAndEndTimeSameException, StartTimeAndEndTimeTooEarlyException, WrongDateFormatException,
             ModuleDoesNotExistException, MissingDeadlineTimingDetailsException, MissingDeadlineDescriptionException,
-            InvalidModuleCodeException {
+            InvalidModuleCodeException, InvalidDateException {
         ScheduleManager scheduleManager = new ScheduleManager();
         ModuleManager moduleManager = new ModuleManager();
         Ui ui = new Ui();
