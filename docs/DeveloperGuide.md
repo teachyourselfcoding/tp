@@ -373,7 +373,7 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 ![](ManualTestingImages/AddingALessonPositiveTest-1.JPG)
 
-1. Enter `display CS2113` into the console and you should see if the lesson has been indeed added to the module. You should see the following below:
+2. Enter `display CS2113` into the console and you should see if the lesson has been indeed added to the module. You should see the following below:
 
 ![](ManualTestingImages/AddingALessonPositiveTest-2.JPG)
 
@@ -399,12 +399,12 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 ![](ManualTestingImages/AddingAEvent-PositiveTest-1.JPG)
 
-1. Enter `display /date 2021/05/03` into the console and to see that the event has been indeed added to the date. You should see the following below:
+2. Enter `display /date 2021/05/03` into the console and to see that the event has been indeed added to the date. You should see the following below:
 
 ![](ManualTestingImages/AddingAEvent-PositiveTest-2.JPG)
 
-1. Enter `display CS2113` into the console and to see that the event has been indeed added to the module. You should see the following below:
-*Note: The lesson added previously is still inside CS2113*
+3. Enter `display CS2113` into the console and to see that the event has been indeed added to the module. You should see the following below:
+   *Note: The lesson added previously is still inside CS2113*
 
 ![](ManualTestingImages/AddingAEvent-PositiveTest-3.JPG)
 
@@ -431,12 +431,12 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 ![](ManualTestingImages/AddingADeadline-PositiveTest-1.JPG)
 
-1. Enter `display /date 2021/04/04` into the console and to see that the deadline has been indeed added to the date. You should see the following below:
+2. Enter `display /date 2021/04/04` into the console and to see that the deadline has been indeed added to the date. You should see the following below:
 
 ![](ManualTestingImages/AddingADeadline-PositiveTest-2.JPG)
 
-1. Enter `display CS2113` into the console to see that the deadline has been indeed added to the module. You should see the following below:
-*Note: the lesson and event added before this is still inside CS2113*
+3. Enter `display CS2113` into the console to see that the deadline has been indeed added to the module. You should see the following below:
+   *Note: the lesson and event added before this is still inside CS2113*
 
 ![](ManualTestingImages/AddingADeadline-PositiveTest-3.JPG)
 
@@ -457,8 +457,8 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 ![](ManualTestingImages/AddingAnAssessment-PositiveTest-1.JPG)
 
-1. Enter `display CS2113` into the console to see if the assessment has been indeed added. You should see the following below:
-*Note: the lesson, event and deadline added before is still inside CS2113*
+2. Enter `display CS2113` into the console to see if the assessment has been indeed added. You should see the following below:
+   *Note: the lesson, event and deadline added before is still inside CS2113*
 
 ![](ManualTestingImages/AddingAnAssessment-PositiveTest-2.JPG)
 
@@ -474,7 +474,7 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 ![](ManualTestingImages/AddScoreToAnAssessment-PositiveTest-1.JPG)
 
-1. Enter `display CS2113` into the console to see if the score of the assessment has been indeed added. You should see the following below:
+2. Enter `display CS2113` into the console to see if the score of the assessment has been indeed added. You should see the following below:
 
 ![](ManualTestingImages/AddScoreToAnAssessment-PositiveTest-2.JPG)
 
@@ -495,7 +495,7 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 ![](ManualTestingImages/DeleteAnAssessment-PositiveTest-1.JPG)
 
-1. Enter `display CS2113` into the console to see if the assessment has been indeed deleted. You should see the following below:
+2. Enter `display CS2113` into the console to see if the assessment has been indeed deleted. You should see the following below:
 
 ![](ManualTestingImages/DeleteAnAssessment-PositiveTest-2.JPG)
 
@@ -558,7 +558,7 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 ![](ManualTestingImages/EditingATask-1.JPG)
 
-1. Enter `module c/CS2113 a/4` to add the module and you should see the following below:
+2. Enter `module c/CS2113 a/4` to add the module and you should see the following below:
 
 ![](ManualTestingImages/EditingATask-2.JPG)
 
@@ -569,15 +569,15 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 ![](ManualTestingImages/EditingDateOfTaskWithDescription-PositiveTest-1.JPG)
 
-1. Enter `edit tp /date 2021-04-20 /date /2021-04-21` into the console and you should see the following below:
+2. Enter `edit tp /date 2021-04-20 /date /2021-04-21` into the console and you should see the following below:
 
 ![](ManualTestingImages/EditingDateOfTaskWithDescription-PositiveTest-2.JPG)
 
-1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed changed in the module, and you should see the following below:
+3. Enter `display CS2113` into the console to check if the date of the task tp has been indeed changed in the module, and you should see the following below:
 
 ![](ManualTestingImages/EditingDateOfTaskWithDescription-PositiveTest-3.JPG)
 
-1. Enter `display /date 2021/04/21` into the console to check if the date of the task tp has been indeed changed in the date, and you should see the following below:
+4. Enter `display /date 2021/04/21` into the console to check if the date of the task tp has been indeed changed in the date, and you should see the following below:
 
 ![](ManualTestingImages/EditingDateOfTaskWithDescription-PositiveTest-4.JPG)
 
@@ -595,15 +595,15 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 ![](ManualTestingImages/EditingDateOfTaskWithDescriptionAndModuleCode-PositiveTest-1.JPG)
 
-1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed changed in the module, and you should see the following below:
+2. Enter `display CS2113` into the console to check if the date of the task tp has been indeed changed in the module, and you should see the following below:
 
 ![](ManualTestingImages/EditingDateOfTaskWithDescriptionAndModuleCode-PositiveTest-2.JPG)
-   
-1. Enter `display /date 2021/04/20` into the console to check if the date of the task tp has been indeed changed in the date, and you should see the following below:
+
+3. Enter `display /date 2021/04/20` into the console to check if the date of the task tp has been indeed changed in the date, and you should see the following below:
 
 ![](ManualTestingImages/EditingDateOfTaskWithDescriptionAndModuleCode-PositiveTest-3.JPG)
 
-1. Enter `display /date 2021/04/21` into the console to check if the date of the task tp has been indeed changed in the date, and you should see the following below:
+4. Enter `display /date 2021/04/21` into the console to check if the date of the task tp has been indeed changed in the date, and you should see the following below:
 
 ![](ManualTestingImages/EditingDateOfTaskWithDescriptionAndModuleCode-PositiveTest-4.JPG)
 
@@ -618,7 +618,7 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 ![](ManualTestingImages/DeletingTasks-1.JPG)
 
-1. Enter `module c/CS2113 a/4` to add the module and you should see the following below:
+2. Enter `module c/CS2113 a/4` to add the module and you should see the following below:
 
 ![](ManualTestingImages/DeletingTasks-2.JPG)
 
@@ -629,15 +629,16 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 ![](ManualTestingImages/DeletingTaskViaDescription-PositiveTest-1.JPG)
 
-1. Enter `delete tp` into the console and you should see the following below:
+2. Enter `delete tp` into the console and you should see the following below:
 
 ![](ManualTestingImages/DeletingTaskViaDescription-PositiveTest-2.JPG)
 
-1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:
-   
-![](ManualTestingImages/DeletingTaskViaDescription-PositiveTest-3.JPG)   
-*Note: Notice that the deadline has been deleted*   
-1. Enter `display /date 2021/04/20` into the console to check if the date of the task tp has been indeed deleted in the date, and you should see the following below:
+3. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:   
+   *Note: Notice that the deadline has been deleted*   
+
+![](ManualTestingImages/DeletingTaskViaDescription-PositiveTest-3.JPG)
+
+4. Enter `display /date 2021/04/20` into the console to check if the date of the task tp has been indeed deleted in the date, and you should see the following below:
 
 ![](ManualTestingImages/DeletingTaskViaDescription-PositiveTest-4.JPG)
 
@@ -646,7 +647,7 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 ![](ManualTestingImages/DeletingTaskViaDescription-NegativeTest-1.JPG)
 
-1. Enter `delete tpp` into the console and you should see the following below:
+2. Enter `delete tpp` into the console and you should see the following below:
 
 ![](ManualTestingImages/DeletingTaskViaDescription-NegativeTest-2.JPG)
 
@@ -658,12 +659,12 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 ![](ManualTestingImages/DeletingTaskViaDescriptionAndDate-PositiveTest-1.JPG)
 
-1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:
+2. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:
 
 ![](ManualTestingImages/DeletingTaskViaDescriptionAndDate-PositiveTest-2.JPG)
-   
-1. Enter `display /date 2021/04/20` into the console to check if the date of the task tp has been indeed deleted in the date, and you should see the following below:
-*Note: Notice that the deadline has been deleted*
+
+3. Enter `display /date 2021/04/20` into the console to check if the date of the task tp has been indeed deleted in the date, and you should see the following below:
+   *Note: Notice that the deadline has been deleted*
 
 ![](ManualTestingImages/DeletingTaskViaDescriptionAndDate-PositiveTest-3.JPG)
 
@@ -672,7 +673,7 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 ![](ManualTestingImages/DeletingTaskViaDescriptionAndDate-NegativeTest-1.JPG)
 
-1. Enter `delete tp /date 2021-04-aa` into the console and you should see the following below:
+2. Enter `delete tp /date 2021-04-aa` into the console and you should see the following below:
 
 ![](ManualTestingImages/DeletingTaskViaDescriptionAndDate-NegativeTest-2.JPG)
 
@@ -683,17 +684,17 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 ![](ManualTestingImages/DeleteAllTaskOnDate-PositiveTest-1.JPG)
 
-1. Enter `delete c/CS2113 /date 2021-04-20` into the console and you should see the following below:
+2. Enter `delete c/CS2113 /date 2021-04-20` into the console and you should see the following below:
 
 ![](ManualTestingImages/DeleteAllTaskOnDate-PositiveTest-2.JPG)
 
-1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:
-*Note: Notice all the tasks of CS2113 has been deleted)
+3. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:
+   *Note: Notice all the tasks of CS2113 has been deleted)*
 
-![](ManualTestingImages/DeleteAllTaskOnDate-PositiveTest-3.JPG)   
-   
-1. Enter `display /date 2021/04/20` into the console to check if the date of the task tp has been indeed deleted in the date, and you should see the following below:
-*Note: Notice all the tasks of on 2021/04/20 has been deleted)
+![](ManualTestingImages/DeleteAllTaskOnDate-PositiveTest-3.JPG)
+
+4. Enter `display /date 2021/04/20` into the console to check if the date of the task tp has been indeed deleted in the date, and you should see the following below:
+   *Note: Notice all the tasks of on 2021/04/20 has been deleted)*
 
 ![](ManualTestingImages/DeleteAllTaskOnDate-PositiveTest-4.JPG)
 
@@ -702,7 +703,7 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 ![](ManualTestingImages/DeleteAllTaskOnDate-NegativeTest-1.JPG)
 
-1. Enter `delete c/CS2113 /date 2021-04-2a` into the console and you should see the following below:
+2. Enter `delete c/CS2113 /date 2021-04-2a` into the console and you should see the following below:
 
 ![](ManualTestingImages/DeleteAllTaskOnDate-NegativeTest-2.JPG)
 
@@ -715,15 +716,15 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 ![](ManualTestingImages/DeleteAllTaskWithFittingDescription-PositiveTest-1.JPG)
 
-1. Enter `delete c/CS2113 tp /date 2021-04-20` into the console and you should see the following below:
+2. Enter `delete c/CS2113 tp /date 2021-04-20` into the console and you should see the following below:
 
 ![](ManualTestingImages/DeleteAllTaskWithFittingDescription-PositiveTest-2.JPG)
 
-1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:
-   
-![](ManualTestingImages/DeleteAllTaskWithFittingDescription-PositiveTest-3.JPG)   
-   
-1. Enter `display /date 2021/04/20` into the console to check if the date of the task tp has been indeed deleted in the date, and you should see the following below:
+3. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:
+
+![](ManualTestingImages/DeleteAllTaskWithFittingDescription-PositiveTest-3.JPG)
+
+4. Enter `display /date 2021/04/20` into the console to check if the date of the task tp has been indeed deleted in the date, and you should see the following below:
 
 ![](ManualTestingImages/DeleteAllTaskWithFittingDescription-PositiveTest-4.JPG)
 
@@ -742,7 +743,7 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 ![](ManualTestingImages/DeleteModule-PositiveTest-1.JPG)
 
-1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:
+2. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:
 
 ![](ManualTestingImages/DeleteModule-PositiveTest-2.JPG)
 
@@ -752,7 +753,7 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 ![](ManualTestingImages/DeleteModule-NegativeTest-1.JPG)
 
-1. Enter `delete c/CS2113T` into the console and you should see the following below:
+2. Enter `delete c/CS2113T` into the console and you should see the following below:
 
 ![](ManualTestingImages/DeleteModule-NegativeTest-2.JPG)
 
