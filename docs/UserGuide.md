@@ -121,13 +121,11 @@ Got it, added lesson to the schedule manager!
 lesson online tutorial CS1234 /on 4 08:00 10:00
 Got it, added lesson to the schedule manager!
 <-------------------------------------------------------------->
-.
-.
+
 ```
-* If you try to add a lesson that already exist
++ If you try to add a lesson that already exist
 ```
-.
-.
+
 <-------------------------------------------------------------->
 lesson online tutorial CS1234 /on 4 08:00 10:00
 <-------------------------------------------------------------->
@@ -136,8 +134,8 @@ Clashes detected, task is not added.
 <-------------------------------------------------------------->
 Please type the next command!
 <-------------------------------------------------------------->
-
 ```
+
 ## Adding an event: `event`
 
 Adds an Event associated with a module into the Schedule Manager and Module Manager.
