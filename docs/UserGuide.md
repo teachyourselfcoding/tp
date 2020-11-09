@@ -121,24 +121,24 @@ Got it, added lesson to the schedule manager!
 lesson online tutorial CS1234 /on 4 08:00 10:00
 Got it, added lesson to the schedule manager!
 <-------------------------------------------------------------->
-.
-.
+
 ```
-* If you try to add a lesson that already exist
+
++ If you try to add a lesson that already exist
+
+
+
 ```
-.
-.
 <-------------------------------------------------------------->
 lesson online tutorial CS1234 /on 4 08:00 10:00
-(╯°□°）╯︵ ┻━┻
 <-------------------------------------------------------------->
 Clashes detected, task is not added.
 <-------------------------------------------------------------->
 <-------------------------------------------------------------->
 Please type the next command!
 <-------------------------------------------------------------->
-
 ```
+
 ## Adding an event: `event`
 
 Adds an Event associated with a module into the Schedule Manager and Module Manager.
@@ -175,9 +175,9 @@ Event added to both Schedule manager and Module manager
 
 
 * If you try to add a lesson that already exist
+
 ```
 event ST2113 final exam /at 2021-05-03 14:00 16:00 LT14
-(╯°□°）╯︵ ┻━┻
 <-------------------------------------------------------------->
 Clashes detected, task is not added.
 <-------------------------------------------------------------->
@@ -185,6 +185,7 @@ Clashes detected, task is not added.
 Please type the next command!
 <-------------------------------------------------------------->
 ```
+
 ## Adding a deadline: `deadline`
 
 Adds a deadline of an assignment into the Schedule Manager and Module Manager.
@@ -325,7 +326,6 @@ Inputting a module that doesn't exist
 ```
 <-------------------------------------------------------------->
 score CT2113 TPv2 100
-(ノಠ益ಠ)ノ彡┻━┻
 <-------------------------------------------------------------->
 Module does not exist, please add the module first!
 <-------------------------------------------------------------->
@@ -338,7 +338,6 @@ Inputting an assessment that does not exist
 ```
 <-------------------------------------------------------------->
 score CS2113 TPv2 100
-(ノಠ益ಠ)ノ彡┻━┻
 <-------------------------------------------------------------->
 There is no assessment with the title TPv2 in Module CS2113 
 <-------------------------------------------------------------->
@@ -758,7 +757,6 @@ Adding a lesson
 ```
 <-------------------------------------------------------------->
 lesson online lecture ST2113 /on 5 16:00 18:00
-(◕‿◕✿)
 <-------------------------------------------------------------->
 Got it, added lesson to the Schedule Manager and Module Manager!
 <-------------------------------------------------------------->
@@ -788,7 +786,6 @@ Deleting all task on Jan 15
 ```
 <-------------------------------------------------------------->
 delete c/ST2113 /date 2021-01-15
-(◕‿◕✿)
 <-------------------------------------------------------------->
 All task from this module on this date has been deleted
 <-------------------------------------------------------------->
@@ -930,7 +927,6 @@ Deleting all task on Jan 15 that matches "online lecture"
 ```
 <-------------------------------------------------------------->
 delete c/ST2113 online lecture /date 2021-01-15
-(◕‿◕✿)
 <-------------------------------------------------------------->
 All task from this module on this date has been deleted
 <-------------------------------------------------------------->
