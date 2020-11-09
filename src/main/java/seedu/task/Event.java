@@ -44,6 +44,11 @@ public class Event extends Task {
                 + ")";
     }
 
+    @Override
+    public LocalDate getDate() {
+        return LocalDate.parse(dateOfEvent);
+    }
+
     public String getAt() {
         return at;
     }

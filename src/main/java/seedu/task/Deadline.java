@@ -32,6 +32,7 @@ public class Deadline extends Task {
         return by;
     }
 
+    @Override
     public LocalDate getDate() {
         return convertStringToDate(by);
     }

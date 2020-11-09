@@ -175,8 +175,8 @@ public class Parser {
         } catch (DateTimeParseException e) {
             throw new WrongDateFormatException();
         }
-        if (LocalDate.parse(byInfo).isAfter(LocalDate.of(2021, 6, 1))
-            || LocalDate.parse(byInfo).isBefore(LocalDate.of(2020, 10, 12))) {
+        if (LocalDate.parse(byInfo).isAfter(LocalDate.of(2021, 5, 31))
+            || LocalDate.parse(byInfo).isBefore(LocalDate.of(2021, 1, 1))) {
             throw new InvalidDateException();
         }
         String description = moduleCodeAndDescription[1].trim();
@@ -237,8 +237,8 @@ public class Parser {
             throw new WrongDateFormatException();
         }
 
-        if (LocalDate.parse(dateOfEvent).isAfter(LocalDate.of(2021, 6, 1))
-                || LocalDate.parse(dateOfEvent).isBefore(LocalDate.of(2020, 10, 12))) {
+        if (LocalDate.parse(dateOfEvent).isAfter(LocalDate.of(2021, 5, 31))
+                || LocalDate.parse(dateOfEvent).isBefore(LocalDate.of(2021, 1, 1))) {
             throw new InvalidDateException();
         }
         String startTime = splitDateTimeLocationDetails[1];
@@ -601,11 +601,10 @@ public class Parser {
                         || moduleProperty.equals("au")
                         || moduleProperty.equals("modulecode")
                 ) {
-                    System.out.println("test");
                     Storage.getStorage().exportAdditionalData(input);
                     return new EditModuleCommand(moduleCode, moduleProperty, newModuleProperty);
                 } else {
-                    System.out.println("Invalid input");
+                    Ui.printInvalidInputMessage();
                 }
             }
         } else {
@@ -635,7 +634,6 @@ public class Parser {
                     Storage.getStorage().exportAdditionalData(input);
                     return new EditTaskCommand(description, date, type, newValue);
                 }
-                System.out.println("test 1");
                 Storage.getStorage().exportAdditionalData(input);
                 return new EditModuleCommand(moduleCode, description, date, type, newValue);
             } catch (DateTimeException e) {
@@ -672,8 +670,7 @@ public class Parser {
                 throw new WrongDateFormatException();
             }
         default:
-            System.out.println("Wrong type");
-            System.out.println(type);
+            Ui.printInvalidEditTypeMessage();
             return null;
         }
     }

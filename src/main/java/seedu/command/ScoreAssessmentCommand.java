@@ -39,6 +39,7 @@ public class ScoreAssessmentCommand extends Command {
                 if (module.assessments.get(i).title.equals(this.title)) {
                     module.assessments.get(i).setAttemptScore(this.attemptScore);
                     Storage.getStorage().exportData(moduleManager, module.getModuleCode());
+                    Ui.printSuccessfulScoreAssessment(module.assessments.get(i));
                     return;
                 }
             }

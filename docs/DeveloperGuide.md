@@ -26,11 +26,13 @@
 6. Testing
     - Running Tests
     - Types of Tests
-7. Product Scope
-    - Target User Profile
-    - Value Proposition
-    - User Stories
-8. Glossary
+7. Appendices
+    - Appendix A: Product Scope
+    - Appendix B: User Stories
+    - Appendix C: Non Functional Requirements
+    - Appendix D: Glossary
+    - Appendix E: Instructions for Manual Testing
+    
 
 ## 1. Introduction
 
@@ -63,15 +65,22 @@ File` ).
 ## 3. Design
 
 ### Architecture
-The diagram below shows a flow chart which gives an overall general picture of how the
-application works whenever the application receives an input from the user and a shows how
-each component interacts with one another for different scenarios. The logic behind the
-application is mostly handled by the `Parser` which converts inputs into various executable
-`Command`.
+The diagram below shows a flow chart which gives an overall general picture of how the application works whenever the application receives an input from the user and a shows how each component interacts with one another for different scenarios. The logic behind the application is mostly handled by the `Parser` which converts inputs into various executable `Command`.
 
 ![](Images/3.1Archi.jpg)
 
+### Module Component 
+
+![](Module-4838589.jpg)
+
+
+
+`ModuleManager` is the class that maintains the list of `Module` for the app and provides appropriate API to manipulate these modules. `Module` class has attributes such as `moduleCode`, `title`, `auNumber` and `teachingSatffs`, and it also keeps the records of `Assessment` (e.g. assignments, exams, etc.) 
+
+To manipulate the module, the developer needs to access it from `ModuleManager`, generally through APIs such as `getModule(moduleCode: String)` . 
+
 ### Task Component
+
 Each `Task` can be a `Lesson`, `Event` or `Deadline`. Below is a UML diagram showing
 some of the properties and methods that these classes have. A `Task` will be created
 whenever a User wants to add a Task into the `ScheduleManager` or `ModuleManager`.
@@ -105,6 +114,9 @@ either the `ScheduleManager` or `ModuleManager` or both.
 | `EditTaskCommand` | -- |
 | `HelpCommand` | A child class of `Command` which helps to provides the list of inputs for the user to know what to type in to use any of the features he wants. |
 | `ExitCommand` | A child class of `Command` which helps to exit the app. |
+| `AddAssessmentCommand` | A child class of `Command` which adds assessment to the module. |
+| `ScoreAssessmentCommand` | A child class of `Command` which adds actual score to the assessment. |
+| `DeleteAssessmentCommand` | A child class of `Command` which deletes the assessment from the module. |
 
 ### Managers
 The application consists of two managers, the `ScheduleManager` and `ModuleManager`. The
@@ -276,20 +288,30 @@ For this project, we are using one type of test:
 - Unit Test.
 - For eg, seedu.duequest.ModuleManagerTest.
 
-## Product scope
+Appendices
+Appendix A: Product Scope
+Appendix B: User Stories
+Appendix C: Non Functional Requirements
+Appendix D: Glossary
+APpendix E: Instructions for Manual Testing
 
-### Target user profile
+## 7. Appendices
 
-The target user for our app is for NUS Students who hope to have a platform for them to
-manage their schedule and work in the school semester
+### Appendix A: Product Scope 
 
+#### Target user profile
 
-### Value proposition
+The target user for our app is for:
+ - NUS Students who hope to have a platform for them to manage their schedule and work in the school semester.
+ - Users who can type fast.
+ - Users who are reasonably comfortable using CLI applications. 
 
-This app helps NUS Students by keeping them on track with their schedule and work on a daily basis. Thus,
-reducing the chances of them forgetting about any work related to school.
+#### Value proposition
 
-### User Stories 
+To help NUS Students by keeping them on track with their schedule and work on a daily basis using a CLI driven app.
+Thus, reducing the chances of them forgetting about any work related to school.
+
+### Appendix B: User Stories 
 
 ![](Images/userstories.PNG)
 This is an example of how we originally tackle the user stories.
@@ -297,7 +319,166 @@ This is an example of how we originally tackle the user stories.
 * The green or orange highlight is to group similar features together
 * The Strikethrough is when a feature is redundant or unneccessary at the stage of planning
 
-## Glossary
+### Appendix C: Non Functional Requirements
 
-* *glossary item* - Definition
+1. Should work on any *mainstream OS* as long as it has Java `11` or above installed.
+1. Should be quick enough to take in input from the user and show output for the user.
+1. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should 
+be able to accomplish most of the tasks faster using commands than using the mouse.
+
+### Appendix D: Glossary
+
+* **Mainstream OS**: Windows, Linux, Unix, OS-X
+
+### Appendix E: Instructions for Manual Testing
+
+Given below are instructions to test the app manually.
+
+#### Initial Launch
+1. Download the latest executable jar file from our latest release.
+1. Copy the jar file into an empty folder.
+1. Run the program using the command line by inputting `java -jar DueQuestv2.1jar`.
+1. You should see the following below
+
+
+
+#### Adding a module
+
+#### Positive Test
+1. Enter `module c/CS2113 a/4 s/Dr.Akshay s/ChengChen` into the console and you should see the following below:
+
+#### Negative Test 1: Duplicate module code
+1. Enter `module c/CS2113 a/4 s/Dr.Akshay s/ChengChen` again into the console and you should see the following below:
+
+#### Negative Test 2: Invalid module code
+1. Enter `module c/cs2113 a/4 s/Dr.Akshay s/ChengChen` into the console and you should see the following below:
+
+#### Negative Test 3: au not specified
+1. Enter `module c/ST2113` into the console and you should see the following below:
+
+#### Adding Tasks.
+
+There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
+
+#### Adding a Lesson
+
+#### Positive Test
+1. Enter `lesson online lecture CS2113 /on 5 16:00 18:00` into the console and you should see the following below:
+
+1. Enter `display CS2113` into the console and you should see if the lesson has been indeed added to the module. You should see the following below:
+
+#### Negative Test 1: A module code that does not exist in the ModuleManager
+1. Enter `lesson online lecture MA2113 /on 5 16:00 18:00` into the console and you should see the following below:
+
+#### Negative Test 2: Invalid Start Time 
+1. Enter `lesson online lecture CS2113 /on 5 16:aa 18:00` into the console and you should see the following below:
+
+#### Negative Test 3: Invalid frequency
+1. Enter `lesson online lecture CS2113 /on 8 16:00 18:00` into the console and you should see the following below:
+
+
+#### Adding an Event
+
+#### Positive Test
+1. Enter `event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14` into the console and you should see the following below:
+
+1. Enter `display /date 2021/05/03` into the console and to see that the event has been indeed added to the date. You should see the following below:
+
+1. Enter `display CS2113` into the console and to see that the event has been indeed added to the module. You should see the following below:
+
+
+#### Negative Test 1: A module code that does not exist in the ModuleManager
+1. Enter `event MA3333 final exam /at 2021-05-03 14:00 16:00 LT14` into the console and you should see the following below:
+
+#### Negative Test 2: A date that is out of range (meaning not between 1 January 2021 and 31 May 2021)
+1. Enter `event CS2113 final exam /at 2021-06-01 14:00 16:00 LT14` into the console and you should see the following below:
+
+#### Negative Test 3: A start time that is too early
+1. Enter `event CS2113 final exam /at 2021-05-01 07:00 10:00 LT14` into the console and you should see the following below:
+
+
+#### Adding an Deadline
+
+#### Positive Test
+1. Enter `deadline CS2113 TP version 1 /by 2021-04-04` into the console and you should see the following below:
+
+1. Enter `display /date 2021/04/04` into the console and to see that the deadline has been indeed added to the date. You should see the following below:
+
+1. Enter `display CS2113` into the console to see that the deadline has been indeed added to the module. You should see the following below:
+
+#### Negative Test 1: deadline with empty description
+1. Enter `deadline CS2113  /by 2021-04-04` into the console and you should see the following below:
+
+#### Negative Test 2: deadline with invalid date format
+1. Enter `deadline CS2113 TP version 1 /by 2021-4-4` into the console and you should see the following below:
+
+#### Adding an Assessment
+
+#### Positive Test
+1. Enter `assessment CS2113 TP 100` into the console and you should see the following below:
+
+1. Enter `display CS2113` into the console to see if the assessment has been indeed added. You should see the following below:
+
+#### Negative Test 1: Missing assessment title name
+1. Enter `assessment CS2113 100` into the console and you should see the following below:
+
+#### Add score to an assessment
+
+#### Positive Test
+1. Enter `score CS2113 TP 100` into the console and you should see the following below:
+
+1. Enter `display CS2113` into the console to see if the score of the assessment has been indeed added. You should see the following below:
+
+#### Negative Test 1: Adding score to an assessment with a title that does not exist in the module.
+1. Enter `score CS2113 aa 100` into the console and you should see the following below:
+
+#### Negative Test 2: Adding score to an assessment to a module that does not exist
+1. Enter `score CT2113 TP 100` into the console and you should see the following below:
+
+#### Delete an assessment
+
+#### Positive Test
+1. Enter `delete_assessment CS2113 TP` into the console and you should see the following below:
+
+1. Enter `display CS2113` into the console to see if the assessment has been indeed deleted. You should see the following below:
+
+
+#### Negative Test 1: Deleting of an assessment that does not exist
+1. Enter `delete_assessment CS2113 aa` into the console and you should see the following below:
+
+#### Display
+
+#### Positive Test
+1. Enter `display CS2113` into the console and you should see the following below:
+
+#### Negative Test 1: Module code that does not exist
+1. Enter `display CS2113T` into the console and you should see the following below:
+
+#### Display all the task in a module on a date
+
+#### Positive Test
+1. Enter `display CS2113 /date 2021/04/04` into the console and you should see the following below:
+
+#### Negative Test 1: Invalid date
+1. Enter `display CS2113 /date 2021/04/0a` into the console and you should see the following below:
+
+
+#### Display all the task on a date
+
+#### Positive Test
+1. Enter `display /date 2021/05/03` into the console and you should see the following below:
+
+
+#### Negative Test 1: Invalid Date: Date not between 1 January 2021 and 31 May 2021
+1. Enter `display /date 2020/12/31` into the console and you should see the following below:
+
+#### Display all the task on a range of date
+
+#### Positive Test
+1. Enter `display /date 2021/05/02-2021/05/05` into the console and you should see the following below:
+
+#### Negative Test 1: Invalid date format
+1. Enter `display /date 2021/00/02-2021/06/05` into the console and you should see the following below:
+
+
 
