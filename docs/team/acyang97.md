@@ -30,10 +30,12 @@ See the [RepoSense Dashboard here](https://nus-cs2113-ay2021s1.github.io/tp-dash
     - Wrote table of contents.
     - Wrote introduction.
     - Wrote details on setting up. 
+    - Helped with drawing of diagram in Architecture Diagram.
     - Wrote and drew diagram in Task component in the Design Component.
-    - Wrote and drew diagram in Command component in the Design Component.
-    - Wrote and drew diagram in Managers component in the Design Component.
+    - Helped with writing and drawing of diagram in Command component in the Design Component.
+    - Wrote and drew diagram in Managers component in the Design Component, including the design considerations.
     - Wrote and drew diagram in Add Feature in the Implementation Component.
+    - Helped with writing of Manual Testing.
    
 ### Contributions to team-based tasks
 - Helped with solving some checkstyle issues.

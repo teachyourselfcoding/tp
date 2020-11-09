@@ -28,10 +28,6 @@ public class Deadline extends Task {
         return "[D] " + super.toString() + " - " + super.moduleCode + " "  + " (by: " + by + ")";
     }
 
-    public String getTimingInfo() {
-        return by;
-    }
-
     @Override
     public LocalDate getDate() {
         return convertStringToDate(by);
