@@ -576,24 +576,31 @@ Format: `edit TASKNAME /date DATE /ATTRIBUTES /NEW_VALUE`
 Example of Usage: 
 
 ```
-deadline CS2113 tp /by 2021-02-21
-Got it, added deadline to Schedule Manager and Module Manager
+edit tp /date 2021-04-01 /date /2021-05-01
 <-------------------------------------------------------------->
-Please type the command!
+1 or more tasks has been deleted
 <-------------------------------------------------------------->
-edit tp /date 2020-10-16 /date /2020-10-15
-
 <-------------------------------------------------------------->
-Please type the command!
+The tasks' date has been updated
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
+Done. The edit has been made.
+<-------------------------------------------------------------->
+Please type the next command!
 <-------------------------------------------------------------->
 display CS2113
 
 Course: CS2113
 Title: null
-AU: 0
+AU: 4
 Teaching Staffs: []
+Assessment : 
+test_case(0.00/1.00)
+
 The list of task in CS2113:
-[D]CS2113 tp (by: 2020-10-15)
+[L] online lecture - CS2113 FRIDAY 16:00 18:00
+[D] tp - CS2113  (by: 2021-05-01)
+
 <-------------------------------------------------------------->
 ```
 2) Edit the parameter(description, date, frequency, module code, time) of a certain module's task
@@ -602,25 +609,34 @@ Format: `edit c/MODULE_CODE TASKNAME /date DATE /ATTRIBUTES /NEW_VALUE`
 Example of Usage: 
 
 ```
-deadline CS2113 tp /by 2020-10-16
-Got it, added deadline to Schedule Manager and Module Manager
+edit c/CS2113 tp /date 2021-05-01 /date /2021-05-02
+<-------------------------------------------------------------->
+1 or more tasks has been deleted
 <-------------------------------------------------------------->
 <-------------------------------------------------------------->
-Please type the command!
+The tasks' date in this module has been updated
 <-------------------------------------------------------------->
-edit c/CS2113 tp /date 2020-10-16 /date /2020-10-15
-
 <-------------------------------------------------------------->
-Please type the command!
+Cant find a matching task
+<-------------------------------------------------------------->
+<-------------------------------------------------------------->
+Done. The edit has been made.
+<-------------------------------------------------------------->
+Please type the next command!
 <-------------------------------------------------------------->
 display CS2113
 
 Course: CS2113
 Title: null
-AU: 0
+AU: 4
 Teaching Staffs: []
+Assessment : 
+test_case(0.00/1.00)
+
 The list of task in CS2113:
-[D]CS2113 tp (by: 2020-10-15)
+[L] online lecture - CS2113 FRIDAY 16:00 18:00
+[D] tp - CS2113  (by: 2021-05-02)
+
 <-------------------------------------------------------------->
 ```
 ## Delete tasks of a description:  `delete DESCRIPTION` 
@@ -637,31 +653,25 @@ Format: `delete DESCRIPTION`
 Example of Usage:
 
 ```
-<-------------------------------------------------------------->
-deadline CS2113 tp /by 2020-10-16
-Got it, added deadline to Schedule Manager and Module Manager
-<-------------------------------------------------------------->
-<-------------------------------------------------------------->
-Please type the command!
-<-------------------------------------------------------------->
 delete tp
 <-------------------------------------------------------------->
-Please type the command!
+No task matching description or module code or date found
+<-------------------------------------------------------------->
+Please type the next command!
 <-------------------------------------------------------------->
 display CS2113
 
 Course: CS2113
 Title: null
-AU: 0
+AU: 4
 Teaching Staffs: []
+Assessment : 
+test_case(0.00/1.00)
+
 The list of task in CS2113:
-You don't have any tasks!
+[L] online lecture - CS2113 FRIDAY 16:00 18:00
 
 <-------------------------------------------------------------->
-<-------------------------------------------------------------->
-Please type the command!
-<-------------------------------------------------------------->
-
 ```
 
 2)Delete all tasks of a description on a certain date: 
@@ -674,15 +684,10 @@ Format: `delete DESCRIPTION /date DATE`
 Example of Usage
 
 ```
+delete online lecture /date 2021-04-16
 <-------------------------------------------------------------->
-Please type the next command!
+1 or more tasks has been deleted
 <-------------------------------------------------------------->
-delete tp
-null
-1 or more taks matching description has been deleted
-Please type the next command!
-<-------------------------------------------------------------->
-
 ```
 3)Delete all of a module's task on a certain date
 
@@ -854,7 +859,7 @@ Got it, added deadline to Schedule Manager and Module Manager
 <-------------------------------------------------------------->
 <-------------------------------------------------------------->
 Please type the command!
-===================
+<-------------------------------------------------------------->
 delete c/CS2113 tpv2 /date 2021-01-15
 <-------------------------------------------------------------->
 Please type the command!
@@ -897,12 +902,9 @@ CS2113 v1
 ```
 Adding a lesson
 ```
-<-------------------------------------------------------------->
 lesson online lecture ST2113 /on 5 16:00 18:00
-(◕‿◕✿)
 <-------------------------------------------------------------->
 Got it, added lesson to the Schedule Manager and Module Manager!
-<-------------------------------------------------------------->
 <-------------------------------------------------------------->
 Please type the next command!
 <-------------------------------------------------------------->
