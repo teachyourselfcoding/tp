@@ -53,8 +53,8 @@ public class DeleteCommand extends Command {
     public void execute(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui) {
         if (moduleCode == null) {
             if (this.date == null) { //delete task with no date
-                scheduleManager.deleteTask(description.trim());
-                moduleManager.deleteModuleTasks(description.trim());
+                scheduleManager.deleteTask(description.strip());
+                moduleManager.deleteModuleTasks(description.strip());
                 return;
             }
             scheduleManager.deleteTask(description, date); //delete task with date, with description
