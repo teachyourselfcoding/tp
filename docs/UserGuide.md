@@ -25,7 +25,7 @@ The storage directory that contains storage files (in `.txt` format) can be spec
 
 + The information will be imported and exported automatically by the app. 
 
-+ If you see the error message when loading, such as `No proper comman detected`, please check if the files are modified accidentally. 
++ If you see the error message when loading, such as `No proper comman detected`, please check if the files are modified accidentally or try deleting the files to make the app before launching again. 
 
 ## Add a Module: `module`
 
@@ -198,8 +198,6 @@ Format: `deadline MODULECODE DESCRIPTION /by DATE_OF_DEADLINE `
 * You **can** add more than one of the same deadline to the same day and time. This is not a bug.
 
 
-
-
 Examples input:
 * If you want to add a deadline for CS2113 for TP at 4th April 2021, input `deadline CS2113 TP /by 2021-04-04`
 
@@ -207,12 +205,6 @@ Examples input:
 deadline CS2113 TP /by 2021-04-04
 Got it, added deadline to Schedule Manager and Module Manager
 <-------------------------------------------------------------->
-```
-```
-deadline CS2113 TP version 1 /by 2021-04-04
-Got it, added deadline to Schedule Manager and Module Manager
-<-------------------------------------------------------------->
-
 display CS2113
 
 Course: CS2113
@@ -220,12 +212,13 @@ Title: null
 AU: 4
 Teaching Staffs: []
 Assessment : 
+test_case(0.00/1.00)
 
 The list of task in CS2113:
 [L] online lecture - CS2113 FRIDAY 16:00 18:00
-[E] CS2113 final exam (14:00 2021-05-03 at LT14)
-[D] TP version 1 - CS2113  (by: 2021-04-04)
-[D] TP version 1 - CS2113  (by: 2021-04-04)
+[D] TP - CS2113  (by: 2021-04-04)
+
+<-------------------------------------------------------------->
 ```
 
 ## Adding an assessment: `assessment` 
@@ -388,7 +381,7 @@ Example input:
 
 `display`
 
-Disabled Feature output
+Disabled Feature output (due to the current date not being SEM 2)
 ```
 display
 <-------------------------------------------------------------->
@@ -398,12 +391,37 @@ Please proceed to using other type of Display Commands
 <-------------------------------------------------------------->
 ```
 
+Full Feature Enabled output (if current date is in SEM 2):
+
+```
+display
+Today's Schedule:
+08:00 
+09:00 
+10:00 
+11:00 
+12:00 
+13:00 
+14:00 
+15:00 
+16:00 online lecture - CS2113 |
+17:00 online lecture - CS2113 |
+18:00
+19:00
+20:00
+21:00
+22:00
+23:00
+
+Today's deadline:
+You don't have any deadline!
+```
 
 ## Display all the task in a module: `display  MODULECODE`
 
  Display task in a specific module
 
- Format: `display  MODULECODE`
+ Format: `display MODULECODE`
  Example of Usage
 
  * `display CS2113`
@@ -558,10 +576,8 @@ Format: `edit TASKNAME /date DATE /ATTRIBUTES /NEW_VALUE`
 Example of Usage: 
 
 ```
-<-------------------------------------------------------------->
-deadline CS2113 tp /by 2020-10-16 
+deadline CS2113 tp /by 2021-02-21
 Got it, added deadline to Schedule Manager and Module Manager
-<-------------------------------------------------------------->
 <-------------------------------------------------------------->
 Please type the command!
 <-------------------------------------------------------------->
