@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AssessmentTest {
     @Test
-    void Constructor_InvalidInput_throwsException() {
+    void constructor_InvalidInput_throwsException() {
         assertThrows(EmptyArgumentException.class, () -> {
             new Assessment(null, 5);
         });
@@ -65,7 +65,7 @@ public class AssessmentTest {
     }
 
     @Test
-    void AddAssessmentCommandExecute_invalidModule_throwsModuleNotExistsException() {
+    void addAssessmentCommandExecute_invalidModule_throwsModuleNotExistsException() {
         ModuleManager moduleManager = new ModuleManager();
         ScheduleManager scheduleManager = new ScheduleManager();
         Ui ui = new Ui();
@@ -78,7 +78,7 @@ public class AssessmentTest {
     }
 
     @Test
-    void DeleteAssessmentCommandExecute_NoSuchAssessmentAndModule() {
+    void deleteAssessmentCommandExecute_NoSuchAssessmentAndModule() {
         ModuleManager moduleManager = new ModuleManager();
         ScheduleManager scheduleManager = new ScheduleManager();
         Ui ui = new Ui();
@@ -97,14 +97,14 @@ public class AssessmentTest {
 
 
     @Test
-    void ParserValidateAddCommand_wrongSyntax_throwsInvalidArgumentsException() {
+    void parserValidateAddCommand_wrongSyntax_throwsInvalidArgumentsException() {
         assertThrows(InvalidArgumentsException.class, () -> Parser.validateAddAssessmentCommand("assessment "));
         assertThrows(InvalidArgumentsException.class, () -> Parser.validateAddAssessmentCommand("assessment 100"));
     }
 
     @Test
-    void ParserValidateDeleteCommand_wrongSyntax_throwsInvalidArgumentsException() {
-        assertThrows(InvalidArgumentsException.class,
-                () -> Parser.validateDeleteAssessmentCommand("delete_assessment "));
+    void parserValidateDeleteCommand_wrongSyntax_throwsInvalidArgumentsException() {
+        assertThrows(InvalidArgumentsException.class, () ->
+                Parser.validateDeleteAssessmentCommand("delete_assessment "));
     }
 }
