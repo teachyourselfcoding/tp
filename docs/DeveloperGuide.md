@@ -71,7 +71,7 @@ The diagram below shows a flow chart which gives an overall general picture of h
 
 ### Module Component 
 
-![](Module-4838589.jpg)
+![](Module.png)
 
 `ModuleManager` is the class that maintains the list of `Module` for the app and provides appropriate API to manipulate these modules.  
 
@@ -125,9 +125,10 @@ either the `ScheduleManager` or `ModuleManager` or both.
 
 ### Managers
 The application consists of two managers, the `ScheduleManager` and `ModuleManager`. The
-`ScheduleManager` will handle the storing of `Task` in each day. The `ModuleManager` will
-handle storing the task of each `Module`. Below is a UML Diagram showing some of the key
-methods and properties of the `ScheduleManager` and `ModuleManager` classes.
+ `ScheduleManager` will handle the storing of `Task` in each day. The `ModuleManager` will
+handle storing the task of each `Module`. 
+
+Below is a UML Diagram showing some of the key methods and properties of the `ScheduleManager` and `ModuleManager` classes.
 
 ![](Images/3.4Managers.JPG)
 
@@ -152,8 +153,11 @@ Some Design Considerations on how to store the `Task` in the `ScheduleManager`:
     - Cons: Might be tricky to implement and may need more resources.
   
 ### Storage
-The application will save all of the user inputs by using a `Storage` class, which is designed as
-singleton.
+The application will save all of the application's data to a local directory (specified when launching the `jar` file) by using a `Storage` class, which is designed as singleton and can only be created and assessed through public class methods of Storage.
+
+When `DueQuest` is launched, The `Storage` instance will be created 
+
+Below is the UML of `Storage`:
 
 ![](Images/3.5Stroage.JPG)
 
