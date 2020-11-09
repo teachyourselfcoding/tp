@@ -482,3 +482,132 @@ There are three types of tasks to add: `Lesson`, `Event` and `Deadline`
 
 
 
+#### Editing a task
+**Important! Please do the following before carrying on with the rest of the tests for this section.**
+1. Enter `delete c/CS2113` into the console and you should see the following below:
+1. Enter `module c/CS2113 a/4` to add the module and you should see the following below:
+
+
+#### Edit the date of a task with description
+
+#### Positive Test
+1. Enter `deadline CS2113 tp /by 2021-04-20` into the console and you should see the following below:
+
+1. Enter `edit tp /date 2021-04-20 /date /2021-04-21` into the console and you should see the following below:
+
+1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed changed in the module, and you should see the following below:
+
+1. Enter `display /date 2021/04/21` into the console to check if the date of the task tp has been indeed changed in the date, and you should see the following below:
+
+
+#### Negative Test 1: Invalid module code
+1. Enter `edit c/CS2114 tp /date 2021-04-21 /date /2021-04-20` into the console and you should see the following below:
+
+#### Edit the date of a task with description and module code
+
+#### Positive Test
+*Note: We carry on from the previous example, so there exist a task on 2021/04/21 tp from before*
+1. Enter `edit c/CS2113 tp /date 2021-04-21 /date /2021-04-20` into the console and you should see the following below:
+
+1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed changed in the module, and you should see the following below:
+   
+1. Enter `display /date 2021/04/21` into the console to check if the date of the task tp has been indeed changed in the date, and you should see the following below:
+
+#### Negative Test 1: Invalid module code
+1. Enter `edit c/CS2114 tp /date 2021-04-21 /date /2021-04-20` into the console and you should see the following below:
+
+#### Deleting tasks
+**Important! Please do the following before carrying on with the rest of the tests for this section.**
+1. Enter `delete c/CS2113` into the console and you should see the following below:
+1. Enter `module c/CS2113 a/4` to add the module and you should see the following below:
+
+#### Deleting task via description
+
+#### Positive Test
+1. Enter `deadline CS2113 tp /by 2021-04-20` into the console and you should see the following below:
+
+1. Enter `delete tp` into the console and you should see the following below:
+
+1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:
+   
+1. Enter `display /date 2021/04/20` into the console to check if the date of the task tp has been indeed deleted in the date, and you should see the following below:
+
+#### Negative test 1: deleting task with description that does not exist in the app
+1. Add back the deadline by entering `deadline CS2113 tp /by 2021-04-20` into the console and you should see the following below:
+
+1. Enter `delete tpp` into the console and you should see the following below:
+
+#### Deleting task via description and date
+*Note: Remember that there is already a deadline that was not deleted in the earlier part*
+
+#### Positive test
+1. Enter `delete tp /date 2021-04-20` into the console and you should see the following below:
+
+1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:
+   
+1. Enter `display /date 2021/04/20` into the console to check if the date of the task tp has been indeed deleted in the date, and you should see the following below:
+
+#### Negative Test 1:Invalid date
+1. Add back the deadline by entering `deadline CS2113 tp /by 2021-04-20` into the console and you should see the following below:
+
+1. Enter `delete tp /date 2021-04-aa` into the console and you should see the following below:
+
+
+#### Delete all of a module's task on a certain date
+*Note: Remember that there is already a deadline that was not deleted in the earlier part*
+
+1. Add another deadline by entering `deadline CS2113 tp jar file /by 2021-04-20` into the console and you should see the following below:
+
+1. Enter `delete c/CS2113 /date 2021-04-20` into the console and you should see the following below:
+
+1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:
+   
+1. Enter `display /date 2021/04/20` into the console to check if the date of the task tp has been indeed deleted in the date, and you should see the following below:
+
+#### Negative Test 1: Invalid date
+1. Add back the deadline by entering `deadline CS2113 tp /by 2021-04-20` into the console and you should see the following below:
+
+1. Enter `delete c/CS2113 /date 2021-04-2a` into the console and you should see the following below:
+
+
+#### Delete all of a module's task's with fitting description, on a certain date
+*Note: Remember that there is already a deadline that was not deleted in the earlier part*
+
+#### Positive Test
+
+1. Add another deadline by entering `deadline CS2113 tp dg /by 2021-04-25` into the console and you should see the following below:
+
+1. Enter `delete c/CS2113 tp /date 2021-04-20` into the console and you should see the following below:
+
+1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:
+   
+1. Enter `display /date 2021/04/20` into the console to check if the date of the task tp has been indeed deleted in the date, and you should see the following below:
+
+#### Negative Test: Invalid date
+*Note: Remember that you still have the deadline tp dg by 2021-04-25 in the app*
+
+1. Enter `delete c/CS2113 tp /date 2021-04-2a` into the console and you should see the following below:
+
+#### Deleting entire module
+
+#### Positive Test
+
+1. Enter `delete c/CS2113` into the console and you should see the following below:
+
+1. Enter `display CS2113` into the console to check if the date of the task tp has been indeed deleted in the module, and you should see the following below:
+
+#### Negative Test: Module code that does not exist in the app
+
+1. Add the module back by entering `module c/CS2113 a/4` into the console and you should see the following below:
+
+1. Enter `delete c/CS2113T` into the console and you should see the following below:
+
+#### Exiting the app
+
+#### Positive Test
+
+1. Enter `bye` into the console and you should see the following below:
+
+#### Negative Test 1: Invalid input
+
+1. Enter `byee` into the console and you should see the following below:
