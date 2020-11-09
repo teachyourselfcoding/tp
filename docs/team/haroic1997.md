@@ -28,6 +28,7 @@ as well as tasks related to their modules that they are taking.
     
 ### Review/Mentoring Contributions
 - Help to Clear 2000+ Checkstyle Issue for the team with the Command "CTRL + ALT + L"
+- Help to provide resources such as Markdown Cheatsheet
   
     
 
