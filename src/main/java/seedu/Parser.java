@@ -592,7 +592,8 @@ public class Parser {
         return true;
     }
 
-    public static EditCommand validateEditCommand(String input) throws DueQuestException, WrongDateFormatException, InvalidDateException {
+    public static EditCommand validateEditCommand(String input) throws DueQuestException, WrongDateFormatException,
+            InvalidDateException {
         String moduleCode = null;
         String[] splitViaModule;
         String filteredInput;
@@ -650,7 +651,7 @@ public class Parser {
                 return new EditModuleCommand(moduleCode, description, date, type, newValue);
             } catch (DateTimeException e) {
                 throw new WrongDateFormatException();
-            } catch (InvalidDateException e){
+            } catch (InvalidDateException e) {
                 throw new InvalidDateException();
             }
         case "frequency":
@@ -663,7 +664,8 @@ public class Parser {
                 if (date.isBefore(LocalDate.of(2021,1,1))
                         || date.isAfter(LocalDate.of(2021,5,31))) {
                     throw new InvalidDateException();
-                } if (moduleCode == null) {
+                }
+                if (moduleCode == null) {
                     Storage.getStorage().exportAdditionalData(input);
                     return new EditTaskCommand(description, date, type, newFrequency);
                 }
@@ -671,7 +673,7 @@ public class Parser {
                 return new EditModuleCommand(moduleCode, description, date, type, newFrequency);
             } catch (DateTimeException e) {
                 throw new WrongDateFormatException();
-            } catch (InvalidDateException e){
+            } catch (InvalidDateException e) {
                 throw new InvalidDateException();
             }
         case "date":
@@ -695,7 +697,7 @@ public class Parser {
                 return new EditModuleCommand(moduleCode, description, date, type, newDate);
             } catch (DateTimeException e) {
                 throw new WrongDateFormatException();
-            } catch (InvalidDateException e){
+            } catch (InvalidDateException e) {
                 throw new InvalidDateException();
             }
         default:
