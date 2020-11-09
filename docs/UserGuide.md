@@ -123,9 +123,10 @@ Got it, added lesson to the schedule manager!
 <-------------------------------------------------------------->
 
 ```
-+ If you try to add a lesson that already exist
-```
 
++ If you try to add a lesson that already exist
+
+```
 <-------------------------------------------------------------->
 lesson online tutorial CS1234 /on 4 08:00 10:00
 <-------------------------------------------------------------->
