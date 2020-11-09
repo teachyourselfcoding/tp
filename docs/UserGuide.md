@@ -128,7 +128,6 @@ Got it, added lesson to the schedule manager!
 .
 <-------------------------------------------------------------->
 lesson online tutorial CS1234 /on 4 08:00 10:00
-(╯°□°）╯︵ ┻━┻
 <-------------------------------------------------------------->
 Clashes detected, task is not added.
 <-------------------------------------------------------------->
@@ -175,7 +174,6 @@ Event added to both Schedule manager and Module manager
 * If you try to add a lesson that already exist
 ```
 event ST2113 final exam /at 2021-05-03 14:00 16:00 LT14
-(╯°□°）╯︵ ┻━┻
 <-------------------------------------------------------------->
 Clashes detected, task is not added.
 <-------------------------------------------------------------->
@@ -323,7 +321,6 @@ Inputting a module that doesn't exist
 ```
 <-------------------------------------------------------------->
 score CT2113 TPv2 100
-(ノಠ益ಠ)ノ彡┻━┻
 <-------------------------------------------------------------->
 Module does not exist, please add the module first!
 <-------------------------------------------------------------->
@@ -336,7 +333,6 @@ Inputting an assessment that does not exist
 ```
 <-------------------------------------------------------------->
 score CS2113 TPv2 100
-(ノಠ益ಠ)ノ彡┻━┻
 <-------------------------------------------------------------->
 There is no assessment with the title TPv2 in Module CS2113 
 <-------------------------------------------------------------->
