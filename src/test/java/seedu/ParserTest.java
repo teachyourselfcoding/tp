@@ -210,8 +210,8 @@ class ParserTest {
     @Test
     void validateEvent_validEvent_returnsTrue() throws MissingEventDateAndTimeDetailsException,
             MissingEventDescriptionException, MissingModuleCodeOrInvalidModuleCodeException, InvalidDateException,
-            StartTimeIsAfterEndTimeException, InvalidTimeFormatException, EmptyArgumentException, StartAndEndTimeSameException,
-            StartTimeAndEndTimeTooEarlyException, WrongDateFormatException {
+            StartTimeIsAfterEndTimeException, InvalidTimeFormatException, EmptyArgumentException,
+            StartAndEndTimeSameException, StartTimeAndEndTimeTooEarlyException, WrongDateFormatException {
         String input1 = "event CS2113 final exam /at 2021-05-03 14:00 16:00 LT14";
         Event expectedEvent = Parser.validateEvent(input1);
         Event actualEvent = new Event("final exam", "CS2113",

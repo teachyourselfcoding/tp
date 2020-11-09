@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AddModuleTest {
     @Test
-    void AddModuleConstructor_emptyArgument_throwsInvalidArgumentsException() {
+    void addModuleConstructor_emptyArgument_throwsInvalidArgumentsException() {
         assertThrows(InvalidArgumentsException.class, () -> {
             String input = "module";
             String[] words = input.split(" ");
@@ -23,7 +23,7 @@ public class AddModuleTest {
     }
 
     @Test
-    void AddModuleConstructor_invalidModuleCode_throwsInvalidArgumentsException() {
+    void addModuleConstructor_invalidModuleCode_throwsInvalidArgumentsException() {
         assertThrows(InvalidArgumentsException.class, () -> {
             String input = "module c/[a,b]";
             String[] words = input.split(" ");
@@ -42,7 +42,7 @@ public class AddModuleTest {
     }
 
     @Test
-    void AddModuleExecute_caseInsensitive_throwsModuleAlreadyExistsException() {
+    void addModuleExecute_caseInsensitive_throwsModuleAlreadyExistsException() {
         assertThrows(ModuleAlreadyExistsException.class, () -> {
             ModuleManager moduleManager = new ModuleManager();
             Module a = new Module("ST2132");
@@ -53,7 +53,7 @@ public class AddModuleTest {
     }
 
     @Test
-    void AddModuleConstructor_invalidAu_throwsInvalidArgumentsException() {
+    void addModuleConstructor_invalidAu_throwsInvalidArgumentsException() {
         assertThrows(InvalidArgumentsException.class, () -> {
             String input = "module c/ST2115 a/-0.3";
             String[] words = input.split(" ");
