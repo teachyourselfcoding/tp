@@ -108,10 +108,11 @@ either the `ScheduleManager` or `ModuleManager` or both.
 | `Command` | An Abstract class which is the parent class of all of the commands below. The main method in this class is the `execute()` method, which handles the different executions required depending on the input by the user. |
 | `AddCommand` | A child class of `Command` which helps to execute the feature of adding a `Task` into the `ScheduleManager` and `ModuleManager`. |
 | `AddModuleCommand` | A child class of `Command` which helps to add a `Module` into the `ModuleManager`. |
-| `DeleteCommand` | -- |
+| `DeleteCommand` | A child class of `Command` to execute methods to delete a `Task` and `Module` |
 | `DisplayCommand` | A child class of `Command` which helps to display the list of tasks in a any day stated by the user, or the list of tasks from a `Module` stated by the user. |
-| `EditModuleCommand` | -- |
-| `EditTaskCommand` | -- |
+| `EditCommand` | A child class of `Command` to execute edit methods |
+| `EditModuleCommand` | A child class of `EditCommand` to execute edit methods that has a module code in the input. |
+| `EditTaskCommand` | A child class of `EditCommand`  to execute edit methods without a module code in the input. |
 | `HelpCommand` | A child class of `Command` which helps to provides the list of inputs for the user to know what to type in to use any of the features he wants. |
 | `ExitCommand` | A child class of `Command` which helps to exit the app. |
 | `AddAssessmentCommand` | A child class of `Command` which adds assessment to the module. |
