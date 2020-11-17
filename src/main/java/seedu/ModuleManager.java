@@ -76,6 +76,7 @@ public class ModuleManager {
         throw new ModuleNotExistsException();
     }
 
+    //@@author sunxiuqi-stacked
 
     public void editTask(String description, LocalDate date, String type, String newProperty, String moduleCode) {
         boolean edit = false;
@@ -177,7 +178,7 @@ public class ModuleManager {
         }
         Ui.printModuleDateNotEditedMessage();
     }
-
+    //@@author
     /**
      * Method to delete the entire module.
      *
