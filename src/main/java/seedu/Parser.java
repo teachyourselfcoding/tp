@@ -422,7 +422,8 @@ public class Parser {
             if (filteredInput.contains("/date")) { //has a module code and date
                 splitViaDate = (filteredInput.split("/date")[1].trim()).split(" ", 2);
                 date = LocalDate.parse(splitViaDate[0].trim());
-                if(date.isBefore(LocalDate.of(2021,1,1))||date.isAfter(LocalDate.of(2021,5,31))){
+                if (date.isBefore(LocalDate.of(2021,1,1))
+                        || date.isAfter(LocalDate.of(2021,5,31))) {
                     throw new InvalidDateException();
                 }
                 if (splitViaDate.length == 1) {
@@ -443,7 +444,8 @@ public class Parser {
         splitViaDate = filteredInput.split("/date");
         try {
             date = LocalDate.parse(splitViaDate[1].trim());
-            if(date.isBefore(LocalDate.of(2021,1,1))||date.isAfter(LocalDate.of(2021,5,31))){
+            if (date.isBefore(LocalDate.of(2021,1,1))
+                    || date.isAfter(LocalDate.of(2021,5,31))) {
                 throw new InvalidDateException();
             }
         } catch (Exception e) {
@@ -590,7 +592,8 @@ public class Parser {
         return true;
     }
 
-    public static EditCommand validateEditCommand(String input) throws DueQuestException, WrongDateFormatException, InvalidDateException {
+    public static EditCommand validateEditCommand(String input) throws DueQuestException, WrongDateFormatException,
+            InvalidDateException {
         String moduleCode = null;
         String[] splitViaModule;
         String filteredInput;
@@ -636,7 +639,8 @@ public class Parser {
             try {
                 LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10).trim()
                         .replace("/", "-"));
-                if(date.isBefore(LocalDate.of(2021,1,1))||date.isAfter(LocalDate.of(2021,5,31))){
+                if (date.isBefore(LocalDate.of(2021,1,1))
+                        || date.isAfter(LocalDate.of(2021,5,31))) {
                     throw new InvalidDateException();
                 }
                 if (moduleCode == null) {
@@ -647,7 +651,7 @@ public class Parser {
                 return new EditModuleCommand(moduleCode, description, date, type, newValue);
             } catch (DateTimeException e) {
                 throw new WrongDateFormatException();
-            } catch (InvalidDateException e){
+            } catch (InvalidDateException e) {
                 throw new InvalidDateException();
             }
         case "frequency":
@@ -657,9 +661,11 @@ public class Parser {
             try {
                 LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10)
                         .trim().replace("/", "-"));
-                if(date.isBefore(LocalDate.of(2021,1,1))||date.isAfter(LocalDate.of(2021,5,31))){
+                if (date.isBefore(LocalDate.of(2021,1,1))
+                        || date.isAfter(LocalDate.of(2021,5,31))) {
                     throw new InvalidDateException();
-                }if (moduleCode == null) {
+                }
+                if (moduleCode == null) {
                     Storage.getStorage().exportAdditionalData(input);
                     return new EditTaskCommand(description, date, type, newFrequency);
                 }
@@ -667,18 +673,20 @@ public class Parser {
                 return new EditModuleCommand(moduleCode, description, date, type, newFrequency);
             } catch (DateTimeException e) {
                 throw new WrongDateFormatException();
-            } catch (InvalidDateException e){
+            } catch (InvalidDateException e) {
                 throw new InvalidDateException();
             }
         case "date":
             try {
                 LocalDate date = LocalDate.parse(name[1].trim().substring(0, 10)
                         .trim().replace("/", "-"));
-                if(date.isBefore(LocalDate.of(2021,1,1))||date.isAfter(LocalDate.of(2021,5,31))){
+                if (date.isBefore(LocalDate.of(2021,1,1))
+                        || date.isAfter(LocalDate.of(2021,5,31))) {
                     throw new InvalidDateException();
                 }
                 LocalDate newDate = LocalDate.parse(newValue.trim().replace("/","-"));
-                if(newDate.isBefore(LocalDate.of(2021,1,1))||newDate.isAfter(LocalDate.of(2021,5,31))){
+                if (newDate.isBefore(LocalDate.of(2021,1,1))
+                        || newDate.isAfter(LocalDate.of(2021,5,31))) {
                     throw new InvalidDateException();
                 }
                 if (moduleCode == null) {
@@ -689,7 +697,7 @@ public class Parser {
                 return new EditModuleCommand(moduleCode, description, date, type, newDate);
             } catch (DateTimeException e) {
                 throw new WrongDateFormatException();
-            } catch (InvalidDateException e){
+            } catch (InvalidDateException e) {
                 throw new InvalidDateException();
             }
         default:

@@ -1,9 +1,6 @@
 package seedu;
 
 import seedu.command.Command;
-import seedu.exception.EmptyArgumentException;
-import seedu.exception.InvalidScoreException;
-import seedu.exception.ModuleDoesNotExistException;
 import seedu.exception.ModuleNotExistsException;
 
 import java.io.File;
@@ -68,24 +65,29 @@ public class Storage {
     }
 
     private void processFile(ScheduleManager scheduleManager, ModuleManager moduleManager, Ui ui, File moduleFile) {
+        Scanner scanner = null;
         try {
-            Scanner scanner = new Scanner(moduleFile);
+            scanner = new Scanner(moduleFile);
+        } catch (FileNotFoundException e) {
+            System.out.printf("%s cannot be loaded.\n", moduleFile.getName());
+        }
+        try {
             while (scanner.hasNextLine()) {
-                Command command = Parser.parse(scanner.nextLine());
-                if (command != null) {
-                    command.execute(scheduleManager, moduleManager, ui);
+                Command command = null;
+                String nextLine = scanner.nextLine();
+                try {
+                    command = Parser.parse(nextLine);
+                } catch (DueQuestException e) {
+                    System.out.printf("%s cannot be parsed correctly.\n", nextLine);
+                }
+                try {
+                    if (command != null) {
+                        command.execute(scheduleManager, moduleManager, ui);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
-        } catch (FileNotFoundException e) {
-            Ui.printFileMissingError();
-        } catch (ModuleDoesNotExistException e) {
-            Ui.printModuleDoesNotExistMessage();
-        } catch (EmptyArgumentException e) {
-            Ui.printEmptyArgumentMessage();
-        } catch (InvalidScoreException e) {
-            Ui.printInvalidScoreErrorMessage();
-        } catch (DueQuestException e) {
-            e.printStackTrace();
         } catch (NullPointerException e) {
             return;
         }
@@ -97,7 +99,7 @@ public class Storage {
      * @param moduleManager moduleManager of Duke
      */
     public void exportData(ModuleManager moduleManager, String moduleCode) {
-        if (isImport == true) {
+        if (isImport) {
             return; // avoid duplicate export
         }
         File moduleFile = new File(this.directory.getAbsolutePath() + '/' + moduleCode + ".txt");
@@ -117,7 +119,7 @@ public class Storage {
     }
 
     public void exportData(ModuleManager moduleManager) {
-        if (isImport == true) {
+        if (isImport) {
             return;
         }
         for (String moduleCode : moduleManager.getListOfModuleCodes()) {
@@ -126,7 +128,7 @@ public class Storage {
     }
 
     public void exportAdditionalData(String command) {
-        if (isImport == true) {
+        if (isImport) {
             return;
         }
         try {
