@@ -178,7 +178,7 @@ public class ModuleManager {
         }
         Ui.printModuleDateNotEditedMessage();
     }
-    //@@author
+    //@@author teachyourselfcoding
     /**
      * Method to delete the entire module.
      *
@@ -276,7 +276,7 @@ public class ModuleManager {
             m.setListOfTasks(ls);
         }
     }
-
+    //@@author teachyourselfcoding
     /**
      * Display the tasks of a module.
      *
