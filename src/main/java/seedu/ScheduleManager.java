@@ -232,7 +232,7 @@ public class ScheduleManager {
         }
     }
 
-
+    //@@author sunxiuqi-stacked
     public void editTask(String description, LocalDate date, String type, String newProperty, String moduleCode) {
         //edit property of module task on a certain date
         for (Task task : semesterSchedule.get(date)) {
@@ -378,7 +378,7 @@ public class ScheduleManager {
         Ui.printTaskDateNotEditedMessage();
     }
 
-
+    //@@author
 
     public void deleteTask(String description, LocalDate date) {
         //delete all tasking matching description on date
